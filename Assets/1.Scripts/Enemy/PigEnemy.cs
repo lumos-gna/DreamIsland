@@ -7,7 +7,10 @@ public class PigEnemy : BaseEnemy
 {
     private void OnDrawGizmosSelected()
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, Stats.DetectDistance);
+        if (Stats != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(transform.position, Stats.DetectDistance);
+        }
     }
 }

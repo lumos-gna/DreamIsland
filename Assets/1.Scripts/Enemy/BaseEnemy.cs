@@ -6,10 +6,11 @@ using UnityEngine.AI;
 public class BaseEnemy : MonoBehaviour, IEnemy
 {
     [SerializeField] private List<GameObject> _dropItems;
+    [SerializeField] private GameObject _player;
 
     private NavMeshAgent _agent;
     private Animator _animator;
-    private GameObject _player;
+    
 
     private EnemyStats _stats; // Enemy 스택 데이터들
     private StateMachine<BaseEnemy> _fsm; 
