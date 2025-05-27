@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +23,8 @@ public class PlayerController : MonoBehaviour
     private float camcurXrot;
 
     private bool canlook = true;
-    private bool canjump = true;
     private Vector2 mouseDelta;
+    private CapsuleCollider capsuleCollider;
 
     private Rigidbody _rigidbody;
 
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -55,9 +58,7 @@ public class PlayerController : MonoBehaviour
             CameraLook();
         }
     }
-
-
-    private void Move()
+    private void Move() // 움직이는 함수
     {
         Vector3 dir = transform.forward * curMovement.y + transform.right * curMovement.x;
         dir *= moveSpeed;
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = dir;
     }
 
-    private void CameraLook()
+    private void CameraLook() // 카메라 움직임
     {
         camcurXrot += mouseDelta.y * lookSensitivity;
         camcurXrot = Mathf.Clamp(camcurXrot, minX, maxX);
@@ -93,32 +94,20 @@ public class PlayerController : MonoBehaviour
 
     public void OnjumpInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && canjump)
+        if(context.phase == InputActionPhase.Started && CanJump())
         {
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private bool CanJump() // 점프 체크
     {
-        Debug.Log("점프 가능");
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            Debug.Log("점프 가능");
-            canjump = true;
-        }
+        Vector3 capsuleBottom = transform.position + capsuleCollider.center - Vector3.up * (capsuleCollider.height / 2 - capsuleCollider.radius);
+        float checkradius = 0.5f;
+        return Physics.CheckSphere(capsuleBottom, checkradius, groundLayerMask);
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            canjump = false;
-            Debug.Log("점프 불가");
-        }
-    }
-
-    public void ChangeCursorState(bool ispopon)
+    public void ChangeCursorState(bool ispopon) // 커서 상태 변경(인벤토리 열었을때?)
     {
         Cursor.lockState = ispopon ? CursorLockMode.None : CursorLockMode.Locked;
         canlook = !ispopon;
