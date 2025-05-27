@@ -1,6 +1,9 @@
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 
+
+public class CycleEvent : UnityEvent { }
 public class DayNightCycle : MonoBehaviour
 {
     [Header("References")]
@@ -27,7 +30,9 @@ public class DayNightCycle : MonoBehaviour
     public static float CurrentTemperature { get; private set; }
     // ¿Âµµ »©°¡½Ç¶§ "float currentTemp = DayNightCycle.CurrentTemperature;" ÀÌ°É·Î »©°¡½Ã¸é µË´Ï´Ù.
 
-    public static event Action OnCycleComplete;
+    [Header("Events")]
+    public CycleEvent OnCycleComplete;
+
     private float timer;
 
     void Start()
@@ -45,7 +50,6 @@ public class DayNightCycle : MonoBehaviour
             timer -= dayDuration;
             OnCycleComplete?.Invoke();
         }
-
         ApplyCycle(timer);
     }
 
@@ -54,12 +58,12 @@ public class DayNightCycle : MonoBehaviour
         float t = currentTime / dayDuration;                 
         float sunAngle = Mathf.Lerp(-90f, 270f, t);         
 
+        // ³·/¹ã ÆÇÁ¤
+        bool isDay = sunAngle > 0f && sunAngle < 180f;
+
         // È¸Àü
         SunLight.transform.rotation = Quaternion.Euler(sunAngle, 170f, 0f);
         MoonLight.transform.rotation = Quaternion.Euler(sunAngle + 180f, 170f, 0f);
-
-        // ³·/¹ã ÆÇÁ¤
-        bool isDay = sunAngle > 0f && sunAngle < 180f;
 
         // ¹à±â
         SunLight.intensity = isDay ? daySunIntensity : 0f;

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: TreeBrush 2
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_GameObject: {fileID: 0}
+  - m_GameObject: {fileID: 5517281731874866571, guid: cffe52bb5eadb0d428477a4dacf58c17, type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 0.8, y: 0.8, z: 0.8}
     m_Orientation: {x: 0, y: 0, z: 0, w: 1}
   m_Size: {x: 1, y: 1, z: 1}
   m_Pivot: {x: 0, y: 0, z: 0}
@@ -27,6 +27,3 @@ MonoBehaviour:
     cellSwizzle: 0
   hiddenGrid: {fileID: 0}
   m_Anchor: {x: 0.5, y: 0.5, z: 0}
-  prefab: {fileID: 5517281731874866571, guid: cffe52bb5eadb0d428477a4dacf58c17, type: 3}
-  lockZ: 1
-  fixedZ: 0
