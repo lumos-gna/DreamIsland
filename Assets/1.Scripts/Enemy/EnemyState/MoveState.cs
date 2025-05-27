@@ -36,7 +36,7 @@ public class MoveState : IState<BaseEnemy>
             // 플레이어가 범위 안에 있으면 공격 상태로 전환
             if (obj.PlayerInRange())
             {
-                obj.GetFSM().ChangeState(obj.StateFactory.Get<AttackState>());
+                //obj.GetFSM().ChangeState(obj.StateFactory.Get<AttackState>());
                 return;
             }
 
