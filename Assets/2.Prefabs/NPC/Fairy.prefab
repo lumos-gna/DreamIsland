@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 790571154551279220}
   - component: {fileID: 4033176319785836605}
   - component: {fileID: 3526210781869351054}
+  - component: {fileID: 8919619408153006863}
   m_Layer: 0
   m_Name: Fairy
   m_TagString: Untagged
@@ -149,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 2206322571622186571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 81.86276, y: 24.02, z: 48.976456}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -218,6 +219,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &8919619408153006863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2206322571622186571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed579623167795498cb6dd24e490fe6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  npcController: {fileID: 99842964770007223}
 --- !u!1 &3081544892283916658
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +564,17 @@ PrefabInstance:
       addedObject: {fileID: 9151255654092353754}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+--- !u!114 &99842964770007223 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1587705578925090379, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+  m_PrefabInstance: {fileID: 1687195551064149756}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e1d098150d4458485b8c5770cd0a893, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &3033595147682278178 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4427990459616273886, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
