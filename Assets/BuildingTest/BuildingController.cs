@@ -4,7 +4,8 @@ public class BuildingController : MonoBehaviour
 {
     [SerializeField] private Camera targetCamera;
 
-    [SerializeField] private BuildingObject buildingObjectPrefab;
+    [SerializeField] private BuildingObject buildingObjectHPrefab;
+    [SerializeField] private BuildingObject buildingObjectVPrefab;
     
     [SerializeField] private LayerMask buildableMask;
 
@@ -14,7 +15,6 @@ public class BuildingController : MonoBehaviour
     private BuildingObject _curBuildingObject;
     
     
-    private bool _isSnap;
     private bool _isBuildable;
     
     
@@ -28,27 +28,34 @@ public class BuildingController : MonoBehaviour
 
     private void Start()
     {
-        Enable();
-        
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
     
     private void Update()
     {
-        if (Input.GetKey(KeyCode.LeftAlt))
-        {
-            _isSnap = true;
-        }
-        else
-        {
-            _isSnap = false;
-        }
-        
         if (Input.GetMouseButton(0))
         {
             TryBuild();
         }
+        
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Enable();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            EnableVertical();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            Vector3 euler = _curBuildingObject.transform.eulerAngles;
+            euler.y += 45f;
+            _curBuildingObject.transform.eulerAngles = euler;
+        }
+
        
         
         UpdateBuildingObject();
@@ -73,7 +80,14 @@ public class BuildingController : MonoBehaviour
 
     public void Enable()
     {
-        _curBuildingObject = Instantiate(buildingObjectPrefab);
+        _curBuildingObject = Instantiate(buildingObjectHPrefab);
+        
+        _curBuildingObject.InitToBuilding();
+    }
+    
+    public void EnableVertical()
+    {
+        _curBuildingObject = Instantiate(buildingObjectVPrefab);
         
         _curBuildingObject.InitToBuilding();
     }
@@ -104,19 +118,15 @@ public class BuildingController : MonoBehaviour
             return;
         }
 
-
         _isBuildable = false;
-        
         
         Ray ray = targetCamera.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
 
         if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, buildableMask))
         {
-            _curBuildingObject.transform.position = hit.point;
-
-            if (_isSnap)
+            if (!TrySnap(hit))
             {
-                Snap(hit);
+                _curBuildingObject.transform.position = hit.point;
             }
 
             _isBuildable = true;
@@ -126,22 +136,28 @@ public class BuildingController : MonoBehaviour
     }
 
 
-    void Snap(RaycastHit hit)
+    bool TrySnap(RaycastHit hit)
     {
-        if (_curBuildingObject.IsSnappable())
+        if (hit.collider.TryGetComponent(out BuildingObject targetObject))
         {
-            if (hit.collider.TryGetComponent(out BuildingObject targetObject))
+            if (targetObject.IsSnappable() &&_curBuildingObject.IsSnappable() )
             {
-                if (targetObject.IsSnappable())
-                {
-                    Vector3 targetPoint = targetObject.GetCloseSnapPoint(hit.point);
-                        
-                    Vector3 curObjectPoint = _curBuildingObject.GetCloseSnapPoint(targetObject.transform.position);
+                BuildingSnapPoint targetSnapPoint = targetObject.GetClosestSnapPointToHit(hit.point);
+                
+                BuildingSnapPoint curSnapPoint = _curBuildingObject.GetClosestSnapPointToSnapPoint(targetSnapPoint);
 
-                    _curBuildingObject.transform.position += targetPoint - curObjectPoint;
+                if (curSnapPoint != null)
+                {
+                    Vector3 offset = targetSnapPoint.transform.position - curSnapPoint.transform.position;
+                    
+                    _curBuildingObject.transform.position += offset;
+                    
+                    return true;
                 }
             }
         }
+
+        return false;
     }
     
 }

@@ -1,44 +1,34 @@
 using System;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
 public class BuildingObject : MonoBehaviour
 {
+   [SerializeField] private MeshRenderer meshRenderer;
    [SerializeField] private Material builtMaterial;
    [SerializeField] private Material fadeMaterial;
    
-   [SerializeField] private LayerMask defaultLayer;
-   [SerializeField] private LayerMask ignoreLayer;
-
    [Space(10f)]
-   [SerializeField] private Transform[] snapPoints;
+   [SerializeField] private Transform pivotPoint;
+   [SerializeField] private BuildingSnapPoint[] snapPoints;
 
-   
-   private MeshRenderer _meshRenderer;
-   
-   
-   private void Awake()
-   {
-      _meshRenderer = GetComponent<MeshRenderer>();
-   }
 
 
    public void InitToBuilding()
    {
-      _meshRenderer.material = fadeMaterial;
-
-      gameObject.layer = 1 << ignoreLayer;
+      meshRenderer.material = fadeMaterial;
+      
+      gameObject.layer = 2;
    }
    
-   public void UpdateToBuildingState(bool isBuildable) => _meshRenderer.enabled = isBuildable;
+   public void UpdateToBuildingState(bool isBuildable) => meshRenderer.enabled = isBuildable;
 
    public void Built()
    {
-      _meshRenderer.material = builtMaterial;
+      meshRenderer.material = builtMaterial;
       
-      gameObject.layer =  1 << defaultLayer;
+      gameObject.layer =  0;
    }
 
    public bool IsSnappable() => snapPoints.Length > 0;
@@ -46,24 +36,42 @@ public class BuildingObject : MonoBehaviour
 
    
 
-   public Vector3 GetCloseSnapPoint(Vector3 inputPos)
+   public BuildingSnapPoint GetClosestSnapPointToHit(Vector3 hitPoint)
    {
-      int closerIndex = int.MaxValue;
-      
-      float tempDist = float.MaxValue;
+      BuildingSnapPoint snapPoint = null;
 
-      for (int i = 0; i < snapPoints.Length; i++)
+      float tempDist = float.MaxValue;
+      
+      foreach (var item in snapPoints)
       {
-         float compareDist = Vector3.Distance(snapPoints[i].position, inputPos);
+         float compareDist = Vector3.Distance(item.transform.position, hitPoint);
 
          if (compareDist < tempDist)
          {
             tempDist = compareDist;
 
-            closerIndex = i;
+            snapPoint = item;
          }
       }
+      
+      return snapPoint;
+   }
 
-      return snapPoints[closerIndex].position;
+   public BuildingSnapPoint GetClosestSnapPointToSnapPoint(BuildingSnapPoint targetSnapPoint)
+   {
+      BuildingSnapPoint tempSnapPoint = null;
+      
+      BuildingSnapPoint.SnapDirection targetDir = targetSnapPoint.GetOppositeDir(targetSnapPoint.Direction);
+      
+      foreach (var item in snapPoints)
+      {
+         if (targetDir == item.Direction)
+         {
+            tempSnapPoint = item;
+            break;
+         }
+      }
+      
+      return tempSnapPoint;
    }
 }
