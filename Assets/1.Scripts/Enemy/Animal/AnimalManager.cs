@@ -7,12 +7,12 @@ using UnityEngine.UIElements;
 
 public class AnimalManager : MonoBehaviour
 {
-    [SerializeField] private Transform _poolParent;
+    [SerializeField] private Transform _parent;
     [SerializeField] private List<AnimalSpawnData> _animals; // 스폰할 동물 리스트
     [SerializeField] private Transform _playerCamera;
     [SerializeField] private float _fieldOfView;
     private List<PoolAnimal> _activeAnimals = new List<PoolAnimal>(); // 현재 활성화된 동물들
-    private SpawnAnimalPosition _spawnPosition; // 위치 계산
+    private SpawnAnimalPosition _spawnPosition; // 위치 계산 도우미
 
     private void Start()
     {
@@ -31,7 +31,7 @@ public class AnimalManager : MonoBehaviour
     // 동물 생성 및 초기화
     private void SpawnAnimal(AnimalSpawnData animal)
     {
-        GameObject go = Instantiate(animal.Prefab, _poolParent);
+        GameObject go = Instantiate(animal.Prefab, _parent);
 
         // 프리팹에서 BaseEnemy 컴포넌트를 꺼내서 정보 가져오기 없으면 지우기
         if (!go.TryGetComponent(out BaseEnemy enemy))
@@ -40,7 +40,7 @@ public class AnimalManager : MonoBehaviour
             return;
         }
 
-        // 스폰 위치 계산
+        // _spawnPosition이용해서 스폰 위치 계산
         Vector3 pos = _spawnPosition.GetSpawnPosition(enemy.AnimalStats.WanderCenter.position, enemy.AnimalStats.FleeDistance);
 
         // 위치 배치
