@@ -13,8 +13,7 @@ public class Penguin : BaseEnemy
         if (_animalStats != null)
         {
             Gizmos.color = Color.red;
-            //Gizmos.DrawWireSphere(_animalStats.WanderCenter.position, _animalStats.WanderRadius);
-            Gizmos.DrawWireSphere(transform.position, Stats.DetectDistance);
+            Gizmos.DrawWireSphere(_animalStats.WanderCenter.position, _animalStats.WanderRadius);
         }
     }
 }

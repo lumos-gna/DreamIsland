@@ -24,11 +24,7 @@ public class IdleState : IState<BaseEnemy>
     public void Update(BaseEnemy obj)
     {
         _timer += Time.deltaTime;
-        if (obj.PlayerInRange())
-        {
-            obj.GetFSM().ChangeState(obj.StateFactory.Get<FleeState>());
-            return;
-        }
+
         if (_timer >= _idleTime)
         {
             obj.GetFSM().ChangeState(obj.StateFactory.Get<MoveState>());

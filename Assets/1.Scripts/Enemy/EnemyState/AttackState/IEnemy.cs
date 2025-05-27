@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum EnemyType
 {
-    Attack,
+    Enemy,
     Animal
 }
 public interface IEnemy

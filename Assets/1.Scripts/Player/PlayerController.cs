@@ -1,4 +1,4 @@
-ï»¿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,11 +18,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float minX;
     [SerializeField] private float maxX;
     [SerializeField] private float lookSensitivity;
-
     private float camcurXrot;
+
     private bool canlook = true;
     private bool canjump = true;
     private Vector2 mouseDelta;
+
     private Rigidbody _rigidbody;
 
     public Player _Player
@@ -49,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (canlook)
+        if(canlook)
         {
             CameraLook();
         }
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         Vector3 dir = transform.forward * curMovement.y + transform.right * curMovement.x;
         dir *= moveSpeed;
         dir.y = _rigidbody.velocity.y;
+
         _rigidbody.velocity = dir;
     }
 
@@ -79,11 +81,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Performed)
+        if(context.phase == InputActionPhase.Performed)
         {
             curMovement = context.ReadValue<Vector2>();
         }
-        else if (context.phase == InputActionPhase.Canceled)
+        else if(context.phase == InputActionPhase.Canceled)
         {
             curMovement = Vector2.zero;
         }
@@ -91,7 +93,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnjumpInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started && canjump)
+        if(context.phase == InputActionPhase.Started && canjump)
         {
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
         }
@@ -99,10 +101,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+        Debug.Log("Á¡ÇÁ °¡´É");
         if (collision.gameObject.CompareTag("Ground"))
         {
-            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
+            Debug.Log("Á¡ÇÁ °¡´É");
             canjump = true;
         }
     }
@@ -112,7 +114,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             canjump = false;
-            Debug.Log("ï¿½ï¿½ï¿½ï¿½ ï¿½Ò°ï¿½");
+            Debug.Log("Á¡ÇÁ ºÒ°¡");
         }
     }
 
