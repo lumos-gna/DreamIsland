@@ -10,7 +10,6 @@ public class BuildingObject : MonoBehaviour
    [SerializeField] private Material fadeMaterial;
    
    [Space(10f)]
-   [SerializeField] private Transform pivotPoint;
    [SerializeField] private BuildingSnapPoint[] snapPoints;
 
 
@@ -60,15 +59,22 @@ public class BuildingObject : MonoBehaviour
    public BuildingSnapPoint GetClosestSnapPointToSnapPoint(BuildingSnapPoint targetSnapPoint)
    {
       BuildingSnapPoint tempSnapPoint = null;
-      
-      BuildingSnapPoint.SnapDirection targetDir = targetSnapPoint.GetOppositeDir(targetSnapPoint.Direction);
-      
+
+      float tempDist = float.MaxValue;
+
       foreach (var item in snapPoints)
       {
-         if (targetDir == item.Direction)
+         if (item.Axis == BuildingSnapPoint.SnapAxis.All ||
+             item.Axis ==  targetSnapPoint.Axis)
          {
-            tempSnapPoint = item;
-            break;
+            float compareDist = Vector3.Distance(item.transform.position, targetSnapPoint.transform.position);
+            
+            if (compareDist < tempDist)
+            {
+               tempDist = compareDist;
+
+               tempSnapPoint = item;
+            }
          }
       }
       

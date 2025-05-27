@@ -124,10 +124,9 @@ public class BuildingController : MonoBehaviour
 
         if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, buildableMask))
         {
-            if (!TrySnap(hit))
-            {
-                _curBuildingObject.transform.position = hit.point;
-            }
+            _curBuildingObject.transform.position = hit.point;
+
+            TrySnap(hit);
 
             _isBuildable = true;
         }
@@ -143,6 +142,8 @@ public class BuildingController : MonoBehaviour
             if (targetObject.IsSnappable() &&_curBuildingObject.IsSnappable() )
             {
                 BuildingSnapPoint targetSnapPoint = targetObject.GetClosestSnapPointToHit(hit.point);
+
+                //BuildingSnapPoint curSnapPoint = _curBuildingObject.GetClosestSnapPointToHit(targetObject.transform.position);
                 
                 BuildingSnapPoint curSnapPoint = _curBuildingObject.GetClosestSnapPointToSnapPoint(targetSnapPoint);
 
@@ -151,6 +152,9 @@ public class BuildingController : MonoBehaviour
                     Vector3 offset = targetSnapPoint.transform.position - curSnapPoint.transform.position;
                     
                     _curBuildingObject.transform.position += offset;
+                    
+                    Debug.Log(targetSnapPoint.gameObject.name);
+                    //Debug.Log(curSnapPoint.gameObject.name);
                     
                     return true;
                 }

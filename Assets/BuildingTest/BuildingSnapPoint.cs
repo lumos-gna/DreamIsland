@@ -4,28 +4,14 @@ using UnityEngine;
 
 public class BuildingSnapPoint : MonoBehaviour
 {
-    public enum SnapDirection
+    public enum SnapAxis
     {
-        Top, 
-        Bottom,
-        Left,
-        Right
+        All, 
+        Vertical,
+        Horizontal
     }
 
-    public SnapDirection Direction => direction;
+    public SnapAxis Axis => axis;
     
-    [SerializeField] SnapDirection direction;
-    
-    
-    public SnapDirection GetOppositeDir(SnapDirection dir)
-    {
-        return dir switch
-        {
-            SnapDirection.Left => SnapDirection.Right,
-            SnapDirection.Right => SnapDirection.Left,
-            SnapDirection.Top => SnapDirection.Bottom,
-            SnapDirection.Bottom => SnapDirection.Top,
-            _ => dir
-        };
-    }
+    [SerializeField] SnapAxis axis;
 }
