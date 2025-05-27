@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: RockBrush 1
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_GameObject: {fileID: 5047922844329472915, guid: b89f54a97fa114840968c891ce2147cd, type: 3}
+  - m_GameObject: {fileID: 5047922844329472915, guid: ff4682dd1f76a934d86d0012363601ba, type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
-    m_Scale: {x: 1, y: 1, z: 1}
+    m_Scale: {x: 5, y: 5, z: 5}
     m_Orientation: {x: 0, y: 0, z: 0, w: 1}
   m_Size: {x: 1, y: 1, z: 1}
   m_Pivot: {x: 0, y: 0, z: 0}

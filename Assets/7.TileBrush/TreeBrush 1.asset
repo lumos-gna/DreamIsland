@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: TreeBrush 1
   m_EditorClassIdentifier: 
   m_Cells:
-  - m_GameObject: {fileID: 8754068043393123374, guid: a67257a77d8b14e4ea2d224eebf080cc, type: 3}
+  - m_GameObject: {fileID: 8754068043393123374, guid: 3ce81b4a8fd356847afd0bf4654f128e, type: 3}
     m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     m_Orientation: {x: 0, y: 0, z: 0, w: 1}

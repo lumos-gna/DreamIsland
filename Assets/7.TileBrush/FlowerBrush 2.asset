@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Cells:
   - m_GameObject: {fileID: 5452814671459583159, guid: 9ff3a7a1349703b44a7b3481bd325ee7, type: 3}
-    m_Offset: {x: 0, y: -8, z: 0}
+    m_Offset: {x: 0, y: 0, z: 0}
     m_Scale: {x: 0.7, y: 0.7, z: 0.7}
     m_Orientation: {x: 0, y: 0, z: 0, w: 1}
   m_Size: {x: 1, y: 1, z: 1}
