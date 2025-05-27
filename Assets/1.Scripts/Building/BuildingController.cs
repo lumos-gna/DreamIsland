@@ -4,8 +4,6 @@ public class BuildingController : MonoBehaviour
 {
     [SerializeField] private Camera targetCamera;
 
-    [SerializeField] private LayerMask buildableMask;
-
     [SerializeField] private float rayDistance;
 
     
@@ -50,7 +48,7 @@ public class BuildingController : MonoBehaviour
         
         Ray ray = targetCamera.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
 
-        if (Physics.Raycast(ray, out RaycastHit hit, rayDistance, buildableMask))
+        if (Physics.Raycast(ray, out RaycastHit hit, rayDistance))
         {
             _curBuildingObject.transform.position = hit.point;
 
