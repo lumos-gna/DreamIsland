@@ -1144,7 +1144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _dropItems: []
-  _player: {fileID: 0}
+  _player: {fileID: 1264499466488953971, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
   _type: 1
   _stats:
     Health: 5
