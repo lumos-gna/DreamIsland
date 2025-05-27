@@ -848,7 +848,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 247
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -963,6 +963,7 @@ GameObject:
   - component: {fileID: 2058824706}
   - component: {fileID: 2058824705}
   - component: {fileID: 2058824708}
+  - component: {fileID: 2058824709}
   m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
@@ -1042,8 +1043,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310725ba298d7bf49a55031488022662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempitem: {fileID: 5489145493786919654, guid: c331d4509e2a94446b4dedf64fcae8dd, type: 3}
-  EquipParent: {fileID: 0}
 --- !u!54 &2058824707
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1146,8 +1145,8 @@ MonoBehaviour:
     m_ActionName: Player/Jump[/Keyboard/space]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2058824706}
-        m_TargetAssemblyTypeName: Player, Assembly-CSharp
+      - m_Target: {fileID: 2058824709}
+        m_TargetAssemblyTypeName: ItemEquip, Assembly-CSharp
         m_MethodName: OnChoiceitemInput
         m_Mode: 0
         m_Arguments:
@@ -1165,6 +1164,30 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2058824709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2058824702}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 068b28022a1d7624eab26fb68524ba07, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tempitems:
+  - {fileID: 7926044430429194743, guid: 36e1b63d6e93e824e901f64ea58b2134, type: 3}
+  - {fileID: 6387573538775053059, guid: 2636e65550489b6409d4e3e802694c6d, type: 3}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  EquipParent: {fileID: 34551177}
 --- !u!1 &2067530613
 GameObject:
   m_ObjectHideFlags: 0
