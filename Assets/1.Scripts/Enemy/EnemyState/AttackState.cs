@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class AttackState : IState<BaseEnemy>
 {
+    
     public void Enter(BaseEnemy obj)
     {
         // obj.GetAnimator()?.CrossFade("Attack", 0f);

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -7,14 +8,18 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 {
     [SerializeField] private List<GameObject> _dropItems;
     [SerializeField] private GameObject _player;
+    [SerializeField] private EnemyType _type;
+    [SerializeField] private EnemyStats _stats; // Enemy 스택 데이터들
 
     private NavMeshAgent _agent;
     private Animator _animator;
-    
-
-    private EnemyStats _stats; // Enemy 스택 데이터들
+  
     private StateMachine<BaseEnemy> _fsm; 
     private StateFactory<BaseEnemy> _stateFactory; // 상태들 캐싱
+
+    // 피격용
+    private SpriteRenderer _spriteRenderer;
+    private bool _isHit;
 
     #region Getters
     public NavMeshAgent GetAgent() => _agent;
@@ -22,9 +27,12 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     public StateMachine<BaseEnemy> GetFSM() => _fsm;
     public EnemyStats Stats => _stats;
     public StateFactory<BaseEnemy> StateFactory => _stateFactory;
+    // Player는 나중에 지우기
     public Transform GetPlayerTransform() => _player.transform;
-    public Transform GetEnemyTransform() => this.transform;
-    public float GetAttackPower() => _stats.AttackPower;
+    public EnemyType GetEnemyType() => _type;
+
+    // Animal 관련
+    public virtual AnimalStats AnimalStats => null;
     #endregion
 
 
@@ -35,7 +43,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     protected virtual void Start()
     {
-        _fsm.ChangeState(StateFactory.Get<MoveState>());
+        if (_type == EnemyType.Enemy)
+            _fsm.ChangeState(StateFactory.Get<MoveState>());
+        else
+            _fsm.ChangeState(StateFactory.Get<IdleState>());
     }
 
     protected virtual void Update()
@@ -48,10 +59,10 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     private void Init()
     {
         _agent = GetComponent<NavMeshAgent>();
-        _animator = GetComponent<Animator>();
-        _stats = new EnemyStats();
+        _animator = GetComponentInChildren<Animator>();
         _fsm = new StateMachine<BaseEnemy>(this);
         _stateFactory = new StateFactory<BaseEnemy>();
+        _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     // 플레이어 범위 안에 있는지 체크
@@ -65,9 +76,14 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     public void TakePhysicalDamage(int damage)
     {
         Stats.Health -= damage;
+        StartCoroutine(HitColor(_spriteRenderer)); // 피격 효과
         if (Stats.Health <= 0)
         {
-            _fsm.ChangeState(StateFactory.Get<MoveState>());
+            if(TryGetComponent(out PoolAnimal poolAnimal))
+            {
+                poolAnimal.Die();
+            }
+            _fsm.ChangeState(StateFactory.Get<DieState>());
         }
     }
 
@@ -80,15 +96,37 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         }
     }
 
+    // 이동 방향을 기준으로 회전 처리
     public void FaceMoveDirection()
     {
-        if (_agent == null || _agent.desiredVelocity.sqrMagnitude < 0.01f) return;
+        if (_agent == null || !_agent.hasPath || _agent.velocity.sqrMagnitude < 0.01f)
+            return;
 
-        Vector3 moveDirection = _agent.desiredVelocity;
-        moveDirection.y = 0f;
+        Vector3 direction = _agent.steeringTarget - transform.position;
+        direction.y = 0f;
 
-        Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
-        targetRotation *= Quaternion.Euler(0f, -90f, 0f); // 플레이어 바라보게 방향 보정
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+        if (direction.sqrMagnitude < 0.01f) return;
+
+        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
+
+        // 옵션: 각도 제한 추가해도 자연스러움 향상 가능
+        float angle = Vector3.Angle(transform.forward, direction);
+        if (angle > 5f) // 일정 각도 이상 차이날 때만 회전
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1f);
+        }
+    }
+
+    // 피격 효과
+    private IEnumerator HitColor(SpriteRenderer spriteRenderer)
+    {
+        _isHit = true;
+        Color original = _spriteRenderer.color;
+        _spriteRenderer.color = Color.red;
+        yield return new WaitForSeconds(0.1f);
+        _spriteRenderer.color = Color.white;
+        yield return new WaitForSeconds(0.1f);
+        _spriteRenderer.color = original;
+        _isHit = false;
     }
 }

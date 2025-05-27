@@ -9,12 +9,12 @@ public class DieState : IState<BaseEnemy>
         // obj.GetAnimator()?.CrossFade("Die", 0f);
     }
 
-    public void Exit(BaseEnemy obj)
-    {
-    }
-
     public void Update(BaseEnemy obj)
     {
 
+    }
+
+    public void Exit(BaseEnemy obj)
+    {
     }
 }

@@ -5,11 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class EnemyStats
 {
-    // Enemy 관련 스탯들 여기서 설정
-    public float AttackPower = 10;
+    // Enemy 관련 스탯들 여기서 설정    
     public float Health = 5f;
     public float WalkSpeed = 8f;
     public float RunSpeed = 5f;
-    public float DetectDistance = 3f;
-    public float AttackDistance = 5f;
+    public float DetectDistance = 3f; // 플레이어 감지 범위
 }

@@ -2,10 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EnemyType
+{
+    Enemy,
+    Animal
+}
 public interface IEnemy
 {
     Transform GetPlayerTransform(); // 플레이어 위치
-    Transform GetEnemyTransform(); // 적 위치
-    float GetAttackPower(); // 데미지 
     Animator GetAnimator();
+    EnemyType GetEnemyType();
 }
