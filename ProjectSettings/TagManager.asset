@@ -4,6 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - Forest
+  - Desert
+  - 'Arctic '
   - Ground
   layers:
   - Default
@@ -14,9 +17,9 @@ TagManager:
   - UI
   - Player
   - Environment
-  - 
-  - 
-  - 
+  - Forest
+  - Desert
+  - 'Arctic '
   - 
   - 
   - 
