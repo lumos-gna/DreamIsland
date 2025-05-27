@@ -20,9 +20,9 @@ public class CharacterManager : MonoBehaviour
     }
 
     // 나중에 수정될 경우를 고려하여 원본(_player)와 접근(Player)을 구별
-    public Player _player;
+    public TestPlayer _player;
 
-    public Player Player
+    public TestPlayer Player
     {
         get { return _player; }
         set { _player = value; }

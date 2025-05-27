@@ -4,4 +4,6 @@ using UnityEngine;
 
 public interface IAttackable
 {
+    public void LongRangeAttack(float range, float damage);
+    public void CloseRangeAttack(float range, float damage);
 }

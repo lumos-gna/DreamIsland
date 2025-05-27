@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class Resource : MonoBehaviour, IAttackable, IBuildable
 {
-    // Start is called before the first frame update
-    void Start()
+    public bool CanBuild()
+    {
+        return true;
+    }
+
+    public void CloseRangeAttack(float range, float damage)
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LongRangeAttack(float range, float damage)
     {
 
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,14 +10,7 @@ public enum ItemType
     Consumable
 }
 
-public enum ConsumableType
-{
-    Health,     // 체력
-    Thirsty,    // 목마름
-    Stamina,    // 스태미나
-}
-
-[SerializeField]
+[Serializable]
 public class ConsumableItem
 {
     public ConsumableType type;
@@ -37,7 +31,7 @@ public class ItemData : ScriptableObject
     public bool canStack;
     public int maxStackCount;
 
-    [Header("Consumable data")]
+    [Header("Consumable")]
     public ConsumableItem[] consumables;
 
     [Header("Equip")]

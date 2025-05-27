@@ -4,4 +4,5 @@ using UnityEngine;
 
 public interface IBuildable
 {
+    public bool CanBuild();
 }

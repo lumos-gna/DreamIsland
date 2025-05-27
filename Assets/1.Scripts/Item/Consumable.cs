@@ -2,16 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Consumable : MonoBehaviour, IUsable
+public enum ConsumableType
 {
-    // Start is called before the first frame update
-    void Start()
+    Health,     // 체력
+    Thirsty,    // 목마름
+    Stamina,    // 스태미나
+}
+
+public class Consumable : MonoBehaviour, IConsumable
+{
+    public void Eating(float amount)
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Healing(float amount)
     {
 
     }

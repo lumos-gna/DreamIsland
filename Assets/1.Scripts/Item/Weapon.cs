@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum WeaponType
+{
+    LongRange,
+    CloseRange
+}
+
 public class Weapon : MonoBehaviour, IAttackable
 {
-    // Start is called before the first frame update
-    void Start()
+    public void CloseRangeAttack(float range, float damage)
     {
 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LongRangeAttack(float range, float damage)
     {
 
     }
