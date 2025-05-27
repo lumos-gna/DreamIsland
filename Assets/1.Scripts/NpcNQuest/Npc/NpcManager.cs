@@ -9,8 +9,10 @@ public class NpcManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Player"))
         {
+            Debug.Log(other.gameObject.name);
             npcController.dialogueText.text = npcController.npcData.text;
             npcController.OnOff();
         }
