@@ -23,6 +23,11 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     #region Getters
     public NavMeshAgent GetAgent() => _agent;
+    public Transform GetPlayerTransform()
+    {
+        return null;
+    }
+
     public Animator GetAnimator() => _animator;
     public StateMachine<BaseEnemy> GetFSM() => _fsm;
     public EnemyStats Stats => _stats;
@@ -106,10 +111,11 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         if (_agent == null || !_agent.hasPath || _agent.velocity.sqrMagnitude < 0.01f)
         {
             // 이동 중이 아니면 공격 상태일 수 있으니 플레이어 바라보게
-            if (GetFSM().CurrentState is EnemyAttackState)
+            /*if (GetFSM().CurrentState is EnemyAttackState)
             {
                 FaceTarget(GetPlayer().transform.position);
-            }
+            }*/
+            
             return;
         }
         

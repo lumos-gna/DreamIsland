@@ -43,6 +43,8 @@ public class FleeState : IState<BaseEnemy>
     // 최대 범위내 도망칠 수 있는 가장 먼 위치 설정
     private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
+        
+        /*
         Vector3 center = obj.FleeEnemyStats.WanderCenterTransform.position;
         float radius = obj.FleeEnemyStats.WanderRadius;
         Vector3 playerPos = obj.GetPlayer().transform.position;
@@ -76,6 +78,6 @@ public class FleeState : IState<BaseEnemy>
             }
         }
 
-        obj.TrySetDestination(bestPos);
+        obj.TrySetDestination(bestPos);*/
     }
 }
