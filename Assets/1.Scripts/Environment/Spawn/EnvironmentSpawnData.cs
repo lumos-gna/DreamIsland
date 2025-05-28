@@ -45,7 +45,6 @@ public class EnvironmentSpawnData : MonoBehaviour
         // 첫 충돌이 Ground 레이어가 아니라면 객체 파괴
         if (collision.gameObject.layer != _groundLayer)
         {
-            Debug.LogWarning($"[{name}] Ground가 아닌 레이어와 충돌하여 파괴합니다: {LayerMask.LayerToName(collision.gameObject.layer)}", this);
             Destroy(gameObject);
             return;
         }
@@ -66,6 +65,5 @@ public class EnvironmentSpawnData : MonoBehaviour
         _rb.useGravity = false;
         _rb.constraints = RigidbodyConstraints.FreezeAll;
 
-        Debug.Log($"[{name}] Ground 착지 완료 위치={LandedPosition}", this);
     }
 }
