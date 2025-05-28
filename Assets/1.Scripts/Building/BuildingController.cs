@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BuildingController : MonoBehaviour
@@ -10,8 +11,27 @@ public class BuildingController : MonoBehaviour
     private BuildingObject _curBuildingObject;
     
     private bool _isBuildable;
-    
-  
+
+ 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            UIManager.Instance.Enable<BuildingUI>();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            UIManager.Instance.Disable<BuildingUI>();
+        }
+        
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            UIManager.Instance.DisablePopup();
+        }
+    }
+
+
     public void Enable(BuildingObject buildingObjectPrefab)
     {
         _curBuildingObject = Instantiate(buildingObjectPrefab);
