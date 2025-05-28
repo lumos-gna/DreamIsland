@@ -16,7 +16,7 @@ public class UIManager : Singleton<UIManager>
     private List<BaseUI> _enabledPopupList = new();
     
     
-    public BaseUI Create<T>()
+    public BaseUI Create<T>() where T : BaseUI
     {
         string targetName = typeof(T).Name;
 

@@ -12,14 +12,6 @@ public class BuildingController : MonoBehaviour
     
     private bool _isBuildable;
 
-    public void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            UIManager.Instance.Create<BuildingUI>();
-        }
-    }
-
     public void Enable(BuildingObject buildingObjectPrefab)
     {
         _curBuildingObject = Instantiate(buildingObjectPrefab);
