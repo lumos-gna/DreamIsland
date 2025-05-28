@@ -31,7 +31,7 @@ public class RegionManager : MonoBehaviour
 
     public void SetMainCameraRegion(Region r)
     {
-        mainCam.cullingMask = -1;   // ¶Ç´Â mainCam.cullingMask = -1;
+        mainCam.cullingMask = -1;  
     }
 
     public Transform GetSpawnPoint(Region r)
