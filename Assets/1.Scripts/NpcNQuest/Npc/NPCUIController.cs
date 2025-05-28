@@ -18,7 +18,7 @@ public class NPCUIController: MonoBehaviour
     private GameObject[] _buttons;
     private int _selectedDialogue;
     private int _questNumber;
-    private dialogueType type;
+
     
     void Start()
     {
@@ -59,12 +59,12 @@ public class NPCUIController: MonoBehaviour
     private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
-        npcData.npcDatas[_selectedDialogue].Reset();
+        //npcData.npcDatas[_selectedDialogue].Reset();
         dialogueText.text = npcData.NextText(_selectedDialogue);
-        type = npcData.npcDatas[_selectedDialogue].type;
+
         exitButton.gameObject.SetActive(false);
         
-        if (type == dialogueType.RANDOM || type == dialogueType.QUEST)
+        if (npcData.npcDatas[_selectedDialogue] !is NPCDialogueData_Normal)
         {
             exitButton.gameObject.SetActive(true);
         }
@@ -105,35 +105,24 @@ public class NPCUIController: MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
-            if (type == dialogueType.Normal)
+            if (npcData.TryGetNextDialog(_selectedDialogue, out NPCDialog dialog))
             {
-                string temp = npcData.NextText(_selectedDialogue);
+                dialogueText.text = dialog.text;
 
-                if (temp != null)
-                {
-                    dialogueText.text = temp;
-                }
-                else
-                {
-                    //퀘스트 수락처리, UI끄기 등
-                    exitButton.gameObject.SetActive(true);
-                }
+                // exitButton 조건 제어
+                exitButton.gameObject.SetActive(dialog.exitButton);
             }
-            else if (type == dialogueType.QUEST)
+            else
             {
-                if (!exitButton.gameObject.activeSelf)
-                {
-                    string temp = npcData.NextText(_selectedDialogue);
-                
-                    exitButton.gameObject.SetActive(true);
-                }
+                exitButton.gameObject.SetActive(true);
             }
+        }
             
 
             
             // string fullText = npcData.NextText();
             // dialogueText.text = "";
             // dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
-        }
+        
     }
 }
