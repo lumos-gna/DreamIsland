@@ -23,8 +23,6 @@ public class MoveState : IState<BaseEnemy>
         _timer = 0f;
         _isDestination = false;
 
-        UpdatePath(obj);
-
     }
 
     public void Update(BaseEnemy obj)
@@ -36,7 +34,7 @@ public class MoveState : IState<BaseEnemy>
             // 플레이어가 범위 안에 있으면 공격 상태로 전환
             if (obj.PlayerInRange())
             {
-                //obj.GetFSM().ChangeState(obj.StateFactory.Get<EnemyAttackState>());
+                obj.GetFSM().ChangeState(obj.StateFactory.Get<EnemyAttackState>());
                 return;
             }
 
@@ -79,26 +77,27 @@ public class MoveState : IState<BaseEnemy>
     private void UpdatePath(BaseEnemy obj)
     {
         if (obj.GetEnemyType() == EnemyType.Attack)
-            UpdateEnemyPath(obj);
+            UpdateAttackEnemyPath(obj);
         else
-            UpdateAnimalPath(obj);
+            UpdateFleeEnemyPath(obj);
     }
 
-    // 적은 플레이어 위치로 경로 설정
-    private void UpdateEnemyPath(BaseEnemy obj)
+    // 때리는적은 플레이어 위치로 경로 설정
+    private void UpdateAttackEnemyPath(BaseEnemy obj)
     {
         Vector3 player = obj.GetPlayer().transform.position;
+        Debug.Log(player);
         if (player != null && obj.GetAgent().isOnNavMesh)
         {
             obj.TrySetDestination(player);
         }
     }
 
-    // 동물은 주변 랜덤 위치로 경로 설정
-    private void UpdateAnimalPath(BaseEnemy obj)
+    // 도망치는 적 주변 랜덤 위치로 경로 설정
+    private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
-        Vector3 center = obj.AnimalStats.WanderCenter.position; // Wander 반경 중심 위치
-        Vector2 rand = Random.insideUnitCircle * obj.AnimalStats.WanderRadius;
+        Vector3 center = obj.FleeEnemyStats.WanderCenter.position; // Wander 반경 중심 위치
+        Vector2 rand = Random.insideUnitCircle * obj.FleeEnemyStats.WanderRadius;
         Vector3 pos = center + new Vector3(rand.x, 0, rand.y);
         obj.TrySetDestination(pos);
     }
