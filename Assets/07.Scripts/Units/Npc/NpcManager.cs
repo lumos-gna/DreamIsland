@@ -5,7 +5,6 @@ public class NpcManager : MonoBehaviour
 {
 
     public NPCUIController npcController;
-    
 
     private void OnCollisionEnter(Collision other)
     {
@@ -26,7 +25,6 @@ public class NpcManager : MonoBehaviour
         {
             npcController.dialogueText.text = npcController.npcData.text;
             npcController.OnOff();
-            
         }
     }
 }

@@ -8,6 +8,7 @@ public class Quest
     [Header("Info")] 
     public string name;
     public string text;
+    public string clearText;
     
     [Header("Count")] 
     public int goal;

@@ -21,15 +21,15 @@ public class NPCUIController: MonoBehaviour
     void Start()
     {
         exitButton.onClick.AddListener(() => OnOff());
-        _buttons = new GameObject[npcData.npcDatas.Length];
+        _buttons = new GameObject[npcData.npcDialog.Length];
     }
 
     private void PlusButton()   //대화 버튼 추가
     {
-        for (int i = 0; i < npcData.npcDatas.Length; i++)
+        for (int i = 0; i < npcData.npcDialog.Length; i++)
         {
             int index = i;
-            _buttons[index] = buttonFactory.CreateButton(index, npcData.npcDatas[index].buttonName);
+            _buttons[index] = buttonFactory.CreateButton(index, npcData.npcDialog[index].buttonName);
             
             //버튼 이벤트 초기화
             _buttons[index].GetComponent<Button>().onClick.AddListener(() => LoadDialogue(index));
@@ -40,9 +40,9 @@ public class NPCUIController: MonoBehaviour
     private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
-        npcData.npcDatas[_selectedDialogue].Reset();
+        npcData.npcDialog[_selectedDialogue].Reset();
         dialogueText.text = npcData.NextText(_selectedDialogue);
-        type = npcData.npcDatas[_selectedDialogue].type;
+        type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
         
         if (type == dialogueType.RANDOM || type == dialogueType.QUEST)
