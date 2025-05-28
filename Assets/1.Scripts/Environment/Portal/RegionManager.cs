@@ -26,14 +26,12 @@ public class RegionManager : MonoBehaviour
     void Start()
     {
         mainCam = Camera.main;
-        defaultMask = 1 << LayerMask.NameToLayer("Default");
-
         playerTransform.position = GetSpawnPoint(initialRegion).position;
     }
 
     public void SetMainCameraRegion(Region r)
     {
-        mainCam.cullingMask = ~0;
+        mainCam.cullingMask = -1;   // ¶Ç´Â mainCam.cullingMask = -1;
     }
 
     public Transform GetSpawnPoint(Region r)
@@ -45,10 +43,5 @@ public class RegionManager : MonoBehaviour
             Region.Arctic => arcticSpawnPoint,
             _ => forestSpawnPoint
         };
-    }
-
-    public LayerMask GetRegionLayerMask(Region r)
-    {
-        return 1 << LayerMask.NameToLayer(r.ToString());
     }
 }
