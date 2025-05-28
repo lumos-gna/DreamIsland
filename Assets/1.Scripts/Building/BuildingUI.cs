@@ -2,8 +2,11 @@ using UnityEngine;
 
 public class BuildingUI : BaseUI
 {
+    [SerializeField] private ItemData[] buildableItemDatas;
+
     private CanvasGroup _canvasGroup;
 
+    
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
