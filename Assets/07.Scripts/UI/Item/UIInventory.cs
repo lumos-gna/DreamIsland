@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIInventory : MonoBehaviour
+public class UIInventory : BaseUI
 {
     public ItemSlot[] slots;
     public HandleSlot[] handleSlots;
@@ -27,43 +27,6 @@ public class UIInventory : MonoBehaviour
     ItemData selectedItem;
     int selectedItemIndex = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // 해당 부분도 Player 로직에 맞게 변경
-        controller = CharacterManager.Instance.Player.controller;
-        dropPosition = CharacterManager.Instance.Player.dropPosition;
-        CharacterManager.Instance.Player.addItem += AddItem;
-        controller.inventory += Toggle;
-
-        inventoryWindow.SetActive(false);
-        summaryBox.SetActive(false);
-
-        slots = new ItemSlot[slotPanel.childCount];
-        handleSlots = new HandleSlot[handleSlotPanel.childCount];
-
-        // 보관 아이템 슬롯
-        for (int i = 0; i < slots.Length; i++)
-        {
-            slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
-            slots[i].index = i;
-            slots[i].inventory = this;
-            slots[i].ClearSlot();
-        }
-
-        // 핸들 아이템 슬롯
-        for (int i = 0; i < handleSlots.Length; i++)
-        {
-            handleSlots[i] = handleSlotPanel.GetChild(i).GetComponent<HandleSlot>();
-            handleSlots[i].index = i;
-            handleSlots[i].inventory = this;
-            handleSlots[i].ClearSlot();
-        }
-
-        // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
-        ClearSelectedItemWindow();
-    }
-
     private void Update()
     {
         if (!summaryBox.activeSelf) return;
@@ -84,11 +47,11 @@ public class UIInventory : MonoBehaviour
     {
         if (IsOpenInventory())
         {
-            inventoryWindow.SetActive(false);
+            UIManager.Instance.Disable<UIInventory>();
         }
         else
         {
-            inventoryWindow.SetActive(true);
+            UIManager.Instance.Enable<UIInventory>();
         }
     }
 
@@ -198,5 +161,51 @@ public class UIInventory : MonoBehaviour
 
         onMouseItemName.text = selectedItem.displayName;
         onMouseItemDescription.text = selectedItem.description;
+    }
+
+    public override void Init()
+    {
+        // 해당 부분도 Player 로직에 맞게 변경
+        controller = CharacterManager.Instance.Player.controller;
+        dropPosition = CharacterManager.Instance.Player.dropPosition;
+        CharacterManager.Instance.Player.addItem += AddItem;
+        controller.inventory += Toggle;
+
+        inventoryWindow.SetActive(false);
+        summaryBox.SetActive(false);
+
+        slots = new ItemSlot[slotPanel.childCount];
+        handleSlots = new HandleSlot[handleSlotPanel.childCount];
+
+        // 보관 아이템 슬롯
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
+            slots[i].index = i;
+            slots[i].inventory = this;
+            slots[i].ClearSlot();
+        }
+
+        // 핸들 아이템 슬롯
+        for (int i = 0; i < handleSlots.Length; i++)
+        {
+            handleSlots[i] = handleSlotPanel.GetChild(i).GetComponent<HandleSlot>();
+            handleSlots[i].index = i;
+            handleSlots[i].inventory = this;
+            handleSlots[i].ClearSlot();
+        }
+
+        // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
+        ClearSelectedItemWindow();
+    }
+
+    public override void Enable()
+    {
+        inventoryWindow.SetActive(true);
+    }
+
+    public override void Disable()
+    {
+        inventoryWindow.SetActive(false);
     }
 }
