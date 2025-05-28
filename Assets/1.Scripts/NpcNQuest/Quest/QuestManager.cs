@@ -11,7 +11,7 @@ public class QuestManager : SingleTon<QuestManager>
     [SerializeField]
     private QuestData quests;
 
-    void Awake()
+    protected override void Awake()
     {
         base.Awake();
         quests.Reset();
