@@ -14,7 +14,6 @@ public class EnvironmentSpawnData : MonoBehaviour
         //리기드바디와 콜라이더 제거
         var rb = GetComponent<Rigidbody>();
         if (rb != null) Destroy(rb);
-        var col = GetComponent<Collider>();
-        if (col != null) Destroy(col);
+
     }
 }
