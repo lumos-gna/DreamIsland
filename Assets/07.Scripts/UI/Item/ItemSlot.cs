@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public ItemData item;
 
@@ -22,6 +22,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private GameObject dragIcon;
     private RectTransform dragIconRect;
 
+    public static ItemSlot draggedFromSlot; // 드래그 시작 슬롯
 
     // 슬롯 세팅
     public void SetSlot()
@@ -59,6 +60,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (item == null) return;
+        draggedFromSlot = this;
 
         // 드래그할 아이콘 생성
         dragIcon = new GameObject("DragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
@@ -77,18 +79,68 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         group.blocksRaycasts = false;
     }
 
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (dragIcon != null)
+        {
+            Vector2 pos;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(inventory.transform as RectTransform, Input.mousePosition, null, out pos);
+            dragIconRect.localPosition = pos;
+        }
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        draggedFromSlot = null;
+        if (dragIcon != null)
+        {
+            Destroy(dragIcon);
+        }
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        if (draggedFromSlot == null || draggedFromSlot == this) return;
+
+        SwapWith(draggedFromSlot);
+    }
+
+    public void SwapWith(ItemSlot other)
+    {
+        // 자기 자신에 드롭한 경우는 무시함
+        if (this == other) return;
+
+        // 한쪽이 비었을 경우에 이동
+        if (this.item == null && other.item != null)
+        {
+            this.item = other.item;
+            this.quantity = other.quantity;
+
+            other.item = null;
+            other.quantity = 0;
+        }
+        else if (this.item != null && other.item == null)
+        {
+            other.item = this.item;
+            other.quantity = this.quantity;
+
+            this.item = null;
+            this.quantity = 0;
+        }
+        else
+        {
+            // 둘 다 아이템이 있을 경우에는 아이템과 수량 정보 교환
+            (this.item, other.item) = (other.item, this.item);
+            (this.quantity, other.quantity) = (other.quantity, this.quantity);
+        }
+
+        this.SetSlot();
+        other.SetSlot();
+    }
 
     public void OnClickButton()
     {
         // UIInventory 관련 함수 작성
         // ex. SelectItem()
-    }
-
-    public void OnDrag(PointerEventData eventData)
-    {
-    }
-
-    public void OnEndDrag(PointerEventData eventData)
-    {
     }
 }
