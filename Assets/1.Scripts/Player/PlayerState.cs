@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -6,7 +6,7 @@ using static UnityEditor.Progress;
 
 public interface PlayerState
 {
-    public void UseItem(); //¾ÆÀÌÅÛÀ» µé°í Å¬¸¯À»ÇÏ¸é ½ÇÇàµÇ´Â ÇÔ¼ö
+    public void UseItem(); //ì•„ì´í…œì„ ë“¤ê³  í´ë¦­ì„í•˜ë©´ ì‹¤í–‰ë˜ëŠ” í•¨ìˆ˜
 }
 
 public class AttackState : MonoBehaviour, PlayerState
@@ -26,7 +26,7 @@ public class AttackState : MonoBehaviour, PlayerState
     }
     public void UseItem() 
     {
-        //°ø°İ
+        //ê³µê²©
     }
 }
 
@@ -47,7 +47,7 @@ public class ConsumeState : MonoBehaviour, PlayerState
     }
     public void UseItem()
     {
-        //¾ÆÀÌÅÛ »ç¿ë(¼·Ãë)
+        //ì•„ì´í…œ ì‚¬ìš©(ì„­ì·¨)
     }
 }
 
@@ -68,7 +68,7 @@ public class BuildingState : MonoBehaviour, PlayerState
     }
     public void UseItem()
     {
-        //¾ÆÀÌÅÛ ¼³Ä¡(building)
+        //ì•„ì´í…œ ì„¤ì¹˜(building)
     }
 }
 

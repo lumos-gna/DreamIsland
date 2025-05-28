@@ -1,5 +1,7 @@
-using System.Collections;
+Ôªøusing System.Collections;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -21,8 +23,8 @@ public class PlayerController : MonoBehaviour
     private float camcurXrot;
 
     private bool canlook = true;
-    private bool canjump = true;
     private Vector2 mouseDelta;
+    private CapsuleCollider capsuleCollider;
 
     private Rigidbody _rigidbody;
 
@@ -40,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        capsuleCollider = GetComponent<CapsuleCollider>();
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -55,9 +58,7 @@ public class PlayerController : MonoBehaviour
             CameraLook();
         }
     }
-
-
-    private void Move()
+    private void Move() // ÏõÄÏßÅÏù¥Îäî Ìï®Ïàò
     {
         Vector3 dir = transform.forward * curMovement.y + transform.right * curMovement.x;
         dir *= moveSpeed;
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = dir;
     }
 
-    private void CameraLook()
+    private void CameraLook() // Ïπ¥Î©îÎùº ÏõÄÏßÅÏûÑ
     {
         camcurXrot += mouseDelta.y * lookSensitivity;
         camcurXrot = Mathf.Clamp(camcurXrot, minX, maxX);
@@ -93,32 +94,20 @@ public class PlayerController : MonoBehaviour
 
     public void OnjumpInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && canjump)
+        if(context.phase == InputActionPhase.Started && CanJump())
         {
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private bool CanJump() // Ï†êÌîÑ Ï≤¥ÌÅ¨
     {
-        Debug.Log("¡°«¡ ∞°¥…");
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            Debug.Log("¡°«¡ ∞°¥…");
-            canjump = true;
-        }
+        Vector3 capsuleBottom = transform.position + capsuleCollider.center - Vector3.up * (capsuleCollider.height / 2 - capsuleCollider.radius);
+        float checkradius = 0.5f;
+        return Physics.CheckSphere(capsuleBottom, checkradius, groundLayerMask);
     }
 
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            canjump = false;
-            Debug.Log("¡°«¡ ∫“∞°");
-        }
-    }
-
-    public void ChangeCursorState(bool ispopon)
+    public void ChangeCursorState(bool ispopon) // Ïª§ÏÑú ÏÉÅÌÉú Î≥ÄÍ≤Ω(Ïù∏Î≤§ÌÜ†Î¶¨ Ïó¥ÏóàÏùÑÎïå?)
     {
         Cursor.lockState = ispopon ? CursorLockMode.None : CursorLockMode.Locked;
         canlook = !ispopon;
