@@ -4,13 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class SpawnFleeEnemyPosition
+public class SpawnAnimalPosition
 {
     private Transform _playerCamera;
     private float _fieldOfView;
-    private float _minDistance = 8f; // 적이 스폰될때 플레이어와의 최소 거리
+    private float _minDistance = 8f; // 동물이 스폰될때 플레이어와의 최소 거리
     
-    public SpawnFleeEnemyPosition(Transform playerCamera, float filedOfView)
+    public SpawnAnimalPosition(Transform playerCamera, float filedOfView)
     {
         _playerCamera = playerCamera;
         if (_playerCamera.TryGetComponent(out Camera cam))

@@ -7,7 +7,7 @@ public class IdleState : IState<BaseEnemy>
 {
     private float _timer;
 
-    private float _idleTime; // 모든 적들이 동시에 움직이는걸 방지하기 위한 대기 시간
+    private float _idleTime; // 모든 동물들이 동시에 움직이는걸 방지하기 위한 대기 시간
     private float _minIdleTime = 8f;
     private float _maxIdleTime = 15f;
 
