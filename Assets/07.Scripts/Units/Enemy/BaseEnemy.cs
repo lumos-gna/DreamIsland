@@ -4,7 +4,13 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class BaseEnemy : MonoBehaviour, IEnemy
+public enum EnemyType
+{
+    Attack,
+    Flee
+}
+
+public class BaseEnemy : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _dropItems;
     [SerializeField] private GameObject _player;
@@ -23,11 +29,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     #region Getters
     public NavMeshAgent GetAgent() => _agent;
-    public Transform GetPlayerTransform()
-    {
-        return null;
-    }
-
+    public Transform GetPlayerTransform() => _player.transform;
     public Animator GetAnimator() => _animator;
     public StateMachine<BaseEnemy> GetFSM() => _fsm;
     public EnemyStats Stats => _stats;
@@ -36,8 +38,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     public GameObject GetPlayer() => _player;
     public EnemyType GetEnemyType() => _type;
 
-    // Animal 관련
-    public virtual AnimalStats AnimalStats => null;
+    // 적 관련
+    public virtual FleeEnemyStats FleeEnemyStats => null;
+    public virtual AttackEnemyStats AttackEnemyStats => null;
     #endregion
 
 
@@ -57,7 +60,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     protected virtual void Update()
     {
         _fsm.Update();
-        FaceMoveDirection();
+        FaceDirection();
     }
 
     // 초기화
@@ -87,9 +90,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         StartCoroutine(HitColor(_spriteRenderer)); // 피격 효과
         if (Stats.Health <= 0)
         {
-            if(TryGetComponent(out PoolAnimal poolAnimal))
+            if(TryGetComponent(out PoolFleeEnemy poolFleeEnemy))
             {
-                poolAnimal.Die();
+                poolFleeEnemy.Die();
                 DropItem();
             }
             _fsm.ChangeState(StateFactory.Get<DieState>());
@@ -105,30 +108,21 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         }
     }
 
-    // 이동 방향을 기준으로 회전 처리
-    public void FaceMoveDirection()
+    // 적이 플레이어 바라보게기 회전 처리
+    public void FaceDirection()
     {
         if (_agent == null || !_agent.hasPath || _agent.velocity.sqrMagnitude < 0.01f)
         {
             // 이동 중이 아니면 공격 상태일 수 있으니 플레이어 바라보게
-            /*if (GetFSM().CurrentState is EnemyAttackState)
+            if (GetFSM().CurrentState is EnemyAttackState)
             {
                 FaceTarget(GetPlayer().transform.position);
-            }*/
+            }
             
             return;
         }
-        
 
-        Vector3 direction = _agent.steeringTarget - transform.position;
-        direction.y = 0f;
-
-        if (direction.sqrMagnitude < 0.01f) return;
-
-        Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
-
-        float angle = Vector3.Angle(transform.forward, direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1f);
+        FaceTarget(_agent.steeringTarget, 1f);
     }
     public void FaceTarget(Vector3 target, float turnSpeed = 5f)
     {
