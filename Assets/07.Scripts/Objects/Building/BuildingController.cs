@@ -7,7 +7,6 @@ public class BuildingController : MonoBehaviour
 
     [SerializeField] private float rayDistance;
 
-
     private BuildingObject _curBuildingObject;
 
     private bool _isBuildable;
