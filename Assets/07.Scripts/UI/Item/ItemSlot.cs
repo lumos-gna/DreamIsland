@@ -27,6 +27,12 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // 슬롯 세팅
     public void SetSlot()
     {
+        if (item == null)
+        {
+            ClearSlot();
+            return;
+        }
+
         icon.gameObject.SetActive(true);
         icon.sprite = item.icon;
         quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
