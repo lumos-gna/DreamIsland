@@ -6,7 +6,7 @@ using static UnityEditor.Progress;
 
 public interface PlayerState
 {
-    public void UseItem(); //�������� ��� Ŭ�����ϸ� ����Ǵ� �Լ�
+    public void UseItem(); //아이템을 들고 클릭을하면 실행되는 함수
 }
 
 public class AttackState : MonoBehaviour, PlayerState
@@ -17,16 +17,16 @@ public class AttackState : MonoBehaviour, PlayerState
     {
         get
         {
-            if (instance == null)
+            if(instance == null)
             {
                 instance = new AttackState();
             }
             return instance;
         }
     }
-    public void UseItem()
+    public void UseItem() 
     {
-        //����
+        //공격
     }
 }
 
@@ -47,7 +47,7 @@ public class ConsumeState : MonoBehaviour, PlayerState
     }
     public void UseItem()
     {
-        //������ ���(����)
+        //아이템 사용(섭취)
     }
 }
 
@@ -68,7 +68,7 @@ public class BuildingState : MonoBehaviour, PlayerState
     }
     public void UseItem()
     {
-        //������ ��ġ(building)
+        //아이템 설치(building)
     }
 }
 
