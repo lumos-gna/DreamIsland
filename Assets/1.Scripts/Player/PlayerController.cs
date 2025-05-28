@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Unity.VisualScripting;
@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
             CameraLook();
         }
     }
-    private void Move() // ¿òÁ÷ÀÌ´Â ÇÔ¼ö
+    private void Move() // ì›€ì§ì´ëŠ” í•¨ìˆ˜
     {
         Vector3 dir = transform.forward * curMovement.y + transform.right * curMovement.x;
         dir *= moveSpeed;
@@ -67,7 +67,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.velocity = dir;
     }
 
-    private void CameraLook() // Ä«¸Ş¶ó ¿òÁ÷ÀÓ
+    private void CameraLook() // ì¹´ë©”ë¼ ì›€ì§ì„
     {
         camcurXrot += mouseDelta.y * lookSensitivity;
         camcurXrot = Mathf.Clamp(camcurXrot, minX, maxX);
@@ -100,14 +100,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private bool CanJump() // Á¡ÇÁ Ã¼Å©
+    private bool CanJump() // ì í”„ ì²´í¬
     {
         Vector3 capsuleBottom = transform.position + capsuleCollider.center - Vector3.up * (capsuleCollider.height / 2 - capsuleCollider.radius);
         float checkradius = 0.5f;
         return Physics.CheckSphere(capsuleBottom, checkradius, groundLayerMask);
     }
 
-    public void ChangeCursorState(bool ispopon) // Ä¿¼­ »óÅÂ º¯°æ(ÀÎº¥Åä¸® ¿­¾úÀ»¶§?)
+    public void ChangeCursorState(bool ispopon) // ì»¤ì„œ ìƒíƒœ ë³€ê²½(ì¸ë²¤í† ë¦¬ ì—´ì—ˆì„ë•Œ?)
     {
         Cursor.lockState = ispopon ? CursorLockMode.None : CursorLockMode.Locked;
         canlook = !ispopon;
