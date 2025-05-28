@@ -3,7 +3,7 @@ using UnityEngine.UI;
 //using DG.Tweening;
 using TMPro;
 
-public class NPCController: MonoBehaviour
+public class NPCUIController: MonoBehaviour
 {
     public PlayerController playerController;
     public NpcData npcData;
@@ -55,7 +55,8 @@ public class NPCController: MonoBehaviour
         }
     }
     
-    private void LoadDialogue(int i)
+    
+    private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
         npcData.npcDatas[_selectedDialogue].Reset();

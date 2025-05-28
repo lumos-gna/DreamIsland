@@ -11,14 +11,14 @@ public class Quest
     
     [Header("Count")] 
     public int goal;
-    public int reward;  //나중에 아이템으로 변경
+    public int reward;   //나중에 아이템으로 변경
 
     private int _count = 0;
     private bool _onOff;
     private bool _clear;
 
 
-    public void Reset()
+    public void Reset()  //퀘스트 진행사항 리셋
     {
         _count = 0;
         _onOff = false;
@@ -27,13 +27,13 @@ public class Quest
     
     public int Count{ get; private set; }
 
-    public void AcceptQuest()
+    public void AcceptQuest()  //퀘스트 수락처리
     {
         _onOff = true;
         Debug.Log(text);
     }
 
-    public void PlusCount()
+    public void PlusCount()  //퀘스트 진행도 +1
     {
         if (_onOff)
         {
@@ -47,8 +47,9 @@ public class Quest
         }
     }
     
-    public bool OnOff(){return _onOff;}
+    public bool OnOff(){return _onOff;}  //퀘스트 수락상태 리턴
 
+    
     private void Reward()   //아이템 보상 떨굼
     {
         Debug.Log("보상 획득" + reward);
@@ -64,7 +65,9 @@ public class QuestData : ScriptableObject
     public Quest[] quests;
 
     public void AcceptQuest(int count){ quests[count].AcceptQuest();}
+    
     public void CountQuest(int count){ quests[count].PlusCount(); }
+    
     public int CheckOnOffQuest()
     {
         for (int i = 0; i < quests.Length; i++)
