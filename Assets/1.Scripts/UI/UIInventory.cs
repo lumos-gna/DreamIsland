@@ -1,0 +1,148 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+
+public class UIInventory : MonoBehaviour
+{
+    public ItemSlot[] slots;
+
+    public GameObject inventoryWindow;
+    public Transform slotPanel;
+    public Transform dropPosition;
+
+    [Header("Select Item")]
+    public TextMeshProUGUI onMouseItemName;
+    public TextMeshProUGUI onMouseItemDescription;
+
+    // 해당 부분 PlayerController.cs에 인벤토리 로직 추가되면 Test제외하고 사용하세요.
+    private TestPlayerController controller;
+    //private PlayerController controller;
+
+    ItemData selectedItem;
+    int selectedItemIndex = 0;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        // 해당 부분도 Player 로직에 맞게 변경
+        controller = CharacterManager.Instance.Player.controller;
+        dropPosition = CharacterManager.Instance.Player.dropPosition;
+        controller.inventory += Toggle;
+        CharacterManager.Instance.Player.addItem += AddItem;
+
+        inventoryWindow.SetActive(false);
+        slots = new ItemSlot[slotPanel.childCount];
+
+        for (int i = 0; i < slots.Length; i++)
+        {
+            slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
+            slots[i].index = i;
+            slots[i].inventory = this;
+        }
+
+        ClearSelectedItemWindow();
+    }
+
+    private void ClearSelectedItemWindow()
+    {
+        onMouseItemName.text = string.Empty;
+        onMouseItemDescription.text = string.Empty;
+    }
+
+    // Inventory창 Open/Close시 호출
+    public void Toggle()
+    {
+        if (IsOpenInventory())
+        {
+            inventoryWindow.SetActive(false);
+        }
+        else
+        {
+            inventoryWindow.SetActive(true);
+        }
+    }
+
+    public bool IsOpenInventory()
+    {
+        return inventoryWindow.activeInHierarchy;
+    }
+
+    private void AddItem()
+    {
+        ItemData data = CharacterManager.Instance.Player.itemData;   // player에 맞게 수정 필요
+
+        if (data.canStack)
+        {
+            ItemSlot slot = GetItemStack(data);
+
+            if (slot != null)
+            {
+                slot.quantity++;
+                UpdateUI();
+                CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
+                return;
+            }
+        }
+
+        ItemSlot emptySlot = GetEmptySlot();
+
+        if (emptySlot != null)
+        {
+            emptySlot.item = data;
+            emptySlot.quantity = 1;
+            UpdateUI();
+            CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
+            return;
+        }
+
+        ThrowItem(data);
+        CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
+    }
+
+    private void UpdateUI()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item != null)
+            {
+                slots[i].SetSlot();
+            }
+            else
+            {
+                slots[i].ClearSlot();
+            }
+        }
+    }
+
+    public ItemSlot GetItemStack(ItemData data)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == data && slots[i].quantity < data.maxStackCount)
+            {
+                return slots[i];
+            }
+        }
+
+        return null;
+    }
+
+    private ItemSlot GetEmptySlot()
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i].item == null)
+            {
+                return slots[i];
+            }
+        }
+
+        return null;
+    }
+
+    private void ThrowItem(ItemData data)
+    {
+        Instantiate(data.dropItemPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
+    }
+}
