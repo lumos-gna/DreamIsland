@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 44403168938730999}
   - component: {fileID: 790571154551279220}
-  - component: {fileID: 4033176319785836605}
   - component: {fileID: 3526210781869351054}
   - component: {fileID: 8919619408153006863}
   m_Layer: 0
@@ -58,19 +57,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4033176319785836605
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2206322571622186571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e3d8461a3aa842d40a41958be4de3ab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  quests: {fileID: 11400000, guid: 19be19441be7f554ca9f92b32ca93dc9, type: 2}
 --- !u!54 &3526210781869351054
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -232,6 +218,10 @@ PrefabInstance:
       propertyPath: m_hasFontAssetChanged
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1587705578925090379, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: buttonFactory
+      value: 
+      objectReference: {fileID: 5334468734457178476}
     - target: {fileID: 2963712064847030606, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
       propertyPath: m_fontAsset
       value: 
@@ -294,6 +284,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8508362034355626246, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
   m_PrefabInstance: {fileID: 5190449688355012666}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5334468734457178476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 148611577330755926, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+  m_PrefabInstance: {fileID: 5190449688355012666}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b160c261dea4531876090e46858ff9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &6773563038496482929 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1587705578925090379, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}

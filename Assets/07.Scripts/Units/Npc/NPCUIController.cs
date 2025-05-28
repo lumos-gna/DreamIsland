@@ -11,9 +11,7 @@ public class NPCUIController: MonoBehaviour
     public Image image;
     public TextMeshProUGUI dialogueText;
     public Button exitButton;
-    
-    public GameObject buttonGroup;
-    public GameObject buttonPrefab;  
+    public ButtonFactory buttonFactory;
     
     private GameObject[] _buttons;
     private int _selectedDialogue;
@@ -30,28 +28,11 @@ public class NPCUIController: MonoBehaviour
     {
         for (int i = 0; i < npcData.npcDatas.Length; i++)
         {
-            GameObject newButton = Instantiate(buttonPrefab, buttonGroup.transform);
-            int capturedIndex = i;
-            _buttons[capturedIndex] = newButton;
-            newButton.name = "Button_" + capturedIndex;
-            
-            //버튼 텍스트 초기화
-            TextMeshProUGUI btnText = newButton.GetComponentInChildren<TextMeshProUGUI>();
-            if (btnText != null)
-            {
-                btnText.text = npcData.npcDatas[capturedIndex].buttonName;
-            }
-            
-
-            //버튼 색상 초기화
-            Image btnImage = newButton.GetComponent<Image>();
-            if (btnImage != null)
-            {
-                btnImage.color = new Color32(0x9f, 0x9f, 0x9f, 255);
-            }
+            int index = i;
+            _buttons[index] = buttonFactory.CreateButton(index, npcData.npcDatas[index].buttonName);
             
             //버튼 이벤트 초기화
-            newButton.GetComponent<Button>().onClick.AddListener(() => LoadDialogue(capturedIndex));
+            _buttons[index].GetComponent<Button>().onClick.AddListener(() => LoadDialogue(index));
         }
     }
     
@@ -137,3 +118,4 @@ public class NPCUIController: MonoBehaviour
         }
     }
 }
+
