@@ -4,7 +4,7 @@ using UnityEngine;
 public class NpcManager : MonoBehaviour
 {
 
-    public NPCController npcController;
+    public NPCUIController npcController;
     
 
     private void OnCollisionEnter(Collision other)

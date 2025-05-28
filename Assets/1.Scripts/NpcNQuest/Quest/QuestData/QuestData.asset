@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   quests:
   - name: "\uD018\uC2A4\uD2B81"
-    text: "\uD018\uC2A4\uD2B81\uD018\uC2A4\uD2B81"
+    text: "\uD018\uC2A4\uD2B8 \uB370\uC774\uD1301"
     goal: 1
     reward: 1
   - name: "\uD018\uC2A4\uD2B82"
-    text: "\uD018\uC2A4\uD2B82\uD018\uC2A4\uD2B82"
+    text: "\uD018\uC2A4\uD2B8 \uB370\uC774\uD1302"
     goal: 2
     reward: 2

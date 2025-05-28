@@ -11,7 +11,7 @@ public class QuestManager : SingleTon<QuestManager>
     [SerializeField]
     private QuestData quests;
 
-    void Awake()
+    protected override void Awake()
     {
         base.Awake();
         quests.Reset();
@@ -27,9 +27,16 @@ public class QuestManager : SingleTon<QuestManager>
         quests.CountQuest(questID);
     }
 
+    public void QuestClear(int questID)
+    { 
+        
+    }
+    
     public int CheckOnOffQuest(){return quests.CheckOnOffQuest();}
 
-
+    public int CheckClearQuest(){return quests.CheckClearQuest();}
+    
+    public string GetQuestText(int i){return quests.GetQuestText(i);}
 
 
 
