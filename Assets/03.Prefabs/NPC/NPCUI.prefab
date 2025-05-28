@@ -232,8 +232,7 @@ MonoBehaviour:
   image: {fileID: 7160204021874853609}
   dialogueText: {fileID: 2963712064847030606}
   exitButton: {fileID: 458307484820474110}
-  buttonGroup: {fileID: 4185777402479552506}
-  buttonPrefab: {fileID: 5314729209013175929, guid: 80f2235031b5e3443be643b6d509e339, type: 3}
+  buttonFactory: {fileID: 0}
 --- !u!1 &3607492013419757246
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,6 +318,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3794590819129458938}
   - component: {fileID: 6828390310626764186}
+  - component: {fileID: 148611577330755926}
   m_Layer: 0
   m_Name: ButtonGroup
   m_TagString: Untagged
@@ -369,6 +369,20 @@ MonoBehaviour:
   m_Spacing: {x: 0, y: 0}
   m_Constraint: 0
   m_ConstraintCount: 2
+--- !u!114 &148611577330755926
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4185777402479552506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b160c261dea4531876090e46858ff9a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buttonGroup: {fileID: 4185777402479552506}
+  buttonPrefab: {fileID: 5314729209013175929, guid: 80f2235031b5e3443be643b6d509e339, type: 3}
 --- !u!1 &4304078115318409534
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,11 +11,6 @@ public class QuestManager : Singleton<QuestManager>
     [SerializeField]
     private QuestData quests;
 
-    protected void Awake()
-    {
-        quests.Reset();
-    }
-
     public void AcceptQuest(int questID)
     {
         quests.AcceptQuest(questID);
