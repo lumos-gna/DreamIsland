@@ -59,15 +59,18 @@ public class NPCData
         }
         else if (type == dialogueType.QUEST)
         {
-            
-            if (QuestManager.Instance.CheckOnOffQuest() != -1)           //수락한 퀘스트가 있으면
+            if (QuestManager.Instance.CheckClearQuest() != -1)             //받았던 퀘스트 클리어시
+            {
+                return QuestManager.Instance.GetQuestText(QuestManager.Instance.CheckClearQuest());
+            }
+            else if (QuestManager.Instance.CheckOnOffQuest() != -1)           //수락한 퀘스트가 있으면
             {
                 return npcDialog[QuestManager.Instance.CheckOnOffQuest()].text;
             }
             else      //수락한 퀘스트가 없으면
             {
                 int quest = Random.Range(0, npcDialog.Length);
-                QuestManager.Instance.AcceptQuest(quest);     //퀘스트 수락
+                QuestManager.Instance.AcceptQuest(quest);                     //퀘스트 수락
 
             
                 return npcDialog[quest].text; 

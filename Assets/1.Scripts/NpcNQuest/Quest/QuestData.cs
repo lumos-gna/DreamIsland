@@ -13,7 +13,7 @@ public class Quest
     public int goal;
     public int reward;   //나중에 아이템으로 변경
 
-    private int _count = 0;
+    private int _count;
     private bool _onOff;
     private bool _clear;
 
@@ -41,18 +41,20 @@ public class Quest
             Debug.Log(_count + " / " + goal);
             
             if (_count == goal){ 
+                Debug.Log("클리어!");
                 _clear = true; _onOff = false; _count = 0;
-                Reward();
             }
         }
     }
     
     public bool OnOff(){return _onOff;}  //퀘스트 수락상태 리턴
 
+    public bool Clear(){return _clear;} 
     
-    private void Reward()   //아이템 보상 떨굼
+    public void Reward()   //아이템 보상 떨굼
     {
         Debug.Log("보상 획득" + reward);
+        _clear = false;
     }
 }
 
@@ -77,5 +79,20 @@ public class QuestData : ScriptableObject
         return -1;
     }
 
+    public int CheckClearQuest()
+    {
+        for (int i = 0; i < quests.Length; i++)
+        {
+            if (quests[i].Clear()){return i;}
+        }
+        return -1;
+    }
+
+    public string GetQuestText(int i)
+    {
+        quests[i].Reward();
+        return quests[i].text;
+    }
+    
     public void Reset(){foreach (Quest quest in quests){quest.Reset();}}
 }
