@@ -5,19 +5,24 @@ using UnityEngine.InputSystem;
 
 public class ItemEquip : MonoBehaviour
 {
-    [SerializeField] private GameObject[] tempitems = new GameObject[10];
+    [SerializeField] private ItemData[] tempitems = new ItemData[10];
     [SerializeField] private Transform EquipParent;
     private GameObject nowchoiceitem;
+    private int nowslot = -1;
 
     public void ChoiceItem(int slot)// 아이템을 고르는 함수?
     {
         if (tempitems[slot] == null)
         {
             Destroy(nowchoiceitem);
+            nowchoiceitem = null;
             return;
         }
-        Destroy(nowchoiceitem);
-        nowchoiceitem = Instantiate(tempitems[slot], EquipParent);
+        if(nowchoiceitem != null)
+        {
+            Destroy(nowchoiceitem);
+        }
+        nowchoiceitem = Instantiate(tempitems[slot].equipPrefab, EquipParent);
     }
 
     public void OnChoiceitemInput(InputAction.CallbackContext context)
@@ -28,8 +33,12 @@ public class ItemEquip : MonoBehaviour
 
             if(int.TryParse(keyname, out int selectslot))
             {
-                Debug.Log($"{selectslot-1} 슬롯 선택");
-                ChoiceItem(selectslot - 1);
+                if(nowslot != selectslot)
+                {
+                    Debug.Log($"{selectslot - 1} 슬롯 선택");
+                    ChoiceItem(selectslot - 1);
+                    nowslot = selectslot;
+                }
             }
         }
     }
