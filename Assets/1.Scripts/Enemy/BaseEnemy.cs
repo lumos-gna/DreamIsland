@@ -43,7 +43,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
     protected virtual void Start()
     {
-        if (_type == EnemyType.Enemy)
+        if (_type == EnemyType.Attack)
             _fsm.ChangeState(StateFactory.Get<MoveState>());
         else
             _fsm.ChangeState(StateFactory.Get<IdleState>());
@@ -68,8 +68,11 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     // 플레이어 범위 안에 있는지 체크
     public bool PlayerInRange()
     {
-        float distance = Vector3.Distance(transform.position, _player.transform.position);
-        return distance < _stats.DetectDistance;
+        Vector3 center = transform.position;
+        float radius = _stats.DetectDistance;
+
+        bool hit = Physics.CheckSphere(center, radius, LayerMask.GetMask("Player"));
+        return hit;
     }
 
     // 적 피해 처리
@@ -82,6 +85,7 @@ public class BaseEnemy : MonoBehaviour, IEnemy
             if(TryGetComponent(out PoolAnimal poolAnimal))
             {
                 poolAnimal.Die();
+                DropItem();
             }
             _fsm.ChangeState(StateFactory.Get<DieState>());
         }
@@ -109,7 +113,6 @@ public class BaseEnemy : MonoBehaviour, IEnemy
 
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
 
-        // 옵션: 각도 제한 추가해도 자연스러움 향상 가능
         float angle = Vector3.Angle(transform.forward, direction);
         if (angle > 5f) // 일정 각도 이상 차이날 때만 회전
         {
@@ -128,5 +131,26 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         yield return new WaitForSeconds(0.1f);
         _spriteRenderer.color = original;
         _isHit = false;
+    }
+
+    // NavMesh에서 유요한 위치인지 체크 및 경로 설정
+    public bool TrySetDestination(Vector3 target)
+    {
+        if (_agent == null || !_agent.isOnNavMesh)
+            return false;
+
+        if (NavMesh.SamplePosition(target, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+        {
+            NavMeshPath path = new NavMeshPath();
+            if (_agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete)
+            {
+                _agent.SetDestination(hit.position);
+                return true;
+            }
+        }
+
+        // 실패 시 제자리 유지
+        _agent.SetDestination(transform.position);
+        return false;
     }
 }

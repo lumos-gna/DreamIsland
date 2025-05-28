@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,7 +9,7 @@ public class ItemEquip : MonoBehaviour
     [SerializeField] private Transform EquipParent;
     private GameObject nowchoiceitem;
 
-    public void ChoiceItem(int slot)// ¾ÆÀÌÅÛÀ» °í¸£´Â ÇÔ¼ö?
+    public void ChoiceItem(int slot)// ì•„ì´í…œì„ ê³ ë¥´ëŠ” í•¨ìˆ˜?
     {
         if (tempitems[slot] == null)
         {
@@ -28,7 +28,7 @@ public class ItemEquip : MonoBehaviour
 
             if(int.TryParse(keyname, out int selectslot))
             {
-                Debug.Log($"{selectslot-1} ½½·Ô ¼±ÅÃ");
+                Debug.Log($"{selectslot-1} ìŠ¬ë¡¯ ì„ íƒ");
                 ChoiceItem(selectslot - 1);
             }
         }

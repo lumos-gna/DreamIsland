@@ -58,13 +58,10 @@ public class Portal : MonoBehaviour
     {
         canTeleport = false;
 
-        // 1) 메인 카메라에 보일 레이어만 바꿔준다
-        regionManager.SetMainCameraRegion(targetRegion);
-
-        // 2) 플레이어 위치 이동
+        // 1) 플레이어 위치 이동
         playerTransform.position = regionManager.GetSpawnPoint(targetRegion).position;
 
-        // (선택) 페이드 인 등 이펙트
+        // 페이드 인 등 이펙트
         yield return new WaitForSeconds(cooldown);
         canTeleport = true;
     }
