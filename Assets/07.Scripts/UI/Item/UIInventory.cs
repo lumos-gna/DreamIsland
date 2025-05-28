@@ -33,8 +33,8 @@ public class UIInventory : MonoBehaviour
         // 해당 부분도 Player 로직에 맞게 변경
         controller = CharacterManager.Instance.Player.controller;
         dropPosition = CharacterManager.Instance.Player.dropPosition;
-        controller.inventory += Toggle;
         CharacterManager.Instance.Player.addItem += AddItem;
+        controller.inventory += Toggle;
 
         inventoryWindow.SetActive(false);
         summaryBox.SetActive(false);
@@ -125,7 +125,6 @@ public class UIInventory : MonoBehaviour
             return;
         }
 
-
         ThrowItem(data);
         CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
     }
@@ -183,11 +182,13 @@ public class UIInventory : MonoBehaviour
         return null;
     }
 
+    // 아이템 버릴 때 사용할 메서드
     private void ThrowItem(ItemData data)
     {
         Instantiate(data.dropItemPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
     }
 
+    // 인벤토리 아이템 슬롯에 마우스를 올렸을 때 아이템의 설명을 보이기 위한 메서드
     public void MouseOnInventoryItem(int index)
     {
         if (slots[index].item == null) return;

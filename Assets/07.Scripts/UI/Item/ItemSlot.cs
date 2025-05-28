@@ -106,9 +106,14 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (draggedFromSlot == null || draggedFromSlot == this) return;
-
-        SwapWith(draggedFromSlot);
+        if (draggedFromSlot != null && draggedFromSlot != this)
+        {
+            SwapWith(draggedFromSlot);
+        }
+        else if (HandleSlot.draggedFromHandleSlot != null)
+        {
+            SwapWith(HandleSlot.draggedFromHandleSlot);
+        }
     }
 
     public void SwapWith(ItemSlot other)
@@ -144,9 +149,29 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         other.SetSlot();
     }
 
-    public void OnClickButton()
+    public void SwapWith(HandleSlot other)
     {
-        // UIInventory 관련 함수 작성
-        // ex. SelectItem()
+        if (this == other) return;
+
+        if (this.item == null & other.item != null)
+        {
+            this.item = other.item;
+            this.quantity = other.quantity;
+            other.ClearSlot();
+        }
+        else if (this.item != null && other.item == null)
+        {
+            other.item = this.item;
+            other.quantity = this.quantity;
+            this.ClearSlot();
+        }
+        else
+        {
+            (this.item, other.item) = (other.item, this.item);
+            (this.quantity, other.quantity) = (other.quantity, this.quantity);
+        }
+
+        this.SetSlot();
+        other.SetSlot();
     }
 }
