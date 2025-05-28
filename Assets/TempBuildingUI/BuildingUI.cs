@@ -1,11 +1,17 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BuildingUI : BaseUI
 {
-    [SerializeField] private ItemData[] buildableItemDatas;
+    [SerializeField] private BuildingUISlot slotPrefab;
+    [SerializeField] private RectTransform itemSlotRoot;
+    [SerializeField] private RectTransform recipeSlotRoot;
+    
+    [Space(10f)]
+    [SerializeField] private ItemData[] craftingItemDatas;
 
+    
     private CanvasGroup _canvasGroup;
-
     
     private void Awake()
     {
@@ -14,7 +20,12 @@ public class BuildingUI : BaseUI
 
     public override void Init()
     {
+        for (int i = 0; i < craftingItemDatas.Length; i++)
+        {
+            //Instantiate(slotPrefab, itemSlotRoot).InitToItemSlot(craftingItemDatas[i]);
+        }
     }
+    
 
     public override void Enable()
     {
