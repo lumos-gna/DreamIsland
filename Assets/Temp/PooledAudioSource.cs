@@ -29,6 +29,8 @@ public class PooledAudioSource : MonoBehaviour, IPoolable
 
         audioSource.loop = isLoop;
         
+        audioSource.Play();
+        
         _clipCoroutine = StartCoroutine(ClipEnumerator(audioSource.clip.length));
     }
     
