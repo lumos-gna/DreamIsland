@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static UnityEditor.Progress;
@@ -6,7 +6,7 @@ using static UnityEditor.Progress;
 
 public interface PlayerState
 {
-    public void UseItem(); //¾ÆÀÌÅÛÀ» µé°í Å¬¸¯À»ÇÏ¸é ½ÇÇàµÇ´Â ÇÔ¼ö
+    public void UseItem(); //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½
 }
 
 public class AttackState : MonoBehaviour, PlayerState
@@ -17,16 +17,16 @@ public class AttackState : MonoBehaviour, PlayerState
     {
         get
         {
-            if(instance == null)
+            if (instance == null)
             {
                 instance = new AttackState();
             }
             return instance;
         }
     }
-    public void UseItem() 
+    public void UseItem()
     {
-        //°ø°Ý
+        //ï¿½ï¿½ï¿½ï¿½
     }
 }
 
@@ -47,7 +47,7 @@ public class ConsumeState : MonoBehaviour, PlayerState
     }
     public void UseItem()
     {
-        //¾ÆÀÌÅÛ »ç¿ë(¼·Ãë)
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)
     }
 }
 
@@ -68,7 +68,7 @@ public class BuildingState : MonoBehaviour, PlayerState
     }
     public void UseItem()
     {
-        //¾ÆÀÌÅÛ ¼³Ä¡(building)
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡(building)
     }
 }
 
