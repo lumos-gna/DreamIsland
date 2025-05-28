@@ -43,7 +43,7 @@ public class UIInventory : BaseUI
     }
 
     // Inventory창 Open/Close시 호출
-    public void Toggle()
+    /*public void Toggle()
     {
         if (IsOpenInventory())
         {
@@ -53,7 +53,7 @@ public class UIInventory : BaseUI
         {
             UIManager.Instance.Enable<UIInventory>();
         }
-    }
+    }*/
 
     public bool IsOpenInventory()
     {
@@ -169,7 +169,7 @@ public class UIInventory : BaseUI
         controller = CharacterManager.Instance.Player.controller;
         dropPosition = CharacterManager.Instance.Player.dropPosition;
         CharacterManager.Instance.Player.addItem += AddItem;
-        controller.inventory += Toggle;
+        //controller.inventory += Toggle;
 
         inventoryWindow.SetActive(false);
         summaryBox.SetActive(false);

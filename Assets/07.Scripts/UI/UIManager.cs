@@ -113,4 +113,11 @@ public class UIManager : Singleton<UIManager>
         return targetUI;
     }
 
+    public bool IsUIEnabled<T>() where T : BaseUI
+    {
+        string targetName = typeof(T).Name;
+
+        return _createdUIDict.ContainsKey(targetName);
+    }
+
 }

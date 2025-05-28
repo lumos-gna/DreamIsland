@@ -12,6 +12,10 @@ public class BuildingController : MonoBehaviour
     
     private bool _isBuildable;
 
+    private void Start()
+    {
+       UIManager.Instance.Enable<UIInventory>();
+    }
 
     public void Enable(BuildingObject buildingObjectPrefab)
     {
