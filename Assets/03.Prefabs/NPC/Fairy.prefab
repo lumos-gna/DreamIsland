@@ -224,6 +224,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 44403168938730999}
     m_Modifications:
+    - target: {fileID: 385234275853151615, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1df4bac4d4d9981449522b1df0077692, type: 2}
+    - target: {fileID: 385234275853151615, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2963712064847030606, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 1df4bac4d4d9981449522b1df0077692, type: 2}
+    - target: {fileID: 2963712064847030606, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3246906127246526493, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
       propertyPath: m_Name
       value: NPCUI

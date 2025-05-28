@@ -46,11 +46,11 @@ public class QuestManager : Singleton<QuestManager>
         // {
         //     AcceptQuest(0);
         // }
-        if (Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             QuestCheck(0);
         }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha8))
         {
             QuestCheck(1);
         }

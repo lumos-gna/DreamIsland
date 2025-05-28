@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1d098150d4458485b8c5770cd0a893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerController: {fileID: 0}
   npcData: {fileID: 11400000, guid: 67282f70d802bfc47a95f8b00ff222d6, type: 2}
   uiCanvas: {fileID: 2340495414870448187}
   image: {fileID: 7160204021874853609}
@@ -646,7 +647,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC694\uC815 "
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6c75743b5abe05a41a0b4bfd2eaf1dd0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1df4bac4d4d9981449522b1df0077692, type: 2}
   m_sharedMaterial: {fileID: -423317562674415061, guid: 6c75743b5abe05a41a0b4bfd2eaf1dd0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -710,7 +711,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &5326100126842968442
@@ -780,7 +781,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB098\uAC00\uAE30\n"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6c75743b5abe05a41a0b4bfd2eaf1dd0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 1df4bac4d4d9981449522b1df0077692, type: 2}
   m_sharedMaterial: {fileID: -423317562674415061, guid: 6c75743b5abe05a41a0b4bfd2eaf1dd0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -844,7 +845,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &7812271547931386106
