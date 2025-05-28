@@ -33,6 +33,7 @@ public class ItemSlot : MonoBehaviour
 
     public void OnClickButton()
     {
-
+        // UIInventory 관련 함수 작성
+        // ex. SelectItem()
     }
 }

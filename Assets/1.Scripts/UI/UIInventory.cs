@@ -11,6 +11,9 @@ public class UIInventory : MonoBehaviour
     public Transform slotPanel;
     public Transform dropPosition;
 
+    public RectTransform summaryBox;
+    //public Vector2 summaryBoxOffset = new Vector2(20f, 20f);
+
     [Header("Select Item")]
     public TextMeshProUGUI onMouseItemName;
     public TextMeshProUGUI onMouseItemDescription;
@@ -39,9 +42,18 @@ public class UIInventory : MonoBehaviour
             slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
             slots[i].index = i;
             slots[i].inventory = this;
+            slots[i].ClearSlot();
         }
 
+        // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
         ClearSelectedItemWindow();
+    }
+
+    private void Update()
+    {
+        Vector2 pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(summaryBox.parent.GetComponent<RectTransform>(), Input.mousePosition, null, out pos);
+        summaryBox.localPosition = pos;
     }
 
     private void ClearSelectedItemWindow()
@@ -71,6 +83,16 @@ public class UIInventory : MonoBehaviour
     private void AddItem()
     {
         ItemData data = CharacterManager.Instance.Player.itemData;   // player에 맞게 수정 필요
+        ItemSlot emptySlot = GetEmptySlot();
+
+        if (emptySlot != null)
+        {
+            emptySlot.item = data;
+            emptySlot.quantity = 1;
+            UpdateUI();
+            CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
+            return;
+        }
 
         if (data.canStack)
         {
@@ -85,16 +107,6 @@ public class UIInventory : MonoBehaviour
             }
         }
 
-        ItemSlot emptySlot = GetEmptySlot();
-
-        if (emptySlot != null)
-        {
-            emptySlot.item = data;
-            emptySlot.quantity = 1;
-            UpdateUI();
-            CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
-            return;
-        }
 
         ThrowItem(data);
         CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
