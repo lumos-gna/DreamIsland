@@ -5,6 +5,7 @@ using TMPro;
 
 public class NPCController: MonoBehaviour
 {
+    public PlayerController playerController;
     public NpcData npcData;
     public Canvas uiCanvas;
     public Image image;
@@ -25,7 +26,7 @@ public class NPCController: MonoBehaviour
         _buttons = new GameObject[npcData.npcDatas.Length];
     }
 
-    private void PlusButton()
+    private void PlusButton()   //대화 버튼 추가
     {
         for (int i = 0; i < npcData.npcDatas.Length; i++)
         {
@@ -78,6 +79,7 @@ public class NPCController: MonoBehaviour
     public void OnOff()  //npc와의 대화 on/off
     {
         uiCanvas.gameObject.SetActive(!uiCanvas.gameObject.activeSelf);
+        playerController.ChangeCursorState(uiCanvas.gameObject.activeSelf);
         
         if (!uiCanvas.gameObject.activeSelf)
         {
@@ -100,7 +102,7 @@ public class NPCController: MonoBehaviour
     
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space) && uiCanvas.gameObject.activeSelf)
+        if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
             if (type == dialogueType.Normal)
             {
