@@ -16,6 +16,7 @@ public abstract class ItemData : ScriptableObject
     public ItemType type;
     public string displayName;
     public string description;
+    public Sprite icon;
     public GameObject dropItemPrefab;
 
     [Header("Stack")]
