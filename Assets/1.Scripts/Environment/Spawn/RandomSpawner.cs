@@ -1,3 +1,4 @@
+// RandomSpawner.cs
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -9,61 +10,64 @@ public class RandomSpawner : MonoBehaviour
     [Header("스폰 개수")]
     public int spawnCount = 100;
 
-    [Header("스폰 반경")]
+    [Header("스폰 반경 (XZ)")]
     public float radius = 50f;
 
-    [Header("높이: 지면 위에서 떨어뜨릴 시작 Y")]
-    public float spawnHeight = 50f;
+    [Header("레이캐스트 시작 높이")]
+    public float rayOriginHeight = 100f;
 
     [Header("지형 레이캐스트 최대 거리")]
-    public float rayDistance = 100f;
+    public float rayDistance = 200f;
+
+    [Header("땅 위 Y 오프셋")]
+    public float spawnYOffset = 0.5f;
 
     [Header("부모 컨테이너")]
     public Transform parentContainer;
 
-    // 생성된 오브젝트 정보
-    public List<EnvironmentSpawnData> spawnedObjects { get; private set; } = new List<EnvironmentSpawnData>();
+    // 실제 생성된 오브젝트의 EnvironmentSpawnData 모음
+    public List<EnvironmentSpawnData> spawnedObjects { get; private set; }
+        = new List<EnvironmentSpawnData>();
+
+    // (1) 먼저 계산한 땅 위치만 저장
+    private List<Vector3> _spawnPositions = new List<Vector3>();
 
     void Start()
     {
         if (parentContainer == null)
             parentContainer = transform;
 
+        // 1) 반경 내에서 유효한 땅 위치 캐싱
+        int groundMask = LayerMask.GetMask("Ground");
         for (int i = 0; i < spawnCount; i++)
         {
-            // 반경 내 랜덤 XZ
             Vector2 rndXZ = Random.insideUnitCircle * radius;
-            Vector3 origin = new Vector3(rndXZ.x, spawnHeight, rndXZ.y) + transform.position;
+            Vector3 origin = transform.position + new Vector3(rndXZ.x, rayOriginHeight, rndXZ.y);
 
-            // 위치 걸러내기레이 재시도
-            bool valid = false;
-            Vector3 spawnPos = origin;
-            for (int attempt = 0; attempt < 5; attempt++)
+            if (Physics.Raycast(origin, Vector3.down, out var hit, rayDistance, groundMask))
             {
-                if (Physics.Raycast(origin, Vector3.down, out var hit, rayDistance))
-                {
-                    valid = true;
-                    // 살짝 위에서 떨어뜨리도록
-                    spawnPos = hit.point + Vector3.up * 2f;
-                    break;
-                }
-                // 재시도 시엔 XZ만 새로 뽑고 Y는 동일
-                rndXZ = Random.insideUnitCircle * radius;
-                origin = new Vector3(rndXZ.x, spawnHeight, rndXZ.y) + transform.position;
+                _spawnPositions.Add(hit.point);
             }
-
-            if (!valid)
+            else
             {
-                // 5번 재시도해도 안 걸리면, 기본 높이로
-                spawnPos = origin;
+                Debug.LogWarning($"[RandomSpawner] Ground 못 찾음 at {origin}");
             }
+        }
 
-            // 랜덤 프리팹 인스턴스
-            var prefab = spawnPrefabs[Random.Range(0, spawnPrefabs.Length)];
-            var go = Instantiate(prefab, spawnPos, Quaternion.Euler(0, Random.Range(0, 360), 0), parentContainer);
+        // 2) 캐시된 위치 위에 바로 생성
+        foreach (var point in _spawnPositions)
+        {
+            // 랜덤 Y 회전
+            Quaternion rot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            // 땅에서 살짝 띄워서 생성
+            Vector3 spawnPos = point + Vector3.up * spawnYOffset;
 
-            // SpawnData 붙이고, 나중에 땅에 닿은 지점을 기록하게
+            GameObject prefab = spawnPrefabs[Random.Range(0, spawnPrefabs.Length)];
+            GameObject go = Instantiate(prefab, spawnPos, rot, parentContainer);
+
+            // SpawnData 부착 및 즉시 초기화
             var sd = go.AddComponent<EnvironmentSpawnData>();
+            sd.InitializeAsLanded(point);
             spawnedObjects.Add(sd);
         }
     }
