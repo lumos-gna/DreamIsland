@@ -117,7 +117,12 @@ public class UIManager : Singleton<UIManager>
     {
         string targetName = typeof(T).Name;
 
-        return _createdUIDict.ContainsKey(targetName);
+        if (_createdUIDict.ContainsKey(targetName))
+        {
+            return _createdUIDict[targetName].gameObject.activeInHierarchy;
+        }
+        
+        return false;
     }
 
 }
