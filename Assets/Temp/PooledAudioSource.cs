@@ -1,18 +1,42 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class PooledAudioSource : MonoBehaviour
+public class PooledAudioSource : MonoBehaviour, IPoolable
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private AudioSource audioSource;
+
+    private Coroutine _clipCoroutine;
+    
+
+    public void OnSpawn()
     {
-        
+        gameObject.SetActive(true);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnDespawn()
     {
+        gameObject.SetActive(false);
+
+        if (_clipCoroutine != null)
+        {
+            StopCoroutine(_clipCoroutine);
+        }
+    }
+
+    public void OnPlay(AudioClip clip, bool isLoop)
+    {
+        audioSource.clip = clip;
+
+        audioSource.loop = isLoop;
         
+        _clipCoroutine = StartCoroutine(ClipEnumerator(audioSource.clip.length));
+    }
+    
+
+    IEnumerator ClipEnumerator(float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        
+        PoolManager.Instance.GetPool<PooledAudioSource>().Despawn(this);
     }
 }
