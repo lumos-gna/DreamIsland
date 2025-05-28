@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class BuildingController : MonoBehaviour
@@ -7,25 +7,20 @@ public class BuildingController : MonoBehaviour
 
     [SerializeField] private float rayDistance;
 
-    
-    private BuildingObject _curBuildingObject;
-    
-    private bool _isBuildable;
 
-    private void Start()
-    {
-       UIManager.Instance.Enable<UIInventory>();
-    }
+    private BuildingObject _curBuildingObject;
+
+    private bool _isBuildable;
 
     public void Enable(BuildingObject buildingObjectPrefab)
     {
         _curBuildingObject = Instantiate(buildingObjectPrefab);
-        
+
         _curBuildingObject.Init();
     }
-    
-    public void Disable() =>  Destroy(_curBuildingObject.gameObject);
-    
+
+    public void Disable() => Destroy(_curBuildingObject.gameObject);
+
 
     public bool TryBuild()
     {
@@ -50,7 +45,7 @@ public class BuildingController : MonoBehaviour
         }
 
         _isBuildable = false;
-        
+
         Ray ray = targetCamera.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
 
         if (Physics.Raycast(ray, out RaycastHit hit, rayDistance))
@@ -61,7 +56,7 @@ public class BuildingController : MonoBehaviour
 
             _isBuildable = true;
         }
-     
+
         _curBuildingObject.UpdateToBuildingState(_isBuildable);
     }
 
@@ -70,7 +65,7 @@ public class BuildingController : MonoBehaviour
     {
         if (hit.collider.TryGetComponent(out BuildingObject targetObject))
         {
-            if (targetObject.IsSnappable &&_curBuildingObject.IsSnappable)
+            if (targetObject.IsSnappable && _curBuildingObject.IsSnappable)
             {
                 BuildingSnapPoint targetSnapPoint = targetObject.GetSnapPointClosestHit(hit.point);
 
@@ -79,7 +74,7 @@ public class BuildingController : MonoBehaviour
                 if (curSnapPoint != null)
                 {
                     Vector3 offset = targetSnapPoint.transform.position - curSnapPoint.transform.position;
-                    
+
                     _curBuildingObject.transform.position += offset;
                 }
             }

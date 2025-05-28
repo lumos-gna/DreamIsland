@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -8,51 +8,83 @@ public class UIManager : Singleton<UIManager>
 {
     private const string PrefabPath = "UI/";
     private const string CanvasPrefabPath = "UI/Canvas";
-    
+
     private Dictionary<string, BaseUI> _createdUIDict = new();
-    
+
     private Dictionary<UIType, Canvas> _canvasDict = new();
 
     private List<BaseUI> _enabledPopupList = new();
-    
-    
+
+
+    public BaseUI Create<T>()
+    {
+        string targetName = typeof(T).Name;
+
+        if (_createdUIDict.ContainsKey(targetName))
+        {
+            Debug.LogError($"이미 생성된 UI : {targetName}");
+            return null;
+        }
+
+        BaseUI targetUIPrefab = Resources.Load<BaseUI>($"{PrefabPath}{targetName}");
+
+        if (targetUIPrefab == null)
+        {
+            Debug.LogError($"잘못된 프리팹 : {targetName}");
+            return null;
+        }
+
+        BaseUI targetUI = Instantiate(targetUIPrefab);
+
+        targetUI.Init();
+
+        targetUI.Disable();
+
+
+
+        UIType uiType = targetUI.UIType;
+
+        Canvas parentCanvas = _canvasDict.ContainsKey(uiType)
+            ? _canvasDict[uiType]
+            : CreateCanvas(uiType);
+
+
+        if (parentCanvas == null)
+        {
+            Debug.LogError("캔버스를 찾지 못함");
+            return null;
+        }
+
+        targetUI.transform.SetParent(parentCanvas.transform, false);
+
+
+        _createdUIDict.Add(targetName, targetUI);
+
+        return targetUI;
+    }
+
     public void Enable<T>() where T : BaseUI
     {
         string targetName = typeof(T).Name;
 
         BaseUI targetUI = null;
-        
+
         if (_createdUIDict.ContainsKey(targetName))
         {
             targetUI = _createdUIDict[targetName];
         }
         else
         {
-            targetUI = CreateUI(targetName);
+            targetUI = Create<T>();
 
             if (targetUI == null)
             {
-                Debug.LogError($"UIManager: {targetName} UI를 찾을 수 없습니다.");
-                
-                return;
-            }
-            
-            UIType uiType = targetUI.UIType;
-        
-            Canvas parentCanvas = _canvasDict.ContainsKey(uiType)
-                ? _canvasDict[uiType]
-                : CreateCanvas(uiType);
+                Debug.LogError($"{targetName} UI를 찾을 수 없음.");
 
-            if (parentCanvas == null)
-            {
-                Debug.LogError($"UIManager: Canvas를 찾을 수 없습니다.");
                 return;
             }
-        
-            targetUI.transform.SetParent(parentCanvas.transform, false);
         }
-        
-        
+
         targetUI.Enable();
 
         if (targetUI.UIType == UIType.Popup)
@@ -73,19 +105,19 @@ public class UIManager : Singleton<UIManager>
             ui.Disable();
         }
     }
-    
+
     public void DisablePopup()
     {
         if (_enabledPopupList.Count > 0)
         {
             BaseUI target = _enabledPopupList[^1];
-            
+
             target.Disable();
 
             _enabledPopupList.Remove(target);
         }
     }
-    
+
     private Canvas CreateCanvas(UIType uiType)
     {
         Canvas canvasPrefab = Resources.Load<Canvas>(CanvasPrefabPath);
@@ -102,12 +134,12 @@ public class UIManager : Singleton<UIManager>
     private BaseUI CreateUI(string targetName)
     {
         BaseUI targetUIPrefab = Resources.Load<BaseUI>($"{PrefabPath}{targetName}");
-        
+
         BaseUI targetUI = Instantiate(targetUIPrefab);
-        
+
         targetUI.Init();
 
-        
+
         _createdUIDict.Add(targetName, targetUI);
 
         return targetUI;
@@ -121,8 +153,7 @@ public class UIManager : Singleton<UIManager>
         {
             return _createdUIDict[targetName].gameObject.activeInHierarchy;
         }
-        
+
         return false;
     }
-
 }
