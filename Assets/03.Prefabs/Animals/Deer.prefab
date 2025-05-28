@@ -1057,10 +1057,10 @@ GameObject:
   - component: {fileID: 4048511148851165962}
   - component: {fileID: 930353013511821966}
   - component: {fileID: 4027066407941021010}
-  - component: {fileID: 4537210767538629226}
   - component: {fileID: 7728052908948440373}
   - component: {fileID: 9110840503457260660}
   - component: {fileID: 961703881714554315}
+  - component: {fileID: 5101787160317709363}
   m_Layer: 0
   m_Name: Deer
   m_TagString: Untagged
@@ -1132,31 +1132,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4537210767538629226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8379825277928868344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c3d349e9c4ccd64bb462be05acef99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dropItems: []
-  _player: {fileID: 1264499466488953971, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
-  _type: 1
-  _stats:
-    Health: 5
-    WalkSpeed: 2
-    RunSpeed: 5
-    DetectDistance: 3
-  _animalStats:
-    WanderCenter: {fileID: 0}
-    WanderRadius: 7
-    FleeDistance: 5
-    FleeDuration: 2
 --- !u!195 &7728052908948440373
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1206,12 +1181,37 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 2.5156546, z: 1}
   m_Center: {x: 0, y: 0.7578275, z: 0}
+--- !u!114 &5101787160317709363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8379825277928868344}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aae32b4823010a49b9c7c84dfe9272e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropItems: []
+  _player: {fileID: 0}
+  _type: 0
+  _stats:
+    Health: 5
+    WalkSpeed: 8
+    RunSpeed: 5
+    DetectDistance: 3
+  _fleeEnemyStats:
+    WanderCenterTransform: {fileID: 0}
+    WanderRadius: 10
+    FleeDistance: 5
+    FleeDuration: 2
 --- !u!1 &8700996758509704293
 GameObject:
   m_ObjectHideFlags: 0
