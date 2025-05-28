@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PoolAnimal : MonoBehaviour
+public class PoolFleeEnemy : MonoBehaviour
 {
     private float _wanderRadius;
     private Transform _wanderCenter;
     public float GetWanderRadius() => _wanderRadius;
     public Transform GetWanderCenter() => _wanderCenter;
-    public Action<PoolAnimal> OnDie; // 죽었을때 호출되는 액션
+    public Action<PoolFleeEnemy> OnDie; // 죽었을때 호출되는 액션
 
     public void Init(Transform wanderCenter, float wanderRadius)
     {

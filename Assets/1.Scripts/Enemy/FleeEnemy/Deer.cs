@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Deer : BaseEnemy
 {
-    [SerializeField] private AnimalStats _animalStats;
-    public override AnimalStats AnimalStats => _animalStats;
+    [SerializeField] private FleeEnemyStats _fleeEnemyStats;
+    public override FleeEnemyStats FleeEnemyStats => _fleeEnemyStats;
    
     // 움직이는 전체 범위 확인
     private void OnDrawGizmosSelected()
     {
-        if (_animalStats != null)
+        if (_fleeEnemyStats != null)
         {
             Gizmos.color = Color.red;
-            Gizmos.DrawWireSphere(_animalStats.WanderCenter.position, _animalStats.WanderRadius);
+            Gizmos.DrawWireSphere(_fleeEnemyStats.WanderCenterTransform.position, _fleeEnemyStats.WanderRadius);
         }
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IAttackStrategy
+public interface IRangedEnemy
 {
-    void Execute(IEnemy enemy);
+    GameObject GetProjectilePrefab();
 }

@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AttackEnemyType
+{
+    Melee,
+    Ranged,
+}
 [System.Serializable]
-public class EnemyAttackStats 
+public class AttackEnemyStats 
 {
     // 공격형 Enemy 추가 스탯
-    public Transform SpawnPositin;
+    public Transform SpawnPosition;
     public float AttackPower = 10;
-    public float AttackDistance = 5f;
+    public float CoolTime = 3f;
 }

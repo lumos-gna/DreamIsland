@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
-
-public class BaseEnemy : MonoBehaviour, IEnemy
+public enum EnemyType
+{
+    Attack,
+    Flee
+}
+public class BaseEnemy : MonoBehaviour
 {
     [SerializeField] private List<GameObject> _dropItems;
     [SerializeField] private GameObject _player;
@@ -31,8 +35,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
     public Transform GetPlayerTransform() => _player.transform;
     public EnemyType GetEnemyType() => _type;
 
-    // Animal 관련
-    public virtual AnimalStats AnimalStats => null;
+    // 스탯 관련
+    public virtual FleeEnemyStats FleeEnemyStats => null;
+    public virtual AttackEnemyStats AttackEnemyStats => null;
     #endregion
 
 
@@ -82,9 +87,9 @@ public class BaseEnemy : MonoBehaviour, IEnemy
         StartCoroutine(HitColor(_spriteRenderer)); // 피격 효과
         if (Stats.Health <= 0)
         {
-            if(TryGetComponent(out PoolAnimal poolAnimal))
+            if(TryGetComponent(out PoolFleeEnemy poolFleeEnemy))
             {
-                poolAnimal.Die();
+                poolFleeEnemy.Die();
                 DropItem();
             }
             _fsm.ChangeState(StateFactory.Get<DieState>());
