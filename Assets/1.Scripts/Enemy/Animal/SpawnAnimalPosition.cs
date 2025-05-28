@@ -26,8 +26,8 @@ public class SpawnAnimalPosition
         for (int i = 0; i < 30; i++)
         {
             // 중심 위치 기준 랜덤 위치 계산
-            Vector2 offset = Random.insideUnitCircle * radius;
-            Vector3 pos = center + new Vector3(offset.x, 0, offset.y);
+            Vector2 rand = Random.insideUnitCircle * radius;
+            Vector3 pos = center + new Vector3(rand.x, 0, rand.y);
 
             // 시야 벗어났는지 확인
             float angle = Vector3.Angle(_playerCamera.forward, (pos - _playerCamera.position).normalized); 
@@ -37,7 +37,7 @@ public class SpawnAnimalPosition
             if (angle > _fieldOfView / 2f && dist > _minDistance) 
             {
                 // NavMesh 위에 유효한 위치 인지 확인
-                if (NavMesh.SamplePosition(pos, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(pos, out NavMeshHit hit, radius, NavMesh.AllAreas))
                 {
                     // 실제 반경 안에 있는지 확인
                     if (Vector3.Distance(center, hit.position) <= radius)

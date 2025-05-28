@@ -31,7 +31,7 @@ public class MoveState : IState<BaseEnemy>
     {
         _timer += Time.deltaTime;
         
-        if (obj.GetEnemyType() == EnemyType.Enemy)
+        if (obj.GetEnemyType() == EnemyType.Attack)
         {
             // 플레이어가 범위 안에 있으면 공격 상태로 전환
             if (obj.PlayerInRange())
@@ -78,7 +78,7 @@ public class MoveState : IState<BaseEnemy>
 
     private void UpdatePath(BaseEnemy obj)
     {
-        if (obj.GetEnemyType() == EnemyType.Enemy)
+        if (obj.GetEnemyType() == EnemyType.Attack)
             UpdateEnemyPath(obj);
         else
             UpdateAnimalPath(obj);
@@ -87,10 +87,10 @@ public class MoveState : IState<BaseEnemy>
     // 적은 플레이어 위치로 경로 설정
     private void UpdateEnemyPath(BaseEnemy obj)
     {
-        Transform player = obj.GetPlayerTransform();
+        Vector3 player = obj.GetPlayerTransform().position;
         if (player != null && obj.GetAgent().isOnNavMesh)
         {
-            TrySetDestination(obj, player.position);
+            obj.TrySetDestination(player);
         }
     }
 
@@ -98,27 +98,8 @@ public class MoveState : IState<BaseEnemy>
     private void UpdateAnimalPath(BaseEnemy obj)
     {
         Vector3 center = obj.AnimalStats.WanderCenter.position; // Wander 반경 중심 위치
-        Vector2 randomCircle = Random.insideUnitCircle * obj.AnimalStats.WanderRadius;
-        Vector3 targetPos = center + new Vector3(randomCircle.x, 0, randomCircle.y);
-        TrySetDestination(obj, targetPos);
-    }
-    
-    // NavMesh에서 유요한 위치인지 체크 및 경로 설정
-    private void TrySetDestination(BaseEnemy obj, Vector3 Target)
-    {
-        NavMeshAgent agent = obj.GetAgent();
-
-        // 유효한 위치 찾기
-        if (NavMesh.SamplePosition(Target, out NavMeshHit hit, 3f, NavMesh.AllAreas))
-        {
-            NavMeshPath path = new NavMeshPath();
-            if (agent.CalculatePath(hit.position, path) && path.status == NavMeshPathStatus.PathComplete)
-            {
-                agent.SetDestination(hit.position);
-                return;
-            }
-        }
-        // 실패 시 제자리에
-        agent.SetDestination(obj.transform.position);
+        Vector2 rand = Random.insideUnitCircle * obj.AnimalStats.WanderRadius;
+        Vector3 pos = center + new Vector3(rand.x, 0, rand.y);
+        obj.TrySetDestination(pos);
     }
 }

@@ -472,11 +472,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d207f8b298dd64fb13e1a1bc203b5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poolParent: {fileID: 829722311}
+  _parent: {fileID: 0}
   _animals:
-  - Prefab: {fileID: 4936932611014981330}
+  - EnemyType: 0
+    Prefab: {fileID: 4936932611014981330}
     InitialCount: 10
-  - Prefab: {fileID: 4159969149608897596}
+  - EnemyType: 0
+    Prefab: {fileID: 4159969149608897596}
     InitialCount: 5
   _playerCamera: {fileID: 238971745}
   _fieldOfView: 0
@@ -787,7 +789,7 @@ GameObject:
   - component: {fileID: 2001251120}
   - component: {fileID: 2001251119}
   - component: {fileID: 2001251118}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -973,6 +975,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Penguin
       objectReference: {fileID: 0}
+    - target: {fileID: 7881391109744981466, guid: 9f19e8baa592ad04698849e67d6beb52, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -986,6 +992,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 961703881714554315, guid: b81052a6cd2451c49838edede891eee7, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4048511148851165962, guid: b81052a6cd2451c49838edede891eee7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1031,9 +1041,25 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2001251117}
     - target: {fileID: 4537210767538629226, guid: b81052a6cd2451c49838edede891eee7, type: 3}
+      propertyPath: _stats.RunSpeed
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537210767538629226, guid: b81052a6cd2451c49838edede891eee7, type: 3}
+      propertyPath: _stats.WalkSpeed
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537210767538629226, guid: b81052a6cd2451c49838edede891eee7, type: 3}
+      propertyPath: _stats.DetectDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4537210767538629226, guid: b81052a6cd2451c49838edede891eee7, type: 3}
       propertyPath: _animalStats.WanderCenter
       value: 
       objectReference: {fileID: 2014053157}
+    - target: {fileID: 4537210767538629226, guid: b81052a6cd2451c49838edede891eee7, type: 3}
+      propertyPath: _animalStats.WanderRadius
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 8379825277928868344, guid: b81052a6cd2451c49838edede891eee7, type: 3}
       propertyPath: m_Name
       value: Deer
