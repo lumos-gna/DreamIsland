@@ -32,7 +32,7 @@ public class BaseEnemy : MonoBehaviour
     public EnemyStats Stats => _stats;
     public StateFactory<BaseEnemy> StateFactory => _stateFactory;
     // Player는 나중에 지우기
-    public Transform GetPlayerTransform() => _player.transform;
+    public GameObject GetPlayer() => _player;
     public EnemyType GetEnemyType() => _type;
 
     // 스탯 관련
@@ -81,7 +81,7 @@ public class BaseEnemy : MonoBehaviour
     }
 
     // 적 피해 처리
-    public void TakePhysicalDamage(int damage)
+    public void TakeDamage(int damage)
     {
         Stats.Health -= damage;
         StartCoroutine(HitColor(_spriteRenderer)); // 피격 효과
@@ -109,7 +109,15 @@ public class BaseEnemy : MonoBehaviour
     public void FaceMoveDirection()
     {
         if (_agent == null || !_agent.hasPath || _agent.velocity.sqrMagnitude < 0.01f)
+        {
+            // 이동 중이 아니면 공격 상태일 수 있으니 플레이어 바라보게
+            if (GetFSM().CurrentState is EnemyAttackState)
+            {
+                FaceTarget(GetPlayer().transform.position);
+            }
             return;
+        }
+        
 
         Vector3 direction = _agent.steeringTarget - transform.position;
         direction.y = 0f;
@@ -119,12 +127,17 @@ public class BaseEnemy : MonoBehaviour
         Quaternion targetRotation = Quaternion.LookRotation(direction.normalized);
 
         float angle = Vector3.Angle(transform.forward, direction);
-        if (angle > 5f) // 일정 각도 이상 차이날 때만 회전
-        {
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1f);
-        }
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 1f);
     }
+    public void FaceTarget(Vector3 target, float turnSpeed = 5f)
+    {
+        Vector3 dir = target - transform.position;
+        dir.y = 0f;
+        if (dir.sqrMagnitude < 0.01f) return;
 
+        Quaternion targetRot = Quaternion.LookRotation(dir);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * turnSpeed);
+    }
     // 피격 효과
     private IEnumerator HitColor(SpriteRenderer spriteRenderer)
     {

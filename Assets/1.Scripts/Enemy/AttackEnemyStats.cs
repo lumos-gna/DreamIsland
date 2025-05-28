@@ -11,6 +11,7 @@ public enum AttackEnemyType
 public class AttackEnemyStats 
 {
     // 공격형 Enemy 추가 스탯
+    public AttackEnemyType AttackEnemyType;
     public Transform SpawnPosition;
     public float AttackPower = 10;
     public float CoolTime = 3f;

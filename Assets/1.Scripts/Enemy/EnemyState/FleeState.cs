@@ -45,7 +45,7 @@ public class FleeState : IState<BaseEnemy>
     {
         Vector3 center = obj.FleeEnemyStats.WanderCenterTransform.position;
         float radius = obj.FleeEnemyStats.WanderRadius;
-        Vector3 playerPos = obj.GetPlayerTransform().position;
+        Vector3 playerPos = obj.GetPlayer().transform.position;
 
         NavMeshAgent agent = obj.GetAgent();
         Vector3 bestPos = obj.transform.position;

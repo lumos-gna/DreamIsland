@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Penguin : BaseEnemy
+public class FleeEnemy : BaseEnemy
 {
     [SerializeField] private FleeEnemyStats _fleeEnemyStats;
     public override FleeEnemyStats FleeEnemyStats => _fleeEnemyStats;
