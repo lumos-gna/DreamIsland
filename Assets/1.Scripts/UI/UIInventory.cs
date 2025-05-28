@@ -66,6 +66,8 @@ public class UIInventory : MonoBehaviour
 
     private void Update()
     {
+        if (!summaryBox.activeSelf) return;
+
         Vector2 pos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(summaryBox.transform.parent.GetComponent<RectTransform>(), Input.mousePosition, null, out pos);
         summaryBox.transform.localPosition = pos;
