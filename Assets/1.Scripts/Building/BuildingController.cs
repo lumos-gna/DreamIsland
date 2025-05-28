@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class BuildingController : MonoBehaviour
@@ -10,8 +11,8 @@ public class BuildingController : MonoBehaviour
     private BuildingObject _curBuildingObject;
     
     private bool _isBuildable;
-    
-  
+
+
     public void Enable(BuildingObject buildingObjectPrefab)
     {
         _curBuildingObject = Instantiate(buildingObjectPrefab);

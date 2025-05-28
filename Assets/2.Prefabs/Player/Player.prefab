@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 537638418762493988}
   - component: {fileID: 8177274103194097540}
   - component: {fileID: 8122567902564485019}
-  m_Layer: 7
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ MonoBehaviour:
   jump: 80
   groundLayerMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 1951
   cameraContainer: {fileID: 2835958766637901398}
   minX: -85
   maxX: 85
@@ -228,13 +228,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempitems:
-  - {fileID: 7926044430429194743, guid: 36e1b63d6e93e824e901f64ea58b2134, type: 3}
-  - {fileID: 6387573538775053059, guid: 2636e65550489b6409d4e3e802694c6d, type: 3}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 11400000, guid: e6c40ae623065f942ad2337f79044077, type: 2}
+  - {fileID: 11400000, guid: 521d1253f2b4a824ab366f990021f6b8, type: 2}
+  - {fileID: 11400000, guid: fbb53bcac9738d24daeb1bc4669b6a1e, type: 2}
+  - {fileID: 11400000, guid: 3636eb7460d00d446afbc95b8cb0ab4c, type: 2}
+  - {fileID: 11400000, guid: eaf199e15ac180e43b91a1438df0d180, type: 2}
+  - {fileID: 11400000, guid: f222bc58b3a840846a53b62d750f98fd, type: 2}
+  - {fileID: 11400000, guid: c0263dc0980c0494ca0982f7580aeb43, type: 2}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -310,7 +310,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1048576
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -427,7 +427,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 247
+    m_Bits: 2047
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
