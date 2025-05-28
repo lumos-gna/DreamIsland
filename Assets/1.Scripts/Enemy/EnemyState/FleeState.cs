@@ -14,7 +14,7 @@ public class FleeState : IState<BaseEnemy>
         obj.GetAnimator()?.CrossFade("Run", 0.1f);
         obj.GetAgent().isStopped = false;
         obj.GetAgent().speed = obj.Stats.RunSpeed;
-        UpdateAnimalPath(obj);
+        UpdateFleeEnemyPath(obj);
         _timer = _pathUpdateInterval; // 바로 도망 시작
     }
     public void Update(BaseEnemy obj)
@@ -31,7 +31,7 @@ public class FleeState : IState<BaseEnemy>
         // 다음 도망 위치 업데이트
         if (_timer >= _pathUpdateInterval)
         {
-            UpdateAnimalPath(obj);
+            UpdateFleeEnemyPath(obj);
             _timer = 0f;
         }
     }
@@ -41,11 +41,11 @@ public class FleeState : IState<BaseEnemy>
     }
 
     // 최대 범위내 도망칠 수 있는 가장 먼 위치 설정
-    private void UpdateAnimalPath(BaseEnemy obj)
+    private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
-        Vector3 center = obj.AnimalStats.WanderCenter.position;
-        float radius = obj.AnimalStats.WanderRadius;
-        Vector3 playerPos = obj.GetPlayerTransform().position;
+        Vector3 center = obj.FleeEnemyStats.WanderCenterTransform.position;
+        float radius = obj.FleeEnemyStats.WanderRadius;
+        Vector3 playerPos = obj.GetPlayer().transform.position;
 
         NavMeshAgent agent = obj.GetAgent();
         Vector3 bestPos = obj.transform.position;

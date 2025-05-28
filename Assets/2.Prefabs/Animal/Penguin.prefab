@@ -657,10 +657,10 @@ GameObject:
   - component: {fileID: 2254743924103520109}
   - component: {fileID: 6877436031265110451}
   - component: {fileID: 1525814796898398150}
-  - component: {fileID: 845187767509627478}
   - component: {fileID: 6468456357363785657}
   - component: {fileID: 9188436870584112898}
   - component: {fileID: 7881391109744981466}
+  - component: {fileID: 7944086588887565448}
   m_Layer: 0
   m_Name: Penguin
   m_TagString: Untagged
@@ -732,31 +732,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &845187767509627478
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5494843661480855025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e900190c66856464aa82449babde8670, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dropItems: []
-  _player: {fileID: 8379825277928868344, guid: b81052a6cd2451c49838edede891eee7, type: 3}
-  _type: 1
-  _stats:
-    Health: 5
-    WalkSpeed: 2
-    RunSpeed: 5
-    DetectDistance: 5
-  _animalStats:
-    WanderCenter: {fileID: 0}
-    WanderRadius: 5
-    FleeDistance: 5
-    FleeDuration: 2
 --- !u!114 &6468456357363785657
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -806,12 +781,37 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 2.0031679, z: 1}
   m_Center: {x: 0, y: 0.5015838, z: 0}
+--- !u!114 &7944086588887565448
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5494843661480855025}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6aae32b4823010a49b9c7c84dfe9272e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _dropItems: []
+  _player: {fileID: 0}
+  _type: 0
+  _stats:
+    Health: 5
+    WalkSpeed: 8
+    RunSpeed: 5
+    DetectDistance: 3
+  _fleeEnemyStats:
+    WanderCenterTransform: {fileID: 0}
+    WanderRadius: 10
+    FleeDistance: 5
+    FleeDuration: 2
 --- !u!1 &5653678828527245300
 GameObject:
   m_ObjectHideFlags: 0
