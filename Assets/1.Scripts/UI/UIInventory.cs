@@ -6,12 +6,14 @@ using UnityEngine;
 public class UIInventory : MonoBehaviour
 {
     public ItemSlot[] slots;
+    public HandleSlot[] handleSlots;
 
     public GameObject inventoryWindow;
     public Transform slotPanel;
+    public Transform handleSlotPanel;
     public Transform dropPosition;
 
-    public RectTransform summaryBox;
+    public GameObject summaryBox;
     //public Vector2 summaryBoxOffset = new Vector2(20f, 20f);
 
     [Header("Select Item")]
@@ -35,14 +37,27 @@ public class UIInventory : MonoBehaviour
         CharacterManager.Instance.Player.addItem += AddItem;
 
         inventoryWindow.SetActive(false);
-        slots = new ItemSlot[slotPanel.childCount];
+        summaryBox.SetActive(false);
 
+        slots = new ItemSlot[slotPanel.childCount];
+        handleSlots = new HandleSlot[handleSlotPanel.childCount];
+
+        // 보관 아이템 슬롯
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
             slots[i].index = i;
             slots[i].inventory = this;
             slots[i].ClearSlot();
+        }
+
+        // 핸들 아이템 슬롯
+        for (int i = 0; i < handleSlots.Length; i++)
+        {
+            handleSlots[i] = handleSlotPanel.GetChild(i).GetComponent<HandleSlot>();
+            handleSlots[i].index = i;
+            handleSlots[i].inventory = this;
+            handleSlots[i].ClearSlot();
         }
 
         // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
@@ -52,11 +67,11 @@ public class UIInventory : MonoBehaviour
     private void Update()
     {
         Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(summaryBox.parent.GetComponent<RectTransform>(), Input.mousePosition, null, out pos);
-        summaryBox.localPosition = pos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(summaryBox.transform.parent.GetComponent<RectTransform>(), Input.mousePosition, null, out pos);
+        summaryBox.transform.localPosition = pos;
     }
 
-    private void ClearSelectedItemWindow()
+    public void ClearSelectedItemWindow()
     {
         onMouseItemName.text = string.Empty;
         onMouseItemDescription.text = string.Empty;
@@ -83,16 +98,6 @@ public class UIInventory : MonoBehaviour
     private void AddItem()
     {
         ItemData data = CharacterManager.Instance.Player.itemData;   // player에 맞게 수정 필요
-        ItemSlot emptySlot = GetEmptySlot();
-
-        if (emptySlot != null)
-        {
-            emptySlot.item = data;
-            emptySlot.quantity = 1;
-            UpdateUI();
-            CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
-            return;
-        }
 
         if (data.canStack)
         {
@@ -105,6 +110,17 @@ public class UIInventory : MonoBehaviour
                 CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
                 return;
             }
+        }
+
+        ItemSlot emptySlot = GetEmptySlot();
+
+        if (emptySlot != null)
+        {
+            emptySlot.item = data;
+            emptySlot.quantity = 1;
+            UpdateUI();
+            CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
+            return;
         }
 
 
@@ -123,6 +139,18 @@ public class UIInventory : MonoBehaviour
             else
             {
                 slots[i].ClearSlot();
+            }
+        }
+
+        for (int i = 0; i < handleSlots.Length; i++)
+        {
+            if (handleSlots[i].item != null)
+            {
+                handleSlots[i].SetSlot();
+            }
+            else
+            {
+                handleSlots[i].ClearSlot();
             }
         }
     }
@@ -156,5 +184,16 @@ public class UIInventory : MonoBehaviour
     private void ThrowItem(ItemData data)
     {
         Instantiate(data.dropItemPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
+    }
+
+    public void MouseOnInventoryItem(int index)
+    {
+        if (slots[index].item == null) return;
+
+        selectedItem = slots[index].item;
+        selectedItemIndex = index;
+
+        onMouseItemName.text = selectedItem.displayName;
+        onMouseItemDescription.text = selectedItem.description;
     }
 }

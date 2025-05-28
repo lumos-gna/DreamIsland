@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ItemSlot : MonoBehaviour
+public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public ItemData item;
 
@@ -29,6 +31,21 @@ public class ItemSlot : MonoBehaviour
         item = null;
         icon.gameObject.SetActive(false);
         quantityText.text = string.Empty;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (item != null)
+        {
+            inventory.summaryBox.SetActive(true);
+            inventory.MouseOnInventoryItem(index);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        inventory.summaryBox.SetActive(false);
+        inventory.ClearSelectedItemWindow();
     }
 
     public void OnClickButton()

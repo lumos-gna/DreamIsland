@@ -19,11 +19,15 @@ public class HandleSlot : MonoBehaviour
 
     public void ClearSlot()
     {
-
+        item = null;
+        icon.gameObject.SetActive(false);
+        quantityText.text = string.Empty;
     }
 
     public void SetSlot()
     {
-
+        icon.gameObject.SetActive(true);
+        icon.sprite = item.icon;
+        quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
     }
 }
