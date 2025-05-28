@@ -1252,7 +1252,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.5
+      value: -59
       objectReference: {fileID: 0}
     - target: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
       propertyPath: m_LocalPosition.z
@@ -2996,7 +2996,7 @@ MonoBehaviour:
   desertSpawnPoint: {fileID: 1342808613}
   arcticSpawnPoint: {fileID: 1136252001}
   playerTransform: {fileID: 1961392571}
-  initialRegion: 0
+  initialRegion: 1
 --- !u!4 &221858662
 Transform:
   m_ObjectHideFlags: 0
@@ -6939,11 +6939,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3360.251
+      value: -3699
       objectReference: {fileID: 0}
     - target: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.5
+      value: -149
       objectReference: {fileID: 0}
     - target: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7473,7 +7473,7 @@ GameObject:
   - component: {fileID: 538569750}
   - component: {fileID: 538569749}
   - component: {fileID: 538569748}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ForestRandomSpawner_onlytree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8782,7 +8782,7 @@ GameObject:
   - component: {fileID: 705105193}
   - component: {fileID: 705105195}
   - component: {fileID: 705105194}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArcticRandomSpawner_onlytree
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8802,7 +8802,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 806360671}
+  m_Father: {fileID: 2076123592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &705105194
 MonoBehaviour:
@@ -9481,7 +9481,7 @@ GameObject:
   - component: {fileID: 741857674}
   - component: {fileID: 741857676}
   - component: {fileID: 741857675}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArcticRandomSpawner_mini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9501,7 +9501,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 806360671}
+  m_Father: {fileID: 2076123592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &741857675
 MonoBehaviour:
@@ -10083,7 +10083,7 @@ GameObject:
   - component: {fileID: 800550577}
   - component: {fileID: 800550576}
   - component: {fileID: 800550575}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ForestRandomSpawner_mini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10190,9 +10190,7 @@ Transform:
   m_Children:
   - {fileID: 1136252001}
   - {fileID: 96132634}
-  - {fileID: 1030598154}
-  - {fileID: 741857674}
-  - {fileID: 705105193}
+  - {fileID: 2076123592}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &811654613
@@ -12860,6 +12858,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1376857617200130050, guid: 77b9c0cee7598f04daac5e32e6c4a775, type: 3}
   m_PrefabInstance: {fileID: 1025605058}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1028101758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1028101759}
+  m_Layer: 7
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1028101759
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1028101758}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1707340884}
+  - {fileID: 1159463746}
+  m_Father: {fileID: 1137846540}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1028590624
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12959,7 +12990,7 @@ GameObject:
   - component: {fileID: 1030598154}
   - component: {fileID: 1030598156}
   - component: {fileID: 1030598155}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ArcticRandomSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12979,7 +13010,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 806360671}
+  m_Father: {fileID: 2076123592}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1030598155
 MonoBehaviour:
@@ -13770,7 +13801,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3916178422055018755, guid: d2287e3c5f792ad4b8bc5e40198abc33, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.5
+      value: -4.9
       objectReference: {fileID: 0}
     - target: {fileID: 3916178422055018755, guid: d2287e3c5f792ad4b8bc5e40198abc33, type: 3}
       propertyPath: m_LocalPosition.z
@@ -14050,8 +14081,7 @@ Transform:
   m_Children:
   - {fileID: 1342808613}
   - {fileID: 61704532}
-  - {fileID: 1707340884}
-  - {fileID: 1159463746}
+  - {fileID: 1028101759}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1139027996
@@ -14289,7 +14319,7 @@ GameObject:
   - component: {fileID: 1159463746}
   - component: {fileID: 1159463748}
   - component: {fileID: 1159463747}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DesertRandomSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14309,7 +14339,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1137846540}
+  m_Father: {fileID: 1028101759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1159463747
 MonoBehaviour:
@@ -17419,7 +17449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4599450170839738484, guid: d38181afbf7a7ad4e9884a1a48488640, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 4599450170839738484, guid: d38181afbf7a7ad4e9884a1a48488640, type: 3}
       propertyPath: m_LocalPosition.z
@@ -19662,7 +19692,7 @@ GameObject:
   - component: {fileID: 1707340884}
   - component: {fileID: 1707340886}
   - component: {fileID: 1707340885}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DesertRandomSpawner_mini
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19682,7 +19712,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1137846540}
+  m_Father: {fileID: 1028101759}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1707340885
 MonoBehaviour:
@@ -20906,7 +20936,7 @@ GameObject:
   - component: {fileID: 1825797557}
   - component: {fileID: 1825797556}
   - component: {fileID: 1825797555}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ForestRandomSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23096,7 +23126,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1999771781}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23844,6 +23874,40 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 372504640}
   m_SourcePrefab: {fileID: 100100000, guid: c7554f298701d6246aaa2f004305ec1b, type: 3}
+--- !u!1 &2076123591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2076123592}
+  m_Layer: 7
+  m_Name: Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2076123592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2076123591}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1030598154}
+  - {fileID: 741857674}
+  - {fileID: 705105193}
+  m_Father: {fileID: 806360671}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &2077002692
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24351,7 +24415,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 29.5
+      value: -42
       objectReference: {fileID: 0}
     - target: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
       propertyPath: m_LocalPosition.z

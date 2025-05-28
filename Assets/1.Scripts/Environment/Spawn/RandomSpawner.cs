@@ -47,10 +47,6 @@ public class RandomSpawner : MonoBehaviour
             {
                 _spawnPositions.Add(hit.point);
             }
-            else
-            {
-                Debug.LogWarning($"[RandomSpawner] Ground 못 찾음 at {origin}");
-            }
         }
 
         // 캐시된 위치 위에 생성
