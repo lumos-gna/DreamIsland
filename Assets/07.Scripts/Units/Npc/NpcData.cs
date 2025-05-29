@@ -7,16 +7,43 @@ public class NpcData : ScriptableObject
 {
     public Sprite Sprite;   //NPC 사진
     public string text;     //대화 시작시 텍스트
-    public NPCData[] npcDatas;
+    public NPCDialog[] npcDialog;
+    public Quest[] quests;
+    private int _currentQuestIndex;
 
     public string NextText(int selectedDialogue)   //대화 텍스트 전달
     {
-        return npcDatas[selectedDialogue].GetText();
-    }
 
-    public dialogueType getDialogueType(int selectedDialogue)
-    {
-        return npcDatas[selectedDialogue].type;
+        switch (npcDialog[selectedDialogue].type)
+        {
+            case dialogueType.NORMAL:
+                
+                return npcDialog[selectedDialogue].GetText();
+
+            case dialogueType.QUEST:
+                
+                if (QuestManager.Instance.CheckClearQuest(quests[_currentQuestIndex].name))             //받았던 퀘스트 클리어시
+                {
+                    return QuestManager.Instance.QuestComplete(quests[_currentQuestIndex].name);
+                }
+                else if (QuestManager.Instance.CheckOnOffQuest(quests[_currentQuestIndex].name))           //수락한 퀘스트가 있으면
+                {
+                    return quests[_currentQuestIndex].text;
+                }
+                else      //수락한 퀘스트가 없으면
+                {
+                    _currentQuestIndex = Random.Range(0, quests.Length);
+                    QuestManager.Instance.AcceptQuest(quests[_currentQuestIndex]);                     //퀘스트 수락
+
+            
+                    return quests[_currentQuestIndex].text; 
+                }
+            
+            case dialogueType.RANDOM:
+                int random = Random.Range(0, npcDialog[selectedDialogue].npcDialogTexts.Length);
+                return npcDialog[selectedDialogue].npcDialogTexts[random].text;
+        }
+        return null;
     }
 }
 
@@ -26,17 +53,20 @@ public class NpcData : ScriptableObject
 public enum dialogueType
 {
     RANDOM,
-    Normal,
+    NORMAL,
     QUEST,
+    NONE,
 }
 
 
 [System.Serializable]
-public class NPCData
+public class NPCDialog
 {
     public dialogueType type;
     public string buttonName;
-    public NPCDialog[] npcDialog;
+    //public QuestData questData;
+    public NPCDialogText[] npcDialogTexts;
+    private int quest;
     
     private int count = -1;  //대화 순서
 
@@ -47,40 +77,13 @@ public class NPCData
 
     public string GetText()  //대화 텍스트 전달
     {
-        if (type == dialogueType.Normal)
+        count++;
+        if (count >= npcDialogTexts.Length)
         {
-            count++;
-            if (count >= npcDialog.Length)
-            {
-                return null;
-            }
+            return null;
+        }
         
-            return npcDialog[count].text; 
-        }
-        else if (type == dialogueType.QUEST)
-        {
-            if (QuestManager.Instance.CheckClearQuest() != -1)             //받았던 퀘스트 클리어시
-            {
-                return QuestManager.Instance.GetQuestText(QuestManager.Instance.CheckClearQuest());
-            }
-            else if (QuestManager.Instance.CheckOnOffQuest() != -1)           //수락한 퀘스트가 있으면
-            {
-                return npcDialog[QuestManager.Instance.CheckOnOffQuest()].text;
-            }
-            else      //수락한 퀘스트가 없으면
-            {
-                int quest = Random.Range(0, npcDialog.Length);
-                QuestManager.Instance.AcceptQuest(quest);                     //퀘스트 수락
-
-            
-                return npcDialog[quest].text; 
-            }
-        }
-        else
-        {
-            int random = Random.Range(0, npcDialog.Length);
-            return npcDialog[random].text;
-        }
+        return npcDialogTexts[count].text; 
     }
 }
 
@@ -88,7 +91,7 @@ public class NPCData
 
 
 [System.Serializable]
-public class NPCDialog
+public class NPCDialogText
 {
     public string text;
 }
