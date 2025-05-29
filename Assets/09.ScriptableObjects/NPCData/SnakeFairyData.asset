@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915396d3d934ae841b175b06346b2ce2, type: 3}
   m_Name: SnakeFairyData
   m_EditorClassIdentifier: 
-  text: "\uC548\uB155 \uB09C \uC694\uC815\uC774\uC57C"
+  text: "\uC548\uB155 \uB09C \uBC40 \uC694\uC815\uC774\uC57C"
   npcDialog:
   - type: 3
     buttonName: "\uB79C\uB364 \uD018\uC2A4\uD2B8"

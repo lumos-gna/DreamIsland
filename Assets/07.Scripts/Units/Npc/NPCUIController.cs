@@ -5,15 +5,14 @@ using TMPro;
 
 public class NPCUIController: MonoBehaviour
 {
-    public PlayerController playerController;
     public NpcData npcData;
     public Canvas uiCanvas;
-    public Image image;
     public TextMeshProUGUI dialogueText;
     public Button exitButton;
     public ButtonFactory buttonFactory;
     
     private GameObject[] _buttons;
+    private PlayerController playerController;
     private int _selectedDialogue;
     private string _questName;
     private DialogueType type;
@@ -24,6 +23,13 @@ public class NPCUIController: MonoBehaviour
     void Start()
     {
         npcData.AllReset();
+        
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            playerController = player.GetComponentInChildren<PlayerController>();
+        }
+
         exitButton.onClick.AddListener(() => OnOff());
         _buttons = new GameObject[npcData.npcDialog.Length];
     }
