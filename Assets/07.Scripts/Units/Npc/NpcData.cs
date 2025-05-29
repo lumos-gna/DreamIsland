@@ -81,6 +81,19 @@ public class NpcData : ScriptableObject
         }
         return null;
     }
+
+    public void AllReset()
+    {
+        foreach (Quest quest in quests)
+        {
+            quest.Reset();
+        }
+
+        foreach (Quest quest in randomQuests)
+        {
+            quest.Reset();
+        }
+    }
 }
 
 
@@ -127,7 +140,6 @@ public class NPCDialog
     {
         if (_count >= npcDialogTexts.Length || _count < 0)
         {
-            Debug.Log(_count);
             return true;
         }
         return npcDialogTexts[_count].exitButton;

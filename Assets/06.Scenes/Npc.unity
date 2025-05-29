@@ -14227,6 +14227,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   questList: {fileID: 1516035652}
   questCell: {fileID: 2284791254093556130, guid: a11ba761c620de949a1262007f04817e, type: 3}
+  questCellFactory: {fileID: 1516035655}
 --- !u!4 &1811993416
 Transform:
   m_ObjectHideFlags: 0

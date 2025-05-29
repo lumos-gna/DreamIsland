@@ -23,6 +23,7 @@ public class NPCUIController: MonoBehaviour
     
     void Start()
     {
+        npcData.AllReset();
         exitButton.onClick.AddListener(() => OnOff());
         _buttons = new GameObject[npcData.npcDialog.Length];
     }

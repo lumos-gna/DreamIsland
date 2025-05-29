@@ -62,19 +62,19 @@ MonoBehaviour:
   quests:
   - name: "\uD559 \uD018\uC2A4\uD2B81"
     text: "\uD559 \uD018\uC2A4\uD2B8 \uC2DC\uC791 111111"
-    uiText: 
+    uiText: "\uD559 \uD018\uC2A4\uD2B81"
     clearText: "\uD559 \uD018\uC2A4\uD2B8 \uD074\uB9AC\uC5B4 11111"
     goal: 1
     reward: 1
   - name: "\uD559 \uD018\uC2A4\uD2B82"
     text: "\uD559 \uD018\uC2A4\uD2B8 \uC2DC\uC791 2"
-    uiText: 
+    uiText: "\uD559 \uD018\uC2A4\uD2B82"
     clearText: "\uD559 \uD018\uC2A4\uD2B8 \uD074\uB9AC\uC5B4 2"
     goal: 2
     reward: 2
   - name: "\uD559 \uD018\uC2A4\uD2B83"
     text: "\uD559 \uD018\uC2A4\uD2B8 \uC2DC\uC791 3"
-    uiText: 
+    uiText: "\uD559 \uD018\uC2A4\uD2B83"
     clearText: "\uD559 \uD018\uC2A4\uD2B8 \uD074\uB9AC\uC5B4 3"
     goal: 3
     reward: 3
