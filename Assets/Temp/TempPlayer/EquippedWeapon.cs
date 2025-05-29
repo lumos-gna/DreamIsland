@@ -2,35 +2,27 @@ using UnityEngine;
 
 public class EquippedWeapon : EquippedItem
 {
-    private Animator _animator;
+    [SerializeField] private Animator animator;
+
     private Camera _camera;
     
     private WeaponItemDataSO _data;
     
     private bool _isRunning;
     
-    private static readonly int Attack = Animator.StringToHash("Attack");
+    private readonly int _attack = Animator.StringToHash("Attack");
     
     
-    public override void Equip(ItemDataSO itemData)
+    public override void Equip(GameObject user, ItemDataSO itemData)
     {
-        _animator = GetComponent<Animator>();
-        
         _camera = Camera.main;
         
-        if (itemData is WeaponItemDataSO weaponData)
-        {
-            _data = weaponData;
-        }
-        else
-        {
-            Debug.LogError("잘못된 타입");
-        }
+        _data = itemData as WeaponItemDataSO;
     }
 
     public override void UnEquip()
     {
-        throw new System.NotImplementedException();
+        
     }
 
     public override void Use()
@@ -38,7 +30,7 @@ public class EquippedWeapon : EquippedItem
         if (!_isRunning)
         {
             _isRunning = true;
-            _animator.SetTrigger(Attack);
+            animator.SetTrigger(_attack);
         }
     }
     

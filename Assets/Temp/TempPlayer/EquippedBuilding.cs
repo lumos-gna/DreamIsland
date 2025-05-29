@@ -18,7 +18,7 @@ public class EquippedBuilding : EquippedItem
         }
     }
 
-    public override void Equip(ItemDataSO itemData)
+    public override void Equip(GameObject user, ItemDataSO itemData)
     {
         _itmeData = itemData as BuildingItemDataSO;
         

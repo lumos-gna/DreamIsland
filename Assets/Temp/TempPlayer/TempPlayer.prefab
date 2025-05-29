@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7312323705117988340}
   - component: {fileID: 8177274103194097540}
   - component: {fileID: 537638418762493988}
+  - component: {fileID: 8510404904004924930}
   - component: {fileID: 8611045915953538106}
   m_Layer: 6
   m_Name: TempPlayer
@@ -218,6 +219,23 @@ MonoBehaviour:
   minX: -85
   maxX: 85
   lookSensitivity: 0.5
+  playerSound: 0
+  playerSoundInterval: 0.5
+--- !u!114 &8510404904004924930
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264499466488953971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 01ff909dd8c52744b9de0285e4cb4934, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 100
+  water: 100
+  stamina: 100
 --- !u!114 &8611045915953538106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -230,7 +248,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdf0ddede34a1141a0751c87f97a1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempItemData: {fileID: 11400000, guid: fabcde6f6e25b054999b7367adbdc4ea, type: 2}
+  tempItemData: {fileID: 11400000, guid: 76ead3dd5e139d447b31ddb41c46ce3c, type: 2}
   equipParent: {fileID: 8970102415309857414}
 --- !u!1 &2740155087384071061
 GameObject:

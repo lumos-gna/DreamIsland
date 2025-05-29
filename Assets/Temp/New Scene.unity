@@ -525,14 +525,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
-      propertyPath: m_ActionEvents.Array.data[3].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8611045915953538106, guid: 8b973eead38c94a44819425c29199237, type: 3}
       propertyPath: tempItemData
       value: 
-      objectReference: {fileID: 11400000, guid: 76ead3dd5e139d447b31ddb41c46ce3c, type: 2}
+      objectReference: {fileID: 11400000, guid: bc66814949a84ff428f07b2b32426318, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

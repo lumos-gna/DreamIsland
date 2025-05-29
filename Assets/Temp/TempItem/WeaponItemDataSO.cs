@@ -6,16 +6,17 @@ using UnityEngine;
 public class WeaponItemDataSO : ItemDataSO
 {
     public CraftingRecipe CraftingRecipe => craftingRecipe;
-
     public float Range => range;
-    
     public float UnitDamage => unitDamage;
-
     public float ObjectDamage => objectDamage;
+    
+    
     
     [Space(10f)]
     [Header("CraftInfo")]
     [SerializeField] private CraftingRecipe craftingRecipe;
+    
+    
     
     [Space(10f)]
     [Header("AttackInfo")]

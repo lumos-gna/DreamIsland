@@ -11,12 +11,12 @@ public class EquippedController : MonoBehaviour
     private void Start()
     {
         CurEquippedItem = Instantiate(tempItemData.EquipItemPrefab, equipParent);
-        CurEquippedItem.Equip(tempItemData);
+        CurEquippedItem.Equip(gameObject, tempItemData);
     }
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             CurEquippedItem.Use();
         }
