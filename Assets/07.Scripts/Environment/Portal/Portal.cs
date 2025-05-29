@@ -44,6 +44,15 @@ public class Portal : MonoBehaviour
             var p = GameObject.FindWithTag("Player");
             if (p != null) playerTransform = p.transform;
         }
+
+        if (regionManager == null)
+            regionManager = FindObjectOfType<RegionManager>();
+
+        if (playerTransform == null)
+        {
+            var p = GameObject.FindWithTag("Player");
+            if (p != null) playerTransform = p.transform;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -58,8 +67,11 @@ public class Portal : MonoBehaviour
     {
         canTeleport = false;
 
-        // 1) 플레이어 위치 이동
+        // 플레이어 위치 이동
         playerTransform.position = regionManager.GetSpawnPoint(targetRegion).position;
+
+        // regionmanager에 알림
+        regionManager.ChangeRegion(targetRegion);
 
         // 페이드 인 등 이펙트
         yield return new WaitForSeconds(cooldown);

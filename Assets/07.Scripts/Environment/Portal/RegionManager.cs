@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public enum Region { Forest, Desert, Arctic }
@@ -20,18 +21,23 @@ public class RegionManager : MonoBehaviour
     [Header("Start Region")]
     public Region initialRegion = Region.Forest;
 
-    Camera mainCam;
-    int defaultMask;
+    public Region currentRegion { get; private set; }
+    public event Action<Region> OnRegionChanged;
 
     void Start()
     {
-        mainCam = Camera.main;
-        playerTransform.position = GetSpawnPoint(initialRegion).position;
+        ChangeRegion(initialRegion, skipTeleport: true);
     }
 
-    public void SetMainCameraRegion(Region r)
+    public void ChangeRegion(Region r, bool skipTeleport = false)
     {
-        mainCam.cullingMask = -1;  
+        currentRegion = r;
+
+        // 플레이어 텔레포트
+        if (!skipTeleport)
+            playerTransform.position = GetSpawnPoint(r).position;
+
+        OnRegionChanged?.Invoke(r);
     }
 
     public Transform GetSpawnPoint(Region r)
