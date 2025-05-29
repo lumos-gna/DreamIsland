@@ -44,6 +44,11 @@ public class EquippedMelee : EquippedItem
         if (Physics.Raycast(ray, out RaycastHit hit, _data.Range))
         {
             Debug.Log("Hit");
+
+            /*if (hit.collider.TryGetComponent())
+            {
+                //대상
+            }*/
         }
     }
 
