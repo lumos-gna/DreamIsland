@@ -50,6 +50,13 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     protected virtual void Awake()
     {
         Init();
+
+        if (_player == null)
+        {
+            var found = GameObject.FindWithTag("Player");
+            if (found != null)
+                _player = found;
+        }
     }
 
     protected virtual void Start()
