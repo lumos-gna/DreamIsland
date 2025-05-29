@@ -10,6 +10,7 @@ public class QuestManager : Singleton<QuestManager>
 
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
+        questData.Reset();
         _acceptedQuestList.Add(questData);
         Debug.Log($"퀘스트 수락됨: {questData.name}");
     }
@@ -19,8 +20,8 @@ public class QuestManager : Singleton<QuestManager>
         if (SearchQuest(questName) != null)
         {
             _acceptedQuestList.Find(q => q.name == questName).PlusCount();
-            Debug.Log(questName);
         }
+        else{Debug.Log("NULL");}
     }
 
     public string QuestComplete(string questName) //퀘스트 처리 =>리스트에서 삭제
@@ -75,15 +76,15 @@ public class QuestManager : Singleton<QuestManager>
     {
         if (Input.GetKeyDown(KeyCode.G))
         {
-            QuestPlusCount("학 퀘스트1");QuestPlusCount("토끼 퀘스트1");
+            QuestPlusCount("학 랜덤 퀘스트 1");QuestPlusCount("토끼 랜덤 퀘스트1");
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            QuestPlusCount("학 퀘스트2");QuestPlusCount("토끼 퀘스트2");
+            QuestPlusCount("학 랜덤 퀘스트 2");QuestPlusCount("토끼 랜덤 퀘스트2");
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            QuestPlusCount("학 퀘스트3");QuestPlusCount("토끼 퀘스트3");
+            QuestPlusCount("학 랜덤 퀘스트 3");QuestPlusCount("토끼 랜덤 퀘스트3");
         }
     }
 }

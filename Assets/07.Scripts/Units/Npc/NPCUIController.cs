@@ -16,7 +16,7 @@ public class NPCUIController: MonoBehaviour
     private GameObject[] _buttons;
     private int _selectedDialogue;
     private string _questName;
-    private dialogueType type;
+    private DialogueType type;
     
     private float _clickDelay = 0.2f;
     private float _lastClickTime = 0f;
@@ -56,7 +56,7 @@ public class NPCUIController: MonoBehaviour
         type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
         
-        if (type == dialogueType.RANDOM || type == dialogueType.QUEST)
+        if (npcData.npcDialog[_selectedDialogue].GetExitButton())
         {
             exitButton.gameObject.SetActive(true);
         }
@@ -86,7 +86,7 @@ public class NPCUIController: MonoBehaviour
                 }
             }
 
-            type = dialogueType.NONE;
+            type = DialogueType.NONE;
         }
         else
         {
@@ -100,12 +100,9 @@ public class NPCUIController: MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
-            if (Time.time - _lastClickTime < _clickDelay) return;
-            _lastClickTime = Time.time;
 
-            if (type == dialogueType.NORMAL)
+            if (type == DialogueType.NORMAL)
             {
-                //string temp = npcData.NextText(_selectedDialogue);
                 
                 string fullText = npcData.NextText(_selectedDialogue);
 
@@ -120,11 +117,10 @@ public class NPCUIController: MonoBehaviour
                     exitButton.gameObject.SetActive(true);
                 }
             }
-            else if (type == dialogueType.QUEST)
+            else if (type == DialogueType.QUEST)
             {
                 if (!exitButton.gameObject.activeSelf)
                 {
-                    //string temp = npcData.NextText(_selectedDialogue);
                     dialogueText.text = "";
                     string fullText = npcData.NextText(_selectedDialogue);
                     dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
