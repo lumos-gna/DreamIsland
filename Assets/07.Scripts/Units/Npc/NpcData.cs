@@ -78,7 +78,6 @@ public class NPCDialog
     public string GetText()  //대화 텍스트 전달
     {
         count++;
-        Debug.Log(npcDialogTexts.Length + " / " + count);
         if (count >= npcDialogTexts.Length)
         {
             return null;
