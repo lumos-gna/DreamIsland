@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEditor.PlayerSettings;
 
 public class MoveState : IState<BaseEnemy>
 {
     private float _timer = 0f;
-    private float _pathUpdateInterval = 0.5f;// 플레이어 위치 갱신 간격
+    private float _pathUpdateTime = 0.5f;// 플레이어 위치 갱신 간격
    
     private float _waitTime = 0f; // 동시에 움직이는걸 방지하기 위한 대기 시간
     private float _minWaitTime = 1f;
@@ -16,23 +17,27 @@ public class MoveState : IState<BaseEnemy>
     private Vector3 _lastTargetPos;
     private float _updateThreshold = 0.5f;
 
+    private Transform _playerTransform;
     public void Enter(BaseEnemy obj)
     {
+        _playerTransform = obj.GetPlayer()?.transform;
         obj.GetAgent().isStopped = false;
         obj.GetAgent().speed = obj.Stats.WalkSpeed;
       
         _waitTime = Random.Range(_minWaitTime, _maxWaitTime);
-        _timer = 0f;
+        _timer = 0;
 
         obj.GetAgent().autoBraking = false;
-        obj.GetAnimator()?.CrossFade("Move", 0.1f);
+        
  
         // 경로 업데이트
         UpdatePath(obj);
+        obj.GetAnimator()?.CrossFade("Move", 0.1f);
     }
 
     public void Update(BaseEnemy obj)
     {
+        _playerTransform = obj.GetPlayer()?.transform;
         _timer += Time.deltaTime;
 
         if (obj.GetPlayer() != null && obj.PlayerInRange())
@@ -46,7 +51,6 @@ public class MoveState : IState<BaseEnemy>
 
         if (obj.GetEnemyType() == EnemyType.Attack)
         {
-
             UpdatePath(obj);
         }
         else
@@ -75,21 +79,22 @@ public class MoveState : IState<BaseEnemy>
         if (obj.GetEnemyType() == EnemyType.Attack)
             UpdateAttackEnemyPath(obj);
         else
+        {
             UpdateFleeEnemyPath(obj);
+        }
     }
 
     // 공격하는 적은 플레이어 위치로 이동
     private void UpdateAttackEnemyPath(BaseEnemy obj)
     {
-        var player = obj.GetPlayer()?.transform;
-        if (player != null && obj.GetAgent().isOnNavMesh)
+        if (_playerTransform != null && obj.GetAgent().isOnNavMesh)
         {
-            float moved = Vector3.Distance(_lastTargetPos, player.position);
+            float moved = Vector3.Distance(_lastTargetPos, _playerTransform.position);
             if (moved > _updateThreshold)
             {
-                _lastTargetPos = player.position;
+                _lastTargetPos = _playerTransform.position;
 
-                if (NavMesh.SamplePosition(player.position, out NavMeshHit hit, 1f, NavMesh.AllAreas))
+                if (NavMesh.SamplePosition(_playerTransform.position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
                 {
                     obj.GetAgent().SetDestination(hit.position);
                 }
@@ -100,7 +105,12 @@ public class MoveState : IState<BaseEnemy>
     // 도망치는 적은 랜덤 위치 이동
     private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
-        Vector3 center = obj.Stats.SpawnTransform.position;
+        // null 체크 추가 
+        var stats = obj.FleeEnemyStats;
+
+        Vector3 center = obj.transform.position;
+        float radius = stats.WanderRadius;
+
         Vector2 rand = Random.insideUnitCircle * obj.FleeEnemyStats.WanderRadius;
         Vector3 pos = center + new Vector3(rand.x, 0, rand.y);
 

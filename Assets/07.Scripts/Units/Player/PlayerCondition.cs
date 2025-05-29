@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +6,10 @@ public class PlayerCondition : MonoBehaviour
 {
     [SerializeField] private float health;
     [SerializeField] private float water;
-    [SerializeField] private float hunger;
+    [SerializeField] private float stamina;
 
-    private float DecreaseperFrame = 0.001f;
-    private float DecreaseHealth = 0.1f;
+    private float waterDecreaseperFrame = 0.001f;
+    private float thirstyDecreaseHealth = 0.1f;
     private float minf = 0f;
     private float maxf = 100f;
 
@@ -18,24 +18,19 @@ public class PlayerCondition : MonoBehaviour
     {
         health = 100f;
         water = 100f;
-        hunger = 100f;
+        stamina = 100f;
     }
 
     private void Update()
     {
-        WaterChange(-DecreaseperFrame); // ¸ñ¸¶¸§ °è¼Ó °¨¼Ò
-        HungerChange(-DecreaseperFrame); // ¹è°íÇÄ °è¼Ó °¨¼Ò
-        if (water == minf) // ¸ñ¸¶¸§ÀÌ 0ÀÌ¸é, Ã¼·Â °¨¼Ò
+        WaterChange(-waterDecreaseperFrame); // ï¿½ñ¸¶¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (water == minf) // ï¿½ñ¸¶¸ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½, Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
-            HealthChange(-DecreaseHealth);
-        }
-        if(hunger == minf)
-        {
-            HealthChange(-DecreaseHealth);
+            HealthChange(-thirstyDecreaseHealth);
         }
     }
 
-    public void HealthChange(float change) // °¢ condition º¯È­ Àû¿ë ÇÔ¼ö
+    public void HealthChange(float change) // ï¿½ï¿½ condition ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
         health = Mathf.Clamp(health + change, minf, maxf);
     }
@@ -43,9 +38,9 @@ public class PlayerCondition : MonoBehaviour
     {
         water = Mathf.Clamp(water + change, minf, maxf);
     }
-    public void HungerChange(float change)
+    public void StaminaChange(float change)
     {
-        hunger = Mathf.Clamp(hunger + change, minf, maxf);
+        stamina = Mathf.Clamp(stamina + change, minf, maxf);
     }
 
 

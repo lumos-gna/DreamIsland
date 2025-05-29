@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7691573847672030714}
   - component: {fileID: 6307088290878837270}
   - component: {fileID: 6723438944963180703}
-  - component: {fileID: 3609491227604174584}
   - component: {fileID: 8354902851204887443}
   m_Layer: 7
   m_Name: Rock_04
@@ -85,33 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!54 &3609491227604174584
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8219606833014344776}
-  serializedVersion: 4
-  m_Mass: 300
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 122
-  m_CollisionDetection: 0
 --- !u!64 &8354902851204887443
 MeshCollider:
   m_ObjectHideFlags: 0
