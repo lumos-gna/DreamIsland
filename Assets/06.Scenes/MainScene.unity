@@ -4434,7 +4434,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 827959818}
-  - {fileID: 1503751739}
   - {fileID: 1805251549}
   - {fileID: 1582317609}
   m_Father: {fileID: 0}
@@ -14837,7 +14836,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 20
 --- !u!4 &1106311419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -18200,6 +18199,10 @@ MonoBehaviour:
   nightMoonIntensity: 0.8
   minTemperature: 10
   maxTemperature: 25
+  nightBgmIndex: 1
+  forestDayBgmIndex: 0
+  desertDayBgmIndex: 2
+  arcticDayBgmIndex: 1
 --- !u!1001 &1503094195
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18303,14 +18306,14 @@ Transform:
   m_GameObject: {fileID: 1503751738}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 33.754936, y: -7.2138314, z: -4.7829504}
+  m_LocalPosition: {x: 0.46100616, y: -7.2138314, z: 3.644576}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1499980987}
   - {fileID: 705507995}
   - {fileID: 1667832069}
-  m_Father: {fileID: 336643496}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1506813441
 PrefabInstance:
@@ -25638,6 +25641,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 463601009}
+  - {fileID: 1503751739}
   - {fileID: 336643496}
   - {fileID: 806360671}
   - {fileID: 1137846540}
