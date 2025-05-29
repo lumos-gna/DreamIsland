@@ -36,6 +36,7 @@ public class Quest
                 _clear = true; _count = 0;
             }
         }
+        else{Debug.Log(_clear);}
     }
 
     public bool Clear(){return _clear;} 

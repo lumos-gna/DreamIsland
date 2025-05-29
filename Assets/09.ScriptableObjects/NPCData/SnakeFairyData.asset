@@ -12,11 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915396d3d934ae841b175b06346b2ce2, type: 3}
   m_Name: SnakeFairyData
   m_EditorClassIdentifier: 
-  Sprite: {fileID: 21300000, guid: b1c5d1b49680bfe4d9723cc0e72a367c, type: 3}
   text: "\uC548\uB155 \uB09C \uC694\uC815\uC774\uC57C"
   npcDialog:
-  - type: 2
-    buttonName: "\uD018\uC2A4\uD2B8"
+  - type: 3
+    buttonName: "\uB79C\uB364 \uD018\uC2A4\uD2B8"
     npcDialogTexts:
     - text: "\uD018\uC2A4\uD2B8"
   - type: 0
@@ -30,6 +29,25 @@ MonoBehaviour:
     - text: "wasd \uC774\uB3D9"
     - text: "\uC2A4\uD398\uC774\uC2A4 \uBC14\uB85C \uC810\uD504"
     - text: "\uBC40\uC694\uC815\uC774\uC57C"
+  randomQuests:
+  - name: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 1"
+    text: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 1"
+    uiText: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 1"
+    clearText: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 \uD074\uB9AC\uC5B4 1"
+    goal: 1
+    reward: 1
+  - name: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 2"
+    text: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 2"
+    uiText: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 2"
+    clearText: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 \uD074\uB9AC\uC5B4 2"
+    goal: 2
+    reward: 2
+  - name: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 3"
+    text: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 3"
+    uiText: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 3"
+    clearText: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 \uD074\uB9AC\uC5B4 3"
+    goal: 3
+    reward: 3
   quests:
   - name: "\uBC40 \uD018\uC2A4\uD2B81"
     text: "\uBC40 \uD018\uC2A4\uD2B8 \uC2DC\uC791 111111"

@@ -11,7 +11,6 @@ public class NpcManager : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //npcController.dialogueText.text = npcController.npcData.text;
             npcController.dialogueText.text = "";
             string fullText = npcController.npcData.text;
             npcController.dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
