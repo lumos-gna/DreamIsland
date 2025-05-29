@@ -1759,17 +1759,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4208458315195486, guid: c96016c34e7be62488e588470988ef5b, type: 3}
   m_PrefabInstance: {fileID: 196221170}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &212799824 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 537638418762493988, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
-  m_PrefabInstance: {fileID: 1280137611}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a076413f8e7a0bb4b88bbfec50611d33, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &227332207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15956,7 +15945,7 @@ PrefabInstance:
     - target: {fileID: 6773563038496482929, guid: fad9ba92852ddd349838faa68c65330f, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 212799824}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17024,7 +17013,7 @@ PrefabInstance:
     - target: {fileID: 1479165947397599617, guid: e1911cef6c594b54d8f8f0e3a80497d6, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 212799824}
+      objectReference: {fileID: 0}
     - target: {fileID: 4169797726223508831, guid: e1911cef6c594b54d8f8f0e3a80497d6, type: 3}
       propertyPath: m_Name
       value: RabbitFairy
@@ -17133,7 +17122,7 @@ PrefabInstance:
     - target: {fileID: 8457011375598569382, guid: 0522305b855a5d149bbc641b37695598, type: 3}
       propertyPath: playerController
       value: 
-      objectReference: {fileID: 212799824}
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
