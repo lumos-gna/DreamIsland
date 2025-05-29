@@ -14,7 +14,7 @@ public class EnemyManager : MonoBehaviour
 
     private void Start()
     {
-        _spawnPosition = new SpawnPosition(_playerCamera, _fieldOfView);
+        //_spawnPosition = new SpawnPosition(_playerCamera, _fieldOfView);
 
         // 적 종류별로 초기 수만큼 스폰
         foreach (var enemy in _enemies)
@@ -39,23 +39,23 @@ public class EnemyManager : MonoBehaviour
         }
 
         // 위치 재배치
-        Vector3 pos = _spawnPosition.GetSpawnPosition(poolFleeEnemy.GetWanderCenter().position, poolFleeEnemy.GetWanderRadius());
-        poolFleeEnemy.transform.position = pos;
+        /*Vector3 pos = _spawnPosition.GetSpawnPosition(poolFleeEnemy.GetWanderCenter().position, poolFleeEnemy.GetWanderRadius());
+        poolFleeEnemy.transform.position = pos;*/
     }
 
 
     // 밤에 모든 적 비활성화
     public void OnDespawnAllEnemies()
     {
-        foreach (var enemy in _activeEnemies)
-            enemy.OnDespawn();
+        /*foreach (var enemy in _activeEnemies)
+            enemy.OnDespawn();*/
     }
 
     // 아침에 모든  활성화
     public void OnSpawnAllEnemies()
     {
-        foreach (var enemy in _activeEnemies)
-            enemy.OnSpawn();
+        /*foreach (var enemy in _activeEnemies)
+            enemy.OnSpawn();*/
     }
 
 }

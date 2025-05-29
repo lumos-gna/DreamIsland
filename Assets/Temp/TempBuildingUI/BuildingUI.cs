@@ -1,31 +1,31 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class BuildingUI : BaseUI
 {
     [SerializeField] private BuildingUISlot slotPrefab;
+    [SerializeField] private BuildingUIRecipeSlot reicpeSlotPrefab;
     [SerializeField] private RectTransform itemSlotRoot;
     [SerializeField] private RectTransform recipeSlotRoot;
     
     [Space(10f)]
-    [SerializeField] private ItemData[] craftingItemDatas;
+    [SerializeField] private ItemDataTable buildingItemDataTable;
 
-    
+
+    private BuildingUISlot _selectedSlot;
     private CanvasGroup _canvasGroup;
-    
+
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
     }
 
-    public override void Init()
+    private void Start()
     {
-        for (int i = 0; i < craftingItemDatas.Length; i++)
-        {
-            //Instantiate(slotPrefab, itemSlotRoot).InitToItemSlot(craftingItemDatas[i]);
-        }
+        Init();
+        Enable();
     }
-    
 
     public override void Enable()
     {
@@ -37,5 +37,38 @@ public class BuildingUI : BaseUI
     {
         _canvasGroup.alpha = 0;
         _canvasGroup.blocksRaycasts = false;
+    }
+
+    public override void Init()
+    {
+        var slotPool = PoolManager.Instance.CreatePool(slotPrefab);
+        var recipePool = PoolManager.Instance.CreatePool(reicpeSlotPrefab);
+        
+        for (int i = 0; i < buildingItemDataTable.ItemDatas.Length; i++)
+        {
+            var targetItem = new ItemInstance(buildingItemDataTable.ItemDatas[i]);
+
+            var targetSlot = slotPool.Spawn(itemSlotRoot);
+            
+            targetSlot.Init(targetItem, () =>
+            {
+                _selectedSlot = targetSlot;
+                
+                ShowRecipe(recipePool, targetItem.GetRecipe());
+            });
+        }
+    }
+
+    public void ShowRecipe(ObjectPool<BuildingUIRecipeSlot> targetPool, CraftingRecipe recipe)
+    {
+        targetPool.DespawnAll();
+       
+        for (int i = 0; i < recipe.neededItem.Count; i++)
+        {
+            var targetSlot = targetPool.Spawn(recipeSlotRoot);
+            
+            targetSlot.Init(new ItemInstance(recipe.neededItem[i].data), recipe.neededItem[i].amount);
+            
+        }
     }
 }
