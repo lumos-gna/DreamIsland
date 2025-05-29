@@ -9,7 +9,7 @@ public class PoolManager : Singleton<PoolManager>
 
     public ObjectPool<T> CreatePool<T>(T prefab) where T : Component, IPoolable
     {
-        string targetName = typeof(T).Name;
+        string targetName = prefab.gameObject.name;
         
         if (!_poolDict.ContainsKey(targetName))
         {
@@ -23,13 +23,11 @@ public class PoolManager : Singleton<PoolManager>
         return null;
     }
     
-    public ObjectPool<T> GetPool<T>() where T : Component, IPoolable
+    public ObjectPool<T> GetPool<T>(string key) where T : Component, IPoolable
     {
-        string targetName = typeof(T).Name;
-
-        if (_poolDict.ContainsKey(targetName))
+        if (_poolDict.ContainsKey(key))
         {
-            return (ObjectPool<T>)_poolDict[targetName];
+            return (ObjectPool<T>)_poolDict[key];
         }
 
         return null;
