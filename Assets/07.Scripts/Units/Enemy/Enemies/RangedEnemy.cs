@@ -6,23 +6,32 @@ using UnityEngine;
 public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
 {
     [SerializeField] private AttackEnemyStats _attackStats;
+    [SerializeField] float _hitPower = 2f;
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private Transform _projectileSpawnPoint;
     [SerializeField] private float _throwPower;
+    
     public override AttackEnemyStats AttackEnemyStats => _attackStats;
 
     public GameObject GetProjectilePrefab() => _projectilePrefab;
     public Transform GetProjectileSpawnPoint() => _projectileSpawnPoint;
-
+    private bool isMeleeAttack;
 
     public void RangedAttack()
     {
         ThrowProjectile();
-        // 플레이어 맞는 로직
+        if (GetPlayer().TryGetComponent<PlayerCondition>(out var player))
+        {
+           player.HealthChange(_attackStats.AttackPower);
+        }
     }
     public void MeleeAttack()
     {
-        // 플레이 맞는 로직
+        isMeleeAttack = true;
+        if (GetPlayer().TryGetComponent<PlayerCondition>(out var player))
+        {
+            player.HealthChange(_hitPower);
+        }
     }
 
     public void ThrowProjectile()

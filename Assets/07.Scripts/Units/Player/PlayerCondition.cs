@@ -1,4 +1,4 @@
-using System.Collections;
+癤퓎sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,10 +6,10 @@ public class PlayerCondition : MonoBehaviour
 {
     [SerializeField] private float health;
     [SerializeField] private float water;
-    [SerializeField] private float hunger;
+    [SerializeField] private float stamina;
 
-    private float DecreaseperFrame = 0.001f;
-    private float DecreaseHealth = 0.1f;
+    private float waterDecreaseperFrame = 0.001f;
+    private float thirstyDecreaseHealth = 0.1f;
     private float minf = 0f;
     private float maxf = 100f;
 
@@ -18,24 +18,19 @@ public class PlayerCondition : MonoBehaviour
     {
         health = 100f;
         water = 100f;
-        hunger = 100f;
+        stamina = 100f;
     }
 
     private void Update()
     {
-        WaterChange(-DecreaseperFrame); // 목마름 계속 감소
-        HungerChange(-DecreaseperFrame); // 배고픔 계속 감소
-        if (water == minf) // 목마름이 0이면, 체력 감소
+        WaterChange(-waterDecreaseperFrame); 
+        if (water == minf) 
         {
-            HealthChange(-DecreaseHealth);
-        }
-        if(hunger == minf)
-        {
-            HealthChange(-DecreaseHealth);
+            HealthChange(-thirstyDecreaseHealth);
         }
     }
 
-    public void HealthChange(float change) // 각 condition 변화 적용 함수
+    public void HealthChange(float change) 
     {
         health = Mathf.Clamp(health + change, minf, maxf);
     }
@@ -43,9 +38,9 @@ public class PlayerCondition : MonoBehaviour
     {
         water = Mathf.Clamp(water + change, minf, maxf);
     }
-    public void HungerChange(float change)
+    public void StaminaChange(float change)
     {
-        hunger = Mathf.Clamp(hunger + change, minf, maxf);
+        stamina = Mathf.Clamp(stamina + change, minf, maxf);
     }
 
 

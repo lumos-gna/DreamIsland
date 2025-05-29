@@ -42,10 +42,17 @@ public class FleeState : IState<BaseEnemy>
 
     private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
+        // 현재 위치로 변경
+        Vector3 center = obj.transform.position;
 
-        Vector3 center = obj.Stats.SpawnTransform.position;
-        float radius = obj.FleeEnemyStats.WanderRadius;
-        Vector3 playerPos = obj.GetPlayer().transform.position;
+        float radius = 0f;
+        if (obj.FleeEnemyStats != null)
+            radius = obj.FleeEnemyStats.WanderRadius;
+
+        // 플레이어 참조 널 체크
+        GameObject playerGO = obj.GetPlayer();
+        if (obj.GetPlayer() == null) return; 
+        Vector3 playerPos = playerGO.transform.position;
 
         NavMeshAgent agent = obj.GetAgent();
         Vector3 bestPos = obj.transform.position;

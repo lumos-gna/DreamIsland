@@ -14,20 +14,18 @@ public enum EnemyType
 public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 {
     [SerializeField] private List<GameObject> _dropItems;
-    [SerializeField] private GameObject _player;
     [SerializeField] private EnemyType _type;
-    [SerializeField] private EnemyStats _stats; // Enemy 스택 데이터들
+    [SerializeField] private EnemyStats _stats; // Enemy 스텟 데이터들
 
     private NavMeshAgent _agent;
     private Animator _animator;
-  
+    private GameObject _player;
     private StateMachine<BaseEnemy> _fsm; 
     private StateFactory<BaseEnemy> _stateFactory; // 상태들 캐싱
 
-    // 피격용
-    private SpriteRenderer _spriteRenderer;
-    private bool _isHit;
 
+    // 피격용
+    private EnemyHealth _enemyHealth;
     public event System.Action<IPoolableEnemy> OnDie;
 
     #region Getters
@@ -50,6 +48,13 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     protected virtual void Awake()
     {
         Init();
+        _player = PlayerManager.Instance._Player.gameObject;
+        if (_player == null)
+        {
+            var found = GameObject.FindWithTag("Player");
+            if (found != null)
+                _player = found;
+        }
     }
 
     protected virtual void Start()
@@ -58,6 +63,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             _fsm.ChangeState(StateFactory.Get<MoveState>());
         else
             _fsm.ChangeState(StateFactory.Get<IdleState>());
+
     }
 
     protected virtual void Update()
@@ -73,8 +79,18 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         _animator = GetComponentInChildren<Animator>();
         _fsm = new StateMachine<BaseEnemy>(this);
         _stateFactory = new StateFactory<BaseEnemy>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _enemyHealth = GetComponent<EnemyHealth>();
     }
+
+    //스폰 혹은 리스폰 직후 FSM을 최초 진입 상태로 되돌림
+    public void ResetState()
+    {
+        if (_type == EnemyType.Attack)
+            _fsm.ChangeState(StateFactory.Get<MoveState>());
+        else
+            _fsm.ChangeState(StateFactory.Get<IdleState>());
+    }
+
 
     // 플레이어 범위 안에 있는지 체크
     public bool PlayerInRange()
@@ -95,14 +111,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     // 적 피해 처리
     public void TakeDamage(int damage)
     {
-        Stats.Health -= damage;
-        StartCoroutine(HitColor(_spriteRenderer)); // 피격 효과
-        if (Stats.Health <= 0)
-        {
-            Die();
-            DropItem();
-            _fsm.ChangeState(StateFactory.Get<DieState>());
-        }
+        _enemyHealth.ApplyDamage(damage);
     }
 
     // 적 사망시 아이템 드롭 처리
@@ -138,18 +147,6 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 
         Quaternion targetRot = Quaternion.LookRotation(dir);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * turnSpeed);
-    }
-    // 피격 효과
-    private IEnumerator HitColor(SpriteRenderer spriteRenderer)
-    {
-        _isHit = true;
-        Color original = _spriteRenderer.color;
-        _spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        _spriteRenderer.color = Color.white;
-        yield return new WaitForSeconds(0.1f);
-        _spriteRenderer.color = original;
-        _isHit = false;
     }
 
     // NavMesh에서 유요한 위치인지 체크 및 경로 설정
