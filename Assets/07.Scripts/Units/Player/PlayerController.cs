@@ -39,6 +39,11 @@ public class PlayerController : MonoBehaviour
             _player = value;
         }
     }
+
+    public bool Canlook
+    {
+        get { return canlook; }
+    }
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -105,6 +110,25 @@ public class PlayerController : MonoBehaviour
         Vector3 capsuleBottom = transform.position + capsuleCollider.center - Vector3.up * (capsuleCollider.height / 2 - capsuleCollider.radius);
         float checkradius = 0.5f;
         return Physics.CheckSphere(capsuleBottom, checkradius, groundLayerMask);
+    }
+
+    public void OnInventory(InputAction.CallbackContext context) // 인벤토리
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            var uiManager = UIManager.Instance;
+
+            if (uiManager.IsUIEnabled<InventoryUI>())
+            {
+                uiManager.Disable<InventoryUI>();
+                ChangeCursorState(false);
+            }
+            else
+            {
+                uiManager.Enable<InventoryUI>();
+                ChangeCursorState(true);
+            }
+        }
     }
 
     public void ChangeCursorState(bool ispopon) // 커서 상태 변경(인벤토리 열었을때?)
