@@ -3,9 +3,8 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "WeaponItemData", menuName = "ScriptableObjects/Temp/Weapon Item Data")]
-public class WeaponItemDataSO : ItemDataSO, ICraftable, IAttackable
+public class WeaponItemDataSO : ItemDataSO
 {
-    
     public CraftingRecipe CraftingRecipe => craftingRecipe;
 
     public float Range => range;

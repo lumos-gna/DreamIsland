@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b365d2e70920c4c877295086230227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coll: {fileID: 5182149312323481754}
   meshRenderer: {fileID: 3337846749969792679}
   builtMaterial: {fileID: 2100000, guid: a0efa19cb40c65541bcde6306d1df1d4, type: 2}
   fadeMaterial: {fileID: 2100000, guid: ae28ba8af2a29aa48a47b2581324ad42, type: 2}

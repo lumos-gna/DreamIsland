@@ -17,8 +17,10 @@ MonoBehaviour:
   maxStackCount: 99
   icon: {fileID: 0}
   dropItemPrefab: {fileID: 0}
+  equipItemPrefab: {fileID: 3110779754353851885, guid: 402ca9592bd76b5478249b0e7eb5cca6, type: 3}
   craftingRecipe:
     neededItem:
     - data: {fileID: 11400000, guid: 93555b4b9d56c38409083c21d5087e58, type: 2}
       amount: 1
     resultItemData: {fileID: 11400000, guid: 93555b4b9d56c38409083c21d5087e58, type: 2}
+  buildingObjectPrefab: {fileID: 9051480812400006196, guid: e6f805b19a714074081b6c631c18d4a7, type: 3}

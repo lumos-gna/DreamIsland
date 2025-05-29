@@ -4,17 +4,8 @@ using UnityEngine;
 
 public abstract class EquippedItem : MonoBehaviour
 {
-    protected Animator _animator;
-    protected Camera _camera;
-
-    protected void Awake()
-    {
-        _animator = GetComponent<Animator>();
-        _camera = Camera.main;
-    }
-
-    public abstract void Init(ItemDataSO itemDataSO);
-    
+    public abstract void Equip(ItemDataSO itemData);
+    public abstract void UnEquip();
     public abstract void Use();
     
 }

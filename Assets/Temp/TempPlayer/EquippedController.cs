@@ -11,14 +11,15 @@ public class EquippedController : MonoBehaviour
     private void Start()
     {
         CurEquippedItem = Instantiate(tempItemData.EquipItemPrefab, equipParent);
-        CurEquippedItem.Init(tempItemData);
+        CurEquippedItem.Equip(tempItemData);
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetMouseButtonDown(0))
         {
             CurEquippedItem.Use();
         }
+       
     }
 }

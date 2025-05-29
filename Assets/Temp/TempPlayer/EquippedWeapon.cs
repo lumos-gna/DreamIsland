@@ -2,6 +2,9 @@ using UnityEngine;
 
 public class EquippedWeapon : EquippedItem
 {
+    private Animator _animator;
+    private Camera _camera;
+    
     private WeaponItemDataSO _data;
     
     private bool _isRunning;
@@ -9,9 +12,13 @@ public class EquippedWeapon : EquippedItem
     private static readonly int Attack = Animator.StringToHash("Attack");
     
     
-    public override void Init(ItemDataSO itemDataSO)
+    public override void Equip(ItemDataSO itemData)
     {
-        if (itemDataSO is WeaponItemDataSO weaponData)
+        _animator = GetComponent<Animator>();
+        
+        _camera = Camera.main;
+        
+        if (itemData is WeaponItemDataSO weaponData)
         {
             _data = weaponData;
         }
@@ -19,7 +26,11 @@ public class EquippedWeapon : EquippedItem
         {
             Debug.LogError("잘못된 타입");
         }
+    }
 
+    public override void UnEquip()
+    {
+        throw new System.NotImplementedException();
     }
 
     public override void Use()
