@@ -44,6 +44,15 @@ public class Portal : MonoBehaviour
             var p = GameObject.FindWithTag("Player");
             if (p != null) playerTransform = p.transform;
         }
+
+        if (regionManager == null)
+            regionManager = FindObjectOfType<RegionManager>();
+
+        if (playerTransform == null)
+        {
+            var p = GameObject.FindWithTag("Player");
+            if (p != null) playerTransform = p.transform;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -58,8 +67,27 @@ public class Portal : MonoBehaviour
     {
         canTeleport = false;
 
-        // 1) 플레이어 위치 이동
+        // 플레이어 위치 이동
         playerTransform.position = regionManager.GetSpawnPoint(targetRegion).position;
+
+        // regionmanager에 알림
+        regionManager.ChangeRegion(targetRegion);
+
+        if (DayNightCycle.IsDay)
+        {
+            int dayIndex = 0;
+            switch (targetRegion)
+            {
+                case Region.Forest: dayIndex = 0; break; // AudioManager.bgmClips[0] = Forest
+                case Region.Desert: dayIndex = 2; break; // AudioManager.bgmClips[2] = Desert
+                case Region.Arctic: dayIndex = 1; break; // AudioManager.bgmClips[1] = Arctic
+            }
+            AudioManager.PlayBackgroundMusic(dayIndex, loop: true);
+        }
+        else
+        {
+            AudioManager.PlayBackgroundMusic(3, loop: true); // AudioManager.bgmClips[3] = Night
+        }
 
         // 페이드 인 등 이펙트
         yield return new WaitForSeconds(cooldown);
