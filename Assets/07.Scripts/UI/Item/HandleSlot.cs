@@ -152,6 +152,9 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         this.SetSlot();
         other.SetSlot();
+
+        inventory.UpdateHandleSlotModel(index, item, quantity);
+        inventory.UpdateItemSlotModel(other.index, other.item, other.quantity);
     }
 
     public void SwapWith(HandleSlot other)
@@ -184,5 +187,8 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         this.SetSlot();
         other.SetSlot();
+
+        inventory.UpdateHandleSlotModel(other.index, other.item, other.quantity);
+        inventory.UpdateItemSlotModel(index, item, quantity);
     }
 }

@@ -110,43 +110,6 @@ public class UIInventory : BaseUI
         player.itemData = null;
     }
 
-    //public bool IsOpenInventory()
-    //{
-    //    return inventoryWindow.activeInHierarchy;
-    //}
-
-    //private void AddItem()
-    //{
-    //    ItemData data = CharacterManager.Instance.Player.itemData;   // player에 맞게 수정 필요
-
-    //    if (data.canStack)
-    //    {
-    //        ItemSlot slot = GetItemStack(data);
-
-    //        if (slot != null)
-    //        {
-    //            slot.quantity++;
-    //            UpdateUI();
-    //            CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
-    //            return;
-    //        }
-    //    }
-
-    //    ItemSlot emptySlot = GetEmptySlot();
-
-    //    if (emptySlot != null)
-    //    {
-    //        emptySlot.item = data;
-    //        emptySlot.quantity = 1;
-    //        UpdateUI();
-    //        CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
-    //        return;
-    //    }
-
-    //    //ThrowItem(data);
-    //    CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
-    //}
-
     private void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
@@ -180,35 +143,17 @@ public class UIInventory : BaseUI
         }
     }
 
-    //public ItemSlot GetItemStack(ItemData data)
-    //{
-    //    for (int i = 0; i < slots.Length; i++)
-    //    {
-    //        if (slots[i].item == data && slots[i].quantity < data.maxStackCount)
-    //        {
-    //            return slots[i];
-    //        }
-    //    }
+    public void UpdateHandleSlotModel(int index, ItemData item, int quantity)
+    {
+        if (index < 0 || index >= model.handleSlots.Length) return;
+        model.handleSlots[index].item = item;
+        model.handleSlots[index].quantity = quantity;
+    }
 
-    //    return null;
-    //}
-
-    //private ItemSlot GetEmptySlot()
-    //{
-    //    for (int i = 0; i < slots.Length; i++)
-    //    {
-    //        if (slots[i].item == null)
-    //        {
-    //            return slots[i];
-    //        }
-    //    }
-
-    //    return null;
-    //}
-
-    // 아이템 버릴 때 사용할 메서드
-    //private void ThrowItem(ItemData data)
-    //{
-    //    Instantiate(data.dropItemPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
-    //}
+    public void UpdateItemSlotModel(int index, ItemData item, int quantity)
+    {
+        if (index < 0 || index >= model.itemSlots.Length) return;
+        model.itemSlots[index].item = item;
+        model.itemSlots[index].quantity = quantity;
+    }
 }

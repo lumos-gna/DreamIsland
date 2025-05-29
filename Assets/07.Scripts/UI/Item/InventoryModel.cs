@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InventoryModel
 {
-    public ItemSlotData[] itemSlots;        // 일반 인벤토리
+    public ItemSlotData[] itemSlots;      // 일반 인벤토리
     public ItemSlotData[] handleSlots;    // 인벤토리 내 퀵슬롯
 
     public InventoryModel(int itemSlotCount, int handleSlotCount)
@@ -26,33 +26,21 @@ public class InventoryModel
 
     public void AddItem(ItemData data)
     {
-        // HandleSlot에 먼저 스택할 수 있는 슬롯이 있는지 확인
-        foreach (var slot in handleSlots)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (slot.item == data && slot.quantity < data.maxStackCount)
+            if (itemSlots[i].item == data && itemSlots[i].quantity < data.maxStackCount)
             {
-                slot.quantity++;
+                itemSlots[i].quantity++;
                 return;
             }
         }
 
-        // ItemSlot에도 스택할 수 있는 슬롯이 있는지 확인
-        foreach (var slot in itemSlots)
+        for (int i = 0; i < itemSlots.Length; i++)
         {
-            if (slot.item == data && slot.quantity < data.maxStackCount)
+            if (itemSlots[i].item == null)
             {
-                slot.quantity++;
-                return;
-            }
-        }
-
-        // 빈 슬롯을 찾고 아이템 추가
-        foreach (var slot in itemSlots)
-        {
-            if (slot.item == null)
-            {
-                slot.item = data;
-                slot.quantity = 1;
+                itemSlots[i].item = data;
+                itemSlots[i].quantity = 1;
                 return;
             }
         }
