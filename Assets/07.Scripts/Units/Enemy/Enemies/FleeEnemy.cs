@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FleeEnemy : BaseEnemy
+public class FleeEnemy : BaseEnemy, IPoolableEnemy
 {
     [SerializeField] FleeEnemyStats _fleeStats;
     public override FleeEnemyStats FleeEnemyStats => _fleeStats;
@@ -11,18 +11,17 @@ public class FleeEnemy : BaseEnemy
     {
         base.Awake();
         // FleeEnemyStats.WanderCenter가 비어 있으면 Player의 Transform으로 채워주기
-        if (_fleeStats.WanderCenter == null)
+        if (Stats.SpawnTransform == null)
         {
-            GameObject playerObj = GetPlayer();
-            if (playerObj != null)
+            if (GetPlayer() != null)
             {
-                _fleeStats.WanderCenter = playerObj.transform;
+                Stats.SpawnTransform = GetPlayer().transform;
             }
             else
             {
                 var found = GameObject.FindWithTag("Player");
                 if (found != null)
-                    _fleeStats.WanderCenter = found.transform;
+                    Stats.SpawnTransform = found.transform;
             }
         }
     }
@@ -33,6 +32,6 @@ public class FleeEnemy : BaseEnemy
 
         // 도망 반경 시각화
         if(_fleeStats != null)
-            Gizmos.DrawWireSphere(_fleeStats.WanderCenter.position, _fleeStats.WanderRadius);
+            Gizmos.DrawWireSphere(transform.position, _fleeStats.WanderRadius);
     }
 }

@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FleeState : IState<BaseEnemy>
 {
     private float _timer;
-    private float _pathUpdateInterval = 0.5f;
+    private float _pathUpdateInterval = 1.5f;
+    private const float MinFleeDistanceThreshold = 1.0f;
     public void Enter(BaseEnemy obj)
     {
         obj.GetAnimator()?.CrossFade("Run", 0.1f);
         obj.GetAgent().isStopped = false;
         obj.GetAgent().speed = obj.Stats.RunSpeed;
         UpdateFleeEnemyPath(obj);
-        _timer = _pathUpdateInterval; // 바로 도망 시작
+        _timer = 0f; // 타이머 초기화 (주기적 업데이트를 위해)
     }
     public void Update(BaseEnemy obj)
     {
@@ -40,11 +40,10 @@ public class FleeState : IState<BaseEnemy>
         obj.GetAgent().isStopped = true;
     }
 
-    // 최대 범위내 도망칠 수 있는 가장 먼 위치 설정
     private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
 
-        Vector3 center = obj.FleeEnemyStats.WanderCenter.position;
+        Vector3 center = obj.Stats.SpawnTransform.position;
         float radius = obj.FleeEnemyStats.WanderRadius;
         Vector3 playerPos = obj.GetPlayer().transform.position;
 

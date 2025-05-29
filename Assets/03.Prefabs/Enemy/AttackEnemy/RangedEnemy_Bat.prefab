@@ -668,6 +668,7 @@ MonoBehaviour:
     WalkSpeed: 8
     RunSpeed: 5
     DetectDistance: 8
+    SpawnTransform: {fileID: 0}
   _attackStats:
     AttackEnemyType: 1
     SpawnPositin: {fileID: 0}
@@ -675,7 +676,7 @@ MonoBehaviour:
     CoolTime: 3
   _projectilePrefab: {fileID: 824104507535225717, guid: a8c0ab872d237414fa81922ec0e52637, type: 3}
   _projectileSpawnPoint: {fileID: 6049118222607518354}
-  _throwPower: 10
+  _throwPower: 20
 --- !u!1 &3721879955487204185
 GameObject:
   m_ObjectHideFlags: 0

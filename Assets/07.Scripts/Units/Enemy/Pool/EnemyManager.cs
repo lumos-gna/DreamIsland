@@ -19,7 +19,7 @@ public class EnemyManager : MonoBehaviour
     [SerializeField] private LayerMask groundMask;            // Ground 레이어
     [SerializeField] private float spawnYOffset = 0.5f;  // 땅 위 Y 오프셋
 
-    private List<PoolFleeEnemy> _activeFleeEnemies = new List<PoolFleeEnemy>();
+    private List<IPoolableEnemy> _activeEnemies = new List<IPoolableEnemy>();
     private SpawnPosition _spawnPosition;  // 기존 위치 계산 도우미
 
     private void Awake()
@@ -62,20 +62,19 @@ public class EnemyManager : MonoBehaviour
         go.transform.position = spawnPos;
         go.transform.rotation = Quaternion.identity;
 
-        if (go.TryGetComponent(out PoolFleeEnemy poolFleeEnemy))
+        if (enemy is IPoolableEnemy poolable)
         {
-            poolFleeEnemy.Init(enemy.FleeEnemyStats.WanderCenter, enemy.FleeEnemyStats.WanderRadius);
-            poolFleeEnemy.OnDie += e => StartCoroutine(Respawn(e));
-            poolFleeEnemy.OnSpawn();
-            _activeFleeEnemies.Add(poolFleeEnemy);
+            poolable.OnDie += e => StartCoroutine(Respawn(e));
+            poolable.OnSpawn();
+            _activeEnemies.Add(poolable);
         }
     }
 
-    private IEnumerator Respawn(PoolFleeEnemy poolFleeEnemy)
+    private IEnumerator Respawn(IPoolableEnemy enemy)
     {
         yield return new WaitForSeconds(10f);
-        poolFleeEnemy.OnSpawn();
-        poolFleeEnemy.transform.position = GetRandomGroundPosition();
+        enemy.OnSpawn();
+        (enemy as MonoBehaviour).transform.position = GetRandomGroundPosition();
     }
 
     private Vector3 GetRandomGroundPosition()
@@ -92,13 +91,13 @@ public class EnemyManager : MonoBehaviour
 
     public void OnDespawnAllEnemies()
     {
-        foreach (var enemy in _activeFleeEnemies)
+        foreach (var enemy in _activeEnemies)
             enemy.OnDespawn();
     }
 
     public void OnSpawnAllEnemies()
     {
-        foreach (var enemy in _activeFleeEnemies)
+        foreach (var enemy in _activeEnemies)
             enemy.OnSpawn();
     }
 }
