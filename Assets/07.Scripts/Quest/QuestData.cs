@@ -21,8 +21,8 @@ public class Quest
 
     public void Reset()  //퀘스트 진행사항 리셋
     {
-        _count = 0;
         _clear = false;
+        _count = 0;
     }
 
     public void PlusCount()  //퀘스트 진행도 +1
@@ -30,21 +30,17 @@ public class Quest
         if (!_clear)
         {
             _count++;
-            Debug.Log(_count + " / " + goal);
                         
-            if (_count == goal){ 
-                Debug.Log("클리어!");
-                _clear = true; _count = 0;
+            if (_count >= goal){ 
+                _clear = true; 
             }
         }
-        else{Debug.Log(_clear);}
     }
 
     public bool Clear(){return _clear;} 
     
     public void Reward()   //아이템 보상 떨굼
     {
-        Debug.Log("보상 획득" + reward);
-        _clear = false;
+        Reset();
     }
 }

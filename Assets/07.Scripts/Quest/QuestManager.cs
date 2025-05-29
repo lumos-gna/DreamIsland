@@ -1,5 +1,7 @@
 
+using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
@@ -8,10 +10,15 @@ public class QuestManager : Singleton<QuestManager>
     public GameObject questList;
     public GameObject questCell;
     
-    private QuestCellFactory questCellFactory;
+    public QuestCellFactory questCellFactory;
     
     private List<Quest> _acceptedQuestList = new();
-    private List<GameObject> questUIList = new();
+    private List<GameObject> _questUIList = new();
+
+    private void Start()
+    {
+        _acceptedQuestList.Clear();
+    }
 
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
@@ -19,9 +26,7 @@ public class QuestManager : Singleton<QuestManager>
         _acceptedQuestList.Add(questData);
         
         GameObject newQuestCell = questCellFactory.CreateQuestCell(questData);
-        questUIList.Add(newQuestCell);
-        
-        Debug.Log($"퀘스트 수락됨: {questData.name}");
+        _questUIList.Add(newQuestCell);
     }
 
     public void QuestPlusCount(string questName)  //퀘스트 진행도 ++
@@ -29,18 +34,29 @@ public class QuestManager : Singleton<QuestManager>
         if (SearchQuest(questName) != null)
         {
             _acceptedQuestList.Find(q => q.name == questName).PlusCount();
+            UpdateQuestUI();
         }
     }
 
     public string QuestComplete(string questName) //퀘스트 처리 =>리스트에서 삭제
-    { 
-        Quest questToRemove = _acceptedQuestList.Find(q => q.name == questName);
-        if (questToRemove != null)
+    {
+        for (int i = 0; i < _acceptedQuestList.Count; i++)
         {
-            string text = questToRemove.clearText;
-            _acceptedQuestList.Remove(questToRemove);
-            return text;
+            if (_acceptedQuestList[i].name == questName)
+            {
+                Quest questToRemove = _acceptedQuestList.Find(q => q.name == questName);
+                string text = questToRemove.clearText;
+                
+                _acceptedQuestList.RemoveAt(i);
+                GameObject questUI = _questUIList[i];
+                _questUIList.RemoveAt(i);
+                Destroy(questUI);
+                UpdateQuestUI();
+                
+                return text;
+            }
         }
+
         return null;
     }
 
@@ -78,9 +94,19 @@ public class QuestManager : Singleton<QuestManager>
     }
 
 
-    private void UpdateQuestUI()   
+    private void UpdateQuestUI()
     {
-        
+        for (int i = 0; i < _acceptedQuestList.Count; i++)
+        {
+            Quest quest = _acceptedQuestList[i];
+            GameObject questUI = _questUIList[i]; 
+
+            TextMeshProUGUI countText = questUI.transform.Find("Count")?.GetComponent<TextMeshProUGUI>();
+            if (countText != null)
+            {
+                countText.text = $"{quest.Count} / {quest.goal}";
+            }
+        }
     }
 
     //테스트용

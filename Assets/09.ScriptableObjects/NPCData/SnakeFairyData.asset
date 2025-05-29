@@ -18,17 +18,23 @@ MonoBehaviour:
     buttonName: "\uB79C\uB364 \uD018\uC2A4\uD2B8"
     npcDialogTexts:
     - text: "\uD018\uC2A4\uD2B8"
+      exitButton: 1
   - type: 0
     buttonName: "\uC7A1\uB2F4"
     npcDialogTexts:
     - text: "\uC624\uB298\uC758 \uB0A0\uC528\uB294 \uB9D1\uC74C"
+      exitButton: 1
     - text: "\uB098\uB294 \uBC40\uC694\uC815\uC774\uC57C"
+      exitButton: 1
   - type: 1
     buttonName: "\uD29C\uD1A0\uB9AC\uC5BC"
     npcDialogTexts:
     - text: "wasd \uC774\uB3D9"
+      exitButton: 0
     - text: "\uC2A4\uD398\uC774\uC2A4 \uBC14\uB85C \uC810\uD504"
+      exitButton: 0
     - text: "\uBC40\uC694\uC815\uC774\uC57C"
+      exitButton: 1
   randomQuests:
   - name: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 1"
     text: "\uBC40 \uB79C\uB364 \uD018\uC2A4\uD2B8 1"
