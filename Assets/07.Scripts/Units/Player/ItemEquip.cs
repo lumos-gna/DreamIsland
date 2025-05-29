@@ -30,6 +30,13 @@ public class ItemEquip : MonoBehaviour
         set { eating = value; }
     }
 
+    // 슬롯 설정 메서드
+    public void SetSlotItem(int index, ItemData item)
+    {
+        if (index < 0 || index >= tempitems.Length) return;
+        tempitems[index] = item;
+    }
+
     public void ChoiceItem(int slot)// 아이템을 고르는 함수?
     {
         if (nowchoiceitem != null)
@@ -44,7 +51,7 @@ public class ItemEquip : MonoBehaviour
             return;
         }
         if (tempitems[slot].type == ItemType.Weapon) { PlayerManager.Instance._Player.State = AttackState.Instance; }
-        else if (tempitems[slot].type == ItemType.Consumable) { PlayerManager.Instance._Player.State = ConsumeState.Instance; } 
+        else if (tempitems[slot].type == ItemType.Consumable) { PlayerManager.Instance._Player.State = ConsumeState.Instance; }
         nowchoiceitem = Instantiate(tempitems[slot].equipPrefab, EquipParent);
         nowanimator = nowchoiceitem.GetComponent<Animator>();
     }
@@ -55,9 +62,9 @@ public class ItemEquip : MonoBehaviour
         {
             string keyname = context.control.name;
 
-            if(int.TryParse(keyname, out int selectslot))
+            if (int.TryParse(keyname, out int selectslot))
             {
-                if(nowslot != selectslot)
+                if (nowslot != selectslot)
                 {
                     Debug.Log($"{selectslot - 1} 슬롯 선택");
                     ChoiceItem(selectslot - 1);
@@ -69,7 +76,7 @@ public class ItemEquip : MonoBehaviour
 
     public void OnLeftClickInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started)
+        if (context.phase == InputActionPhase.Started)
         {
             PlayerManager.Instance._Player.State.UseItem(ref tempitems[nowslot]);
         }

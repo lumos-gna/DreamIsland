@@ -127,7 +127,17 @@ public class TestPlayerController : MonoBehaviour
     {
         if (context.phase == InputActionPhase.Started)
         {
-            inventory?.Invoke();
+            var uiManager = UIManager.Instance;
+
+            if (uiManager.IsUIEnabled<UIInventory>())
+            {
+                uiManager.Disable<UIInventory>();
+            }
+            else
+            {
+                uiManager.Enable<UIInventory>();
+            }
+            //inventory?.Invoke();
             ToggleCursor();
         }
     }
