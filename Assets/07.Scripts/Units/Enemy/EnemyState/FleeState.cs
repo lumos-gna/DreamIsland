@@ -1,21 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FleeState : IState<BaseEnemy>
 {
     private float _timer;
-    private float _pathUpdateInterval = 0.5f;
+    private float _pathUpdateInterval = 1.5f;
+    private const float MinFleeDistanceThreshold = 1.0f;
     public void Enter(BaseEnemy obj)
     {
         obj.GetAnimator()?.CrossFade("Run", 0.1f);
         obj.GetAgent().isStopped = false;
         obj.GetAgent().speed = obj.Stats.RunSpeed;
         UpdateFleeEnemyPath(obj);
-        _timer = _pathUpdateInterval; // 바로 도망 시작
+        _timer = 0f; // 타이머 초기화 (주기적 업데이트를 위해)
     }
     public void Update(BaseEnemy obj)
     {
@@ -40,13 +40,20 @@ public class FleeState : IState<BaseEnemy>
         obj.GetAgent().isStopped = true;
     }
 
-    // 최대 범위내 도망칠 수 있는 가장 먼 위치 설정
     private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
+        // 중심 위치: SpawnTransform → 현재 위치로 변경
+        Vector3 center = obj.transform.position;
 
-        Vector3 center = obj.FleeEnemyStats.WanderCenter.position;
-        float radius = obj.FleeEnemyStats.WanderRadius;
-        Vector3 playerPos = obj.GetPlayer().transform.position;
+        // 반경 FleeEnemyStats가 있으면 사용, 없으면 0 + 널 체크
+        float radius = 0f;
+        if (obj.FleeEnemyStats != null)
+            radius = obj.FleeEnemyStats.WanderRadius;
+
+        // 플레이어 참조 널 체크
+        GameObject playerGO = obj.GetPlayer();
+        if (obj.GetPlayer() == null) return; 
+        Vector3 playerPos = playerGO.transform.position;
 
         NavMeshAgent agent = obj.GetAgent();
         Vector3 bestPos = obj.transform.position;

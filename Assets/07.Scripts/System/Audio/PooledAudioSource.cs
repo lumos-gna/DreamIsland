@@ -39,6 +39,6 @@ public class PooledAudioSource : MonoBehaviour, IPoolable
     {
         yield return new WaitForSeconds(duration);
         
-        PoolManager.Instance.GetPool<PooledAudioSource>().Despawn(this);
+        PoolManager.Instance.GetPool<PooledAudioSource>(nameof(PooledAudioSource)).Despawn(this);
     }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FleeEnemy : BaseEnemy
+public class FleeEnemy : BaseEnemy, IPoolableEnemy
 {
     [SerializeField] FleeEnemyStats _fleeStats;
     public override FleeEnemyStats FleeEnemyStats => _fleeStats;
@@ -13,6 +13,6 @@ public class FleeEnemy : BaseEnemy
 
         // 도망 반경 시각화
         if(_fleeStats != null)
-            Gizmos.DrawWireSphere(_fleeStats.WanderCenter.position, _fleeStats.WanderRadius);
+            Gizmos.DrawWireSphere(transform.position, _fleeStats.WanderRadius);
     }
 }

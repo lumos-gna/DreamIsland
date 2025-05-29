@@ -7,7 +7,15 @@ public enum ItemType
 {
     Weapon,
     Resource,
-    Consumable
+    Consumable,
+    Building
+}
+
+public enum ConsumType
+{
+    health,
+    water,
+    hunger,
 }
 
 public abstract class ItemData : ScriptableObject
@@ -25,4 +33,16 @@ public abstract class ItemData : ScriptableObject
 
     [Header("Equip")]
     public GameObject equipPrefab;
+
+    [Header("Attack")]
+    public int AttackDamage;
+    public int AttackRange;
+
+    [Header("GatherResource")]
+    public int resourcesDamage;
+
+    [Header("Consume")]
+    public ConsumType consumetype;
+    public float healamount;
+
 }

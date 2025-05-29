@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,7 +11,7 @@ public enum EnemyType
     Flee
 }
 
-public class BaseEnemy : MonoBehaviour
+public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 {
     [SerializeField] private List<GameObject> _dropItems;
     [SerializeField] private GameObject _player;
@@ -23,9 +24,12 @@ public class BaseEnemy : MonoBehaviour
     private StateMachine<BaseEnemy> _fsm; 
     private StateFactory<BaseEnemy> _stateFactory; // 상태들 캐싱
 
+
     // 피격용
     private SpriteRenderer _spriteRenderer;
     private bool _isHit;
+
+    public event System.Action<IPoolableEnemy> OnDie;
 
     #region Getters
     public NavMeshAgent GetAgent() => _agent;
@@ -47,6 +51,13 @@ public class BaseEnemy : MonoBehaviour
     protected virtual void Awake()
     {
         Init();
+
+        if (_player == null)
+        {
+            var found = GameObject.FindWithTag("Player");
+            if (found != null)
+                _player = found;
+        }
     }
 
     protected virtual void Start()
@@ -55,6 +66,7 @@ public class BaseEnemy : MonoBehaviour
             _fsm.ChangeState(StateFactory.Get<MoveState>());
         else
             _fsm.ChangeState(StateFactory.Get<IdleState>());
+
     }
 
     protected virtual void Update()
@@ -73,14 +85,30 @@ public class BaseEnemy : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
+    //스폰 혹은 리스폰 직후 FSM을 최초 진입 상태로 되돌림
+    public void ResetState()
+    {
+        if (_type == EnemyType.Attack)
+            _fsm.ChangeState(StateFactory.Get<MoveState>());
+        else
+            _fsm.ChangeState(StateFactory.Get<IdleState>());
+    }
+
+
     // 플레이어 범위 안에 있는지 체크
     public bool PlayerInRange()
     {
         Vector3 center = transform.position;
         float radius = _stats.DetectDistance;
 
-        bool hit = Physics.CheckSphere(center, radius, LayerMask.GetMask("Player"));
-        return hit;
+        Collider[] hits = Physics.OverlapSphere(center, radius, LayerMask.GetMask("Player"));
+        foreach (var hit in hits)
+        {
+            if (hit.CompareTag("Player")) // 태그로 확정
+                return true;
+        }
+
+        return false;
     }
 
     // 적 피해 처리
@@ -90,11 +118,8 @@ public class BaseEnemy : MonoBehaviour
         StartCoroutine(HitColor(_spriteRenderer)); // 피격 효과
         if (Stats.Health <= 0)
         {
-            if(TryGetComponent(out PoolFleeEnemy poolFleeEnemy))
-            {
-                poolFleeEnemy.Die();
-                DropItem();
-            }
+            Die();
+            DropItem();
             _fsm.ChangeState(StateFactory.Get<DieState>());
         }
     }
@@ -162,8 +187,34 @@ public class BaseEnemy : MonoBehaviour
             }
         }
 
-        // 실패 시 제자리 유지
-        _agent.SetDestination(transform.position);
+        // 실패시 주변 탐색 무작위로 주변 탐색
+        for (int i = 0; i < 30; i++)
+        {
+            Vector3 randomOffset = Random.insideUnitSphere * 1.5f;
+            Vector3 candidate = transform.position + randomOffset;
+            if (NavMesh.SamplePosition(candidate, out NavMeshHit nearbyHit, 1.5f, NavMesh.AllAreas))
+            {
+                NavMeshPath path = new NavMeshPath();
+                if (_agent.CalculatePath(nearbyHit.position, path) && path.status == NavMeshPathStatus.PathComplete)
+                {
+                    _agent.SetDestination(nearbyHit.position);
+                    return true;
+                }
+            }
+        }
+
+        // 그래도 안 되면 이동하지 않음
         return false;
     }
+
+    public void OnSpawn() => gameObject.SetActive(true);
+
+    public void OnDespawn() => gameObject.SetActive(false);
+
+    public void Die()
+    {
+        OnDespawn();
+        OnDie?.Invoke(this);
+    }
+
 }
