@@ -7,8 +7,8 @@ public class Quest
 {
     [Header("Info")] 
     public string name;
-    public string text;
-    public string clearText;
+    public string text;   //퀘스트 수령, 수락상태일 때 쓰는 텍스트
+    public string clearText;  //퀘스트 클리어시 텍스트
     
     [Header("Count")] 
     public int goal;
@@ -61,8 +61,8 @@ public class Quest
 
 
 
-[CreateAssetMenu(fileName = "Quest", menuName = "Quest/Quest")]
-public class QuestData : ScriptableObject
+
+public class QuestData : MonoBehaviour
 {
     [Header("Quest")]
     public Quest[] quests;

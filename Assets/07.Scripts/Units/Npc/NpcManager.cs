@@ -11,8 +11,12 @@ public class NpcManager : MonoBehaviour
         Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Player"))
         {
-            Debug.Log(other.gameObject.name);
             npcController.dialogueText.text = npcController.npcData.text;
+            foreach (var VARIABLE in npcController.npcData.npcDialog)
+            {
+                VARIABLE.Reset();
+            }
+
             npcController.OnOff();
         }
     }

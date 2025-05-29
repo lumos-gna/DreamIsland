@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
-//using DG.Tweening;
+using DG.Tweening;
 using TMPro;
 
 public class NPCUIController: MonoBehaviour
@@ -15,8 +15,11 @@ public class NPCUIController: MonoBehaviour
     
     private GameObject[] _buttons;
     private int _selectedDialogue;
-    private int _questNumber;
+    private string _questName;
     private dialogueType type;
+    
+    private float _clickDelay = 0.2f;
+    private float _lastClickTime = 0f;
     
     void Start()
     {
@@ -24,15 +27,18 @@ public class NPCUIController: MonoBehaviour
         _buttons = new GameObject[npcData.npcDialog.Length];
     }
 
-    private void PlusButton()   //대화 버튼 추가
+    private void PlusButton(int length)   //대화 버튼 추가
     {
-        for (int i = 0; i < npcData.npcDialog.Length; i++)
+        for (int i = 0; i < length; i++)
         {
             int index = i;
             _buttons[index] = buttonFactory.CreateButton(index, npcData.npcDialog[index].buttonName);
             
             //버튼 이벤트 초기화
-            _buttons[index].GetComponent<Button>().onClick.AddListener(() => LoadDialogue(index));
+            //_buttons[index].GetComponent<Button>().onClick.AddListener(() => LoadDialogue(index));
+            Button btn = _buttons[index].GetComponent<Button>();
+            btn.onClick.RemoveAllListeners();  // ⭐ 중복 호출 방지 핵심
+            btn.onClick.AddListener(() => LoadDialogue(index));
         }
     }
     
@@ -40,7 +46,7 @@ public class NPCUIController: MonoBehaviour
     private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
-        npcData.npcDialog[_selectedDialogue].Reset();
+
         dialogueText.text = npcData.NextText(_selectedDialogue);
         type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
@@ -49,6 +55,7 @@ public class NPCUIController: MonoBehaviour
         {
             exitButton.gameObject.SetActive(true);
         }
+        
         for (int j = 0; j < _buttons.Length; j++)
         {
             _buttons[j].SetActive(false);
@@ -73,10 +80,12 @@ public class NPCUIController: MonoBehaviour
                     _buttons[i] = null; 
                 }
             }
+
+            type = dialogueType.NONE;
         }
         else
         {
-            PlusButton();
+            PlusButton(npcData.npcDialog.Length);
         }
     }
     
@@ -86,7 +95,10 @@ public class NPCUIController: MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
-            if (type == dialogueType.Normal)
+            if (Time.time - _lastClickTime < _clickDelay) return;
+            _lastClickTime = Time.time;
+
+            if (type == dialogueType.NORMAL)
             {
                 string temp = npcData.NextText(_selectedDialogue);
 
