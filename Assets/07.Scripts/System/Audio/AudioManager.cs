@@ -1,24 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class AudioManager : Singleton<AudioManager>
+public class AudioManager : MonoBehaviour
 {
-    private const string PrefabPath = "Audio/";
+    public static AudioManager Instance { get; private set; }
 
-    private ObjectPool<PooledAudioSource> _audioPool;
-    
-    public void Play(AudioClip clip, bool isLoop)
+    [Header("Audio Sources")]
+    [SerializeField] private AudioSource bgmSource;
+    [SerializeField] private AudioSource sfxSource;
+
+    [Header("Background Music Clips (mp3)")]
+    public AudioClip[] bgmClips; 
+
+    [Header("Sound Effect Clips (ogg)")]
+    public AudioClip[] sfxClips; 
+
+    private void Awake()
     {
-        if (_audioPool == null)
+        if (Instance != null && Instance != this)
         {
-            PooledAudioSource prefab = Resources.Load<PooledAudioSource>($"{PrefabPath}{nameof(PooledAudioSource)}");
-
-            _audioPool = PoolManager.Instance.CreatePool(prefab);
+            Destroy(gameObject);
+            return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
 
-        PooledAudioSource source = _audioPool.Spawn(null);
-        
-        source.OnPlay(clip, isLoop);
+        if (bgmSource == null)
+            bgmSource = gameObject.AddComponent<AudioSource>();
+        if (sfxSource == null)
+            sfxSource = gameObject.AddComponent<AudioSource>();
+    }
+
+    /// BGM 트랙을 재생합니다.
+    public void PlayBGM(int index, bool loop = true)
+    {
+        if (index < 0 || index >= bgmClips.Length) return;
+        bgmSource.clip = bgmClips[index];
+        bgmSource.loop = loop;
+        bgmSource.Play();
+    }
+
+    /// 현재 BGM을 정지
+    public void StopBGM()
+    {
+        bgmSource.Stop();
+    }
+
+    /// 효과음을 재생
+    public void PlaySFX(int index)
+    {
+        if (index < 0 || index >= sfxClips.Length) return;
+        sfxSource.PlayOneShot(sfxClips[index]);
+    }
+
+    /// BGM 볼륨을 설정
+    public void SetBGMVolume(float volume)
+    {
+        bgmSource.volume = Mathf.Clamp01(volume);
+    }
+
+    /// 효과음 볼륨을 설정
+    public void SetSFXVolume(float volume)
+    {
+        sfxSource.volume = Mathf.Clamp01(volume);
     }
 }
