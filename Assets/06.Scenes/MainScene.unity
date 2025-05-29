@@ -2331,7 +2331,7 @@ Transform:
   m_GameObject: {fileID: 183735075}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -348, y: 52.81, z: -153}
+  m_LocalPosition: {x: -566.6, y: 52.81, z: -243.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2351,8 +2351,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
-  spawnCount: 20
-  radius: 1000
+  spawnCount: 2
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -4219,8 +4219,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
-  spawnCount: 30
-  radius: 1000
+  spawnCount: 2
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -5432,7 +5432,7 @@ Transform:
   m_GameObject: {fileID: 369800465}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -305, y: 52.81, z: -155}
+  m_LocalPosition: {x: -612.6, y: 52.81, z: -318.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5452,8 +5452,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
-  spawnCount: 50
-  radius: 1000
+  spawnCount: 5
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -8268,8 +8268,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
-  spawnCount: 30
-  radius: 1000
+  spawnCount: 2
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -9311,7 +9311,7 @@ Transform:
   m_GameObject: {fileID: 651410355}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1013, y: 52.81, z: 5776}
+  m_LocalPosition: {x: -756.4, y: 52.81, z: 5943.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9332,8 +9332,8 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
-  spawnCount: 10
-  radius: 1000
+  spawnCount: 2
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -10661,7 +10661,7 @@ Transform:
   m_GameObject: {fileID: 759143718}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -104, y: 52.81, z: -154}
+  m_LocalPosition: {x: -566.6, y: 52.81, z: -315.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10681,8 +10681,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
-  spawnCount: 10
-  radius: 1000
+  spawnCount: 2
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -14336,8 +14336,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
-  spawnCount: 40
-  radius: 1000
+  spawnCount: 5
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -16205,6 +16205,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 526747926}
     m_Modifications:
+    - target: {fileID: 2253605790648752752, guid: f9418367b3168a7428f3634dab2bd2d3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6238389939897725885, guid: f9418367b3168a7428f3634dab2bd2d3, type: 3}
       propertyPath: m_LocalScale.x
       value: 13.7
@@ -20052,7 +20056,7 @@ Transform:
   m_GameObject: {fileID: 1621095210}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -806, y: 52.81, z: 5813}
+  m_LocalPosition: {x: -752.7, y: 52.81, z: 5944.4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20073,8 +20077,8 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
-  spawnCount: 20
-  radius: 1000
+  spawnCount: 2
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
@@ -24682,7 +24686,7 @@ Transform:
   m_GameObject: {fileID: 2046100648}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -943, y: 52.81, z: 5781}
+  m_LocalPosition: {x: -745.7, y: 52.81, z: 5938.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24702,8 +24706,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 7758673788475193849, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
-  spawnCount: 60
-  radius: 1000
+  spawnCount: 5
+  radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
