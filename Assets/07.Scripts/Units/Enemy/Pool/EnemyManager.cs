@@ -5,57 +5,69 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
+
 public class EnemyManager : MonoBehaviour
 {
-    [SerializeField] private Transform _parent;
-    [SerializeField] private List<SpawnData> _enemies; // 스폰할 적 리스트
-    [SerializeField] private Transform _playerCamera;
-    [SerializeField] private float _fieldOfView;
+
+    [SerializeField] private RandomSpawner _enemySpawner;
+
+    private List<IPoolableEnemy> _activeEnemies = new List<IPoolableEnemy>();
+
+    private void Awake()
+    {
+        if (_enemySpawner == null)
+        {
+            Debug.LogError($"[{name}] _enemySpawner가 할당되지 않았습니다!");
+            enabled = false;
+            return;
+        }
+    }
 
     private void Start()
     {
-        _spawnPosition = new SpawnPosition(_playerCamera, _fieldOfView);
+        StartCoroutine(InitializeEnemies());
+    }
 
-        // 적 종류별로 초기 수만큼 스폰
-        foreach (var enemy in _enemies)
+    private IEnumerator InitializeEnemies()
+    {
+        // spawnedObjects가 하나라도 있을 때까지 대기
+        yield return new WaitUntil(() => _enemySpawner.spawnedObjects.Count > 0);
+
+        foreach (var sd in _enemySpawner.spawnedObjects)
         {
-            for (int i = 0; i < enemy.InitialCount; i++)
+            var go = sd.gameObject;
+            if (go.TryGetComponent<IPoolableEnemy>(out var poolEnemy))
             {
-                SpawnEnemy(enemy);
+                _activeEnemies.Add(poolEnemy);
+                poolEnemy.OnDie += HandleEnemyDie;
+                poolEnemy.OnSpawn();
             }
         }
     }
 
-    // 적 생성 및 초기화
-    private void SpawnEnemy(SpawnData data)
+    private void HandleEnemyDie(IPoolableEnemy enemy)
     {
-        GameObject go = Instantiate(data.Prefab, _parent);
-
-        // 프리팹에서 BaseEnemy 컴포넌트를 꺼내서 정보 가져오기 없으면 지우기
-        if (!go.TryGetComponent(out BaseEnemy enemy))
-        {
-            Destroy(go);
-            return;
-        }
-
-        // 위치 재배치
-        Vector3 pos = _spawnPosition.GetSpawnPosition(poolFleeEnemy.GetWanderCenter().position, poolFleeEnemy.GetWanderRadius());
-        poolFleeEnemy.transform.position = pos;
+        StartCoroutine(RespawnEnemy(enemy));
     }
 
+    private IEnumerator RespawnEnemy(IPoolableEnemy enemy)
+    {
+        // Pool 쪽 Delay가 없다면 임의 값(예: 10초)
+        yield return new WaitForSeconds(10f);
+        enemy.OnSpawn();
+    }
 
     // 밤에 모든 적 비활성화
     public void OnDespawnAllEnemies()
     {
-        foreach (var enemy in _activeEnemies)
-            enemy.OnDespawn();
+        foreach (var e in _activeEnemies)
+            e.OnDespawn();
     }
 
-    // 아침에 모든  활성화
+    // 아침에 모든 적 활성화
     public void OnSpawnAllEnemies()
     {
-        foreach (var enemy in _activeEnemies)
-            enemy.OnSpawn();
+        foreach (var e in _activeEnemies)
+            e.OnSpawn();
     }
-
 }
