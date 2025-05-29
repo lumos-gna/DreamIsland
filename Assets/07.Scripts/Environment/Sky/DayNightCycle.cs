@@ -29,6 +29,7 @@ public class DayNightCycle : MonoBehaviour
     public float maxTemperature = 25f;
     public static float CurrentTemperature { get; private set; }
     // 온도 빼가실때 "float currentTemp = DayNightCycle.CurrentTemperature;" 이걸로 빼가시면 됩니다.
+    public static bool IsDay { get; private set; }
 
     [Header("Events")]
     public CycleEvent OnCycleComplete;
@@ -56,10 +57,11 @@ public class DayNightCycle : MonoBehaviour
     void ApplyCycle(float currentTime)
     {
         float t = currentTime / dayDuration;                 
-        float sunAngle = Mathf.Lerp(-90f, 270f, t);         
+        float sunAngle = Mathf.Lerp(-90f, 270f, t);
 
         // 낮/밤 판정
         bool isDay = sunAngle > 0f && sunAngle < 180f;
+        IsDay = isDay;  
 
         // 회전
         SunLight.transform.rotation = Quaternion.Euler(sunAngle, 170f, 0f);

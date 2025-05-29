@@ -14,20 +14,18 @@ public enum EnemyType
 public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 {
     [SerializeField] private List<GameObject> _dropItems;
-    [SerializeField] private GameObject _player;
     [SerializeField] private EnemyType _type;
-    [SerializeField] private EnemyStats _stats; // Enemy 스택 데이터들
+    [SerializeField] private EnemyStats _stats; // Enemy 스텟 데이터들
 
     private NavMeshAgent _agent;
     private Animator _animator;
-  
+    private GameObject _player;
     private StateMachine<BaseEnemy> _fsm; 
     private StateFactory<BaseEnemy> _stateFactory; // 상태들 캐싱
 
 
     // 피격용
     private EnemyHealth _enemyHealth;
-
     public event System.Action<IPoolableEnemy> OnDie;
 
     #region Getters
@@ -50,7 +48,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     protected virtual void Awake()
     {
         Init();
-
+        _player = PlayerManager.Instance._Player.gameObject;
         if (_player == null)
         {
             var found = GameObject.FindWithTag("Player");

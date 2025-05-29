@@ -55,7 +55,7 @@ public class UIInventory : BaseUI
         quickSlotUI = UIManager.Instance.Create<QuickSlotUI>() as QuickSlotUI;
         quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
 
-        CharacterManager.Instance.Player.addItem += AddItem;
+        PlayerManager.Instance._Player.addItem += AddItem;
 
         // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
         ClearSelectedItemWindow();
@@ -104,7 +104,7 @@ public class UIInventory : BaseUI
 
     public void AddItem(ItemData data)
     {
-        var player = CharacterManager.Instance.Player;
+        var player = PlayerManager.Instance._Player;
         if (player.itemData == null) return;
 
         model.AddItem(data);

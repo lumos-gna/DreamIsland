@@ -23,14 +23,14 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        WaterChange(-waterDecreaseperFrame); // �񸶸� ��� ����
-        if (water == minf) // �񸶸��� 0�̸�, ü�� ����
+        WaterChange(-waterDecreaseperFrame); 
+        if (water == minf) 
         {
             HealthChange(-thirstyDecreaseHealth);
         }
     }
 
-    public void HealthChange(float change) // �� condition ��ȭ ���� �Լ�
+    public void HealthChange(float change) 
     {
         health = Mathf.Clamp(health + change, minf, maxf);
     }
