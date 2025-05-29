@@ -100,7 +100,15 @@ public class MoveState : IState<BaseEnemy>
     // 도망치는 적은 랜덤 위치 이동
     private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
-        Vector3 center = obj.Stats.SpawnTransform.position;
+        // null 체크 추가 
+        var stats = obj.FleeEnemyStats;
+        if (stats == null || stats.WanderCenter == null)
+            return;
+
+        // 중심 위치를 WanderCenter로 변
+        Vector3 center = stats.WanderCenter.position;
+        float radius = stats.WanderRadius;
+
         Vector2 rand = Random.insideUnitCircle * obj.FleeEnemyStats.WanderRadius;
         Vector3 pos = center + new Vector3(rand.x, 0, rand.y);
 
