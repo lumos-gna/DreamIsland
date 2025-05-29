@@ -10,7 +10,7 @@ public class BuildingUI : BaseUI
     [SerializeField] private RectTransform recipeSlotRoot;
     
     [Space(10f)]
-    [SerializeField] private ItemDataTable buildingItemDataTable;
+    [SerializeField] private ItemDataTableSO buildingItemDataTable;
 
 
     private BuildingUISlot _selectedSlot;
@@ -46,7 +46,7 @@ public class BuildingUI : BaseUI
         
         for (int i = 0; i < buildingItemDataTable.ItemDatas.Length; i++)
         {
-            var targetItem = new ItemInstance(buildingItemDataTable.ItemDatas[i]);
+            var targetItem = buildingItemDataTable.ItemDatas[i] as BuildingItemDataSO;
 
             var targetSlot = slotPool.Spawn(itemSlotRoot);
             
@@ -54,7 +54,7 @@ public class BuildingUI : BaseUI
             {
                 _selectedSlot = targetSlot;
                 
-                ShowRecipe(recipePool, targetItem.GetRecipe());
+                ShowRecipe(recipePool, targetItem.CraftingRecipe);
             });
         }
     }
@@ -67,7 +67,7 @@ public class BuildingUI : BaseUI
         {
             var targetSlot = targetPool.Spawn(recipeSlotRoot);
             
-            targetSlot.Init(new ItemInstance(recipe.neededItem[i].data), recipe.neededItem[i].amount);
+            targetSlot.Init(recipe.neededItem[i].data as BuildingItemDataSO, recipe.neededItem[i].amount);
             
         }
     }

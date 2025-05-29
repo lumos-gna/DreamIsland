@@ -7,11 +7,11 @@ public class CraftingRecipe
     [System.Serializable]
     public class ItemAmount
     {
-        public TempItemData data;
+        public ItemDataSO data;
         public int amount;
     }
     
     public List<ItemAmount> neededItem;
     
-    public TempItemData resultItemData;          
+    public ItemDataSO resultItemData;          
 }

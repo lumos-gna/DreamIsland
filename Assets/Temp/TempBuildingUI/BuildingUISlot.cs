@@ -5,17 +5,17 @@ using UnityEngine.UI;
 
 public class BuildingUISlot : MonoBehaviour, IPoolable
 {
-    public ItemInstance Item { get; private set; }
+    public ItemDataSO Item { get; private set; }
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private Button button;
 
-    public void Init(ItemInstance item, UnityAction onBtnClick)
+    public void Init(ItemDataSO item, UnityAction onBtnClick)
     {
         Item = item;
         
-        nameText.text = item.ItemData.displayName;
+        nameText.text = item.DisplayName;
         
         button.onClick.AddListener(onBtnClick);
     }

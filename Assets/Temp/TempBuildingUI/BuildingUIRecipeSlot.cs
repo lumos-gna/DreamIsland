@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class BuildingUIRecipeSlot : MonoBehaviour, IPoolable
 {
-    public ItemInstance Item { get; private set; }
+    public BuildingItemDataSO Item { get; private set; }
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
@@ -14,11 +14,11 @@ public class BuildingUIRecipeSlot : MonoBehaviour, IPoolable
     private int _maxCount;
     private int _curCount;
 
-    public void Init(ItemInstance item, int count)
+    public void Init(BuildingItemDataSO item, int count)
     {
         Item = item;
         
-        nameText.text = item.ItemData.displayName;
+        nameText.text = item.DisplayName;
 
         countText.text = count.ToString();
     }

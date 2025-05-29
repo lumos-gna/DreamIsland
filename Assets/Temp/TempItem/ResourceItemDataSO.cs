@@ -2,7 +2,7 @@ using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "ResourceItemData", menuName = "ScriptableObjects/Temp/Resource Item Data")]
-public class TempResourceItemData : TempItemData
+public class ResourceItemDataSO : ItemDataSO
 {
     
 }
