@@ -10,7 +10,7 @@ public class TestPlayer : MonoBehaviour
     //public Equipment equip;
 
     public ItemData itemData;
-    public Action addItem;
+    public Action<ItemData> addItem;
 
     public Transform dropPosition;
 

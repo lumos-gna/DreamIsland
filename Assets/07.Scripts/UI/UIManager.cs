@@ -35,11 +35,9 @@ public class UIManager : Singleton<UIManager>
 
         BaseUI targetUI = Instantiate(targetUIPrefab);
 
+        _createdUIDict.Add(targetName, targetUI);
+
         targetUI.Init();
-
-        targetUI.Disable();
-
-
 
         UIType uiType = targetUI.UIType;
 
@@ -54,10 +52,10 @@ public class UIManager : Singleton<UIManager>
             return null;
         }
 
+        if (uiType == UIType.Popup)
+            targetUI.Disable();
+
         targetUI.transform.SetParent(parentCanvas.transform, false);
-
-
-        _createdUIDict.Add(targetName, targetUI);
 
         return targetUI;
     }
@@ -154,5 +152,18 @@ public class UIManager : Singleton<UIManager>
         }
 
         return false;
+    }
+
+    public T Get<T>() where T : BaseUI
+    {
+        string targetName = typeof(T).Name;
+
+        if (_createdUIDict.TryGetValue(targetName, out BaseUI ui))
+        {
+            return ui as T;
+        }
+
+        Debug.LogWarning($"{targetName} UI가 아직 생성되지 않았습니다.");
+        return null;
     }
 }
