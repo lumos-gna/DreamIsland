@@ -9,4 +9,5 @@ public class EnemyStats
     public float WalkSpeed = 8f;
     public float RunSpeed = 5f;
     public float DetectDistance = 3f; // 플레이어 감지 범위
+    public Transform SpawnTransform; // 스폰 위치
 }
