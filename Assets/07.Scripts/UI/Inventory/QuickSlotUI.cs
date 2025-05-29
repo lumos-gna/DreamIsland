@@ -15,7 +15,7 @@ public class QuickSlotUI : BaseUI
         {
             quickSlots[i] = quickSlotPanel.GetChild(i).GetComponent<HandleSlot>();
             quickSlots[i].index = i;
-            quickSlots[i].inventory = UIManager.Instance.Get<UIInventory>() as UIInventory;
+            quickSlots[i].inventory = UIManager.Instance.Get<InventoryUI>() as InventoryUI;
             quickSlots[i].ClearSlot();
         }
 

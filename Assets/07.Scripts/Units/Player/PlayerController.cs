@@ -141,14 +141,14 @@ public class PlayerController : MonoBehaviour
         {
             var uiManager = UIManager.Instance;
 
-            if (uiManager.IsUIEnabled<UIInventory>())
+            if (uiManager.IsUIEnabled<InventoryUI>())
             {
-                uiManager.Disable<UIInventory>();
+                uiManager.Disable<InventoryUI>();
                 ChangeCursorState(false);
             }
             else
             {
-                uiManager.Enable<UIInventory>();
+                uiManager.Enable<InventoryUI>();
                 ChangeCursorState(true);
             }
         }
