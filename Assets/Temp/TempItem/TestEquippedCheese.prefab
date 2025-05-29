@@ -11,10 +11,9 @@ GameObject:
   - component: {fileID: 1883192453899620479}
   - component: {fileID: 1717089748390955047}
   - component: {fileID: 6767051139305334530}
-  - component: {fileID: 5977248192509416966}
   - component: {fileID: 7352246307487354020}
   - component: {fileID: 6615904943611750820}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: TestEquippedCheese
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,28 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &5977248192509416966
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6655259213799206813}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 484724026159080888, guid: c64d4d945dfd2b5408ed88902d87bace, type: 3}
 --- !u!95 &7352246307487354020
 Animator:
   serializedVersion: 5
