@@ -21,7 +21,6 @@ public class QuestManager : Singleton<QuestManager>
         {
             _acceptedQuestList.Find(q => q.name == questName).PlusCount();
         }
-        else{Debug.Log("NULL");}
     }
 
     public string QuestComplete(string questName) //퀘스트 처리 =>리스트에서 삭제
@@ -74,17 +73,33 @@ public class QuestManager : Singleton<QuestManager>
     //테스트용
     void Update()
     {
+        //랜덤 퀘스트
         if (Input.GetKeyDown(KeyCode.G))
         {
-            QuestPlusCount("학 랜덤 퀘스트 1");QuestPlusCount("토끼 랜덤 퀘스트1");
+            QuestPlusCount("학 랜덤 퀘스트 1");QuestPlusCount("토끼 랜덤 퀘스트 1");QuestPlusCount("뱀 랜덤 퀘스트 1");
         }
         if (Input.GetKeyDown(KeyCode.H))
         {
-            QuestPlusCount("학 랜덤 퀘스트 2");QuestPlusCount("토끼 랜덤 퀘스트2");
+            QuestPlusCount("학 랜덤 퀘스트 2");QuestPlusCount("토끼 랜덤 퀘스트 2");QuestPlusCount("뱀 랜덤 퀘스트 2");
         }
         if (Input.GetKeyDown(KeyCode.J))
         {
-            QuestPlusCount("학 랜덤 퀘스트 3");QuestPlusCount("토끼 랜덤 퀘스트3");
+            QuestPlusCount("학 랜덤 퀘스트 3");QuestPlusCount("토끼 랜덤 퀘스트 3");QuestPlusCount("뱀 랜덤 퀘스트 3");
+        }
+        
+        
+        //메인 퀘스트
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            QuestPlusCount("학 퀘스트 1");QuestPlusCount("토끼 퀘스트 1");QuestPlusCount("뱀 랜덤 퀘스트 1");
+        }
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            QuestPlusCount("학 퀘스트 2");QuestPlusCount("토끼 퀘스트 2");QuestPlusCount("뱀 랜덤 퀘스트 2");
+        }
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            QuestPlusCount("학 퀘스트 3");QuestPlusCount("토끼 퀘스트 3");QuestPlusCount("뱀 랜덤 퀘스트 3");
         }
     }
 }
