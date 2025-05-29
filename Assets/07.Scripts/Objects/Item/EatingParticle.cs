@@ -14,6 +14,7 @@ public class EatingParticle : MonoBehaviour
     {
         if(Eating != null)
         {
+            Eating.transform.position = gameObject.transform.position;
             Eating.Play();
         }
     }
