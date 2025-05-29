@@ -74,6 +74,8 @@ public class UIInventory : BaseUI
 
         UIManager.Instance.Get<QuickSlotUI>()?.Enable();
         quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
+
+        quickSlotUI.SyncToItemEquip();
     }
 
     // 인벤토리 아이템 슬롯에 마우스를 올렸을 때 아이템의 설명을 보이기 위한 메서드

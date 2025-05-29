@@ -34,4 +34,14 @@ public class QuickSlotUI : BaseUI
             quickSlots[i].SetSlot();
         }
     }
+
+    public void SyncToItemEquip()
+    {
+        var equip = PlayerManager.Instance._Player.GetComponent<ItemEquip>();
+
+        for (int i = 0; i < quickSlots.Length; i++)
+        {
+            equip.SetSlotItem(i, quickSlots[i].item);
+        }
+    }
 }
