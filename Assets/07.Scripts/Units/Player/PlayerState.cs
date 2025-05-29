@@ -49,13 +49,13 @@ public class AttackState : PlayerState
             PlayerManager.Instance._Player._ItemEquip.NowAnimator.SetTrigger(PlayerConst.AttckTrigger);
             PlayerManager.Instance._Player._ItemEquip.Attacking = true;
             SetTime();
-        }
 
-        //공격 or 자원채취
-        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
-        if (Physics.Raycast(ray, out RaycastHit hit, AttackRange, PlayerManager.Instance._Player.EnemyLayerMask))
-        {
-            hit.collider.gameObject.GetComponent<BaseEnemy>().TakeDamage(Damage);
+            //공격 or 자원채취
+            Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+            if (Physics.Raycast(ray, out RaycastHit hit, AttackRange, PlayerManager.Instance._Player.EnemyLayerMask))
+            {
+                hit.collider.gameObject.GetComponent<BaseEnemy>().TakeDamage(Damage);
+            }
         }
     }
 
@@ -86,29 +86,27 @@ public class ConsumeState : PlayerState
         {
             PlayerManager.Instance._Player._ItemEquip.NowAnimator.SetTrigger(PlayerConst.EatTrigger);
             PlayerManager.Instance._Player._ItemEquip.Eating = true;
+            SetTime();
+            //아이템 사용(섭취)
+            if (tool.consumetype == ConsumType.health)
+            {
+                PlayerManager.Instance._Player._PlayerCondition.HealthChange(tool.healamount);
+                Debug.Log("체력회복함");
+                //체력 회복함
+            }
+            else if (tool.consumetype == ConsumType.hunger)
+            {
+                //PlayerManager.Instance._Player._PlayerCondition.HungerChange(tool.healamount);
+                Debug.Log("배고픔 회복함");
+                //배고픔 회복함
+            }
+            else if (tool.consumetype == ConsumType.water)
+            {
+                PlayerManager.Instance._Player._PlayerCondition.WaterChange(tool.healamount);
+                Debug.Log("목마름 회복함");
+                //목마름 회복함
+            }
         }
-
-        //아이템 사용(섭취)
-        if (tool.consumetype == ConsumType.health)
-        {
-            PlayerManager.Instance._Player._PlayerCondition.HealthChange(tool.healamount);
-            Debug.Log("체력회복함");
-            //체력 회복함
-        }
-        else if (tool.consumetype == ConsumType.hunger)
-        {
-            //PlayerManager.Instance._Player._PlayerCondition.HungerChange(tool.healamount);
-            Debug.Log("배고픔 회복함");
-            //배고픔 회복함
-        }
-        else if (tool.consumetype == ConsumType.water)
-        {
-            PlayerManager.Instance._Player._PlayerCondition.WaterChange(tool.healamount);
-            Debug.Log("목마름 회복함");
-            //목마름 회복함
-        }
-        //아이템 갯수 -1 해야함
-
     }
     private float eatrate = 1.5f;
     public void SetTime()

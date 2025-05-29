@@ -68,7 +68,7 @@ public class ItemEquip : MonoBehaviour
                 {
                     Debug.Log($"{selectslot - 1} 슬롯 선택");
                     ChoiceItem(selectslot - 1);
-                    nowslot = selectslot;
+                    nowslot = selectslot-1;
                 }
             }
         }
@@ -76,8 +76,9 @@ public class ItemEquip : MonoBehaviour
 
     public void OnLeftClickInput(InputAction.CallbackContext context)
     {
-        if (context.phase == InputActionPhase.Started)
+        if (context.phase == InputActionPhase.Started && PlayerManager.Instance._Player._PlayerController.Canlook)
         {
+            Debug.Log(nowslot);
             PlayerManager.Instance._Player.State.UseItem(ref tempitems[nowslot]);
         }
     }
