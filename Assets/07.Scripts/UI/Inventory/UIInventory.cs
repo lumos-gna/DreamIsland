@@ -18,10 +18,6 @@ public class UIInventory : BaseUI
     private InventoryModel model;
     private QuickSlotUI quickSlotUI;
 
-    // 해당 부분 PlayerController.cs에 인벤토리 로직 추가되면 Test제외하고 사용하세요.
-    private TestPlayerController controller;
-    //private PlayerController controller;
-
     ItemData selectedItem;
     int selectedItemIndex = 0;
 
@@ -75,7 +71,7 @@ public class UIInventory : BaseUI
         UIManager.Instance.Get<QuickSlotUI>()?.Enable();
         quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
 
-        quickSlotUI.SyncToItemEquip();
+        //quickSlotUI.SyncToItemEquip();
     }
 
     // 인벤토리 아이템 슬롯에 마우스를 올렸을 때 아이템의 설명을 보이기 위한 메서드

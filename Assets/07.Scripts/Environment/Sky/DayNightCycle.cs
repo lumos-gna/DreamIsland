@@ -60,7 +60,7 @@ public class DayNightCycle : MonoBehaviour
         float sunAngle = Mathf.Lerp(-90f, 270f, t);
 
         // ³·/¹ã ÆÇÁ¤
-        bool isDay = sunAngle > 0f && sunAngle < 180f;
+        bool isDay = sunAngle >= 0f && sunAngle <= 180f;
         IsDay = isDay;  
 
         // È¸Àü
