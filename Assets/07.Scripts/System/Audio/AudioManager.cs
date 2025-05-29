@@ -23,21 +23,33 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this)
+        var sources = GetComponents<AudioSource>();
+
+        if (sources.Length == 0)
         {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
-        DontDestroyOnLoad(gameObject);
-
-        // 옵셔널: AudioSource가 없으면 추가
-        if (bgmSource == null)
             bgmSource = gameObject.AddComponent<AudioSource>();
-        if (sfxSource == null)
             sfxSource = gameObject.AddComponent<AudioSource>();
+        }
 
-        bgmSource.volume = fixedBgmVolume;
+        else if (sources.Length == 1)
+        {
+            bgmSource = sources[0];
+            sfxSource = gameObject.AddComponent<AudioSource>();
+        }
+
+        else
+        {
+            bgmSource = sources[0];
+            sfxSource = sources[1];
+        }
+
+        bgmSource.loop = true;
+        bgmSource.playOnAwake = false;
+        sfxSource.loop = false;
+        sfxSource.playOnAwake = false;
+
+        DontDestroyOnLoad(gameObject);
+        Instance = this;
     }
 
 
