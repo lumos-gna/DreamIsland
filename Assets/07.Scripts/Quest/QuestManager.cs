@@ -6,12 +6,11 @@ using UnityEngine;
 public class QuestManager : Singleton<QuestManager>
 {
     
-    private List<Quest> _AcceptedQuestList = new();
+    private List<Quest> _acceptedQuestList = new();
 
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
-        questData.AcceptQuest();
-        _AcceptedQuestList.Add(questData);
+        _acceptedQuestList.Add(questData);
         Debug.Log($"퀘스트 수락됨: {questData.name}");
     }
 
@@ -19,18 +18,18 @@ public class QuestManager : Singleton<QuestManager>
     {
         if (SearchQuest(questName) != null)
         {
-            _AcceptedQuestList.Find(q => q.name == questName).PlusCount();
+            _acceptedQuestList.Find(q => q.name == questName).PlusCount();
             Debug.Log(questName);
         }
     }
 
     public string QuestComplete(string questName) //퀘스트 처리 =>리스트에서 삭제
     { 
-        Quest questToRemove = _AcceptedQuestList.Find(q => q.name == questName);
+        Quest questToRemove = _acceptedQuestList.Find(q => q.name == questName);
         if (questToRemove != null)
         {
             string text = questToRemove.clearText;
-            _AcceptedQuestList.Remove(questToRemove);
+            _acceptedQuestList.Remove(questToRemove);
             return text;
         }
         return null;
@@ -38,9 +37,9 @@ public class QuestManager : Singleton<QuestManager>
 
     private Quest SearchQuest(string questName)  //퀘스트를 찾아 복사본 리턴
     {
-        if (_AcceptedQuestList != null)
+        if (_acceptedQuestList != null)
         {
-            foreach (var quest in _AcceptedQuestList)
+            foreach (var quest in _acceptedQuestList)
             {
                 if (quest.name == questName)
                 {
@@ -74,10 +73,6 @@ public class QuestManager : Singleton<QuestManager>
     //테스트용
     void Update()
     {
-        // if (Input.GetKeyDown(KeyCode.Alpha0))
-        // {
-        //     AcceptQuest(0);
-        // }
         if (Input.GetKeyDown(KeyCode.G))
         {
             QuestPlusCount("학 퀘스트1");QuestPlusCount("토끼 퀘스트1");

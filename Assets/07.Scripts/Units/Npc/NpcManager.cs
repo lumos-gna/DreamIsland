@@ -1,4 +1,5 @@
 
+using DG.Tweening;
 using UnityEngine;
 
 public class NpcManager : MonoBehaviour
@@ -8,26 +9,18 @@ public class NpcManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log(other.gameObject.name);
         if (other.gameObject.CompareTag("Player"))
         {
-            npcController.dialogueText.text = npcController.npcData.text;
+            //npcController.dialogueText.text = npcController.npcData.text;
+            npcController.dialogueText.text = "";
+            string fullText = npcController.npcData.text;
+            npcController.dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+            
             foreach (var VARIABLE in npcController.npcData.npcDialog)
             {
                 VARIABLE.Reset();
             }
 
-            npcController.OnOff();
-        }
-    }
-    
-    
-    //테스트용
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha0)|| Input.GetKeyDown(KeyCode.Keypad0))
-        {
-            npcController.dialogueText.text = npcController.npcData.text;
             npcController.OnOff();
         }
     }
