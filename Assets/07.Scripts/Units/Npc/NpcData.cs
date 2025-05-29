@@ -10,10 +10,12 @@ public class NpcData : ScriptableObject
     public Quest[] randomQuests;
     public Quest[] quests;
     
-    private int _currentQuestIndex;
-    private int _currentRandomQuestIndex;
-    
-    
+    private int _currentQuestIndex = 0;
+    private int _currentRandomQuestIndex = 0;
+
+    void OnEnable()
+    {
+        _currentQuestIndex = 0;}
 
     public string NextText(int selectedDialogue)   //대화 텍스트 전달
     {
@@ -46,8 +48,11 @@ public class NpcData : ScriptableObject
                 }
             
             
-            case DialogueType.QUEST:   //수정 필요
-                
+            case DialogueType.QUEST:
+                if (quests.Length <= _currentQuestIndex)
+                {
+                    Debug.Log(quests.Length +" / "+ _currentQuestIndex);
+                    return "남은 할 일이 없어...";}
                 if (QuestManager.Instance.CheckClearQuest(quests[_currentQuestIndex].name))             //받았던 퀘스트 클리어시
                 {
                     _currentQuestIndex++; 
@@ -119,8 +124,16 @@ public class NPCDialog
         
         return npcDialogTexts[_count].text; 
     }
-    
-    public bool GetExitButton(){return npcDialogTexts[_count].exitButton;}
+
+    public bool GetExitButton()
+    {
+        if (_count >= npcDialogTexts.Length || _count < 0)
+        {
+            Debug.Log(_count);
+            return true;
+        }
+        return npcDialogTexts[_count].exitButton;
+    }
 }
 
 
