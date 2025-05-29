@@ -301,9 +301,9 @@ RectTransform:
   - {fileID: 8290964706240519855}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 960, y: 540}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7496382595711951822
@@ -321,9 +321,12 @@ MonoBehaviour:
   UIType: 1
   slots: []
   handleSlots: []
+  quickSlots: []
   inventoryWindow: {fileID: 2213340090363853633}
+  quickSlotWindow: {fileID: 4906800271713011236, guid: d2deadd549185b644920331d084f6b3f, type: 3}
   slotPanel: {fileID: 4517107818960339780}
   handleSlotPanel: {fileID: 6155684610654379495}
+  quickSlotPanel: {fileID: 0}
   dropPosition: {fileID: 0}
   summaryBox: {fileID: 6321329619417414958}
   onMouseItemName: {fileID: 4114758385327319968}

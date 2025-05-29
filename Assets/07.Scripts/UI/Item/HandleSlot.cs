@@ -111,6 +111,27 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         if (this == other) return;
 
+        // 병합 로직 : 스택이 가능한, 같은 아이템들 병합
+        if (this.item != null && other.item != null && this.item == other.item && item.canStack)
+        {
+            int total = this.quantity + other.quantity;
+
+            if (total <= item.maxStackCount)
+            {
+                this.quantity = total;
+                other.ClearSlot();  // 병합 완료 후 다른 슬롯 비우기
+            }
+            else
+            {
+                this.quantity = item.maxStackCount;
+                other.quantity = total - item.maxStackCount;
+            }
+
+            this.SetSlot();
+            other.SetSlot();
+            return;
+        }
+
         if (this.item == null & other.item != null)
         {
             this.item = other.item;
@@ -136,6 +157,27 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void SwapWith(HandleSlot other)
     {
         if (this == other) return;
+
+        // 병합 로직 : 스택이 가능한, 같은 아이템들 병합
+        if (this.item != null && other.item != null && this.item == other.item && item.canStack)
+        {
+            int total = this.quantity + other.quantity;
+
+            if (total <= item.maxStackCount)
+            {
+                this.quantity = total;
+                other.ClearSlot();  // 병합 완료 후 다른 슬롯 비우기
+            }
+            else
+            {
+                this.quantity = item.maxStackCount;
+                other.quantity = total - item.maxStackCount;
+            }
+
+            this.SetSlot();
+            other.SetSlot();
+            return;
+        }
 
         (this.item, other.item) = (other.item, this.item);
         (this.quantity, other.quantity) = (other.quantity, this.quantity);

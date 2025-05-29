@@ -121,6 +121,28 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // 자기 자신에 드롭한 경우는 무시함
         if (this == other) return;
 
+        // 병합 로직 : 스택이 가능한, 같은 아이템들 병합
+        if (this.item != null && other.item != null && this.item == other.item && item.canStack)
+        {
+            int total = this.quantity + other.quantity;
+
+            if (total <= item.maxStackCount)
+            {
+                this.quantity = total;
+                other.ClearSlot();  // 병합 완료 후 다른 슬롯 비우기
+            }
+            else
+            {
+                this.quantity = item.maxStackCount;
+                other.quantity = total - item.maxStackCount;
+            }
+
+            this.SetSlot();
+            other.SetSlot();
+            return;
+        }
+
+        // 이동/교환 로직
         // 한쪽이 비었을 경우에 이동
         if (this.item == null && other.item != null)
         {

@@ -18,6 +18,7 @@ public class TestPlayer : MonoBehaviour
     {
         // 싱글톤 매니저에 Player를 참조할 수 있게 데이터를 넘긴다.
         CharacterManager.Instance.Player = this;
+        UIManager.Instance.Create<UIInventory>();
         controller = GetComponent<TestPlayerController>();
         //condition = GetComponent<PlayerCondition>();
         //equip = GetComponent<Equipment>();

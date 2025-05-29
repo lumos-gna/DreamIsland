@@ -6,11 +6,14 @@ using UnityEngine;
 public class UIInventory : BaseUI
 {
     public ItemSlot[] slots;
-    public HandleSlot[] handleSlots;
+    public HandleSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
+    public HandleSlot[] quickSlots;     // 게임화면 퀵슬롯
 
     public GameObject inventoryWindow;
+    public GameObject quickSlotWindow;
     public Transform slotPanel;
-    public Transform handleSlotPanel;
+    public Transform handleSlotPanel;   // 인벤토리 퀵슬롯 부모
+    public Transform quickSlotPanel;    // 게임화면 퀵슬롯 부모
     public Transform dropPosition;
 
     public GameObject summaryBox;
@@ -172,10 +175,12 @@ public class UIInventory : BaseUI
         //controller.inventory += Toggle;
 
         inventoryWindow.SetActive(false);
+        quickSlotWindow.SetActive(true);
         summaryBox.SetActive(false);
 
         slots = new ItemSlot[slotPanel.childCount];
         handleSlots = new HandleSlot[handleSlotPanel.childCount];
+        //quickSlots = new HandleSlot[quickSlotPanel.childCount];
 
         // 보관 아이템 슬롯
         for (int i = 0; i < slots.Length; i++)
@@ -195,6 +200,17 @@ public class UIInventory : BaseUI
             handleSlots[i].ClearSlot();
         }
 
+        // 퀵슬롯
+        for (int i = 0; i < quickSlots.Length; i++)
+        {
+            quickSlots[i] = quickSlotPanel.GetChild(i).GetComponent<HandleSlot>();
+            quickSlots[i].index = i;
+            quickSlots[i].inventory = this;
+            quickSlots[i].ClearSlot();
+        }
+
+        //quickSlotPanel.gameObject.SetActive(true);
+
         // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
         ClearSelectedItemWindow();
     }
@@ -202,10 +218,25 @@ public class UIInventory : BaseUI
     public override void Enable()
     {
         inventoryWindow.SetActive(true);
+        quickSlotWindow.SetActive(false);
+        //quickSlotPanel.gameObject.SetActive(false);
     }
 
     public override void Disable()
     {
-        inventoryWindow.SetActive(false);
+        if (IsOpenInventory())
+        {
+            inventoryWindow.SetActive(false);
+
+            // 인벤토리를 닫을 때 게임 화면의 퀵슬롯에 데이터 복사
+            //for (int i = 0; i < handleSlots.Length; i++)
+            //{
+            //    quickSlots[i].item = handleSlots[i].item;
+            //    quickSlots[i].quantity = handleSlots[i].quantity;
+            //    quickSlots[i].SetSlot();
+            //}
+
+            //quickSlotPanel.gameObject.SetActive(false);
+        }
     }
 }
