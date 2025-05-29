@@ -18,10 +18,6 @@ public class UIInventory : BaseUI
     private InventoryModel model;
     private QuickSlotUI quickSlotUI;
 
-    // 해당 부분 PlayerController.cs에 인벤토리 로직 추가되면 Test제외하고 사용하세요.
-    private TestPlayerController controller;
-    //private PlayerController controller;
-
     ItemData selectedItem;
     int selectedItemIndex = 0;
 
