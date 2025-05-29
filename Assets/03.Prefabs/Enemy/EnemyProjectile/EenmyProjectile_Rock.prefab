@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2735862650339994233}
   - component: {fileID: 3286881706455791248}
   - component: {fileID: 5480312924695856523}
+  - component: {fileID: 6882361128751908471}
   m_Layer: 0
   m_Name: EenmyProjectile_Rock
   m_TagString: Untagged
@@ -133,3 +134,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &6882361128751908471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 824104507535225717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd3a6742c74ef7746be9f57ed68b896f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

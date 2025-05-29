@@ -63,6 +63,37 @@ Transform:
   - {fileID: 8565682267236525261}
   m_Father: {fileID: 6411450365787062095}
   m_LocalEulerAnglesHint: {x: -74.46232, y: 162.26738, z: -155.5697}
+--- !u!1 &888027067168243980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1289516976597054178}
+  m_Layer: 0
+  m_Name: pivot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1289516976597054178
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 888027067168243980}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.546, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5213623484090142792}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1391995560695329408
 GameObject:
   m_ObjectHideFlags: 0
@@ -750,6 +781,7 @@ Transform:
   - {fileID: 4196937446541426734}
   - {fileID: 4351039114999695530}
   - {fileID: 5992591289930617508}
+  - {fileID: 1289516976597054178}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!143 &1743829009148009648
@@ -861,10 +893,9 @@ MonoBehaviour:
     Health: 5
     WalkSpeed: 8
     RunSpeed: 5
-    DetectDistance: 3
+    DetectDistance: 5
     SpawnTransform: {fileID: 0}
   _fleeStats:
-    WanderCenter: {fileID: 0}
     WanderRadius: 5
     FleeDuration: 2
 --- !u!114 &3085844208592071462
@@ -953,12 +984,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 5213623484090142792}
     m_Modifications:
     - target: {fileID: 316505782639036306, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
+      propertyPath: _pivot
+      value: 
+      objectReference: {fileID: 1289516976597054178}
+    - target: {fileID: 316505782639036306, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
       propertyPath: _offset.x
-      value: -0.4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 316505782639036306, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
       propertyPath: _offset.y
-      value: -0.2
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1917494030534699495, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
       propertyPath: m_Name
@@ -967,6 +1002,10 @@ PrefabInstance:
     - target: {fileID: 2587202004290835153, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5883042202698218503, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6747399492452167790, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
       propertyPath: m_Pivot.x
@@ -1034,7 +1073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6747399492452167790, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 1.55
       objectReference: {fileID: 0}
     - target: {fileID: 6747399492452167790, guid: 21240556463c7cd48874c6bea0a518d1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
