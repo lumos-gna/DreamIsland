@@ -112,8 +112,6 @@ public class NPCDialog
 
     public void SetCount(int i){_count = i;}
     
-    
-    
     public string GetText()  //대화 텍스트 전달
     {
         _count++;
@@ -125,7 +123,7 @@ public class NPCDialog
         return npcDialogTexts[_count].text; 
     }
 
-    public bool GetExitButton()
+    public bool GetExitButton()  //나가기 버튼 온오프 여부 리턴
     {
         if (_count >= npcDialogTexts.Length || _count < 0)
         {

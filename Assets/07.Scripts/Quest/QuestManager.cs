@@ -5,13 +5,22 @@ using UnityEngine;
 
 public class QuestManager : Singleton<QuestManager>
 {
+    public GameObject questList;
+    public GameObject questCell;
+    
+    private QuestCellFactory questCellFactory;
     
     private List<Quest> _acceptedQuestList = new();
+    private List<GameObject> questUIList = new();
 
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
         questData.Reset();
         _acceptedQuestList.Add(questData);
+        
+        GameObject newQuestCell = questCellFactory.CreateQuestCell(questData);
+        questUIList.Add(newQuestCell);
+        
         Debug.Log($"퀘스트 수락됨: {questData.name}");
     }
 
@@ -69,6 +78,10 @@ public class QuestManager : Singleton<QuestManager>
     }
 
 
+    private void UpdateQuestUI()   
+    {
+        
+    }
 
     //테스트용
     void Update()
