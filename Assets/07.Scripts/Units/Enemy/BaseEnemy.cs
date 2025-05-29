@@ -24,6 +24,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     private StateMachine<BaseEnemy> _fsm; 
     private StateFactory<BaseEnemy> _stateFactory; // 상태들 캐싱
 
+
     // 피격용
     private SpriteRenderer _spriteRenderer;
     private bool _isHit;
@@ -65,6 +66,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             _fsm.ChangeState(StateFactory.Get<MoveState>());
         else
             _fsm.ChangeState(StateFactory.Get<IdleState>());
+
     }
 
     protected virtual void Update()
@@ -82,6 +84,16 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         _stateFactory = new StateFactory<BaseEnemy>();
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
+
+    //스폰 혹은 리스폰 직후 FSM을 최초 진입 상태로 되돌림
+    public void ResetState()
+    {
+        if (_type == EnemyType.Attack)
+            _fsm.ChangeState(StateFactory.Get<MoveState>());
+        else
+            _fsm.ChangeState(StateFactory.Get<IdleState>());
+    }
+
 
     // 플레이어 범위 안에 있는지 체크
     public bool PlayerInRange()
