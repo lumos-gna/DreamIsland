@@ -47,4 +47,38 @@ public class InventoryModel
 
         Debug.LogWarning("인벤토리가 가득 찼습니다.");
     }
+
+    public void DecreaseItem(ItemData item)
+    {
+        for (int i = 0; i < itemSlots.Length; i++)
+        {
+            if (itemSlots[i].item == item)
+            {
+                itemSlots[i].quantity--;
+                if (itemSlots[i].quantity <= 0)
+                {
+                    itemSlots[i].item = null;
+                    itemSlots[i].quantity = 0;
+                }
+                return;
+            }
+        }
+
+        for (int i = 0; i < handleSlots.Length; i++)
+        {
+            if (handleSlots[i].item == item)
+            {
+                handleSlots[i].quantity--;
+                if (handleSlots[i].quantity <= 0)
+                {
+                    handleSlots[i].item = null;
+                    handleSlots[i].quantity = 0;
+                }
+                return;
+            }
+        }
+
+        // 디버깅용 코드
+        Debug.LogWarning($"[InventoryModel] DecreaseItem 실패 : '{item?.displayName}'을 인벤토리에서 찾을 수 없습니다.");
+    }
 }
