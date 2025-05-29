@@ -253,7 +253,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -345,13 +345,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 238971742}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.25, y: 1, z: -20.14}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 17.99, y: 1, z: 6.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &297309021
 GameObject:
   m_ObjectHideFlags: 0
@@ -598,7 +598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8257625454238106121, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
       propertyPath: m_LocalPosition.x
@@ -910,7 +910,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001251117}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -962,7 +962,7 @@ Transform:
   m_GameObject: {fileID: 2001251117}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.6, y: 0.5, z: -23.73}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -976,14 +976,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 787591470288184664, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
-      propertyPath: _offset.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 787591470288184664, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
-      propertyPath: _offset.y
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5213623484090142792, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
       propertyPath: m_LocalPosition.x
       value: 18.29
@@ -1024,17 +1016,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5432151023082983711, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 2001251117}
     - target: {fileID: 7758673788475193849, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
       propertyPath: m_Name
       value: FleeEnemy_Penguin
       objectReference: {fileID: 0}
     - target: {fileID: 7758673788475193849, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1097,6 +1085,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RangedEnemy_Golem
       objectReference: {fileID: 0}
+    - target: {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1116,7 +1108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6852563312714827124, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
       propertyPath: _player
@@ -1179,13 +1171,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: MeleeEnemy_Mushroom
       objectReference: {fileID: 0}
-    - target: {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+    - target: {fileID: 887743514503717621, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+      propertyPath: _damageText
+      value: 
+      objectReference: {fileID: 7273003630235750753, guid: 7a1959590695a9743bc9bff7e01a518d, type: 3}
+    - target: {fileID: 887743514503717621, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+      propertyPath: _damageAnimator
+      value: 
+      objectReference: {fileID: 8821714224741426392, guid: 7a1959590695a9743bc9bff7e01a518d, type: 3}
+    - target: {fileID: 1344848928484084864, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2544010776525936219, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.02
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2544010776525936219, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1224,10 +1224,11 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2840220111940087679, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
-      propertyPath: _player
-      value: 
-      objectReference: {fileID: 2001251117}
-    m_RemovedComponents: []
+      propertyPath: _stats.Health
+      value: 100
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 357539562517438788, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
