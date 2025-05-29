@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
-public class InventoryModel
+public class Inventory
 {
     public ItemSlotData[] itemSlots;      // 일반 인벤토리
     public ItemSlotData[] handleSlots;    // 인벤토리 내 퀵슬롯
 
-    public InventoryModel(int itemSlotCount, int handleSlotCount)
+    public Inventory(int itemSlotCount, int handleSlotCount)
     {
         itemSlots = new ItemSlotData[itemSlotCount];
         handleSlots = new ItemSlotData[handleSlotCount];

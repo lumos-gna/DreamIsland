@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIInventory : BaseUI
+public class InventoryUI : BaseUI
 {
     public GameObject inventoryWindow;
     public Transform slotPanel;
@@ -15,7 +15,7 @@ public class UIInventory : BaseUI
     public ItemSlot[] slots;
     public HandleSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
 
-    private InventoryModel model;
+    private Inventory model;
     private QuickSlotUI quickSlotUI;
 
     ItemData selectedItem;
@@ -47,7 +47,7 @@ public class UIInventory : BaseUI
             handleSlots[i].ClearSlot();
         }
 
-        model = new InventoryModel(slots.Length, handleSlots.Length);
+        model = new Inventory(slots.Length, handleSlots.Length);
         quickSlotUI = UIManager.Instance.Create<QuickSlotUI>() as QuickSlotUI;
         quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
 
