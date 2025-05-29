@@ -4105,7 +4105,7 @@ MonoBehaviour:
   - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
   - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
-  spawnCount: 10
+  spawnCount: 5
   radius: 50
   rayOriginHeight: 100
   rayDistance: 200
@@ -5339,7 +5339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
-  spawnCount: 10
+  spawnCount: 5
   radius: 50
   rayOriginHeight: 100
   rayDistance: 200
@@ -9030,7 +9030,7 @@ MonoBehaviour:
   - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
   - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
-  spawnCount: 10
+  spawnCount: 5
   radius: 50
   rayOriginHeight: 100
   rayDistance: 200
@@ -10324,7 +10324,7 @@ MonoBehaviour:
   - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
   - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
-  spawnCount: 10
+  spawnCount: 5
   radius: 50
   rayOriginHeight: 100
   rayDistance: 200
@@ -13979,7 +13979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
-  spawnCount: 10
+  spawnCount: 5
   radius: 50
   rayOriginHeight: 100
   rayDistance: 200
@@ -24226,7 +24226,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
-  spawnCount: 10
+  spawnCount: 5
   radius: 50
   rayOriginHeight: 100
   rayDistance: 200
