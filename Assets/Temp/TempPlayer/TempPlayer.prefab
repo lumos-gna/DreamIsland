@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cdf0ddede34a1141a0751c87f97a1d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tempItemData: {fileID: 11400000, guid: bc66814949a84ff428f07b2b32426318, type: 2}
+  tempItemData: {fileID: 11400000, guid: 76ead3dd5e139d447b31ddb41c46ce3c, type: 2}
   equipParent: {fileID: 8970102415309857414}
 --- !u!114 &8509102657959175976
 MonoBehaviour:
@@ -361,7 +361,7 @@ Camera:
   m_Depth: 1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1048576
+    m_Bits: 4096
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -478,7 +478,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 2047
+    m_Bits: 1052671
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
