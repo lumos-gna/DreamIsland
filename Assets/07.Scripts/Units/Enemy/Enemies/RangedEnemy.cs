@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedEnemy : BaseEnemy, IRangedEnemy
+public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
 {
     [SerializeField] private AttackEnemyStats _attackStats;
     [SerializeField] private GameObject _projectilePrefab;
