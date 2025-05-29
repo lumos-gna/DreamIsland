@@ -1,4 +1,4 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,14 +23,14 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        WaterChange(-waterDecreaseperFrame); // ¸ñ¸¶¸§ °è¼Ó °¨¼Ò
-        if (water == minf) // ¸ñ¸¶¸§ÀÌ 0ÀÌ¸é, Ã¼·Â °¨¼Ò
+        WaterChange(-waterDecreaseperFrame); // ï¿½ñ¸¶¸ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (water == minf) // ï¿½ñ¸¶¸ï¿½ï¿½ï¿½ 0ï¿½Ì¸ï¿½, Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         {
             HealthChange(-thirstyDecreaseHealth);
         }
     }
 
-    public void HealthChange(float change) // °¢ condition º¯È­ Àû¿ë ÇÔ¼ö
+    public void HealthChange(float change) // ï¿½ï¿½ condition ï¿½ï¿½È­ ï¿½ï¿½ï¿½ï¿½ ï¿½Ô¼ï¿½
     {
         health = Mathf.Clamp(health + change, minf, maxf);
     }

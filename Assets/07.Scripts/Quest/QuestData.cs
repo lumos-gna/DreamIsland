@@ -17,6 +17,7 @@ public class Quest
     private int _count;    //퀘스트 진행도
     private bool _clear;  //클리어 여부
 
+    public int Count{get{return _count;}}
 
     public void Reset()  //퀘스트 진행사항 리셋
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MeleeEnemy : BaseEnemy
+public class MeleeEnemy : BaseEnemy, IPoolableEnemy
 {
     [SerializeField] private AttackEnemyStats _attackStats;
     public override AttackEnemyStats AttackEnemyStats => _attackStats;
