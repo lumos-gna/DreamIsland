@@ -2,20 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using static UnityEditor.PlayerSettings;
 
 public class MoveState : IState<BaseEnemy>
 {
     private float _timer = 0f;
-    private float _pathUpdateTime = 0.5f;// 플레이어 위치 갱신 간격
    
     private float _waitTime = 0f; // 동시에 움직이는걸 방지하기 위한 대기 시간
     private float _minWaitTime = 1f;
     private float _maxWaitTime = 3f;
     private bool _isDestination = false;
 
-    private Vector3 _lastTargetPos;
-    private float _updateThreshold = 0.5f;
+    private float _updateTimer = 0f;
+    private float _updateInterval = 0.2f;
 
     private Transform _playerTransform;
     public void Enter(BaseEnemy obj)
@@ -87,19 +85,18 @@ public class MoveState : IState<BaseEnemy>
     // 공격하는 적은 플레이어 위치로 이동
     private void UpdateAttackEnemyPath(BaseEnemy obj)
     {
-        if (_playerTransform != null && obj.GetAgent().isOnNavMesh)
+        if (_playerTransform != null)
         {
-            float moved = Vector3.Distance(_lastTargetPos, _playerTransform.position);
-            if (moved > _updateThreshold)
+            Vector3 dir = (_playerTransform.position - obj.transform.position).normalized;
+            obj.transform.position += dir * obj.Stats.WalkSpeed * Time.deltaTime;
+            if (dir.sqrMagnitude > 0) // 같은 위치 인지 체크
             {
-                _lastTargetPos = _playerTransform.position;
-
-                if (NavMesh.SamplePosition(_playerTransform.position, out NavMeshHit hit, 5f, NavMesh.AllAreas))
-                {
-                    obj.GetAgent().SetDestination(hit.position);
-                }
+                Quaternion targetRotation = Quaternion.LookRotation(dir);
+                obj.transform.rotation = Quaternion.Slerp(obj.transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
         }
+
+
     }
 
     // 도망치는 적은 랜덤 위치 이동

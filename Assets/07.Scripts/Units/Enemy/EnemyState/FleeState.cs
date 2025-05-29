@@ -42,10 +42,9 @@ public class FleeState : IState<BaseEnemy>
 
     private void UpdateFleeEnemyPath(BaseEnemy obj)
     {
-        // 중심 위치: SpawnTransform → 현재 위치로 변경
+        // 현재 위치로 변경
         Vector3 center = obj.transform.position;
 
-        // 반경 FleeEnemyStats가 있으면 사용, 없으면 0 + 널 체크
         float radius = 0f;
         if (obj.FleeEnemyStats != null)
             radius = obj.FleeEnemyStats.WanderRadius;

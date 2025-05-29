@@ -137,7 +137,6 @@ public class TestPlayerController : MonoBehaviour
             {
                 uiManager.Enable<UIInventory>();
             }
-            //inventory?.Invoke();
             ToggleCursor();
         }
     }
