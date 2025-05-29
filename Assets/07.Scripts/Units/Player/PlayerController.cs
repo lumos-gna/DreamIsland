@@ -28,6 +28,11 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody _rigidbody;
 
+    [Header("Footstep Settings")]            // 효과음용 추가
+    [SerializeField] private int playerSound;  
+    [SerializeField] private float playerSoundInterval = 0.5f; // 걸음 소리 간격
+    private float footstepTimer = 0f;
+
     public Player _Player
     {
         get
@@ -70,6 +75,24 @@ public class PlayerController : MonoBehaviour
         dir.y = _rigidbody.velocity.y;
 
         _rigidbody.velocity = dir;
+
+        // 발걸음 효과음 재생
+        Vector3 horizontalVel = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
+        playerSound = 11;
+        if (horizontalVel.magnitude > 0.1f)
+        {
+            footstepTimer += Time.deltaTime;
+            if (footstepTimer >= playerSoundInterval)
+            {
+                AudioManager.SetEffectVolume(0.5f); // 효과음 볼륨 설정
+                AudioManager.PlayEffectSound(playerSound);
+                footstepTimer = 0f;
+            }
+        }
+        else
+        {
+            footstepTimer = playerSoundInterval; // 이동 멈추면 다음 걸음 준비
+        }
     }
 
     private void CameraLook() // 카메라 움직임
