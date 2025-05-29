@@ -1046,6 +1046,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!1001 &91533370
 PrefabInstance:
@@ -2315,38 +2317,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 72a7aa7b016e42d4182ea0e05d68942f, type: 3}
---- !u!1 &189036854
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 189036855}
-  m_Layer: 8
-  m_Name: Enemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &189036855
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 189036854}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 379, y: 0, z: -5720.4277}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2130393503}
-  m_Father: {fileID: 1086936375}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &192674698
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4087,6 +4057,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
   m_PrefabInstance: {fileID: 1979084603}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &302515140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 302515141}
+  - component: {fileID: 302515142}
+  m_Layer: 0
+  m_Name: ForestAttackEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &302515141
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302515140}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1066950667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &302515142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302515140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPrefabs:
+  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
+  - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
+  - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+  spawnCount: 10
+  radius: 50
+  rayOriginHeight: 100
+  rayDistance: 200
+  parentContainer: {fileID: 0}
+  scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 0
+  spawnInNight: 1
+  avoidRadius: 8
 --- !u!4 &303998509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6950743074300402243, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
@@ -4633,6 +4660,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!4 &343101085 stripped
 Transform:
@@ -5264,6 +5293,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
+--- !u!1 &369800465
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 369800466}
+  - component: {fileID: 369800467}
+  m_Layer: 0
+  m_Name: ForestFleeEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &369800466
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369800465}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1191912253}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &369800467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 369800465}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPrefabs:
+  - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
+  spawnCount: 10
+  radius: 50
+  rayOriginHeight: 100
+  rayDistance: 200
+  parentContainer: {fileID: 0}
+  scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 0
+  avoidRadius: 8
 --- !u!1 &372504638 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5202537669565774642, guid: c7554f298701d6246aaa2f004305ec1b, type: 3}
@@ -5969,6 +6053,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!4 &407500839 stripped
 Transform:
@@ -8611,6 +8697,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!1001 &622877670
 PrefabInstance:
@@ -8763,6 +8851,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3916178422055018755, guid: d2287e3c5f792ad4b8bc5e40198abc33, type: 3}
   m_PrefabInstance: {fileID: 632621675}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &636475905
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 636475906}
+  m_Layer: 8
+  m_Name: Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &636475906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636475905}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 379, y: 0, z: -5720.4277}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2046100649}
+  - {fileID: 651410356}
+  m_Father: {fileID: 1086936375}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &642230525 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6950743074300402243, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
@@ -8861,6 +8982,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
   m_PrefabInstance: {fileID: 428297664}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &651410355
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 651410356}
+  - component: {fileID: 651410357}
+  m_Layer: 0
+  m_Name: ForestAttackEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &651410356
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651410355}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 636475906}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &651410357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 651410355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPrefabs:
+  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
+  - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
+  - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+  spawnCount: 10
+  radius: 50
+  rayOriginHeight: 100
+  rayDistance: 200
+  parentContainer: {fileID: 0}
+  scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 0
+  spawnInNight: 1
+  avoidRadius: 8
 --- !u!4 &654255195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -9477,6 +9655,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!1001 &711843681
 PrefabInstance:
@@ -10096,6 +10276,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
+--- !u!1 &759143718
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 759143719}
+  - component: {fileID: 759143720}
+  m_Layer: 0
+  m_Name: ForestAttackEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &759143719
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759143718}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1191912253}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &759143720
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 759143718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPrefabs:
+  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
+  - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
+  - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+  spawnCount: 10
+  radius: 50
+  rayOriginHeight: 100
+  rayDistance: 200
+  parentContainer: {fileID: 0}
+  scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 0
+  spawnInNight: 1
+  avoidRadius: 8
 --- !u!1001 &760035304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10556,38 +10793,6 @@ Transform:
   - {fileID: 96132634}
   - {fileID: 1086936375}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &808933766
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 808933767}
-  m_Layer: 8
-  m_Name: Enemy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &808933767
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 808933766}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1170739039}
-  m_Father: {fileID: 1615109442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &811654613
 PrefabInstance:
@@ -13739,7 +13944,7 @@ GameObject:
   - component: {fileID: 1065543629}
   - component: {fileID: 1065543630}
   m_Layer: 0
-  m_Name: ForestEnemySpawner
+  m_Name: ForestFleeEnemySpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13774,15 +13979,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPrefabs:
   - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
-  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
-  - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
-  - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
   spawnCount: 10
   radius: 50
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 0
   avoidRadius: 8
 --- !u!1 &1066950666
 GameObject:
@@ -13814,6 +14018,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1065543629}
+  - {fileID: 302515141}
   m_Father: {fileID: 1582317609}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1074150885 stripped
@@ -14002,7 +14207,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1607199293}
-  - {fileID: 189036855}
+  - {fileID: 636475906}
   m_Father: {fileID: 806360671}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1091915326
@@ -14379,6 +14584,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!4 &1106311419 stripped
 Transform:
@@ -14913,65 +15120,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8196732947450673800, guid: 73d48c22c4bea7a41973b09e28861b08, type: 3}
   m_PrefabInstance: {fileID: 1163792197}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1170739038
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1170739039}
-  - component: {fileID: 1170739040}
-  m_Layer: 0
-  m_Name: ForestEnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1170739039
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170739038}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -251.70605, y: 52.809998, z: -175.42752}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 808933767}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1170739040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170739038}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPrefabs:
-  - {fileID: 4983314157720066052, guid: ed55382a3f5c7364788a648011fec686, type: 3}
-  - {fileID: 1133817536285331496, guid: 426b7cca042526c4995813d733fdbca1, type: 3}
-  - {fileID: 5918353419653740869, guid: fb25c331f5eb9fd4abcc202b46696b48, type: 3}
-  - {fileID: 8508852847875860822, guid: 5aa56f47610974a4d85510fc335ea426, type: 3}
-  - {fileID: 3336546684626598533, guid: 11cb443d0ca3f5d4790f730643deea5c, type: 3}
-  - {fileID: 8668659750274387276, guid: 4289da2e2504d084b916fc18a6c1fc47, type: 3}
-  - {fileID: 4492786091346957297, guid: b0407dd7c63f23348882e564ea8d1e47, type: 3}
-  spawnCount: 6000
-  radius: 1000
-  rayOriginHeight: 100
-  rayDistance: 200
-  parentContainer: {fileID: 0}
-  scaleRange: {x: 0.8, y: 1.3}
-  avoidRadius: 8
 --- !u!4 &1171786949 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -15065,6 +15213,39 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
   m_PrefabInstance: {fileID: 646277672}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1191912252
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1191912253}
+  m_Layer: 8
+  m_Name: Enemy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1191912253
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1191912252}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 369800466}
+  - {fileID: 759143719}
+  m_Father: {fileID: 1615109442}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1195915111
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19349,7 +19530,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 388477400}
-  - {fileID: 808933767}
+  - {fileID: 1191912253}
   m_Father: {fileID: 1137846540}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1619432575
@@ -21171,6 +21352,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!4 &1782403942 stripped
 Transform:
@@ -23997,6 +24180,61 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
+--- !u!1 &2046100648
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2046100649}
+  - component: {fileID: 2046100650}
+  m_Layer: 0
+  m_Name: ForestFleeEnemySpawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2046100649
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046100648}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 636475906}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2046100650
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2046100648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPrefabs:
+  - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
+  spawnCount: 10
+  radius: 50
+  rayOriginHeight: 100
+  rayDistance: 200
+  parentContainer: {fileID: 0}
+  scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 0
+  avoidRadius: 8
 --- !u!4 &2049280508 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6950743074300402243, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
@@ -24760,6 +24998,8 @@ MonoBehaviour:
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 1
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!4 &2108783544 stripped
 Transform:
@@ -24935,78 +25175,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7568527208777875985, guid: 22f08a6a3029701429b425a7587e3033, type: 3}
   m_PrefabInstance: {fileID: 2127571470}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &2130393502
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2130393503}
-  - component: {fileID: 2130393504}
-  m_Layer: 0
-  m_Name: ArcticEnemySpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2130393503
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130393502}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -630.70605, y: 52.81, z: 5545}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 189036855}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2130393504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130393502}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnPrefabs:
-  - {fileID: 514908028107770736, guid: 1277b3ac0b5426246a1f8962f1610a21, type: 3}
-  - {fileID: 8384686771964677256, guid: 8c4d710936865704fae6af7ef8c84bd6, type: 3}
-  - {fileID: 8205307189641564076, guid: da580b35aebd4cc45bdb29461bab5d44, type: 3}
-  - {fileID: 2940420250533488478, guid: f39bf8167c30ce24e8b5e779c557580b, type: 3}
-  - {fileID: 8232064523020532494, guid: d5595dc77ac30b64c8db59732e545375, type: 3}
-  - {fileID: 5266256369991663436, guid: 5b2a4e10766807c4e91d2359c01335cc, type: 3}
-  - {fileID: 692643806389712757, guid: 9bf1b45fb79411844989f8fc142af28f, type: 3}
-  - {fileID: 6582091987471706523, guid: 276d3a05bb622e346b61c68a59d86b53, type: 3}
-  - {fileID: 6697123496121934200, guid: 39a32626082bcae489d18878baaea479, type: 3}
-  - {fileID: 3680565828655552734, guid: 8131e03f75b4ff34481d3a55fadf76d7, type: 3}
-  - {fileID: 6063464827117580910, guid: a49458fe33e381e419f0b8d068c90401, type: 3}
-  - {fileID: 1970338932338412809, guid: 0a6e47dcbeaab4644a8d7deccf91f7b8, type: 3}
-  - {fileID: 5697018120364980547, guid: 9d0c101e40a2148469684d0802184865, type: 3}
-  - {fileID: 143952868320841764, guid: ef6fc3c5fe26c7e4792231b52ea8f373, type: 3}
-  - {fileID: 2030598625020051453, guid: a93e2f739aa5e5c45946305034fa7fd9, type: 3}
-  - {fileID: 5279796787929624349, guid: 1850aab1c9912fe428d29f98b96c03ff, type: 3}
-  - {fileID: 3035903645757002552, guid: fd169355c8993944a96f3f865fabac2a, type: 3}
-  - {fileID: 4971738135545862607, guid: 2743274c1a30f684ba5786c019bcdce2, type: 3}
-  - {fileID: 869118216057282807, guid: fe4c89aa8b34b7845aad827f14f7ce3a, type: 3}
-  - {fileID: 8459302182534569673, guid: 0b3dfacfe7e105143bf2a043bb6dafbf, type: 3}
-  spawnCount: 10000
-  radius: 1000
-  rayOriginHeight: 100
-  rayDistance: 200
-  parentContainer: {fileID: 0}
-  scaleRange: {x: 0.8, y: 1.3}
-  avoidRadius: 8
 --- !u!4 &2130800769 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7373828988937033973, guid: 70049e30a83abbd45aa724945c323ec2, type: 3}

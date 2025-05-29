@@ -35,64 +35,76 @@ public class RandomSpawner : MonoBehaviour
     public List<EnvironmentSpawnData> spawnedObjects { get; private set; }
         = new List<EnvironmentSpawnData>();
 
+    private bool _lastIsDay;
+
     void Start()
     {
         if (parentContainer == null) parentContainer = transform;
-
-        bool isDay = DayNightCycle.IsDay;
-        if ((isDay && !spawnInDay) || (!isDay && !spawnInNight))
-            return;
-
         if (spawnPrefabs == null || spawnPrefabs.Length == 0)
         {
-            enabled = false;  // 이 스크립트 비활성화
+            enabled = false;
             return;
         }
 
-        // Ground 레이어 마스크 미리 계산
+        // 첫 스폰 시점에 현재 낮/밤 상태를 읽어서 처리
+        _lastIsDay = DayNightCycle.IsDay;
+        HandleCycleChange(_lastIsDay);
+    }
+    void Update()
+    {
+        bool isDay = DayNightCycle.IsDay;
+        if (isDay != _lastIsDay)
+        {
+            // 낮→밤 or 밤→낮 전환 시
+            HandleCycleChange(isDay);
+            _lastIsDay = isDay;
+        }
+    }
+
+    private void HandleCycleChange(bool isDay)
+    {
+        // 1) 기존에 뿌려진 것 삭제
+        foreach (var sd in spawnedObjects)
+            if (sd != null) Destroy(sd.gameObject);
+        spawnedObjects.Clear();
+
+        // 2) 조건에 맞을 때만 SpawnAll 실행
+        if ((isDay && spawnInDay) ||
+            (!isDay && spawnInNight))
+        {
+            SpawnAll();
+        }
+    }
+
+    // 실제 스폰 루프 (기존 Start() 안의 for문을 옮긴 것)
+    private void SpawnAll()
+    {
         int groundLayer = LayerMask.NameToLayer("Ground");
         int groundMask = 1 << groundLayer;
-
-        // 피해야 할 레이어 마스크 (Portal, Player)
         int avoidMask = LayerMask.GetMask("Portal", "Player");
 
         for (int i = 0; i < spawnCount; i++)
         {
-            // 1) 반경 내 랜덤 XZ 좌표
             Vector2 rnd = Random.insideUnitCircle * radius;
-            Vector3 rayOrigin = new Vector3(rnd.x, rayOriginHeight, rnd.y) + transform.position;
+            Vector3 rayOrigin = transform.position + new Vector3(rnd.x, rayOriginHeight, rnd.y);
 
-            // 2) 바로 레이캐스트 ↓ 방향으로 쏴서 땅 위치만 구함
-            if (!Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, rayDistance, groundMask))
-            {
+            if (!Physics.Raycast(rayOrigin, Vector3.down, out var hit, rayDistance, groundMask))
                 continue;
-            }
 
-            // 3) hit.point에 바로 생성
             Vector3 spawnPos = hit.point;
-
-            // +) Collider[] cols = Physics.OverlapSphere(spawnPos, avoidRadius, avoidMask);
-            Collider[] cols = Physics.OverlapSphere(spawnPos, avoidRadius, avoidMask);
-            if (cols.Length > 0)
+            if (Physics.OverlapSphere(spawnPos, avoidRadius, avoidMask).Length > 0)
                 continue;
 
-            // 4) 랜덤 Y 회전
             Quaternion rot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
+            float rndScale = Random.Range(scaleRange.x, scaleRange.y);
 
-            // 5) 랜덤 스케일
-            float randomScale = Random.Range(scaleRange.x, scaleRange.y);
-
-            // 6) Instantiate 하면서 절대 떨어뜨리지 않음
             GameObject go = Instantiate(
                 spawnPrefabs[Random.Range(0, spawnPrefabs.Length)],
                 spawnPos,
                 rot,
                 parentContainer);
+            go.transform.localScale *= rndScale;
 
-            // 인스턴스 스케일 적용
-            go.transform.localScale *= randomScale;
-
-            // 7) SpawnData에 착지 위치·시간 기록
             var sd = go.AddComponent<EnvironmentSpawnData>();
             sd.InitializeAsLanded(spawnPos);
             spawnedObjects.Add(sd);
