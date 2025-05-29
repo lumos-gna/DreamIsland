@@ -44,7 +44,7 @@ public class EnemyHealth : MonoBehaviour
         // 파티클
         // hitparticles.transform.position = hitpoint;
         // hitpaticles.play()
-        _healthBar.DamageText(2);
+        _healthBar.DamageText(damage);
 
         if (_currentHealth <= 0)
         {
