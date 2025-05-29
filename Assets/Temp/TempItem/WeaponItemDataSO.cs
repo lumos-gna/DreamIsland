@@ -7,6 +7,7 @@ public class WeaponItemDataSO : ItemDataSO
 {
     public CraftingRecipe CraftingRecipe => craftingRecipe;
     public float Range => range;
+    public float Delay => delay;
     public float UnitDamage => unitDamage;
     public float ObjectDamage => objectDamage;
     
@@ -21,6 +22,8 @@ public class WeaponItemDataSO : ItemDataSO
     [Space(10f)]
     [Header("AttackInfo")]
     [SerializeField] private float range;
+    
+    [SerializeField] private float delay;
     
     [SerializeField] private float unitDamage;
     

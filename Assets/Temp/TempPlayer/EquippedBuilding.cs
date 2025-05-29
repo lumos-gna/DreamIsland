@@ -34,11 +34,15 @@ public class EquippedBuilding : EquippedItem
 
     }
 
-    public override void Use()
+    public override bool TryUse()
     {
         if (_buildingSystem.TryBuild())
         {
             _buildingSystem.Create(_itmeData.BuildingObjectPrefab);
+
+            return true;
         }
+
+        return false;
     }
 }

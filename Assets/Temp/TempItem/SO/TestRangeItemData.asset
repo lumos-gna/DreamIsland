@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fa56be8d729f1499ac5a13b637127d, type: 3}
+  m_Name: TestRangeItemData
+  m_EditorClassIdentifier: 
+  displayName: TestAxe
+  description: 
+  maxStackCount: 1
+  icon: {fileID: 0}
+  dropItemPrefab: {fileID: -7712521015498405578, guid: 76bc393a3c5add643a221207300ae05b, type: 3}
+  equipItemPrefab: {fileID: 4514243386781830718, guid: b1e4ace64300a9f49853f665348231e7, type: 3}
+  craftingRecipe:
+    neededItem: []
+    resultItemData: {fileID: 0}
+  range: 2
+  delay: 3
+  unitDamage: 0
+  objectDamage: 0

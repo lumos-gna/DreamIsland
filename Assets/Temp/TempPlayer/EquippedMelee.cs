@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EquippedWeapon : EquippedItem
+public class EquippedMelee : EquippedItem
 {
     [SerializeField] private Animator animator;
 
@@ -22,16 +22,19 @@ public class EquippedWeapon : EquippedItem
 
     public override void UnEquip()
     {
-        
     }
 
-    public override void Use()
+    public override bool TryUse()
     {
         if (!_isRunning)
         {
             _isRunning = true;
             animator.SetTrigger(_attack);
+
+            return true;
         }
+
+        return false;
     }
     
     public void OnHit()

@@ -18,7 +18,10 @@ public class EquippedController : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            CurEquippedItem.Use();
+            if (CurEquippedItem.TryUse())
+            {
+                //인벤토리 슬롯 개수 갱신?
+            }
         }
        
     }

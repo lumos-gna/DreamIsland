@@ -6,6 +6,6 @@ public abstract class EquippedItem : MonoBehaviour
 {
     public abstract void Equip(GameObject user, ItemDataSO itemData);
     public abstract void UnEquip();
-    public abstract void Use();
+    public abstract bool TryUse();
     
 }

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d7fa56be8d729f1499ac5a13b637127d, type: 3}
-  m_Name: WeaponItemData
+  m_Name: TestMeeleItemData
   m_EditorClassIdentifier: 
   displayName: TestAxe
   description: 
@@ -22,5 +22,6 @@ MonoBehaviour:
     neededItem: []
     resultItemData: {fileID: 0}
   range: 2
-  unitDamage: 0
-  objectDamage: 0
+  delay: 0
+  unitDamage: 1
+  objectDamage: 1

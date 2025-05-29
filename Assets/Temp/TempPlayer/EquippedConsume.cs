@@ -11,7 +11,7 @@ public class EquippedConsume : EquippedItem
     
     private bool _isRunning;
     
-    private readonly int _eating = Animator.StringToHash("Eating");
+    private readonly int _consume = Animator.StringToHash("Consume");
     
     public override void Equip(GameObject user, ItemDataSO itemData)
     {
@@ -27,16 +27,24 @@ public class EquippedConsume : EquippedItem
     {
     }
 
-    public override void Use()
+    public override bool TryUse()
     {
         if (!_isRunning)
         {
             _isRunning = true;
-            animator.SetTrigger(_eating);
+            animator.SetTrigger(_consume);
+
+            return true;
         }
+
+        return false;
     }
 
-    public void EndEating()
+    public void StartConsume()
+    {
+    }
+
+    public void FinishConsume()
     {
         for (int i = 0; i < _itmeData.Infos.Length; i++)
         {
