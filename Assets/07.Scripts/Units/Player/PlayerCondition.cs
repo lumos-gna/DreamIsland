@@ -1,4 +1,4 @@
-using System.Collections;
+癤퓎sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,14 +23,14 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        WaterChange(-waterDecreaseperFrame); // 목마름 계속 감소
-        if (water == minf) // 목마름이 0이면, 체력 감소
+        WaterChange(-waterDecreaseperFrame); 
+        if (water == minf) 
         {
             HealthChange(-thirstyDecreaseHealth);
         }
     }
 
-    public void HealthChange(float change) // 각 condition 변화 적용 함수
+    public void HealthChange(float change) 
     {
         health = Mathf.Clamp(health + change, minf, maxf);
     }

@@ -3,22 +3,20 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UIInventory : MonoBehaviour
+public class UIInventory : BaseUI
 {
-    public ItemSlot[] slots;
-    public HandleSlot[] handleSlots;
-
     public GameObject inventoryWindow;
     public Transform slotPanel;
-    public Transform handleSlotPanel;
-    public Transform dropPosition;
-
-    public GameObject summaryBox;
-    //public Vector2 summaryBoxOffset = new Vector2(20f, 20f);
-
-    [Header("Select Item")]
+    public Transform handleSlotPanel;   // 인벤토리 퀵슬롯 부모
     public TextMeshProUGUI onMouseItemName;
     public TextMeshProUGUI onMouseItemDescription;
+    public GameObject summaryBox;
+
+    public ItemSlot[] slots;
+    public HandleSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
+
+    private InventoryModel model;
+    private QuickSlotUI quickSlotUI;
 
     // 해당 부분 PlayerController.cs에 인벤토리 로직 추가되면 Test제외하고 사용하세요.
     private TestPlayerController controller;
@@ -27,15 +25,8 @@ public class UIInventory : MonoBehaviour
     ItemData selectedItem;
     int selectedItemIndex = 0;
 
-    // Start is called before the first frame update
-    void Start()
+    public override void Init()
     {
-        // 해당 부분도 Player 로직에 맞게 변경
-        controller = CharacterManager.Instance.Player.controller;
-        dropPosition = CharacterManager.Instance.Player.dropPosition;
-        controller.inventory += Toggle;
-        CharacterManager.Instance.Player.addItem += AddItem;
-
         inventoryWindow.SetActive(false);
         summaryBox.SetActive(false);
 
@@ -60,8 +51,46 @@ public class UIInventory : MonoBehaviour
             handleSlots[i].ClearSlot();
         }
 
+        model = new InventoryModel(slots.Length, handleSlots.Length);
+        quickSlotUI = UIManager.Instance.Create<QuickSlotUI>() as QuickSlotUI;
+        quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
+
+        PlayerManager.Instance._Player.addItem += AddItem;
+
         // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
         ClearSelectedItemWindow();
+    }
+
+    public override void Enable()
+    {
+        inventoryWindow.SetActive(true);
+
+        UIManager.Instance.Get<QuickSlotUI>()?.Disable();
+    }
+
+    public override void Disable()
+    {
+        inventoryWindow.SetActive(false);
+
+        UIManager.Instance.Get<QuickSlotUI>()?.Enable();
+        quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
+
+        quickSlotUI.SyncToItemEquip();
+    }
+
+    // 인벤토리 아이템 슬롯에 마우스를 올렸을 때 아이템의 설명을 보이기 위한 메서드
+    public void MouseOnInventoryItem(int index)
+    {
+        var slot = slots[index];
+        if (slot.item == null) return;
+        onMouseItemName.text = slot.item.displayName;
+        onMouseItemDescription.text = slot.item.description;
+    }
+
+    public void ClearSelectedItemWindow()
+    {
+        onMouseItemName.text = string.Empty;
+        onMouseItemDescription.text = string.Empty;
     }
 
     private void Update()
@@ -73,69 +102,25 @@ public class UIInventory : MonoBehaviour
         summaryBox.transform.localPosition = pos;
     }
 
-    public void ClearSelectedItemWindow()
+    public void AddItem(ItemData data)
     {
-        onMouseItemName.text = string.Empty;
-        onMouseItemDescription.text = string.Empty;
-    }
+        var player = PlayerManager.Instance._Player;
+        if (player.itemData == null) return;
 
-    // Inventory창 Open/Close시 호출
-    public void Toggle()
-    {
-        if (IsOpenInventory())
-        {
-            inventoryWindow.SetActive(false);
-        }
-        else
-        {
-            inventoryWindow.SetActive(true);
-        }
-    }
-
-    public bool IsOpenInventory()
-    {
-        return inventoryWindow.activeInHierarchy;
-    }
-
-    private void AddItem()
-    {
-        ItemData data = CharacterManager.Instance.Player.itemData;   // player에 맞게 수정 필요
-
-        if (data.canStack)
-        {
-            ItemSlot slot = GetItemStack(data);
-
-            if (slot != null)
-            {
-                slot.quantity++;
-                UpdateUI();
-                CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
-                return;
-            }
-        }
-
-        ItemSlot emptySlot = GetEmptySlot();
-
-        if (emptySlot != null)
-        {
-            emptySlot.item = data;
-            emptySlot.quantity = 1;
-            UpdateUI();
-            CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
-            return;
-        }
-
-
-        ThrowItem(data);
-        CharacterManager.Instance.Player.itemData = null;   // player에 맞게 수정 필요
+        model.AddItem(data);
+        UpdateUI();
+        player.itemData = null;
     }
 
     private void UpdateUI()
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            if (slots[i].item != null)
+            var data = model.itemSlots[i];
+            if (data.item != null)
             {
+                slots[i].item = data.item;
+                slots[i].quantity = data.quantity;
                 slots[i].SetSlot();
             }
             else
@@ -146,8 +131,11 @@ public class UIInventory : MonoBehaviour
 
         for (int i = 0; i < handleSlots.Length; i++)
         {
-            if (handleSlots[i].item != null)
+            var data = model.handleSlots[i];
+            if (data.item != null)
             {
+                handleSlots[i].item = data.item;
+                handleSlots[i].quantity = data.quantity;
                 handleSlots[i].SetSlot();
             }
             else
@@ -157,45 +145,17 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    public ItemSlot GetItemStack(ItemData data)
+    public void UpdateHandleSlotModel(int index, ItemData item, int quantity)
     {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].item == data && slots[i].quantity < data.maxStackCount)
-            {
-                return slots[i];
-            }
-        }
-
-        return null;
+        if (index < 0 || index >= model.handleSlots.Length) return;
+        model.handleSlots[index].item = item;
+        model.handleSlots[index].quantity = quantity;
     }
 
-    private ItemSlot GetEmptySlot()
+    public void UpdateItemSlotModel(int index, ItemData item, int quantity)
     {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i].item == null)
-            {
-                return slots[i];
-            }
-        }
-
-        return null;
-    }
-
-    private void ThrowItem(ItemData data)
-    {
-        Instantiate(data.dropItemPrefab, dropPosition.position, Quaternion.Euler(Vector3.one * Random.value * 360));
-    }
-
-    public void MouseOnInventoryItem(int index)
-    {
-        if (slots[index].item == null) return;
-
-        selectedItem = slots[index].item;
-        selectedItemIndex = index;
-
-        onMouseItemName.text = selectedItem.displayName;
-        onMouseItemDescription.text = selectedItem.description;
+        if (index < 0 || index >= model.itemSlots.Length) return;
+        model.itemSlots[index].item = item;
+        model.itemSlots[index].quantity = quantity;
     }
 }
