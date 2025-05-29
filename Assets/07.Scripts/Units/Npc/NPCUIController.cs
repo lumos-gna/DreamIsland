@@ -47,7 +47,12 @@ public class NPCUIController: MonoBehaviour
     {
         _selectedDialogue = i;
 
-        dialogueText.text = npcData.NextText(_selectedDialogue);
+        //dialogueText.text = npcData.NextText(_selectedDialogue);
+        
+        dialogueText.text = "";
+        string fullText = npcData.NextText(_selectedDialogue);
+        dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+        
         type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
         
@@ -100,11 +105,14 @@ public class NPCUIController: MonoBehaviour
 
             if (type == dialogueType.NORMAL)
             {
-                string temp = npcData.NextText(_selectedDialogue);
+                //string temp = npcData.NextText(_selectedDialogue);
+                
+                string fullText = npcData.NextText(_selectedDialogue);
 
-                if (temp != null)
+                if (fullText != null)
                 {
-                    dialogueText.text = temp;
+                    dialogueText.text = "";
+                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
                 }
                 else
                 {
@@ -116,7 +124,10 @@ public class NPCUIController: MonoBehaviour
             {
                 if (!exitButton.gameObject.activeSelf)
                 {
-                    string temp = npcData.NextText(_selectedDialogue);
+                    //string temp = npcData.NextText(_selectedDialogue);
+                    dialogueText.text = "";
+                    string fullText = npcData.NextText(_selectedDialogue);
+                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
                 
                     exitButton.gameObject.SetActive(true);
                 }
