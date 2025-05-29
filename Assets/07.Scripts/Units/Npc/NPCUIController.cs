@@ -1,57 +1,51 @@
 using UnityEngine;
 using UnityEngine.UI;
-//using DG.Tweening;
+using DG.Tweening;
 using TMPro;
 
 public class NPCUIController: MonoBehaviour
 {
-    public PlayerController playerController;
     public NpcData npcData;
     public Canvas uiCanvas;
-    public Image image;
     public TextMeshProUGUI dialogueText;
     public Button exitButton;
-    
-    public GameObject buttonGroup;
-    public GameObject buttonPrefab;  
+    public ButtonFactory buttonFactory;
     
     private GameObject[] _buttons;
+    private PlayerController playerController;
     private int _selectedDialogue;
-    private int _questNumber;
-    private dialogueType type;
+    private string _questName;
+    private DialogueType type;
+    
+    private float _clickDelay = 0.2f;
+    private float _lastClickTime = 0f;
     
     void Start()
     {
+        npcData.AllReset();
+        
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            playerController = player.GetComponentInChildren<PlayerController>();
+        }
+
         exitButton.onClick.AddListener(() => OnOff());
-        _buttons = new GameObject[npcData.npcDatas.Length];
+        _buttons = new GameObject[npcData.npcDialog.Length];
     }
 
-    private void PlusButton()   //대화 버튼 추가
+    private void PlusButton(int length)   //대화 버튼 추가
     {
-        for (int i = 0; i < npcData.npcDatas.Length; i++)
+        for (int i = 0; i < length; i++)
         {
-            GameObject newButton = Instantiate(buttonPrefab, buttonGroup.transform);
-            int capturedIndex = i;
-            _buttons[capturedIndex] = newButton;
-            newButton.name = "Button_" + capturedIndex;
-            
-            //버튼 텍스트 초기화
-            TextMeshProUGUI btnText = newButton.GetComponentInChildren<TextMeshProUGUI>();
-            if (btnText != null)
-            {
-                btnText.text = npcData.npcDatas[capturedIndex].buttonName;
-            }
-            
-
-            //버튼 색상 초기화
-            Image btnImage = newButton.GetComponent<Image>();
-            if (btnImage != null)
-            {
-                btnImage.color = new Color32(0x9f, 0x9f, 0x9f, 255);
-            }
+            int index = i;
+            _buttons[index] = buttonFactory.CreateButton(index, npcData.npcDialog[index].buttonName);
             
             //버튼 이벤트 초기화
-            newButton.GetComponent<Button>().onClick.AddListener(() => LoadDialogue(capturedIndex));
+            //_buttons[index].GetComponent<Button>().onClick.AddListener(() => LoadDialogue(index));
+            Button btn = _buttons[index].GetComponent<Button>();
+            btn.onClick.RemoveAllListeners();  // ⭐ 중복 호출 방지 핵심
+            btn.onClick.AddListener(() => LoadDialogue(index));
         }
     }
     
@@ -59,15 +53,21 @@ public class NPCUIController: MonoBehaviour
     private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
-        npcData.npcDatas[_selectedDialogue].Reset();
-        dialogueText.text = npcData.NextText(_selectedDialogue);
-        type = npcData.npcDatas[_selectedDialogue].type;
+
+        //dialogueText.text = npcData.NextText(_selectedDialogue);
+        
+        dialogueText.text = "";
+        string fullText = npcData.NextText(_selectedDialogue);
+        dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+        
+        type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
         
-        if (type == dialogueType.RANDOM || type == dialogueType.QUEST)
+        if (npcData.npcDialog[_selectedDialogue].GetExitButton())
         {
             exitButton.gameObject.SetActive(true);
         }
+        
         for (int j = 0; j < _buttons.Length; j++)
         {
             _buttons[j].SetActive(false);
@@ -92,10 +92,12 @@ public class NPCUIController: MonoBehaviour
                     _buttons[i] = null; 
                 }
             }
+
+            type = DialogueType.NONE;
         }
         else
         {
-            PlusButton();
+            PlusButton(npcData.npcDialog.Length);
         }
     }
     
@@ -105,13 +107,16 @@ public class NPCUIController: MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
-            if (type == dialogueType.Normal)
-            {
-                string temp = npcData.NextText(_selectedDialogue);
 
-                if (temp != null)
+            if (type == DialogueType.NORMAL)
+            {
+                
+                string fullText = npcData.NextText(_selectedDialogue);
+
+                if (fullText != null)
                 {
-                    dialogueText.text = temp;
+                    dialogueText.text = "";
+                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
                 }
                 else
                 {
@@ -119,11 +124,13 @@ public class NPCUIController: MonoBehaviour
                     exitButton.gameObject.SetActive(true);
                 }
             }
-            else if (type == dialogueType.QUEST)
+            else if (type == DialogueType.QUEST)
             {
                 if (!exitButton.gameObject.activeSelf)
                 {
-                    string temp = npcData.NextText(_selectedDialogue);
+                    dialogueText.text = "";
+                    string fullText = npcData.NextText(_selectedDialogue);
+                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
                 
                     exitButton.gameObject.SetActive(true);
                 }
@@ -137,3 +144,4 @@ public class NPCUIController: MonoBehaviour
         }
     }
 }
+
