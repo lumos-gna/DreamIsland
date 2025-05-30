@@ -1,9 +1,5 @@
 using UnityEngine;
 
-/// <summary>
-/// 싱글톤 오디오 매니저
-/// BGM과 효과음을 관리합니다.
-/// </summary>
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }

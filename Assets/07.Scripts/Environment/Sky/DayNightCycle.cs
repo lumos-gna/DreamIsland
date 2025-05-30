@@ -86,19 +86,35 @@ public class DayNightCycle : MonoBehaviour
             PlayCurrentBGM();
         }
 
-        // 빛/스카이박스/온도 기존 로직
+        // 광원/스카이박스 설정
         SunLight.transform.rotation = Quaternion.Euler(sunAngle, 170f, 0f);
         MoonLight.transform.rotation = Quaternion.Euler(sunAngle + 180f, 170f, 0f);
         SunLight.intensity = isDay ? daySunIntensity : 0f;
         MoonLight.intensity = isDay ? 0f : nightMoonIntensity;
         RenderSettings.skybox = isDay ? Sun : Moon;
 
-        float normalizedDay = isDay
-            ? Mathf.InverseLerp(0f, 180f, sunAngle)
-            : 0f;
-        CurrentTemperature = Mathf.Lerp(minTemperature, maxTemperature, normalizedDay);
+        // 온도 변화 - 낮에는 곡선, 밤에는 잔열 보정
+        float normalizedDay = Mathf.InverseLerp(0f, 180f, Mathf.Clamp(sunAngle, 0f, 180f));
+        float dayTempCurve = Mathf.Sin(normalizedDay * Mathf.PI); // 0~1~0 Sine 곡선
+
+        // 밤에도 온도 자연스럽게 식게 잔열 처리
+        float nightBlendSpeed = 0.3f; // 0~1, 값이 작을수록 밤에 서서히 식음
+
+        if (isDay)
+        {
+            // 낮에는 곡선 따라 상승
+            CurrentTemperature = Mathf.Lerp(minTemperature, maxTemperature, dayTempCurve);
+        }
+        else
+        {
+            // 밤에는 온도가 곧바로 떨어지지 않고, 천천히 min 쪽
+            // 이전 프레임 값을 유지하면서 점진적으로 minTemperature로 감소
+            CurrentTemperature = Mathf.Lerp(CurrentTemperature, minTemperature, Time.deltaTime * nightBlendSpeed);
+        }
+
         DynamicGI.UpdateEnvironment();
     }
+
 
     private void OnRegionChanged(Region newRegion)
     {

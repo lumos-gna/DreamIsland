@@ -10,10 +10,12 @@ public class FleeState : IState<BaseEnemy>
     private float _pathUpdateInterval = 1.5f;
     private const float MinFleeDistanceThreshold = 1.0f;
 
+    // 효과음 쿨타임 관련 설정
+    private const float RunSoundCooldown = 1f;
+    private float _lastRunSoundTime = -Mathf.Infinity;
 
-    //효과음 쿨다운
-    private float _lastSfxTime = -Mathf.Infinity;
-    private const float SfxCooldown = 0.5f;
+
+    private int DeerRunSound = 2;    
     public void Enter(BaseEnemy obj)
     {
         obj.GetAnimator()?.CrossFade("Run", 0.1f);
@@ -56,17 +58,13 @@ public class FleeState : IState<BaseEnemy>
 
     private void TryPlayisRuning(string objName)
     {
-        if (Time.time - _lastSfxTime < SfxCooldown) return;
+        if (Time.time - _lastRunSoundTime < RunSoundCooldown)
+            return;
 
-        int sfx = 0;
-        var nm = objName.ToLower();
-        if (nm.Contains("Deer")) sfx = 16;
+        AudioManager.SetEffectVolume(0f);
+        AudioManager.PlayEffectSound(DeerRunSound);
 
-        if (sfx > 0)
-        {
-            AudioManager.PlayEffectSound(sfx);
-            _lastSfxTime = Time.time;
-        }
+        _lastRunSoundTime = Time.time;
     }
 
     private void UpdateFleeEnemyPath(BaseEnemy obj)

@@ -79,7 +79,7 @@ public class PlayerController : MonoBehaviour
 
         // 발걸음 효과음 재생
         Vector3 horizontalVel = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
-        playerSound = 11;
+        playerSound = 15;
         if (horizontalVel.magnitude > 0.1f)
         {
             footstepTimer += Time.deltaTime;
@@ -127,7 +127,7 @@ public class PlayerController : MonoBehaviour
         {
             // 효과음 재생
             playerJumpSound = 14;
-            AudioManager.SetEffectVolume(0.5f); 
+            AudioManager.SetEffectVolume(0.2f); 
             AudioManager.PlayEffectSound(playerJumpSound);
 
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
