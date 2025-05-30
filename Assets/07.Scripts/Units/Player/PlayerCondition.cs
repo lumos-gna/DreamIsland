@@ -17,18 +17,21 @@ public class PlayerCondition : MonoBehaviour
 
     private float waterDecreaseperFrame = 0.001f;
     private float thirstyDecreaseHealth = 0.1f;
-    private float StaminaDecreasePerFrame = 0.01f;
+    private float StaminaDecreasePerFrame = 0.001f;
 
     private float minf = 0f;
     private float maxf = 100f;
 
     private void Update()
     {
+        // 목마름 자동 감소
         WaterChange(-waterDecreaseperFrame);
         if (water == minf)
         {
             HealthChange(-thirstyDecreaseHealth);
         }
+
+        // 스태미너 자동 감소
         StaminaChange(-StaminaDecreasePerFrame);
         if (stamina <= 0f)
         {

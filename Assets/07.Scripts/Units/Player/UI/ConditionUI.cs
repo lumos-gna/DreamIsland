@@ -7,6 +7,8 @@ public class ConditionUI : BaseUI
     [SerializeField] private Image barHP;
     [SerializeField] private Image barRed;
     [SerializeField] private Image barBlue;
+    [SerializeField] private Image barGreen;
+    [SerializeField] private Image barWater;
 
     private void Awake()
     {
@@ -18,6 +20,8 @@ public class ConditionUI : BaseUI
         SetHP(100f);
         SetRed(0f);
         SetBlue(0f);
+        SetGreen(100f);
+        SetWater(100f);
     }
 
     public override void Enable() => gameObject.SetActive(true);
@@ -26,4 +30,6 @@ public class ConditionUI : BaseUI
     public void SetHP(float value) => barHP.fillAmount = Mathf.Clamp01(value / 100f);
     public void SetRed(float value) => barRed.fillAmount = Mathf.Clamp01(value / 100f);
     public void SetBlue(float value) => barBlue.fillAmount = Mathf.Clamp01(value / 100f);
+    public void SetGreen(float value) => barGreen.fillAmount = Mathf.Clamp01(value / 100f);
+    public void SetWater(float value) => barWater.fillAmount = Mathf.Clamp01(value / 100f);
 }
