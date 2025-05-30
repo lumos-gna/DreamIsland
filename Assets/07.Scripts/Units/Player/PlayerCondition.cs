@@ -72,4 +72,5 @@ public class PlayerCondition : MonoBehaviour
     public void RedTempChange(float change) => redTemperature = Mathf.Clamp(redTemperature + change, minf, maxf);
     public void BlueTempChange(float change) => blueTemperature = Mathf.Clamp(blueTemperature + change, minf, maxf);
     public void StaminaChange(float change) => stamina = Mathf.Clamp(stamina + change, minf, maxf);
+    
 }
