@@ -15,7 +15,7 @@ public class ItemObject : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        GameManager.Instance.AddItem(data);
+        //GameManager.Instance.AddItem(data);
         Destroy(gameObject);
     }
 }

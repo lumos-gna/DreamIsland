@@ -15,8 +15,7 @@ public class InventoryUI : BaseUI
     public ItemSlot[] slots;
     public HandleSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
 
-    private Inventory model;
-    private QuickSlotUI quickSlotUI;
+    private Inventory _inventory;
 
     public override void Init()
     {
@@ -42,11 +41,9 @@ public class InventoryUI : BaseUI
             handleSlots[i].ClearSlot();
         }
 
-        model = GameManager.Instance.Inventory;
+        _inventory = GameManager.Instance.Inventory;
 
-        GameManager.Instance.OnInventoryChanged += UpdateUI;
-
-        quickSlotUI = UIManager.Instance.Create<QuickSlotUI>() as QuickSlotUI;
+        _inventory.OnChangedInventory += UpdateUI;
 
         // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
         ClearSelectedItemWindow();
@@ -98,7 +95,7 @@ public class InventoryUI : BaseUI
     {
         for (int i = 0; i < slots.Length; i++)
         {
-            var data = model.itemSlots[i];
+            var data = _inventory.itemSlots[i];
             if (data.item != null)
             {
                 slots[i].item = data.item;
@@ -113,7 +110,7 @@ public class InventoryUI : BaseUI
 
         for (int i = 0; i < handleSlots.Length; i++)
         {
-            var data = model.handleSlots[i];
+            var data = _inventory.handleSlots[i];
             if (data.item != null)
             {
                 handleSlots[i].item = data.item;

@@ -4,8 +4,10 @@ public class DroppedItem : MonoBehaviour, IInteractable
 {
     public ItemDataSO ItemData { get; private set; }
 
-    // 테스트용
-    //public ItemDataSO ItemData;
+    public void Init(ItemDataSO data)
+    {
+        ItemData = data;
+    }
 
     public string GetInteractPrompt()
     {
@@ -15,7 +17,8 @@ public class DroppedItem : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
-        GameManager.Instance.AddItem(ItemData);
+        GameManager.Instance.Inventory.AddItem(ItemData);
+        
         Destroy(gameObject);
     }
 }
