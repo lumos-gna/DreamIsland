@@ -56,7 +56,6 @@ public class NPCUIController: MonoBehaviour
             fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
             dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
             exitButton.gameObject.SetActive(true);
-            Debug.Log("aaaaaa");
             return;
         }
         
