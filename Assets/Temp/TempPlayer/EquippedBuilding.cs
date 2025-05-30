@@ -4,13 +4,7 @@ using UnityEngine;
 
 public class EquippedBuilding : EquippedItem
 {
-    public override ItemDataSO ItemData => _itmeData;
-
-    
     private BuildingSystem _buildingSystem;
-
-    private BuildingItemDataSO _itmeData;
-
 
     private void Update()
     {
@@ -25,12 +19,11 @@ public class EquippedBuilding : EquippedItem
 
     public override void Equip(GameObject user, ItemDataSO itemData)
     {
-        _itmeData = itemData as BuildingItemDataSO;
+        ItemData = itemData;
         
-
         _buildingSystem = new();
         
-        _buildingSystem.Create(_itmeData.BuildingObjectPrefab);
+        _buildingSystem.Create(ItemData.BuildingInfo.buildingObjectPrefab);
     }
 
     public override void UnEquip()
@@ -45,7 +38,7 @@ public class EquippedBuilding : EquippedItem
             case EquippedController.InputState.Down :
                 if (_buildingSystem.TryBuild())
                 {
-                    _buildingSystem.Create(_itmeData.BuildingObjectPrefab);
+                    _buildingSystem.Create(ItemData.BuildingInfo.buildingObjectPrefab);
 
                     return true;
                 }

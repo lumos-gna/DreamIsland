@@ -6,15 +6,15 @@ using UnityEngine;
 public class ConsumeItemDataSO : ItemDataSO
 {
     [System.Serializable]
-    public struct ConsumeInfo
+    public struct ConsumeState
     {
         public ConsumType consumetype;
         public float value;
     }
     
-    public ConsumeInfo[] Infos => infos;
+    public ConsumeState[] Infos => infos;
 
     [Space(10f)] 
     [Header("ConsumeInfo")] 
-    [SerializeField] private ConsumeInfo[] infos;
+    [SerializeField] private ConsumeState[] infos;
 }
