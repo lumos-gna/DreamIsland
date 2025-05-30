@@ -8,5 +8,5 @@ public interface IPoolableEnemy
     void OnSpawn();
     void OnDespawn();
     void Die();
-    event Action<IPoolableEnemy> OnDie;
+    event Action<IPoolableEnemy> OnRespawn;
 }

@@ -1716,7 +1716,8 @@ GameObject:
   - component: {fileID: 4496846902252707002}
   - component: {fileID: 3283303915524441839}
   - component: {fileID: 231082133242876000}
-  m_Layer: 0
+  - component: {fileID: 7182027619511138392}
+  m_Layer: 13
   m_Name: RangedEnemy_Golem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1827,7 +1828,6 @@ MonoBehaviour:
   _dropItems: []
   _type: 0
   _stats:
-    Health: 5
     WalkSpeed: 4
     RunSpeed: 5
     DetectDistance: 8
@@ -1876,6 +1876,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 8761680935851548955}
+  _helathBarSprite: {fileID: 6129860486859403630}
+  _conditionHandler: {fileID: 7182027619511138392}
+--- !u!114 &7182027619511138392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8147891518531063995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12305f0ae1445d41b919a698c7fda81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  maxHealth: 5
 --- !u!1 &8678251084848175533
 GameObject:
   m_ObjectHideFlags: 0
@@ -2113,6 +2129,11 @@ PrefabInstance:
 --- !u!224 &2328464499124983527 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2600538802519717916, guid: f0bd8f959bc3e15419eed8429b6c14f7, type: 3}
+  m_PrefabInstance: {fileID: 308116569504706299}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6129860486859403630 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5861159769138028437, guid: f0bd8f959bc3e15419eed8429b6c14f7, type: 3}
   m_PrefabInstance: {fileID: 308116569504706299}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &8761680935851548955 stripped
