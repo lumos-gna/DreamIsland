@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class ItemSlotData
 {
-    public ItemData item;
+    public ItemDataSO item;
     public int quantity;
 }

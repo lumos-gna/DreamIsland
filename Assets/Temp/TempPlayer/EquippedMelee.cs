@@ -23,19 +23,26 @@ public class EquippedMelee : EquippedItem
     public override void UnEquip()
     {
     }
-
-    public override bool TryUse()
+    
+    public override bool TryUse(EquippedController.InputState inputState)
     {
-        if (!_isRunning)
+        switch (inputState)
         {
-            _isRunning = true;
-            animator.SetTrigger(_attack);
+            case EquippedController.InputState.Down :
+                if (!_isRunning)
+                {
+                    _isRunning = true;
+                    animator.SetTrigger(_attack);
 
-            return true;
+                    return true;
+                }
+
+                break;
         }
 
         return false;
     }
+
     
     public void OnHit()
     {

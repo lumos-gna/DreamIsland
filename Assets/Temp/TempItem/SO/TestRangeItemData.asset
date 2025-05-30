@@ -17,11 +17,11 @@ MonoBehaviour:
   maxStackCount: 1
   icon: {fileID: 0}
   dropItemPrefab: {fileID: -7712521015498405578, guid: 76bc393a3c5add643a221207300ae05b, type: 3}
-  equipItemPrefab: {fileID: 4514243386781830718, guid: b1e4ace64300a9f49853f665348231e7, type: 3}
+  equipItemPrefab: {fileID: 7437149618278662075, guid: 1e257b361a1c8084cb267edbc55a6113, type: 3}
   craftingRecipe:
     neededItem: []
     resultItemData: {fileID: 0}
   range: 2
-  delay: 3
-  unitDamage: 0
+  unitDamage: 1
   objectDamage: 0
+  projectilePrefab: {fileID: 1027630145108440485, guid: 9d480647294695143b60a4baa6c0e61c, type: 3}
