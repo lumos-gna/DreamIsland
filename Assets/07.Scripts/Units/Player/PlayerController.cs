@@ -14,6 +14,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float attackRange = 2f;
     [SerializeField] private LayerMask destructibleLayer;
 
+    [Header("Layer Masks")]
+    [Tooltip("환경 파괴 가능 오브젝트 레이어만 포함")]
+    [SerializeField] private LayerMask environmentLayer;
+    [Tooltip("적 유닛 레이어만 포함")]
+    [SerializeField] private LayerMask enemyLayer;
+
 
     [Header("Move")]
     [SerializeField] private float moveSpeed;
@@ -150,15 +156,31 @@ public class PlayerController : MonoBehaviour
         if (context.phase != InputActionPhase.Started)
             return;
 
-        // 플레이어 카메라(또는 몸체) 앞 방향으로 Raycast
+        // 화면 중앙에서 Raycast
         Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
-        if (Physics.Raycast(ray, out RaycastHit hit, attackRange, destructibleLayer))
+        if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
         {
-            var target = hit.collider.GetComponentInParent<DestructibleObject>();
-            if (target != null)
+            int hitLayer = hit.collider.gameObject.layer;
+
+            // 1) 환경 파괴 오브젝트
+            if (((1 << hitLayer) & environmentLayer) != 0)
             {
-                target.ObjectTakeDamage(attackDamage);
-                Debug.Log($"Hit {target.name} for {attackDamage} damage. & max hp {target.maxHP} curr hp {target.currentHP}");
+                var destructible = hit.collider.GetComponentInParent<DestructibleObject>();
+                if (destructible != null)
+                {
+                    destructible.ObjectTakeDamage(attackDamage);
+                    Debug.Log($"Hit ENV {destructible.name}: –{attackDamage} HP");
+                }
+            }
+            // 2) 적 유닛
+            else if (((1 << hitLayer) & enemyLayer) != 0)
+            {
+                var condition = hit.collider.GetComponentInParent<ConditionHandler>();
+                if (condition != null)
+                {
+                    condition.TakeDamage(attackDamage);
+                    Debug.Log($"Hit ENEMY {condition.name}: –{attackDamage} HP");
+                }
             }
         }
     }
