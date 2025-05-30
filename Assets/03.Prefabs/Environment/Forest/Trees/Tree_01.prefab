@@ -199,6 +199,8 @@ GameObject:
   - component: {fileID: 8411595689525109084}
   - component: {fileID: 1165767014874824307}
   - component: {fileID: 9108916555328849191}
+  - component: {fileID: -2269208651153592006}
+  - component: {fileID: 6947941209989698692}
   m_Layer: 7
   m_Name: Tree_01
   m_TagString: Untagged
@@ -268,3 +270,41 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!95 &-2269208651153592006
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754068043393123374}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6947941209989698692
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8754068043393123374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc12348f201a56746989e290189ea5d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHP: 100
+  damageAmount: 10
+  dropItems:
+  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+    dropChance: 0.65
