@@ -628,8 +628,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 1, y: 2.4530973, z: 1}
+  m_Center: {x: 0, y: 1.2734513, z: 0}
 --- !u!195 &1349584723677323977
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -695,6 +695,7 @@ MonoBehaviour:
   _healthBar: {fileID: 6151807026147295512}
   _helathBarSprite: {fileID: 8780196441622073709}
   _conditionHandler: {fileID: 5794935168415075787}
+  _attackParticle: {fileID: 8181711606469808779, guid: 217bfa45588be7e40839a16d2d08b265, type: 3}
 --- !u!114 &5794935168415075787
 MonoBehaviour:
   m_ObjectHideFlags: 0

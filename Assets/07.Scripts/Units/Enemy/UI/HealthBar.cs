@@ -83,6 +83,6 @@ public class HealthBar : MonoBehaviour
         }
 
         // 일정 시간 후 파괴
-        //Destroy(go, 1.2f);
+        Destroy(go, 1.2f);
     }
 }

@@ -9,7 +9,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private GameObject _helathBarSprite;
     [SerializeField] private ConditionHandler _conditionHandler;
-
+    [SerializeField] private GameObject _attackParticle;
     private BaseEnemy _baseEnemy;
     public event Action<float, float> OnHealthChanged;
 
@@ -26,7 +26,6 @@ public class EnemyHealth : MonoBehaviour
         if (_healthBar != null && _conditionHandler != null)
         {
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
-            Debug.Log(_conditionHandler.CurHealth + "현재 체력");
             _helathBarSprite.gameObject.SetActive(false);
         }
 
@@ -52,25 +51,17 @@ public class EnemyHealth : MonoBehaviour
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
             _healthBar.DamageText(2); // 여기에 플레이어 데미지 넣기
         }
-        Animator anim = _baseEnemy.GetAnimator();
+        // 파티클 실행
+        if (_attackParticle != null)
+        {
+            GameObject particle = Instantiate(_attackParticle, transform.position, Quaternion.identity);
+        }
 
-        if (anim != null && HasParameter(anim, "isDamage"))
-        {
-            anim.SetTrigger("isDamage");
-        }
     }
-    // 애니메이션 있는지 체크
-    private bool HasParameter(Animator animator, string paramName)
-    {
-        foreach (AnimatorControllerParameter param in animator.parameters)
-        {
-            if (param.name == paramName)
-                return true;
-        }
-        return false;
-    }
+
     private void HandleDie()
     {
+        Debug.Log("죽음");
         _baseEnemy.GetFSM().ChangeState(_baseEnemy.StateFactory.Get<DieState>());
         _helathBarSprite.gameObject.SetActive(false);
     }

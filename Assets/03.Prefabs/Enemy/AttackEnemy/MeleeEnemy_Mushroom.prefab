@@ -145,6 +145,7 @@ MonoBehaviour:
   _healthBar: {fileID: 887743514503717621}
   _helathBarSprite: {fileID: 2366636950601724544}
   _conditionHandler: {fileID: 8970373434894968078}
+  _attackParticle: {fileID: 8181711606469808779, guid: 217bfa45588be7e40839a16d2d08b265, type: 3}
 --- !u!114 &8970373434894968078
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158,7 +159,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
-  maxHealth: 100
+  maxHealth: 5
 --- !u!1 &325929846663759777
 GameObject:
   m_ObjectHideFlags: 0
