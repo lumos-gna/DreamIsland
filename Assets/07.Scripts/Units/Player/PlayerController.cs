@@ -9,18 +9,6 @@ public class PlayerController : MonoBehaviour
 {
     private Player _player;
 
-    [Header("Attack Settings 테스트")]
-    [SerializeField] private int attackDamage = 10;
-    [SerializeField] private float attackRange = 2f;
-    [SerializeField] private LayerMask destructibleLayer;
-
-    [Header("Layer Masks")]
-    [Tooltip("환경 파괴 가능 오브젝트 레이어만 포함")]
-    [SerializeField] private LayerMask environmentLayer;
-    [Tooltip("적 유닛 레이어만 포함")]
-    [SerializeField] private LayerMask enemyLayer;
-
-
     [Header("Move")]
     [SerializeField] private float moveSpeed;
     private Vector2 curMovement;
@@ -147,41 +135,6 @@ public class PlayerController : MonoBehaviour
             );
 
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
-        }
-    }
-
-    // 테스트용 매서드
-    public void OnHit(InputAction.CallbackContext context)
-    {
-        if (context.phase != InputActionPhase.Started)
-            return;
-
-        // 화면 중앙에서 Raycast
-        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
-        if (Physics.Raycast(ray, out RaycastHit hit, attackRange))
-        {
-            int hitLayer = hit.collider.gameObject.layer;
-
-            // 1) 환경 파괴 오브젝트
-            if (((1 << hitLayer) & environmentLayer) != 0)
-            {
-                var destructible = hit.collider.GetComponentInParent<DestructibleObject>();
-                if (destructible != null)
-                {
-                    destructible.ObjectTakeDamage(attackDamage);
-                    Debug.Log($"Hit ENV {destructible.name}: –{attackDamage} HP");
-                }
-            }
-            // 2) 적 유닛
-            else if (((1 << hitLayer) & enemyLayer) != 0)
-            {
-                var condition = hit.collider.GetComponentInParent<ConditionHandler>();
-                if (condition != null)
-                {
-                    condition.TakeDamage(attackDamage);
-                    Debug.Log($"Hit ENEMY {condition.name}: –{attackDamage} HP");
-                }
-            }
         }
     }
 
