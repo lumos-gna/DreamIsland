@@ -50,7 +50,7 @@ public class NPCUIController: MonoBehaviour
         _selectedDialogue = i;
         string fullText;
 
-        if (QuestManager.Instance.CheckMainQuest() && npcData.Type(_selectedDialogue) == DialogueType.QUEST)
+        if (QuestManager.Instance.CheckMainQuest() && npcData.Type(_selectedDialogue) == DialogueType.Quest)
         {
             dialogueText.text = "";
             fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
@@ -73,7 +73,13 @@ public class NPCUIController: MonoBehaviour
         
         for (int j = 0; j < _buttons.Length; j++)
         {
-            _buttons[j].SetActive(false);
+            if(_buttons[j] != null)
+                _buttons[j].SetActive(false);
+        }
+        
+        if (_buttons[_buttons.Length-1] == null)
+        {
+            _buttons = null;
         }
     }
     
@@ -96,7 +102,7 @@ public class NPCUIController: MonoBehaviour
                 }
             }
 
-            _type = DialogueType.NONE;
+            _type = DialogueType.None;
         }
         else
         {
@@ -111,12 +117,12 @@ public class NPCUIController: MonoBehaviour
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
 
-            if (_type == DialogueType.NORMAL ||_type == DialogueType.QUEST)
+            if (_type == DialogueType.Normal ||_type == DialogueType.Quest)
             {
 
                 string fullText;
                 
-                if (QuestManager.Instance.CheckMainQuest() && _type == DialogueType.QUEST)
+                if (QuestManager.Instance.CheckMainQuest() && _type == DialogueType.Quest)
                 {
                     dialogueText.text = "";
                     fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
