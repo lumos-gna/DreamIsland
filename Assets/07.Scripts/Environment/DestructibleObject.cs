@@ -35,7 +35,7 @@ public class DestructibleObject : MonoBehaviour
     public void TakeDamage(int amount)
     {
         currentHP -= amount;
-        _anim.SetTrigger("Hit"); // 맞는 애니메이션 재생
+        _anim.SetTrigger("ObjectHit"); // 맞는 애니메이션 재생
 
         if (currentHP <= 0f)
         {
@@ -45,14 +45,14 @@ public class DestructibleObject : MonoBehaviour
 
     private void Die()
     {
-        _anim.SetTrigger("Die");
         StartCoroutine(HandleDropsAndDestroy());
+        //_anim.SetTrigger("ObjectHit"); // 죽는 애니메이션 만들면 넣자
     }
 
     /// 드랍 아이템 생성 후 본 오브젝트 삭제
     private IEnumerator HandleDropsAndDestroy()
     {
-        // 죽는 애니메이션 재생 끝날 때까지 대기 (애니메이션 길이에 맞춰 조정)
+        // 죽는 애니메이션 재생 끝날 때까지 대기
         yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
 
         // 드랍 처리
