@@ -62,9 +62,6 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             _fsm.ChangeState(StateFactory.Get<MoveState>());
         else
             _fsm.ChangeState(StateFactory.Get<IdleState>());
-
-        TakeDamage(1);
-
     }
 
     protected virtual void Update()
