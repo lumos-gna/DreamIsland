@@ -3,30 +3,25 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class BuildingUISlot : MonoBehaviour
+public class BuildingUISlot : MonoBehaviour, IPoolable
 {
-    public ItemData ItemData { get; private set; }
+    public ItemDataSO Item { get; private set; }
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private TextMeshProUGUI countText;
     [SerializeField] private Button button;
 
-    public void InitToItemSlot(ItemData itemData, UnityAction onBtnClick)
+    public void Init(ItemDataSO item, UnityAction onBtnClick)
     {
-        ItemData = itemData;
+        Item = item;
         
-        nameText.text = itemData.name;
-        countText.text = "";
+        nameText.text = item.DisplayName;
         
         button.onClick.AddListener(onBtnClick);
     }
 
-    public void InitToRecipe(ItemData itemData, int count)
-    {
-        ItemData = itemData;
-        
-        nameText.text = itemData.name;
-        countText.text = count.ToString();
-    }
+
+    public void OnSpawn() =>  gameObject.SetActive(true);
+
+    public void OnDespawn() => gameObject.SetActive(false);
 }

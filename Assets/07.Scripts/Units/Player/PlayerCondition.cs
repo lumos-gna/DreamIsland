@@ -18,12 +18,6 @@ public class PlayerCondition : MonoBehaviour
     private float maxf = 100f;
 
 
-    private void Start()
-    {
-        health = 100f;
-        water = 100f;
-        stamina = 100f;
-    }
 
     private void Update()
     {
