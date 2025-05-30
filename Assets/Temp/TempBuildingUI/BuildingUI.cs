@@ -41,8 +41,8 @@ public class BuildingUI : BaseUI
 
     public override void Init()
     {
-        var slotPool = PoolManager.Instance.CreatePool(slotPrefab);
-        var recipePool = PoolManager.Instance.CreatePool(reicpeSlotPrefab);
+        var slotPool = PoolManager.Instance.GetPool(slotPrefab);
+        var recipePool = PoolManager.Instance.GetPool(reicpeSlotPrefab);
         
         for (int i = 0; i < buildingItemDataTable.ItemDatas.Length; i++)
         {

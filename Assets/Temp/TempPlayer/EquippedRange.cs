@@ -62,18 +62,14 @@ public class EquippedRange : EquippedItem
 
     void Shoot()
     {
-        var projectile = Instantiate(_itemData.ProjectilePrefab);
+        Vector3 dir = Camera.main.transform.forward;
 
-        Vector3 shootDirection = Camera.main.transform.forward;
+
+        var prefab = _itemData.ProjectilePrefab;
+
+        var pool = PoolManager.Instance.GetPool(prefab);
         
-
-        projectile.transform.position = transform.position + shootDirection * 0.5f;
-
-        projectile.transform.forward = shootDirection;
-
-        Rigidbody rb = projectile.GetComponent<Rigidbody>();
-        
-        rb.AddForce(_itemData.ShootForce * shootDirection, ForceMode.Impulse);
+        pool.Spawn(null).Fire(prefab, transform.position + dir * 0.5f, dir, _itemData.ShootForce);
         
         
         animator.SetTrigger(_shoot);
