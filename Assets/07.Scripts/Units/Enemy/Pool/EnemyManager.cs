@@ -39,13 +39,12 @@ public class EnemyManager : MonoBehaviour
             if (go.TryGetComponent<IPoolableEnemy>(out var poolEnemy))
             {
                 _activeEnemies.Add(poolEnemy);
-                poolEnemy.OnDie += HandleEnemyDie;
-                poolEnemy.OnSpawn();
+                poolEnemy.OnRespawn += HandleRespawnEnemy;
             }
         }
     }
 
-    private void HandleEnemyDie(IPoolableEnemy enemy)
+    private void HandleRespawnEnemy(IPoolableEnemy enemy)
     {
         StartCoroutine(RespawnEnemy(enemy));
     }
@@ -53,7 +52,7 @@ public class EnemyManager : MonoBehaviour
     private IEnumerator RespawnEnemy(IPoolableEnemy enemy)
     {
         // Pool 쪽 Delay가 없다면 임의 값(예: 10초)
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(1f);
         enemy.OnSpawn();
     }
 

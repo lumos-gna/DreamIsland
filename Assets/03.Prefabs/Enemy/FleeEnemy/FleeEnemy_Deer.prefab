@@ -398,7 +398,8 @@ GameObject:
   - component: {fileID: 1275745900963974620}
   - component: {fileID: 2158279369901599611}
   - component: {fileID: 1875951407281480528}
-  m_Layer: 0
+  - component: {fileID: 6122379713884924144}
+  m_Layer: 13
   m_Name: FleeEnemy_Deer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -529,7 +530,6 @@ MonoBehaviour:
   _dropItems: []
   _type: 1
   _stats:
-    Health: 5
     WalkSpeed: 1
     RunSpeed: 5
     DetectDistance: 10
@@ -551,6 +551,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 5809773541094135874}
+  _helathBarSprite: {fileID: 8945955909183096887}
+  _conditionHandler: {fileID: 6122379713884924144}
+--- !u!114 &6122379713884924144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662603267867227588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12305f0ae1445d41b919a698c7fda81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  maxHealth: 5
 --- !u!1 &3666619826834372819
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,3 +1549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef71acb4c375d9844a14f9a9b97a0871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &8945955909183096887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5861159769138028437, guid: f0bd8f959bc3e15419eed8429b6c14f7, type: 3}
+  m_PrefabInstance: {fileID: 3274519633627060130}
+  m_PrefabAsset: {fileID: 0}

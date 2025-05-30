@@ -758,7 +758,8 @@ GameObject:
   - component: {fileID: 6747472950480572617}
   - component: {fileID: 5432151023082983711}
   - component: {fileID: 3085844208592071462}
-  m_Layer: 0
+  - component: {fileID: 944168587632179188}
+  m_Layer: 13
   m_Name: FleeEnemy_Penguin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -889,7 +890,6 @@ MonoBehaviour:
   _dropItems: []
   _type: 1
   _stats:
-    Health: 5
     WalkSpeed: 8
     RunSpeed: 5
     DetectDistance: 5
@@ -911,6 +911,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _healthBar: {fileID: 1414494096356452858}
+  _helathBarSprite: {fileID: 4550701758589827471}
+  _conditionHandler: {fileID: 944168587632179188}
+--- !u!114 &944168587632179188
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758673788475193849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c12305f0ae1445d41b919a698c7fda81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 1
+  maxHealth: 30
 --- !u!1 &7845317496538262492
 GameObject:
   m_ObjectHideFlags: 0
@@ -1099,6 +1115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ef71acb4c375d9844a14f9a9b97a0871, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &4550701758589827471 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5861159769138028437, guid: f0bd8f959bc3e15419eed8429b6c14f7, type: 3}
+  m_PrefabInstance: {fileID: 7957951672653030938}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &5361160015450938886 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2600538802519717916, guid: f0bd8f959bc3e15419eed8429b6c14f7, type: 3}

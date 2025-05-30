@@ -16,6 +16,7 @@ public class EatingParticle : MonoBehaviour
         {
             Eating.transform.position = gameObject.transform.position;
             Eating.Play();
+            Debug.Log("고기 파티클 실행");
         }
     }
 
