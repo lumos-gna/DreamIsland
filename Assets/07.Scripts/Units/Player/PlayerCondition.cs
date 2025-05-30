@@ -1,15 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCondition : MonoBehaviour
 {
-    [SerializeField] private float health;
-    [SerializeField] private float water;
-    [SerializeField] private float stamina;
+    [SerializeField] private float health = 100f;
+    [SerializeField] private float water = 100f;
+    [SerializeField] private float hunger = 100f;
 
-    private float waterDecreaseperFrame = 0.001f;
-    private float thirstyDecreaseHealth = 0.1f;
+    [Header("PlayerConditionUI")]
+    [SerializeField] private GameObject healthUI;
+    [SerializeField] private GameObject HungerUI;
+    [SerializeField] private GameObject WaterUI;
+
+    private float DecreaseperFrame = 0.001f;
+    private float DecreaseHealth = 0.1f;
     private float minf = 0f;
     private float maxf = 100f;
 
@@ -17,11 +23,17 @@ public class PlayerCondition : MonoBehaviour
 
     private void Update()
     {
-        WaterChange(-waterDecreaseperFrame); 
+        HungerChange(-DecreaseperFrame);
+        WaterChange(-DecreaseperFrame);
         if (water == minf) 
         {
-            HealthChange(-thirstyDecreaseHealth);
+            HealthChange(-DecreaseHealth);
         }
+        if(hunger == minf)
+        {
+            HealthChange(-DecreaseHealth);
+        }
+        UpdatePlayerConditionUI();
     }
 
     public void HealthChange(float change) 
@@ -32,9 +44,16 @@ public class PlayerCondition : MonoBehaviour
     {
         water = Mathf.Clamp(water + change, minf, maxf);
     }
-    public void StaminaChange(float change)
+    public void HungerChange(float change)
     {
-        stamina = Mathf.Clamp(stamina + change, minf, maxf);
+        hunger = Mathf.Clamp(hunger + change, minf, maxf);
+    }
+
+    private void UpdatePlayerConditionUI()
+    {
+        healthUI.GetComponent<Image>().fillAmount = health / maxf;
+        HungerUI.GetComponent<Image>().fillAmount = hunger / maxf;
+        WaterUI.GetComponent<Image>().fillAmount = water / maxf;
     }
 
 
