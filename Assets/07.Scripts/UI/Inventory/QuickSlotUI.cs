@@ -15,9 +15,14 @@ public class QuickSlotUI : BaseUI
         {
             quickSlots[i] = quickSlotPanel.GetChild(i).GetComponent<HandleSlot>();
             quickSlots[i].index = i;
-            quickSlots[i].inventory = UIManager.Instance.Get<InventoryUI>() as InventoryUI;
+
             quickSlots[i].ClearSlot();
         }
+
+        GameManager.Instance.OnInventoryChanged += UpdateUIFromData;
+
+        // 시작 시 현재 상태 반영
+        UpdateUIFromData();
 
         gameObject.SetActive(true);
     }
@@ -25,12 +30,14 @@ public class QuickSlotUI : BaseUI
     public override void Enable() => gameObject.SetActive(true);
     public override void Disable() => gameObject.SetActive(false);
 
-    public void SetQuickSlotsFromHandleSlots(HandleSlot[] handleSlots)
+    private void UpdateUIFromData()
     {
-        for (int i = 0; i < quickSlots.Length && i < handleSlots.Length; i++)
+        var handleSlotData = GameManager.Instance.Inventory.handleSlots;
+
+        for (int i = 0; i < quickSlots.Length && i < handleSlotData.Length; i++)
         {
-            quickSlots[i].item = handleSlots[i].item;
-            quickSlots[i].quantity = handleSlots[i].quantity;
+            quickSlots[i].item = handleSlotData[i].item;
+            quickSlots[i].quantity = handleSlotData[i].quantity;
             quickSlots[i].SetSlot();
         }
     }

@@ -18,9 +18,6 @@ public class InventoryUI : BaseUI
     private Inventory model;
     private QuickSlotUI quickSlotUI;
 
-    ItemData selectedItem;
-    int selectedItemIndex = 0;
-
     public override void Init()
     {
         inventoryWindow.SetActive(false);
@@ -34,7 +31,6 @@ public class InventoryUI : BaseUI
         {
             slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
             slots[i].index = i;
-            slots[i].inventory = this;
             slots[i].ClearSlot();
         }
 
@@ -43,35 +39,32 @@ public class InventoryUI : BaseUI
         {
             handleSlots[i] = handleSlotPanel.GetChild(i).GetComponent<HandleSlot>();
             handleSlots[i].index = i;
-            handleSlots[i].inventory = this;
             handleSlots[i].ClearSlot();
         }
 
-        model = new Inventory(slots.Length, handleSlots.Length);
-        quickSlotUI = UIManager.Instance.Create<QuickSlotUI>() as QuickSlotUI;
-        quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
+        model = GameManager.Instance.Inventory;
 
-        PlayerManager.Instance._Player.addItem += AddItem;
+        GameManager.Instance.OnInventoryChanged += UpdateUI;
+
+        quickSlotUI = UIManager.Instance.Create<QuickSlotUI>() as QuickSlotUI;
 
         // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어
         ClearSelectedItemWindow();
+
+        // 초기 상태를 렌더링
+        UpdateUI();
     }
 
     public override void Enable()
     {
         inventoryWindow.SetActive(true);
-
         UIManager.Instance.Get<QuickSlotUI>()?.Disable();
     }
 
     public override void Disable()
     {
         inventoryWindow.SetActive(false);
-
         UIManager.Instance.Get<QuickSlotUI>()?.Enable();
-        quickSlotUI.SetQuickSlotsFromHandleSlots(handleSlots);
-
-        //quickSlotUI.SyncToItemEquip();
     }
 
     // 인벤토리 아이템 슬롯에 마우스를 올렸을 때 아이템의 설명을 보이기 위한 메서드
@@ -93,19 +86,12 @@ public class InventoryUI : BaseUI
     {
         if (!summaryBox.activeSelf) return;
 
-        Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(summaryBox.transform.parent.GetComponent<RectTransform>(), Input.mousePosition, null, out pos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            summaryBox.transform.parent.GetComponent<RectTransform>(),
+            Input.mousePosition,
+            null,
+            out Vector2 pos);
         summaryBox.transform.localPosition = pos;
-    }
-
-    public void AddItem(ItemData data)
-    {
-        var player = PlayerManager.Instance._Player;
-        if (player.itemData == null) return;
-
-        model.AddItem(data);
-        UpdateUI();
-        player.itemData = null;
     }
 
     private void UpdateUI()
@@ -139,19 +125,5 @@ public class InventoryUI : BaseUI
                 handleSlots[i].ClearSlot();
             }
         }
-    }
-
-    public void UpdateHandleSlotModel(int index, ItemData item, int quantity)
-    {
-        if (index < 0 || index >= model.handleSlots.Length) return;
-        model.handleSlots[index].item = item;
-        model.handleSlots[index].quantity = quantity;
-    }
-
-    public void UpdateItemSlotModel(int index, ItemData item, int quantity)
-    {
-        if (index < 0 || index >= model.itemSlots.Length) return;
-        model.itemSlots[index].item = item;
-        model.itemSlots[index].quantity = quantity;
     }
 }

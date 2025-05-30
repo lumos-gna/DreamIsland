@@ -14,7 +14,6 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;
-    public InventoryUI inventory;
 
     public int index;
     public bool equiped;
@@ -49,8 +48,9 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         if (item != null)
         {
-            inventory.summaryBox.SetActive(true);
-            inventory.MouseOnInventoryItem(index);
+            var inventoryUI = UIManager.Instance.Get<InventoryUI>();
+            inventoryUI.summaryBox.SetActive(true);
+            inventoryUI.MouseOnInventoryItem(index);
         }
     }
 
@@ -62,7 +62,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         // 드래그 아이콘 생성
         dragIcon = new GameObject("HandleSlotDragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
-        dragIcon.transform.SetParent(inventory.transform, false);
+        dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);
         dragIcon.transform.SetAsLastSibling();
 
         dragIconRect = dragIcon.GetComponent<RectTransform>();
@@ -72,16 +72,17 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         image.sprite = icon.sprite;
         image.raycastTarget = false;
 
-        CanvasGroup group = dragIcon.GetComponent<CanvasGroup>();
-        group.blocksRaycasts = false;
+        dragIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (dragIcon == null) return;
 
-        Vector2 pos;
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(inventory.transform as RectTransform, Input.mousePosition, null, out pos);
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
+            Input.mousePosition,
+            null, out Vector2 pos);
         dragIconRect.localPosition = pos;
     }
 
@@ -109,86 +110,120 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void SwapWith(ItemSlot other)
     {
+        var inventory = GameManager.Instance.Inventory;
+
         if (this == other) return;
 
-        // 병합 로직 : 스택이 가능한, 같은 아이템들 병합
-        if (this.item != null && other.item != null && this.item == other.item && item.canStack)
-        {
-            int total = this.quantity + other.quantity;
+        bool stacked = TryStack(other.item, other.quantity, other);
 
-            if (total <= item.maxStackCount)
-            {
-                this.quantity = total;
-                other.ClearSlot();  // 병합 완료 후 다른 슬롯 비우기
-            }
-            else
-            {
-                this.quantity = item.maxStackCount;
-                other.quantity = total - item.maxStackCount;
-            }
-
-            this.SetSlot();
-            other.SetSlot();
-            return;
-        }
-
-        if (this.item == null & other.item != null)
-        {
-            this.item = other.item;
-            this.quantity = other.quantity;
-            other.ClearSlot();
-        }
-        else if (this.item != null && other.item == null)
-        {
-            other.item = this.item;
-            other.quantity = this.quantity;
-            this.ClearSlot();
-        }
-        else
+        if (!stacked)
         {
             (this.item, other.item) = (other.item, this.item);
             (this.quantity, other.quantity) = (other.quantity, this.quantity);
         }
 
-        this.SetSlot();
+        SetSlot();
         other.SetSlot();
 
-        inventory.UpdateHandleSlotModel(index, item, quantity);
-        inventory.UpdateItemSlotModel(other.index, other.item, other.quantity);
+        // handleSlot에 저장
+        if (index >= 0 && index < inventory.handleSlots.Length)
+        {
+            inventory.handleSlots[index].item = item;
+            inventory.handleSlots[index].quantity = quantity;
+        }
+
+        // itemSlot에 저장
+        if (other.index >= 0 && other.index < inventory.itemSlots.Length)
+        {
+            inventory.itemSlots[other.index].item = other.item;
+            inventory.itemSlots[other.index].quantity = other.quantity;
+        }
+
+        GameManager.Instance.ForceSync();
     }
 
     public void SwapWith(HandleSlot other)
     {
+        var inventory = GameManager.Instance.Inventory;
+
         if (this == other) return;
 
-        // 병합 로직 : 스택이 가능한, 같은 아이템들 병합
-        if (this.item != null && other.item != null && this.item == other.item && item.canStack)
+        bool stacked = TryStack(other.item, other.quantity, other);
+        if (!stacked)
         {
-            int total = this.quantity + other.quantity;
+            (this.item, other.item) = (other.item, this.item);
+            (this.quantity, other.quantity) = (other.quantity, this.quantity);
+        }
 
+        SetSlot();
+        other.SetSlot();
+
+        if (index >= 0 && index < inventory.handleSlots.Length)
+        {
+            inventory.handleSlots[index].item = item;
+            inventory.handleSlots[index].quantity = quantity;
+        }
+
+        if (other.index >= 0 && other.index < inventory.handleSlots.Length)
+        {
+            inventory.handleSlots[other.index].item = other.item;
+            inventory.handleSlots[other.index].quantity = other.quantity;
+        }
+
+        GameManager.Instance.ForceSync();
+    }
+
+    private bool TryStack(ItemData otherItem, int otherQuantity, HandleSlot otherSlot = null)
+    {
+        if (item != null && otherItem != null && item == otherItem && item.canStack)
+        {
+            int total = quantity + otherQuantity;
             if (total <= item.maxStackCount)
             {
-                this.quantity = total;
-                other.ClearSlot();  // 병합 완료 후 다른 슬롯 비우기
+                quantity = total;
+                if (otherSlot != null)
+                {
+                    otherSlot.ClearSlot();
+                }
+                return true;
             }
             else
             {
-                this.quantity = item.maxStackCount;
-                other.quantity = total - item.maxStackCount;
+                quantity = item.maxStackCount;
+                if (otherSlot != null)
+                {
+                    otherSlot.quantity = total - item.maxStackCount;
+                }
+                return true;
             }
-
-            this.SetSlot();
-            other.SetSlot();
-            return;
         }
+        return false;
+    }
 
-        (this.item, other.item) = (other.item, this.item);
-        (this.quantity, other.quantity) = (other.quantity, this.quantity);
-
-        this.SetSlot();
-        other.SetSlot();
-
-        inventory.UpdateHandleSlotModel(other.index, other.item, other.quantity);
-        inventory.UpdateItemSlotModel(index, item, quantity);
+    private bool TryStack(ItemData otherItem, int otherQuantity, ItemSlot otherSlot)
+    {
+        if (item != null && otherItem != null && item == otherItem && item.canStack)
+        {
+            int total = quantity + otherQuantity;
+            if (total <= item.maxStackCount)
+            {
+                quantity = total;
+                if (otherSlot != null)
+                {
+                    otherSlot.ClearSlot();
+                }
+                return true;
+            }
+            else
+            {
+                quantity = item.maxStackCount;
+                if (otherSlot != null)
+                {
+                    otherSlot.quantity = total - item.maxStackCount;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }
