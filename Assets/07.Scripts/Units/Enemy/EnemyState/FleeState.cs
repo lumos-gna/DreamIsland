@@ -9,6 +9,11 @@ public class FleeState : IState<BaseEnemy>
     private float _timer;
     private float _pathUpdateInterval = 1.5f;
     private const float MinFleeDistanceThreshold = 1.0f;
+
+
+    //효과음 쿨다운
+    private float _lastSfxTime = -Mathf.Infinity;
+    private const float SfxCooldown = 0.5f;
     public void Enter(BaseEnemy obj)
     {
         obj.GetAnimator()?.CrossFade("Run", 0.1f);
@@ -21,12 +26,21 @@ public class FleeState : IState<BaseEnemy>
     {
         _timer += Time.deltaTime;
 
+        var agent = obj.GetAgent();
+        bool isRuning = agent.hasPath && agent.velocity.sqrMagnitude > 0.01f;
+
         if (!obj.PlayerInRange())
         {
+
             obj.GetAgent().velocity = Vector3.zero;
             obj.GetFSM().ChangeState(obj.StateFactory.Get<IdleState>());
             return;
         }
+        if (isRuning)
+        {
+            TryPlayisRuning(obj.name);
+        }
+
 
         // 다음 도망 위치 업데이트
         if (_timer >= _pathUpdateInterval)
@@ -38,6 +52,21 @@ public class FleeState : IState<BaseEnemy>
     public void Exit(BaseEnemy obj)
     {
         obj.GetAgent().isStopped = true;
+    }
+
+    private void TryPlayisRuning(string objName)
+    {
+        if (Time.time - _lastSfxTime < SfxCooldown) return;
+
+        int sfx = 0;
+        var nm = objName.ToLower();
+        if (nm.Contains("Deer")) sfx = 16;
+
+        if (sfx > 0)
+        {
+            AudioManager.PlayEffectSound(sfx);
+            _lastSfxTime = Time.time;
+        }
     }
 
     private void UpdateFleeEnemyPath(BaseEnemy obj)
@@ -59,7 +88,7 @@ public class FleeState : IState<BaseEnemy>
         float maxDistance = 0f;
 
         for (int i = 0; i < 30; i++)
-        {
+        { 
             // 랜덤 위치 (반경 안)
             Vector2 rand = Random.insideUnitCircle * radius;
             Vector3 pos = center + new Vector3(rand.x, 0f, rand.y);

@@ -25,7 +25,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 
     // 피격용
     private EnemyHealth _enemyHealth;
-    public event Action<IPoolableEnemy> OnDie;
+    public event Action<IPoolableEnemy> OnRespawn;
 
     #region Getters
     public NavMeshAgent GetAgent() => _agent;
@@ -62,9 +62,6 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             _fsm.ChangeState(StateFactory.Get<MoveState>());
         else
             _fsm.ChangeState(StateFactory.Get<IdleState>());
-
-        TakeDamage(1);
-
     }
 
     protected virtual void Update()
@@ -193,8 +190,9 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 
     public void Die()
     {
+        DropItem();
         OnDespawn();
-        OnDie?.Invoke(this);
+        OnRespawn?.Invoke(this);
     }
 
 }

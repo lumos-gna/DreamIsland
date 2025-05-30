@@ -52,9 +52,12 @@ public class AttackState : PlayerState
 
             //공격 or 자원채취
             Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2, Screen.height / 2));
+            Debug.Log("무기 레이 체크시작");
             if (Physics.Raycast(ray, out RaycastHit hit, AttackRange, PlayerManager.Instance._Player.EnemyLayerMask))
             {
+                Debug.Log("검출됨");
                 hit.collider.gameObject.GetComponent<BaseEnemy>().TakeDamage(Damage);
+                Debug.Log("맞았다");
             }
         }
     }

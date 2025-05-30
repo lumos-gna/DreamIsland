@@ -15,9 +15,10 @@ GameObject:
   - component: {fileID: 537638418762493988}
   - component: {fileID: 8177274103194097540}
   - component: {fileID: 8122567902564485019}
+  - component: {fileID: 2583916935216376759}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,6 +101,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 310725ba298d7bf49a55031488022662, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  itemData: {fileID: 0}
 --- !u!114 &537638418762493988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,6 +212,58 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: befdad74-a32b-4cce-b6f3-7f538a6fc5eb
     m_ActionName: Player/Choice[/Keyboard/1]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2583916935216376759}
+        m_TargetAssemblyTypeName: Interaction, Assembly-CSharp
+        m_MethodName: OnInteractInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b9c622fe-f28e-4373-a594-b4b94c24bc93
+    m_ActionName: Player/Interact[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8122567902564485019}
+        m_TargetAssemblyTypeName: ItemEquip, Assembly-CSharp
+        m_MethodName: OnLeftClickInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: e23d9daf-bc93-41e0-9e7a-361cbfadbda8
+    m_ActionName: Player/LeftClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1e2a364c-c8f2-4ded-a463-94cc60adb1df
+    m_ActionName: Player/RightClick[/Mouse/rightButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 537638418762493988}
+        m_TargetAssemblyTypeName: PlayerController, Assembly-CSharp
+        m_MethodName: OnInventory
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 05e7087c-16d8-4f54-a094-aaa3cb794f00
+    m_ActionName: Player/OpenItem[/Keyboard/tab]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -228,17 +282,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tempitems:
-  - {fileID: 11400000, guid: e6c40ae623065f942ad2337f79044077, type: 2}
-  - {fileID: 11400000, guid: 521d1253f2b4a824ab366f990021f6b8, type: 2}
-  - {fileID: 11400000, guid: fbb53bcac9738d24daeb1bc4669b6a1e, type: 2}
-  - {fileID: 11400000, guid: 3636eb7460d00d446afbc95b8cb0ab4c, type: 2}
-  - {fileID: 11400000, guid: eaf199e15ac180e43b91a1438df0d180, type: 2}
-  - {fileID: 11400000, guid: f222bc58b3a840846a53b62d750f98fd, type: 2}
-  - {fileID: 11400000, guid: c0263dc0980c0494ca0982f7580aeb43, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   EquipParent: {fileID: 8970102415309857414}
+--- !u!114 &2583916935216376759
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1264499466488953971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d86b5583b7369414181edd8eb7a2d8ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkRate: 0.5
+  maxCheckDistance: 10
+  layerMask:
+    serializedVersion: 2
+    m_Bits: 1048576
+  curInteractGameObject: {fileID: 0}
+  promptText: {fileID: 0}
 --- !u!1 &2740155087384071061
 GameObject:
   m_ObjectHideFlags: 0

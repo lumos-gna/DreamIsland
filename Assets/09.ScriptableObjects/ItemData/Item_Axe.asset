@@ -21,7 +21,7 @@ MonoBehaviour:
   maxStackCount: 0
   equipPrefab: {fileID: 4071389414857159063, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
   AttackDamage: 10
-  AttackRange: 5
+  AttackRange: 20
   resourcesDamage: 0
   consumetype: 0
   healamount: 0
