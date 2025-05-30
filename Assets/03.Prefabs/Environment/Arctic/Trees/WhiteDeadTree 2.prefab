@@ -144,4 +144,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHP: 100
   damageAmount: 10
-  dropItems: []
+  dropItems:
+  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+    dropChance: 1
+  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+    dropChance: 0.6
+  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+    dropChance: 0.3
