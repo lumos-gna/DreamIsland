@@ -168,5 +168,13 @@ public class PlayerController : MonoBehaviour
     {
         Cursor.lockState = ispopon ? CursorLockMode.None : CursorLockMode.Locked;
         canlook = !ispopon;
+        if(canlook)
+        {
+            UIManager.Instance.Enable<AimUI>();
+        }
+        else
+        {
+            UIManager.Instance.Disable<AimUI>();
+        }
     }
 }
