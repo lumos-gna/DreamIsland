@@ -9,10 +9,10 @@ public class Player : MonoBehaviour
     //private PlayerState state = AttackState.Instance;
     private PlayerController _playerController;
     private PlayerCondition _playerCondition;
-    public ItemData itemData;
+    //public ItemData itemData;
     //private ItemEquip _itemEquip;
     private LayerMask enemylayermask;
-    public Action<ItemData> addItem;
+    //public Action<ItemData> addItem;
 
     public PlayerController _PlayerController
     {

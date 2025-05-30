@@ -9,7 +9,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 {
     public static HandleSlot draggedFromHandleSlot;
 
-    public ItemDataSO item;
+    public ItemData item;
 
     public Button button;
     public Image icon;
@@ -173,7 +173,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         inventory.ForceSync();
     }
 
-    private bool TryStack(ItemDataSO otherItem, int otherQuantity, HandleSlot otherSlot = null)
+    private bool TryStack(ItemData otherItem, int otherQuantity, HandleSlot otherSlot = null)
     {
         if (item != null && otherItem != null && item == otherItem && item.IsStackable)
         {
@@ -200,7 +200,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         return false;
     }
 
-    private bool TryStack(ItemDataSO otherItem, int otherQuantity, ItemSlot otherSlot)
+    private bool TryStack(ItemData otherItem, int otherQuantity, ItemSlot otherSlot)
     {
         if (item != null && otherItem != null && item == otherItem && item.IsStackable)
         {
