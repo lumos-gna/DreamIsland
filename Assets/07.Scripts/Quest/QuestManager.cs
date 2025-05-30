@@ -14,6 +14,7 @@ public class QuestManager : Singleton<QuestManager>
     
     private List<Quest> _acceptedQuestList = new();
     private List<GameObject> _questUIList = new();
+    private int _mainQuestIndex = 0;
 
     private void Start()
     {
@@ -93,6 +94,7 @@ public class QuestManager : Singleton<QuestManager>
         return false;
     }
 
+    public void MainQuest(){ _mainQuestIndex++; } //메인 퀘스트 진행
 
     private void UpdateQuestUI()      //퀘스트 UI 갱신
     {
@@ -130,15 +132,7 @@ public class QuestManager : Singleton<QuestManager>
         //메인 퀘스트
         if (Input.GetKeyDown(KeyCode.B))
         {
-            QuestPlusCount("학 퀘스트1");QuestPlusCount("토끼 퀘스트 1");QuestPlusCount("뱀 랜덤 퀘스트 1");
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            QuestPlusCount("학 퀘스트2");QuestPlusCount("토끼 퀘스트 2");QuestPlusCount("뱀 랜덤 퀘스트 2");
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            QuestPlusCount("학 퀘스트3");QuestPlusCount("토끼 퀘스트 3");QuestPlusCount("뱀 랜덤 퀘스트 3");
+            QuestPlusCount("메인 퀘스트");
         }
     }
 }

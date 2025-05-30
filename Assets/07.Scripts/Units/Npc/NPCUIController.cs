@@ -104,7 +104,7 @@ public class NPCUIController: MonoBehaviour
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
 
-            if (type == DialogueType.NORMAL)
+            if (type == DialogueType.NORMAL ||type == DialogueType.QUEST)
             {
                 
                 string fullText = npcData.NextText(_selectedDialogue);
@@ -116,17 +116,6 @@ public class NPCUIController: MonoBehaviour
                 }
                 else
                 {
-                    exitButton.gameObject.SetActive(true);
-                }
-            }
-            else if (type == DialogueType.QUEST)
-            {
-                if (!exitButton.gameObject.activeSelf)
-                {
-                    dialogueText.text = "";
-                    string fullText = npcData.NextText(_selectedDialogue);
-                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
-                
                     exitButton.gameObject.SetActive(true);
                 }
             }

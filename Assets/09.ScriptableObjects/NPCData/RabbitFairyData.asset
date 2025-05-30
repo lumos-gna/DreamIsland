@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 915396d3d934ae841b175b06346b2ce2, type: 3}
   m_Name: RabbitFairyData
   m_EditorClassIdentifier: 
-  text: "\uC548\uB155 \uB09C \uD1A0\uB07C \uC694\uC815\uC774\uC57C"
+  text: "\uC548\uB155! \uD558\uC580 \uB208\uBC2D\uC744 \uB6F0\uC5B4\uB2E4\uB2C8\uB294
+    \uD1A0\uB07C\uC694\uC815\uC774\uC57C. \uB09C \uB8E8\uBBF8\uC758 \uC21C\uC218\uD55C
+    \uB9C8\uC74C\uC774\uC790, \uB108\uC758 \uB530\uB73B\uD55C \uCE5C\uAD6C\uC57C!"
   npcDialog:
   - type: 3
     buttonName: "\uB79C\uB364 \uD018\uC2A4\uD2B8"
@@ -20,14 +22,16 @@ MonoBehaviour:
     - text: "\uD018\uC2A4\uD2B8"
       exitButton: 1
   - type: 0
-    buttonName: "\uC7A1\uB2F4"
+    buttonName: "\uB300\uD654\uD55C\uB2E4"
     npcDialogTexts:
-    - text: "\uC624\uB298\uC758 \uB0A0\uC528\uB294 \uB9D1\uC74C"
+    - text: "\uC544\uB9B0, \uC6B0\uB9AC\uB791 \uAC19\uC774 \uC788\uC5B4\uC918. \uC5EC\uAE30\uC120
+        \uC544\uD504\uC9C0 \uC54A\uC544, \uC678\uB86D\uC9C0\uB3C4 \uC54A\uC544."
       exitButton: 1
-    - text: "\uB098\uB294 \uD1A0\uB07C\uC694\uC815\uC774\uC57C"
+    - text: "\uBC16\uC740 \uB108\uBB34 \uD798\uB4E4\uC796\uC544\u2026 \uB098\uB791
+        \uB208\uBC2D\uC5D0\uC11C \uB610 \uB180\uC790, \uC57D\uC18D\uD560\uAC8C."
       exitButton: 1
   - type: 1
-    buttonName: "\uD29C\uD1A0\uB9AC\uC5BC"
+    buttonName: "\uC815\uBCF4"
     npcDialogTexts:
     - text: "wasd \uC774\uB3D9"
       exitButton: 0

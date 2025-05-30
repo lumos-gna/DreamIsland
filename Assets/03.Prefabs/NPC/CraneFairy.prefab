@@ -222,6 +222,14 @@ PrefabInstance:
       propertyPath: buttonFactory
       value: 
       objectReference: {fileID: 5334468734457178476}
+    - target: {fileID: 1726258394973044860, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1726258394973044860, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 2963712064847030606, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
       propertyPath: m_fontAsset
       value: 

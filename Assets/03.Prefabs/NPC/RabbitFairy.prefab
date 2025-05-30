@@ -214,6 +214,14 @@ PrefabInstance:
       propertyPath: npcData
       value: 
       objectReference: {fileID: 11400000, guid: 6c268738043bed2418a230f67a42f693, type: 2}
+    - target: {fileID: 1726258394973044860, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 1726258394973044860, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 150
+      objectReference: {fileID: 0}
     - target: {fileID: 3246906127246526493, guid: 4c1483e4b142865409b3bfeac724b3a9, type: 3}
       propertyPath: m_Name
       value: NPCUI
