@@ -12,13 +12,10 @@ public class NPCUIController: MonoBehaviour
     public ButtonFactory buttonFactory;
     
     private GameObject[] _buttons;
-    private PlayerController playerController;
+    private PlayerController _playerController;
     private int _selectedDialogue;
     private string _questName;
-    private DialogueType type;
-    
-    private float _clickDelay = 0.2f;
-    private float _lastClickTime = 0f;
+    private DialogueType _type;
     
     void Start()
     {
@@ -27,7 +24,7 @@ public class NPCUIController: MonoBehaviour
         GameObject player = GameObject.Find("Player");
         if (player != null)
         {
-            playerController = player.GetComponentInChildren<PlayerController>();
+            _playerController = player.GetComponentInChildren<PlayerController>();
         }
 
         exitButton.onClick.AddListener(() => OnOff());
@@ -51,12 +48,23 @@ public class NPCUIController: MonoBehaviour
     private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
+        string fullText;
+
+        if (QuestManager.Instance.CheckMainQuest() && npcData.Type(_selectedDialogue) == DialogueType.QUEST)
+        {
+            dialogueText.text = "";
+            fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
+            dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+            exitButton.gameObject.SetActive(true);
+            Debug.Log("aaaaaa");
+            return;
+        }
         
         dialogueText.text = "";
-        string fullText = npcData.NextText(_selectedDialogue);
+        fullText = npcData.NextText(_selectedDialogue);
         dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
         
-        type = npcData.npcDialog[_selectedDialogue].type;
+        _type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
         
         if (npcData.npcDialog[_selectedDialogue].GetExitButton())
@@ -76,7 +84,7 @@ public class NPCUIController: MonoBehaviour
     public void OnOff()  //npc와의 대화 on/off
     {
         uiCanvas.gameObject.SetActive(!uiCanvas.gameObject.activeSelf);
-        playerController.ChangeCursorState(uiCanvas.gameObject.activeSelf);
+        _playerController.ChangeCursorState(uiCanvas.gameObject.activeSelf);
         
         if (!uiCanvas.gameObject.activeSelf)
         {
@@ -89,7 +97,7 @@ public class NPCUIController: MonoBehaviour
                 }
             }
 
-            type = DialogueType.NONE;
+            _type = DialogueType.NONE;
         }
         else
         {
@@ -104,11 +112,21 @@ public class NPCUIController: MonoBehaviour
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
 
-            if (type == DialogueType.NORMAL ||type == DialogueType.QUEST)
+            if (_type == DialogueType.NORMAL ||_type == DialogueType.QUEST)
             {
-                
-                string fullText = npcData.NextText(_selectedDialogue);
 
+                string fullText;
+                
+                if (QuestManager.Instance.CheckMainQuest() && _type == DialogueType.QUEST)
+                {
+                    dialogueText.text = "";
+                    fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
+                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+                    exitButton.gameObject.SetActive(true);
+                    return;
+                }
+                
+                fullText = npcData.NextText(_selectedDialogue);
                 if (fullText != null)
                 {
                     dialogueText.text = "";
@@ -118,6 +136,8 @@ public class NPCUIController: MonoBehaviour
                 {
                     exitButton.gameObject.SetActive(true);
                 }
+
+                
             }
         }
     }

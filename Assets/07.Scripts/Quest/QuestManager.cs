@@ -14,16 +14,21 @@ public class QuestManager : Singleton<QuestManager>
     
     private List<Quest> _acceptedQuestList = new();
     private List<GameObject> _questUIList = new();
-    private int _mainQuestIndex = 0;
+    private bool _mainQuestClear;
 
     private void Start()
     {
         _acceptedQuestList.Clear();
+        _mainQuestClear = false;
     }
 
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
         questData.Reset();
+        if (_mainQuestClear && questData.name == "메인 퀘스트")
+        {
+            return;
+        }
         _acceptedQuestList.Add(questData);
         
         GameObject newQuestCell = questCellFactory.CreateQuestCell(questData);
@@ -45,6 +50,10 @@ public class QuestManager : Singleton<QuestManager>
         {
             if (_acceptedQuestList[i].name == questName)
             {
+                if (questName == "메인 퀘스트")
+                {
+                    _mainQuestClear = true;
+                }
                 Quest questToRemove = _acceptedQuestList.Find(q => q.name == questName);
                 string text = questToRemove.clearText;
                 
@@ -94,8 +103,8 @@ public class QuestManager : Singleton<QuestManager>
         return false;
     }
 
-    public void MainQuest(){ _mainQuestIndex++; } //메인 퀘스트 진행
-
+    public bool CheckMainQuest(){return _mainQuestClear;}
+    
     private void UpdateQuestUI()      //퀘스트 UI 갱신
     {
         for (int i = 0; i < _acceptedQuestList.Count; i++)

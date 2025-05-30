@@ -17,6 +17,11 @@ public class NpcData : ScriptableObject
     {
         _currentQuestIndex = 0;}
 
+    public DialogueType Type(int selectedDialogue)
+    {
+        return npcDialog[selectedDialogue].type;
+    }
+    
     public string NextText(int selectedDialogue)   //대화 텍스트 전달
     {
 
@@ -53,8 +58,8 @@ public class NpcData : ScriptableObject
                 
                 if (quests.Length <= _currentQuestIndex)  //남은 퀘스트가 없으면
                 {
-                    Debug.Log(quests.Length +" / "+ _currentQuestIndex);
-                    return "여기선 더는 할 일이 없어...";}
+                    return "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
+                }
                 if (QuestManager.Instance.CheckClearQuest(quests[_currentQuestIndex].name))             //받았던 퀘스트 클리어시
                 {
                     _currentQuestIndex++; 
