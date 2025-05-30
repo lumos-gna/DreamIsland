@@ -23,7 +23,7 @@ RenderSettings:
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 0
+  m_AmbientIntensity: 0.6
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.2260591, g: 0.26887965, b: 0.3773585, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 9a36a420204d0ed44bbcb3bffdc30c95, type: 2}
@@ -22218,6 +22218,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3511997808396528531, guid: 9e0fe3ad0f06a6d4fbae4afc00a7d856, type: 3}
+      propertyPath: model
+      value: 
+      objectReference: {fileID: 8711289776422715119}
     - target: {fileID: 4003343328743415388, guid: 9e0fe3ad0f06a6d4fbae4afc00a7d856, type: 3}
       propertyPath: m_Name
       value: Fairy
@@ -25391,6 +25395,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6b161d05d6dcfb54f90b945641ec74b8, type: 3}
+--- !u!1 &8711289776422715119 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5857858864909774383, guid: 9e0fe3ad0f06a6d4fbae4afc00a7d856, type: 3}
+  m_PrefabInstance: {fileID: 1843421924}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

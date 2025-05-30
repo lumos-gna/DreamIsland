@@ -28,11 +28,12 @@ public class NPCUIController: MonoBehaviour
         }
 
         exitButton.onClick.AddListener(() => OnOff());
-        _buttons = new GameObject[npcData.npcDialog.Length];
+        
     }
 
     private void PlusButton(int length)   //대화 버튼 추가
     {
+        _buttons = new GameObject[length];
         for (int i = 0; i < length; i++)
         {
             int index = i;
@@ -76,11 +77,6 @@ public class NPCUIController: MonoBehaviour
             if(_buttons[j] != null)
                 _buttons[j].SetActive(false);
         }
-        
-        if (_buttons[_buttons.Length-1] == null)
-        {
-            _buttons = null;
-        }
     }
     
     
@@ -101,6 +97,7 @@ public class NPCUIController: MonoBehaviour
                     _buttons[i] = null; 
                 }
             }
+            _buttons = null;
 
             _type = DialogueType.None;
         }
