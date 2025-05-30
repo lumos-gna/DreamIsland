@@ -72,8 +72,8 @@ public class InventoryUI : BaseUI
     {
         var slot = slots[index];
         if (slot.item == null) return;
-        onMouseItemName.text = slot.item.displayName;
-        onMouseItemDescription.text = slot.item.description;
+        onMouseItemName.text = slot.item.DisplayName;
+        onMouseItemDescription.text = slot.item.Description;
     }
 
     public void ClearSelectedItemWindow()

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public ItemData item;
+    public ItemDataSO item;
 
     public Button button;
     public Image icon;
@@ -33,7 +33,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
         icon.gameObject.SetActive(true);
-        icon.sprite = item.icon;
+        icon.sprite = item.Icon;
         quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
     }
 
@@ -180,12 +180,12 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         GameManager.Instance.ForceSync();
     }
 
-    private bool TryStack(ItemData otherItem, int otherQuantity, HandleSlot otherSlot = null)
+    private bool TryStack(ItemDataSO otherItem, int otherQuantity, HandleSlot otherSlot = null)
     {
-        if (item != null && otherItem != null && item == otherItem && item.canStack)
+        if (item != null && otherItem != null && item == otherItem && item.IsStackable)
         {
             int total = quantity + otherQuantity;
-            if (total <= item.maxStackCount)
+            if (total <= item.MaxStackCount)
             {
                 quantity = total;
                 if (otherSlot != null)
@@ -196,10 +196,10 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
             else
             {
-                quantity = item.maxStackCount;
+                quantity = item.MaxStackCount;
                 if (otherSlot != null)
                 {
-                    otherSlot.quantity = total - item.maxStackCount;
+                    otherSlot.quantity = total - item.MaxStackCount;
                 }
                 return true;
             }
@@ -207,12 +207,12 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         return false;
     }
 
-    private bool TryStack(ItemData otherItem, int otherQuantity, ItemSlot otherSlot)
+    private bool TryStack(ItemDataSO otherItem, int otherQuantity, ItemSlot otherSlot)
     {
-        if (item != null && otherItem != null && item == otherItem && item.canStack)
+        if (item != null && otherItem != null && item == otherItem && item.IsStackable)
         {
             int total = quantity + otherQuantity;
-            if (total <= item.maxStackCount)
+            if (total <= item.MaxStackCount)
             {
                 quantity = total;
                 if (otherSlot != null)
@@ -223,10 +223,10 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             }
             else
             {
-                quantity = item.maxStackCount;
+                quantity = item.MaxStackCount;
                 if (otherSlot != null)
                 {
-                    otherSlot.quantity = total - item.maxStackCount;
+                    otherSlot.quantity = total - item.MaxStackCount;
                 }
                 return true;
             }
