@@ -1,18 +1,30 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEngine.UI.Image;
 
 public class MeleeEnemy : BaseEnemy, IPoolableEnemy
 {
     [SerializeField] private AttackEnemyStats _attackStats;
-    [SerializeField] private float _hitPower = 2f;
     public override AttackEnemyStats AttackEnemyStats => _attackStats;
 
     public void MeleeAttack()
     {
-        if (GetPlayer().TryGetComponent<PlayerCondition>(out var player))
+        Vector3 origin = transform.position + Vector3.up * 1f; // 눈높이나 중심 정도
+        Vector3 direction = transform.forward;
+        float range = 4f;
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, range))
         {
-            player.HealthChange(_hitPower);
+            if (hit.collider.CompareTag("Player"))
+            {
+                if (hit.collider.TryGetComponent<PlayerCondition>(out var player))
+                {
+                    player.HealthChange(-_attackStats.AttackPower); // 데미지 적용
+                    Debug.Log($"Melee hit! Player takes {_attackStats.AttackPower} damage");
+                }
+            }
         }
+
+        Debug.DrawRay(origin, direction * range, Color.red, 1.0f);
     }
 }
