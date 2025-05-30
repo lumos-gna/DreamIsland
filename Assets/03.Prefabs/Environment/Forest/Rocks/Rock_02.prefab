@@ -145,4 +145,8 @@ MonoBehaviour:
   damageAmount: 10
   dropItems:
   - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 0.75
+    dropChance: 1
+  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
+    dropChance: 0.6
+  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
+    dropChance: 0.3

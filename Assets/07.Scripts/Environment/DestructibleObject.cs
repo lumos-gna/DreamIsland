@@ -16,7 +16,7 @@ public class DestructibleObject : MonoBehaviour
 {
     [Header("HP Settings")]
     public float maxHP = 100f;
-    private float currentHP;
+    public float currentHP;
 
     [Header("Damage Settings")]
     public int damageAmount = 10;
@@ -24,23 +24,71 @@ public class DestructibleObject : MonoBehaviour
     [Header("Drop Settings")]
     public DropItem[] dropItems;
 
-    private Animator _anim;
+    private Vector3 _originalScale;
+    private Vector3 _originalPosition;
+    private Coroutine _damageFeedbackCoroutine;
+
 
     void Awake()
     {
         currentHP = maxHP;
-        _anim = GetComponent<Animator>();
+        _originalScale = transform.localScale;
+        _originalPosition = transform.localPosition;
     }
 
-    public void TakeDamage(int amount)
+    public void ObjectTakeDamage(int amount)
     {
         currentHP -= amount;
-        _anim.SetTrigger("ObjectHit"); // 맞는 애니메이션 재생
+        if (_damageFeedbackCoroutine != null)
+            StopCoroutine(_damageFeedbackCoroutine);
+
+        _damageFeedbackCoroutine = StartCoroutine(DamageFeedback());
 
         if (currentHP <= 0f)
         {
             Die();
         }
+    }
+
+    private IEnumerator DamageFeedback()
+    {
+        // HP 비율 계산 및 목표 크기 결정
+        float hpRatio = Mathf.Clamp01(currentHP / maxHP);
+        Vector3 targetScale = _originalScale * hpRatio;
+
+        // 펄스 설정
+        float pulseFactor = 1.05f; // 5% 커졌다가
+        float pulseTime = 0.1f;   // 0.1초 키우고
+        // 펄스 업
+        for (float t = 0; t < pulseTime; t += Time.deltaTime)
+        {
+            float lerp = t / pulseTime;
+            transform.localScale = Vector3.Lerp(targetScale, targetScale * pulseFactor, lerp);
+            yield return null;
+        }
+        // 펄스 다운
+        for (float t = 0; t < pulseTime; t += Time.deltaTime)
+        {
+            float lerp = t / pulseTime;
+            transform.localScale = Vector3.Lerp(targetScale * pulseFactor, targetScale, lerp);
+            yield return null;
+        }
+        // 최종 크기 고정
+        transform.localScale = targetScale;
+
+        // 3) 좌우 떨림 (shake)
+        float shakeDuration = 0.2f;
+        float shakeMagnitude = 0.05f * hpRatio; // HP 낮을수록 흔들림 작게
+        for (float t = 0; t < shakeDuration; t += Time.deltaTime)
+        {
+            float offset = Mathf.Sin(t * Mathf.PI * 10f) * shakeMagnitude;
+            transform.localPosition = _originalPosition + Vector3.right * offset;
+            yield return null;
+        }
+        // 위치 복원
+        transform.localPosition = _originalPosition;
+
+        _damageFeedbackCoroutine = null;
     }
 
     private void Die()
@@ -52,8 +100,6 @@ public class DestructibleObject : MonoBehaviour
     /// 드랍 아이템 생성 후 본 오브젝트 삭제
     private IEnumerator HandleDropsAndDestroy()
     {
-        // 죽는 애니메이션 재생 끝날 때까지 대기
-        yield return new WaitForSeconds(_anim.GetCurrentAnimatorStateInfo(0).length);
 
         // 드랍 처리
         foreach (var item in dropItems)
@@ -66,6 +112,7 @@ public class DestructibleObject : MonoBehaviour
         }
 
         Destroy(gameObject);
+        yield break;
     }
 
 }
