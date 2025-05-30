@@ -8,24 +8,27 @@ public class NpcData : ScriptableObject
     public string text;     //대화 시작시 텍스트
     public NPCDialog[] npcDialog;
     public Quest[] randomQuests;
-    public Quest[] quests;
+    public Quest quests;
     
-    private int _currentQuestIndex = 0;
+
     private int _currentRandomQuestIndex = 0;
 
-    void OnEnable()
-    {
-        _currentQuestIndex = 0;}
 
+
+    public DialogueType Type(int selectedDialogue)
+    {
+        return npcDialog[selectedDialogue].type;
+    }
+    
     public string NextText(int selectedDialogue)   //대화 텍스트 전달
     {
 
         switch (npcDialog[selectedDialogue].type)
         {
-            case DialogueType.NORMAL:
+            case DialogueType.Normal:  //평범한 이어지는 대화
                 return npcDialog[selectedDialogue].GetText();
 
-            case DialogueType.RANDOMQUEST:
+            case DialogueType.RandomQuest:   //랜덤 퀘스트
                 
                 if (QuestManager.Instance.CheckClearQuest(randomQuests[_currentRandomQuestIndex].name))             //받았던 퀘스트 클리어시
                 {
@@ -48,32 +51,31 @@ public class NpcData : ScriptableObject
                 }
             
             
-            case DialogueType.QUEST:
-                if (quests.Length <= _currentQuestIndex)
+            case DialogueType.Quest:     //  메인 퀘스트
+                
+                if (quests.Clear())  //남은 퀘스트가 없으면
                 {
-                    Debug.Log(quests.Length +" / "+ _currentQuestIndex);
-                    return "남은 할 일이 없어...";}
-                if (QuestManager.Instance.CheckClearQuest(quests[_currentQuestIndex].name))             //받았던 퀘스트 클리어시
+                    return "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
+                }
+                if (QuestManager.Instance.CheckClearQuest(quests.name))             //받았던 퀘스트 클리어시
                 {
-                    _currentQuestIndex++; 
                     npcDialog[selectedDialogue].SetCount(0);
                     
-                    return QuestManager.Instance.QuestComplete(quests[_currentQuestIndex-1].name);
+                    return QuestManager.Instance.QuestComplete(quests.name);
                 }
-                else if (QuestManager.Instance.CheckOnOffQuest(quests[_currentQuestIndex].name))           //수락한 퀘스트가 있으면
+                else if (QuestManager.Instance.CheckOnOffQuest(quests.name))           //수락한 퀘스트가 있으면
                 {
-                    npcDialog[selectedDialogue].SetCount(0);
-                    return quests[_currentRandomQuestIndex].text;
+                    return npcDialog[selectedDialogue].GetText();
                 }
                 else      //수락한 퀘스트가 없으면
                 {
-                    QuestManager.Instance.AcceptQuest(quests[_currentQuestIndex]);                     //퀘스트 수락
-                    npcDialog[selectedDialogue].SetCount(0);
-                    
-                    return quests[_currentQuestIndex].text; 
+                    QuestManager.Instance.AcceptQuest(quests);                     //퀘스트 수락
+                    npcDialog[selectedDialogue].SetCount(-1);
+
+                    return npcDialog[selectedDialogue].GetText();
                 }
             
-            case DialogueType.RANDOM:
+            case DialogueType.Random:  // 랜덤한 대화 출력
                 
                 int random = Random.Range(0, npcDialog[selectedDialogue].npcDialogTexts.Length);
                 npcDialog[selectedDialogue].SetCount(random);
@@ -84,10 +86,7 @@ public class NpcData : ScriptableObject
 
     public void AllReset()
     {
-        foreach (Quest quest in quests)
-        {
-            quest.Reset();
-        }
+        quests.Reset();
 
         foreach (Quest quest in randomQuests)
         {
@@ -101,11 +100,11 @@ public class NpcData : ScriptableObject
 
 public enum DialogueType
 {
-    RANDOM,
-    NORMAL,
-    QUEST,
-    RANDOMQUEST,
-    NONE,
+    Random,
+    Normal,
+    Quest,
+    RandomQuest,
+    None,
 }
 
 

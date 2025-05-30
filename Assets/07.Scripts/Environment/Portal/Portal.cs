@@ -20,7 +20,7 @@ public class Portal : MonoBehaviour
 
     void Awake()
     {
-        // 1) PreviewCamera ÀÚµ¿ ÇÒ´ç
+        // 1) PreviewCamera ï¿½Úµï¿½ ï¿½Ò´ï¿½
         if (previewCamera == null)
         {
             var camTransform = transform.Find("PreviewCamera");
@@ -29,7 +29,7 @@ public class Portal : MonoBehaviour
 
         }
 
-        // 2) ScreenRenderer ÀÚµ¿ ÇÒ´ç
+        // 2) ScreenRenderer ï¿½Úµï¿½ ï¿½Ò´ï¿½
         if (screenRenderer == null)
         {
             var screenTransform = transform.Find("Screen");
@@ -38,7 +38,7 @@ public class Portal : MonoBehaviour
 
         }
 
-        // 3) PlayerTransform ÀÚµ¿ ÇÒ´ç (ÅÂ±×°¡ PlayerÀÎ ¿ÀºêÁ§Æ®)
+        // 3) PlayerTransform ï¿½Úµï¿½ ï¿½Ò´ï¿½ (ï¿½Â±×°ï¿½ Playerï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®)
         if (playerTransform == null)
         {
             var p = GameObject.FindWithTag("Player");
@@ -59,6 +59,7 @@ public class Portal : MonoBehaviour
     {
         if (!canTeleport) return;
         if (!other.CompareTag("Player")) return;
+        
 
         StartCoroutine(TeleportCoroutine());
     }
@@ -67,10 +68,12 @@ public class Portal : MonoBehaviour
     {
         canTeleport = false;
 
-        // ÇÃ·¹ÀÌ¾î À§Ä¡ ÀÌµ¿
+        QuestManager.Instance.npcManager.ChangeData(targetRegion);
+        
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½Ä¡ ï¿½Ìµï¿½
         playerTransform.position = regionManager.GetSpawnPoint(targetRegion).position;
 
-        // regionmanager¿¡ ¾Ë¸²
+        // regionmanagerï¿½ï¿½ ï¿½Ë¸ï¿½
         regionManager.ChangeRegion(targetRegion);
 
         if (DayNightCycle.IsDay)
@@ -89,7 +92,7 @@ public class Portal : MonoBehaviour
             AudioManager.PlayBackgroundMusic(3, loop: true); // AudioManager.bgmClips[3] = Night
         }
 
-        // ÆäÀÌµå ÀÎ µî ÀÌÆåÆ®
+        // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
         yield return new WaitForSeconds(cooldown);
         canTeleport = true;
     }

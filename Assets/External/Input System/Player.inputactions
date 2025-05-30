@@ -78,9 +78,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Test",
+                    "name": "Fairy",
                     "type": "Button",
-                    "id": "53a890a8-9b9a-4555-a187-2b1f355e302e",
+                    "id": "d56cd548-1050-4742-8911-8ed6d4dfe159",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -288,12 +288,12 @@
                 },
                 {
                     "name": "",
-                    "id": "2ba82c38-68b9-494f-858a-79e881b28f2e",
-                    "path": "<Keyboard>/q",
+                    "id": "19e44704-ee65-48ed-80ee-2d24bde0d076",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Test",
+                    "action": "Fairy",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

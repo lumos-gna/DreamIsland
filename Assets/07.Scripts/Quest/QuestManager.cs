@@ -9,20 +9,24 @@ public class QuestManager : Singleton<QuestManager>
 {
     public GameObject questList;
     public GameObject questCell;
-    
+
+    public NpcManager npcManager;
     public QuestCellFactory questCellFactory;
     
     private List<Quest> _acceptedQuestList = new();
     private List<GameObject> _questUIList = new();
+    private bool _mainQuestClear;
 
     private void Start()
     {
         _acceptedQuestList.Clear();
+        _mainQuestClear = false;
     }
 
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
         questData.Reset();
+        
         _acceptedQuestList.Add(questData);
         
         GameObject newQuestCell = questCellFactory.CreateQuestCell(questData);
@@ -34,6 +38,10 @@ public class QuestManager : Singleton<QuestManager>
         if (SearchQuest(questName) != null)
         {
             _acceptedQuestList.Find(q => q.name == questName).PlusCount();
+            if (_acceptedQuestList.Find(q => q.name == questName).Clear())
+            {
+                QuestComplete(questName);
+            }
             UpdateQuestUI();
         }
     }
@@ -93,8 +101,11 @@ public class QuestManager : Singleton<QuestManager>
         return false;
     }
 
-
-    private void UpdateQuestUI()
+    public bool CheckMainQuest(){return _mainQuestClear;}
+    
+    
+    
+    private void UpdateQuestUI()      //퀘스트 UI 갱신
     {
         for (int i = 0; i < _acceptedQuestList.Count; i++)
         {
@@ -107,6 +118,11 @@ public class QuestManager : Singleton<QuestManager>
                 countText.text = $"{quest.Count} / {quest.goal}";
             }
         }
+    }
+
+    public void ChangeData(Region region)
+    {
+        npcManager.ChangeData(region);
     }
 
     //테스트용
@@ -124,21 +140,6 @@ public class QuestManager : Singleton<QuestManager>
         if (Input.GetKeyDown(KeyCode.J))
         {
             QuestPlusCount("학 랜덤 퀘스트 3");QuestPlusCount("토끼 랜덤 퀘스트 3");QuestPlusCount("뱀 랜덤 퀘스트 3");
-        }
-        
-        
-        //메인 퀘스트
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            QuestPlusCount("학 퀘스트1");QuestPlusCount("토끼 퀘스트 1");QuestPlusCount("뱀 랜덤 퀘스트 1");
-        }
-        if (Input.GetKeyDown(KeyCode.N))
-        {
-            QuestPlusCount("학 퀘스트2");QuestPlusCount("토끼 퀘스트 2");QuestPlusCount("뱀 랜덤 퀘스트 2");
-        }
-        if (Input.GetKeyDown(KeyCode.M))
-        {
-            QuestPlusCount("학 퀘스트3");QuestPlusCount("토끼 퀘스트 3");QuestPlusCount("뱀 랜덤 퀘스트 3");
         }
     }
 }
