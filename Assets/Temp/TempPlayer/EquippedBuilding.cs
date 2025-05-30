@@ -33,14 +33,19 @@ public class EquippedBuilding : EquippedItem
         _buildingSystem.Destroy();
 
     }
-
-    public override bool TryUse()
+    
+    public override bool TryUse(EquippedController.InputState inputState)
     {
-        if (_buildingSystem.TryBuild())
+        switch (inputState)
         {
-            _buildingSystem.Create(_itmeData.BuildingObjectPrefab);
+            case EquippedController.InputState.Down :
+                if (_buildingSystem.TryBuild())
+                {
+                    _buildingSystem.Create(_itmeData.BuildingObjectPrefab);
 
-            return true;
+                    return true;
+                }
+                break;
         }
 
         return false;
