@@ -1,6 +1,5 @@
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class CraftingUIRecipeSlot : MonoBehaviour, IPoolable
@@ -8,7 +7,6 @@ public class CraftingUIRecipeSlot : MonoBehaviour, IPoolable
     public ItemData Item { get; private set; }
 
     [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private TextMeshProUGUI countText;
 
     private int _maxCount;
@@ -17,10 +15,12 @@ public class CraftingUIRecipeSlot : MonoBehaviour, IPoolable
     public void Init(ItemData item, int count)
     {
         Item = item;
-        
-        nameText.text = item.DisplayName;
 
-        countText.text = count.ToString();
+        icon.sprite = item.Icon;
+
+        _maxCount = count;
+        
+        countText.text = $"{_curCount}/{_maxCount}";
     }
 
     public void OnSpawn() =>  gameObject.SetActive(true);

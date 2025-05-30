@@ -8,7 +8,7 @@ public class CraftingUI : BaseUI
     [SerializeField] private RectTransform recipeSlotRoot;
     
     [Space(10f)]
-    [SerializeField] private ItemDataTable buildingItemDataTable;
+    [SerializeField] private ItemDataTable craftItemDataTable;
 
 
     private CraftingUISlot _selectedSlot;
@@ -23,6 +23,8 @@ public class CraftingUI : BaseUI
     {
         Init();
         Enable();
+        
+        GameManager.Instance.ToggleCursor(false);
     }
 
     public override void Enable()
@@ -42,9 +44,9 @@ public class CraftingUI : BaseUI
         var slotPool = PoolManager.Instance.GetPool(slotPrefab);
         var recipePool = PoolManager.Instance.GetPool(reicpeSlotPrefab);
         
-        for (int i = 0; i < buildingItemDataTable.ItemDatas.Length; i++)
+        for (int i = 0; i < craftItemDataTable.ItemDatas.Length; i++)
         {
-            var targetItem = buildingItemDataTable.ItemDatas[i];
+            var targetItem = craftItemDataTable.ItemDatas[i];
 
             var targetSlot = slotPool.Spawn(itemSlotRoot);
             

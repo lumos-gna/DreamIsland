@@ -8,14 +8,13 @@ public class CraftingUISlot : MonoBehaviour, IPoolable
     public ItemData Item { get; private set; }
 
     [SerializeField] private Image icon;
-    [SerializeField] private TextMeshProUGUI nameText;
     [SerializeField] private Button button;
 
     public void Init(ItemData item, UnityAction onBtnClick)
     {
         Item = item;
         
-        nameText.text = item.DisplayName;
+        icon.sprite = item.Icon;
         
         button.onClick.AddListener(onBtnClick);
     }

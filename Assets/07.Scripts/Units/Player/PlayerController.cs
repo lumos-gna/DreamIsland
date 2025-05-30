@@ -22,7 +22,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float lookSensitivity;
     private float camcurXrot;
 
-    private bool canlook = true;
     private Vector2 mouseDelta;
     private CapsuleCollider capsuleCollider;
 
@@ -46,15 +45,16 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public bool Canlook
-    {
-        get { return canlook; }
-    }
+
+    private GameManager _gameManager;
+
+  
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
-        Cursor.lockState = CursorLockMode.Locked;
+
+        _gameManager = GameManager.Instance;
     }
 
     private void FixedUpdate()
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(canlook)
+        if(_gameManager.IsLockedCursor)
         {
             CameraLook();
         }
@@ -151,32 +151,22 @@ public class PlayerController : MonoBehaviour
         {
             var uiManager = UIManager.Instance;
 
-            if (uiManager.IsUIEnabled<InventoryUI>())
+            bool enabledInventory = uiManager.IsUIEnabled<InventoryUI>();
+            
+            GameManager.Instance.ToggleCursor(!enabledInventory);
+
+            if (enabledInventory)
             {
                 uiManager.Disable<InventoryUI>();
-                ChangeCursorState(false);
             }
             else
             {
                 uiManager.Enable<InventoryUI>();
-                ChangeCursorState(true);
             }
         }
     }
 
-    public void ChangeCursorState(bool ispopon) // 커서 상태 변경(인벤토리 열었을때?)
-    {
-        Cursor.lockState = ispopon ? CursorLockMode.None : CursorLockMode.Locked;
-        canlook = !ispopon;
-        if(canlook)
-        {
-            UIManager.Instance.Enable<AimUI>();
-        }
-        else
-        {
-            UIManager.Instance.Disable<AimUI>();
-        }
-    }
+   
     
     public void LookAtFairy()
     {

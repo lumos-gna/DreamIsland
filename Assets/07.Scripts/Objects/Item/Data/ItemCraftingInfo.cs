@@ -9,9 +9,6 @@ public class ItemCraftingInfo
         public ItemData data;
         public int amount;
     }
-
     
     public Recipe[] recipes;
-    
-    public ItemData resultItemData;       
 }

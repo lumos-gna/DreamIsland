@@ -547,4 +547,4 @@ MonoBehaviour:
   reicpeSlotPrefab: {fileID: 1677738689381426713, guid: da6dd0c35f86238489c210e35445d292, type: 3}
   itemSlotRoot: {fileID: 186787503663331565}
   recipeSlotRoot: {fileID: 70170828282759602}
-  buildingItemDataTable: {fileID: 11400000, guid: 0c94c2d20e63a1b40adcf72d142fb288, type: 2}
+  craftItemDataTable: {fileID: 11400000, guid: fbd4260c2cf166f498f9472251ed89a0, type: 2}

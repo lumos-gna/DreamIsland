@@ -85,7 +85,8 @@ public class NPCUIController: MonoBehaviour
     public void OnOff()  //npc와의 대화 on/off
     {
         uiCanvas.gameObject.SetActive(!uiCanvas.gameObject.activeSelf);
-        _playerController.ChangeCursorState(uiCanvas.gameObject.activeSelf);
+        
+        GameManager.Instance.ToggleCursor(uiCanvas.gameObject.activeSelf);
         
         
         if (!uiCanvas.gameObject.activeSelf)
