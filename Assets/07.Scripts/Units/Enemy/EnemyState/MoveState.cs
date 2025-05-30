@@ -109,7 +109,7 @@ public class MoveState : IState<BaseEnemy>
         if (nm.Contains("bat")) sfx = 5;
         else if (nm.Contains("golem")) sfx = 6;
         else if (nm.Contains("mushroom")) sfx = 7;
-
+        else if (nm.Contains("penguin")) sfx = 15;
         if (sfx > 0)
         {
             AudioManager.PlayEffectSound(sfx);
