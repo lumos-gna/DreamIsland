@@ -13,15 +13,16 @@ MonoBehaviour:
   m_Name: TestMeeleItemData
   m_EditorClassIdentifier: 
   displayName: TestAxe
-  description: 
+  description: test
   maxStackCount: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 34484c020ac4fb6479f2728e4cb3bb3d, type: 3}
   dropItemPrefab: {fileID: -7712521015498405578, guid: 76bc393a3c5add643a221207300ae05b, type: 3}
   equipItemPrefab: {fileID: 4514243386781830718, guid: b1e4ace64300a9f49853f665348231e7, type: 3}
   craftingRecipe:
     neededItem: []
     resultItemData: {fileID: 0}
   range: 2
-  delay: 0
   unitDamage: 1
   objectDamage: 1
+  shootForce: 0
+  projectilePrefab: {fileID: 0}
