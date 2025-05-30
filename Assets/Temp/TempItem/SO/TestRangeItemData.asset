@@ -24,4 +24,5 @@ MonoBehaviour:
   range: 2
   unitDamage: 1
   objectDamage: 0
-  projectilePrefab: {fileID: 1027630145108440485, guid: 9d480647294695143b60a4baa6c0e61c, type: 3}
+  shootForce: 50
+  projectilePrefab: {fileID: 4646286565260403024, guid: 9d480647294695143b60a4baa6c0e61c, type: 3}

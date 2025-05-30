@@ -859,7 +859,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcController: {fileID: 8549376503356151285}
   offset: {x: 1, y: 1, z: 1}
-  model: {fileID: 0}
+  model: {fileID: 5857858864909774383}
   followSpeed: 5
   maxDistance: 3
   forestData: {fileID: 11400000, guid: 67282f70d802bfc47a95f8b00ff222d6, type: 2}

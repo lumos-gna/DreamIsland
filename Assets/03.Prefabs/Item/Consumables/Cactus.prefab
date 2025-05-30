@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 2585945133536063453}
   - component: {fileID: 7430616763337794864}
   - component: {fileID: 8893714790265877772}
-  - component: {fileID: 1774325551825211677}
-  - component: {fileID: 31483626291185980}
   - component: {fileID: 8378139346187066471}
   - component: {fileID: 7835606838322295858}
   - component: {fileID: 5242410083067830890}
   - component: {fileID: 8197752104336608756}
+  - component: {fileID: 9067531252769576340}
   m_Layer: 20
   m_Name: Cactus
   m_TagString: Untagged
@@ -35,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.2, y: -2, z: 5}
-  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -111,31 +110,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.82281923, y: 0.99854565, z: 0.893292}
   m_Center: {x: 0.0049073496, y: 0.493835, z: 0.005270044}
---- !u!114 &1774325551825211677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683380157648875604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82e7239ddf6d4ff42966b0c10b893644, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data: {fileID: 11400000, guid: fbb53bcac9738d24daeb1bc4669b6a1e, type: 2}
---- !u!114 &31483626291185980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 683380157648875604}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17cf74a29eee4d4439a7ca374dc52d74, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &8378139346187066471
 Animator:
   serializedVersion: 5
@@ -5024,3 +4998,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &9067531252769576340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 683380157648875604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3aa552611a0aac240be93c7b65ef974d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

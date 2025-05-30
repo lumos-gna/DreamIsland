@@ -5,7 +5,7 @@ using UnityEngine;
 public class WeaponItemDataSO : ItemDataSO
 {
     public CraftingRecipe CraftingRecipe => craftingRecipe;
-    public GameObject ProjectilePrefab => projectilePrefab;
+    public Projectile ProjectilePrefab => projectilePrefab;
     
     public float Range => range;
     public float UnitDamage => unitDamage;
@@ -32,6 +32,6 @@ public class WeaponItemDataSO : ItemDataSO
 
     [SerializeField] private float shootForce;
     
-    [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private Projectile projectilePrefab;
     
 }

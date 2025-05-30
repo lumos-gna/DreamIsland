@@ -54,7 +54,7 @@ public class NpcManager : MonoBehaviour
     
     void Start()
     {
-        _player = GameObject.Find("Player");
+        _player = GameObject.Find("TempPlayer");
         _animator = model.GetComponent<Animator>();
     }
     
@@ -67,13 +67,9 @@ public class NpcManager : MonoBehaviour
 
         if (distance > maxDistance)
         {
-            _animator.SetBool("IsMove", true);
             transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
         }
-        else
-        {
-            //_animator.SetBool("IsMove", false);
-        }
+        
         transform.LookAt(_player.transform);
 
         

@@ -7,15 +7,13 @@ public class PoolManager : Singleton<PoolManager>
     private Dictionary<string, object> _poolDict = new();
     
 
-    public ObjectPool<T> CreatePool<T>(T prefab) where T : Component, IPoolable
+    ObjectPool<T> CreatePool<T>(T prefab) where T : Component, IPoolable
     {
-        string targetName = prefab.gameObject.name;
-        
-        if (!_poolDict.ContainsKey(targetName))
+        if (!_poolDict.ContainsKey(prefab.gameObject.name))
         {
             var newPool =  new ObjectPool<T>(prefab);
 
-            _poolDict[targetName] = newPool;
+            _poolDict[prefab.gameObject.name] = newPool;
 
             return newPool;
         }
@@ -23,13 +21,15 @@ public class PoolManager : Singleton<PoolManager>
         return null;
     }
     
-    public ObjectPool<T> GetPool<T>(string key) where T : Component, IPoolable
+    public ObjectPool<T> GetPool<T>(T prefab) where T : Component, IPoolable
     {
-        if (_poolDict.ContainsKey(key))
+        if (_poolDict.ContainsKey(prefab.gameObject.name))
         {
-            return (ObjectPool<T>)_poolDict[key];
+            return (ObjectPool<T>)_poolDict[prefab.gameObject.name];
         }
-
-        return null;
+        else
+        {
+            return CreatePool(prefab);
+        }
     }
 }
