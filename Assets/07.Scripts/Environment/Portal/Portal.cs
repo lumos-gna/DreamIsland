@@ -73,6 +73,22 @@ public class Portal : MonoBehaviour
         // regionmanager에 알림
         regionManager.ChangeRegion(targetRegion);
 
+        if (DayNightCycle.IsDay)
+        {
+            int dayIndex = 0;
+            switch (targetRegion)
+            {
+                case Region.Forest: dayIndex = 0; break; // AudioManager.bgmClips[0] = Forest
+                case Region.Desert: dayIndex = 2; break; // AudioManager.bgmClips[2] = Desert
+                case Region.Arctic: dayIndex = 1; break; // AudioManager.bgmClips[1] = Arctic
+            }
+            AudioManager.PlayBackgroundMusic(dayIndex, loop: true);
+        }
+        else
+        {
+            AudioManager.PlayBackgroundMusic(3, loop: true); // AudioManager.bgmClips[3] = Night
+        }
+
         // 페이드 인 등 이펙트
         yield return new WaitForSeconds(cooldown);
         canTeleport = true;

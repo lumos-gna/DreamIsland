@@ -19,6 +19,21 @@ public class MoveState : IState<BaseEnemy>
     public void Enter(BaseEnemy obj)
     {
         _playerTransform = obj.GetPlayer()?.transform;
+        var agent = obj.GetAgent();
+
+        // NavMeshAgent가 NavMesh 위에 없으면 warp
+        if (agent != null)
+        {
+            if (!agent.isOnNavMesh && NavMesh.SamplePosition(obj.transform.position, out var hit, 2f, NavMesh.AllAreas))
+                agent.Warp(hit.position);
+            agent.isStopped = false;
+            agent.autoBraking = false;
+            agent.speed = obj.Stats.WalkSpeed;
+        }
+
+        _waitTime = Random.Range(_minWaitTime, _maxWaitTime);
+        _timer = 0f;
+
         obj.GetAgent().isStopped = false;
         obj.GetAgent().speed = obj.Stats.WalkSpeed;
       
@@ -26,8 +41,20 @@ public class MoveState : IState<BaseEnemy>
         _timer = 0;
 
         obj.GetAgent().autoBraking = false;
-        
- 
+
+        // 이동 시작 시 적별 이동 효과음 재생
+        string nm = obj.name.ToLower();
+        int sfx = 0;
+        if (nm.Contains("bat"))
+            sfx = 5;
+        else if (nm.Contains("golem"))
+            sfx = 6;
+        else if (nm.Contains("mushroom"))
+            sfx = 7;
+        if (sfx > 0)
+            AudioManager.PlayEffectSound(sfx);
+
+
         // 경로 업데이트
         UpdatePath(obj);
         obj.GetAnimator()?.CrossFade("Move", 0.1f);
@@ -66,7 +93,9 @@ public class MoveState : IState<BaseEnemy>
     }
     public void Exit(BaseEnemy obj)
     {
-        obj.GetAgent().isStopped = true;
+        var agent = obj.GetAgent();
+        if (agent != null && agent.isOnNavMesh)
+            agent.isStopped = true;
     }
 
     // 경로 갱신
@@ -117,6 +146,8 @@ public class MoveState : IState<BaseEnemy>
     // 목적지 도달 판정
     private bool HasReachedDestination(NavMeshAgent agent)
     {
-        return !agent.pathPending && agent.remainingDistance < 0.5f && agent.velocity.sqrMagnitude < 0.01f;
+        if (agent == null || !agent.isOnNavMesh)
+            return false;
+        return !agent.pathPending && agent.remainingDistance < 0.5f;
     }
 }

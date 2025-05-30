@@ -2,7 +2,6 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 
-
 public class CycleEvent : UnityEvent { }
 public class DayNightCycle : MonoBehaviour
 {
@@ -16,9 +15,8 @@ public class DayNightCycle : MonoBehaviour
     public float dayDuration = 120f;
 
     [Header("Start Time")]
-    // 0: ¿⁄¡§, 0.25: ¿œ√‚(≥∑ Ω√¿€), 0.5: ¡§ø¿, 0.75: ¿œ∏Ù
     [Range(0f, 1f)]
-    public float startTimeOfDay = 0.25f; // ¿œ√‚∫Œ≈Õ Ω√¿€
+    public float startTimeOfDay = 0.25f;
 
     [Header("Light Intensity")]
     public float daySunIntensity = 1f;
@@ -28,19 +26,39 @@ public class DayNightCycle : MonoBehaviour
     public float minTemperature = 10f;
     public float maxTemperature = 25f;
     public static float CurrentTemperature { get; private set; }
-    // ø¬µµ ª©∞°Ω«∂ß "float currentTemp = DayNightCycle.CurrentTemperature;" ¿Ã∞…∑Œ ª©∞°Ω√∏È µÀ¥œ¥Ÿ.
+
+    // ≥∑/π„ ªÛ≈¬
     public static bool IsDay { get; private set; }
+
+    [Header("Audio Settings")]
+    public int nightBgmIndex = 3;                // ∞¯≈Î π„ BGM ¿Œµ¶Ω∫
+    public int forestDayBgmIndex = 0;            // Ω£ ≥∑ BGM ¿Œµ¶Ω∫
+    public int desertDayBgmIndex = 2;            // ªÁ∏∑ ≥∑ BGM ¿Œµ¶Ω∫
+    public int arcticDayBgmIndex = 1;            // ∫œ±ÿ ≥∑ BGM ¿Œµ¶Ω∫
 
     [Header("Events")]
     public CycleEvent OnCycleComplete;
 
     private float timer;
+    private bool _wasDay;
+    private RegionManager _regionManager;
+
+    void Awake()
+    {
+        _regionManager = FindObjectOfType<RegionManager>();
+        if (_regionManager != null)
+            _regionManager.OnRegionChanged += OnRegionChanged;
+
+        nightBgmIndex = 3;
+    }
 
     void Start()
     {
         timer = startTimeOfDay * dayDuration;
-
         ApplyCycle(timer);
+
+        _wasDay = IsDay;
+        PlayCurrentBGM();
     }
 
     void Update()
@@ -56,29 +74,70 @@ public class DayNightCycle : MonoBehaviour
 
     void ApplyCycle(float currentTime)
     {
-        float t = currentTime / dayDuration;                 
+        float t = currentTime / dayDuration;
         float sunAngle = Mathf.Lerp(-90f, 270f, t);
 
-        // ≥∑/π„ ∆«¡§
         bool isDay = sunAngle >= 0f && sunAngle <= 180f;
-        IsDay = isDay;  
+        IsDay = isDay;
 
-        // »∏¿¸
+        if (isDay != _wasDay)
+        {
+            _wasDay = isDay;
+            PlayCurrentBGM();
+        }
+
+        // ∫˚/Ω∫ƒ´¿Ãπ⁄Ω∫/ø¬µµ ±‚¡∏ ∑Œ¡˜
         SunLight.transform.rotation = Quaternion.Euler(sunAngle, 170f, 0f);
         MoonLight.transform.rotation = Quaternion.Euler(sunAngle + 180f, 170f, 0f);
-
-        // π‡±‚
         SunLight.intensity = isDay ? daySunIntensity : 0f;
         MoonLight.intensity = isDay ? 0f : nightMoonIntensity;
-
         RenderSettings.skybox = isDay ? Sun : Moon;
 
-        // ø¬µµ ∞ËªÍ
         float normalizedDay = isDay
             ? Mathf.InverseLerp(0f, 180f, sunAngle)
             : 0f;
         CurrentTemperature = Mathf.Lerp(minTemperature, maxTemperature, normalizedDay);
-
         DynamicGI.UpdateEnvironment();
+    }
+
+    private void OnRegionChanged(Region newRegion)
+    {
+        // ¡ˆø™ ¿Ãµø Ω√ø°µµ ≥∑ ªÛ≈¬∂Û∏È ¡ÔΩ√ «ÿ¥Á ¡ˆø™ ≥∑ BGM¿∏∑Œ ¿¸»Ø
+        if (IsDay)
+            PlayDayBGMForRegion(newRegion);
+    }
+
+    private void PlayCurrentBGM()
+    {
+        int idx = IsDay
+        ? (_regionManager.currentRegion switch
+        {
+            Region.Forest => forestDayBgmIndex,
+            Region.Desert => desertDayBgmIndex,
+            Region.Arctic => arcticDayBgmIndex,
+            _ => forestDayBgmIndex
+        })
+        : nightBgmIndex;
+
+        Debug.Log($"[Audio] {(IsDay ? "Day" : "Night")} playing BGM index {idx}");
+        AudioManager.PlayBackgroundMusic(idx, true);
+    }
+
+    private void PlayDayBGMForRegion(Region region)
+    {
+        int idx = region switch
+        {
+            Region.Forest => forestDayBgmIndex,
+            Region.Desert => desertDayBgmIndex,
+            Region.Arctic => arcticDayBgmIndex,
+            _ => forestDayBgmIndex
+        };
+        AudioManager.PlayBackgroundMusic(idx, true);
+    }
+
+    void OnDestroy()
+    {
+        if (_regionManager != null)
+            _regionManager.OnRegionChanged -= OnRegionChanged;
     }
 }

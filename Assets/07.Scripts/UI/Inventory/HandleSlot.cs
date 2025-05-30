@@ -14,7 +14,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;
-    public UIInventory inventory;
+    public InventoryUI inventory;
 
     public int index;
     public bool equiped;
