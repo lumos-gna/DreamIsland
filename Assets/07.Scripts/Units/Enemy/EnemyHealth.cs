@@ -7,62 +7,72 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private HealthBar _healthBar;
-    private float _maxHealth;
-    private float _currentHealth;
+    [SerializeField] private GameObject _helathBarSprite;
+    [SerializeField] private ConditionHandler _conditionHandler;
 
     private BaseEnemy _baseEnemy;
-    private SpriteRenderer _spriteRenderer;
-
     public event Action<float, float> OnHealthChanged;
 
     private void Awake()
     {
+        
         _baseEnemy = GetComponent<BaseEnemy>();
-        _spriteRenderer = GetComponent<SpriteRenderer>();
+        _conditionHandler = GetComponent<ConditionHandler>();
+    }
 
-        // 초기 체력 설정
-        if (_baseEnemy != null)
+    private void Start()
+    {
+        // 초기 체력 UI 설정
+        if (_healthBar != null && _conditionHandler != null)
         {
-            _maxHealth = _baseEnemy.Stats.Health;
-            _currentHealth = _maxHealth;
+            _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
+            Debug.Log(_conditionHandler.CurHealth + "현재 체력");
+            _helathBarSprite.gameObject.SetActive(false);
         }
 
-        // 체력바 초기화
-        _healthBar?.UpdateHealthBar(_maxHealth, _currentHealth);
-    }
-
-    public void ApplyDamage(int damage)
-    {
-        _currentHealth -= damage;
-
-        OnHealthChanged?.Invoke(_maxHealth, _currentHealth); // 데미지 변경 이벤트 호출
-        StartCoroutine(HitColor()); // 피격효과
-
-        // 피격 소리
-        // enemyAudio.start();
-
-        // 파티클
-        // hitparticles.transform.position = hitpoint;
-        // hitpaticles.play()
-        _healthBar.DamageText(damage);
-
-        if (_currentHealth <= 0)
+        // 이벤트 등록
+        if (_conditionHandler != null)
         {
-            _baseEnemy.Die();
-            _baseEnemy.DropItem(); // 드롭 처리
-            _baseEnemy.GetFSM().ChangeState(_baseEnemy.StateFactory.Get<DieState>());
+            _conditionHandler.OnTakeDamage += HandleTakeDamage;
+            _conditionHandler.OnDie += HandleDie;
         }
     }
-    // 피격 효과
-    private IEnumerator HitColor()
-    {
-        if (_spriteRenderer == null) yield break;
 
-        Color original = _spriteRenderer.color;
-        _spriteRenderer.color = Color.red;
-        yield return new WaitForSeconds(0.1f);
-        _spriteRenderer.color = Color.white;
-        yield return new WaitForSeconds(0.1f);
-        _spriteRenderer.color = original;
+    public void ApplyDamage(float damage)
+    {
+        _conditionHandler?.TakeDamage(damage);
     }
+
+    private void HandleTakeDamage()
+    {
+        // 체력바 표시
+        if (_healthBar != null)
+        {
+            _helathBarSprite.gameObject.SetActive(true);
+            _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
+            _healthBar.DamageText(2); // 여기에 플레이어 데미지 넣기
+        }
+        Animator anim = _baseEnemy.GetAnimator();
+
+        if (anim != null && HasParameter(anim, "isDamage"))
+        {
+            anim.SetTrigger("isDamage");
+        }
+    }
+    // 애니메이션 있는지 체크
+    private bool HasParameter(Animator animator, string paramName)
+    {
+        foreach (AnimatorControllerParameter param in animator.parameters)
+        {
+            if (param.name == paramName)
+                return true;
+        }
+        return false;
+    }
+    private void HandleDie()
+    {
+        _baseEnemy.GetFSM().ChangeState(_baseEnemy.StateFactory.Get<DieState>());
+        _helathBarSprite.gameObject.SetActive(false);
+    }
+
 }
