@@ -22,7 +22,7 @@ public class NpcManager : MonoBehaviour
     {
         npcController.dialogueText.text = "";
         string fullText = npcController.npcData.text;
-        npcController.dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+        npcController.dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
             
         foreach (NPCDialog npcDialog in npcController.npcData.npcDialog)
         {
@@ -65,10 +65,7 @@ public class NpcManager : MonoBehaviour
         Vector3 targetPosition = _player.transform.position + offset;
         float distance = Vector3.Distance(transform.position, targetPosition);
 
-        if (distance > maxDistance)
-        {
-            transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
-        }
+        transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
         
         transform.LookAt(_player.transform);
 

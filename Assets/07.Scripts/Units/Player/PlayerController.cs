@@ -182,14 +182,43 @@ public class PlayerController : MonoBehaviour
     {
         if (QuestManager.Instance.npcManager.model.transform == null) return;
 
-        Vector3 direction = QuestManager.Instance.npcManager.model.transform.position - transform.position;
-    
-        if (direction.sqrMagnitude > 0.001f) 
+        Transform target = QuestManager.Instance.npcManager.model.transform;
+
+        // =============== 1. 플레이어 몸통 Y축만 회전 ===============
+        Vector3 flatDirection = target.position - transform.position;
+        flatDirection.y = 0f; // 수평 방향만 고려
+
+        if (flatDirection.sqrMagnitude > 0.001f)
         {
-            Quaternion lookRotation = Quaternion.LookRotation(direction);
-            transform.rotation = lookRotation;
+            Quaternion lookRotation = Quaternion.LookRotation(flatDirection);
+            transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
         }
 
+        // =============== 2. 카메라는 상하 각도 조절 ===============
+        Vector3 directionToTarget = target.position - cameraContainer.position;
+        Quaternion cameraRotation = Quaternion.LookRotation(directionToTarget);
+
+        Vector3 camAngles = cameraRotation.eulerAngles;
+        camcurXrot = -camAngles.x; // 카메라 pitch 업데이트
+        cameraContainer.localEulerAngles = new Vector3(camcurXrot, 0, 0);
+
+        // =============== 3. 대화 시작 ===============
         QuestManager.Instance.npcManager.TalkWithFairy();
+        // if (QuestManager.Instance.npcManager.model.transform == null) return;
+        //
+        // Vector3 targetPosition = QuestManager.Instance.npcManager.model.transform.position;
+        //
+        // //targetPosition.y = transform.position.y;
+        //
+        // Vector3 direction = targetPosition - transform.position;
+        //
+        // if (direction.sqrMagnitude > 0.001f) 
+        // {
+        //     Quaternion lookRotation = Quaternion.LookRotation(direction);
+        //     transform.rotation = lookRotation;
+        // }
+        //
+        // QuestManager.Instance.npcManager.TalkWithFairy();
+
     }
 }
