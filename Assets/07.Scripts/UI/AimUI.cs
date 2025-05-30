@@ -4,19 +4,18 @@ using UnityEngine;
 
 public class AimUI : BaseUI
 {
-    [SerializeField] Canvas AimUICanvas;
     override public void Init()
     {
-        AimUICanvas.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     override public void Enable()
     {
-        AimUICanvas.gameObject.SetActive(true);
+        gameObject.SetActive(true);
     }
 
     override public void Disable()
     {
-        AimUICanvas.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 }

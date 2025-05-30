@@ -13,5 +13,7 @@ public class GameManager : Singleton<GameManager>
     {
         UIManager.Instance.Create<InventoryUI>();
         UIManager.Instance.Create<QuickSlotUI>();
+        UIManager.Instance.Create<AimUI>();
+        UIManager.Instance.Create<ConditionUI>();
     }
 }
