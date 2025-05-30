@@ -5,18 +5,17 @@ using UnityEngine;
 
 public class ItemObject : MonoBehaviour, IInteractable
 {
-    public ItemData data;
+    public ItemDataSO data;
 
     public string GetInteractPrompt()
     {
-        string info = $"{data.displayName}\n{data.description}";
+        string info = $"{data.DisplayName}\n{data.Description}";
         return info;
     }
 
     public void OnInteract()
     {
-        PlayerManager.Instance._Player.itemData = data;
-        PlayerManager.Instance._Player.addItem?.Invoke(data);
+        GameManager.Instance.AddItem(data);
         Destroy(gameObject);
     }
 }

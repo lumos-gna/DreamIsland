@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EquippedMelee : EquippedItem
 {
@@ -52,10 +52,11 @@ public class EquippedMelee : EquippedItem
         {
             Debug.Log("Hit");
 
-            /*if (hit.collider.TryGetComponent())
+            if (hit.collider.TryGetComponent(out BaseEnemy enemy))
             {
                 //대상
-            }*/
+                enemy.TakeDamage(2);
+            }
         }
     }
 

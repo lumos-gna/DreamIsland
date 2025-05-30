@@ -61,7 +61,7 @@ public class EquippedConsume : EquippedItem
                     _targetCondition.HealthChange(info.value);
                     break;
                 case ConsumType.water :
-                    _targetCondition.StaminaChange(info.value);
+                    _targetCondition.WaterChange(info.value);
                     break;
             }
         }

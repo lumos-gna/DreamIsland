@@ -6,7 +6,7 @@ public class DieState : IState<BaseEnemy>
 {
     public void Enter(BaseEnemy obj)
     {
-        // obj.GetAnimator()?.CrossFade("Die", 0f);
+        obj.GetAnimator()?.CrossFade("Die", 0f);
     }
 
     public void Update(BaseEnemy obj)

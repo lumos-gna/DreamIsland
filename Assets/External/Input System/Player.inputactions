@@ -235,28 +235,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f27a696a-d2d3-4a59-9655-a91b181c6bb3",
-                    "path": "<Keyboard>/8",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Choice",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "c4925004-d9e4-44bd-a8a6-73b289673069",
-                    "path": "<Keyboard>/9",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Choice",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "81a4973a-6882-4ddb-a269-6665d01b3e1f",
                     "path": "<Keyboard>/e",
                     "interactions": "",
