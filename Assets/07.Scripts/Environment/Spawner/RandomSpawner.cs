@@ -1,3 +1,4 @@
+// RandomSpawner.cs
 using UnityEngine;
 using System.Collections.Generic;
 
@@ -13,7 +14,7 @@ public class RandomSpawner : MonoBehaviour
     public float radius = 50f;
 
     [Header("레이캐스트 시작 높이")]
-    public float rayOriginHeight = 100f; 
+    public float rayOriginHeight = 100f;
 
     [Header("지형 레이캐스트 최대 거리")]
     public float rayDistance = 200f;
@@ -21,12 +22,15 @@ public class RandomSpawner : MonoBehaviour
     [Header("부모 컨테이너")]
     public Transform parentContainer;
 
-    [Header("랜덤 스케일 범위")]                              
+    [Header("랜덤 스케일 범위")]
     public Vector2 scaleRange = new Vector2(0.8f, 1.3f);
 
     [Header("낮/밤 스폰 여부")]
     public bool spawnInDay = true;      // 낮에 스폰
     public bool spawnInNight = true;    // 밤에 스폰
+
+    [Header("리스폰 기능 (2days 마다 재스폰)")]
+    public bool enableRespawn = false;
 
     [Header("스폰 회피 반경")]
     public float avoidRadius = 2f;
@@ -36,6 +40,7 @@ public class RandomSpawner : MonoBehaviour
         = new List<EnvironmentSpawnData>();
 
     private bool _lastIsDay;
+    private int _cycleCount = 0;
 
     void Start()
     {
@@ -46,16 +51,21 @@ public class RandomSpawner : MonoBehaviour
             return;
         }
 
-        // 첫 스폰 시점에 현재 낮/밤 상태를 읽어서 처리
+        // 낮/밤 전환 이벤트 구독
+        var cycle = FindObjectOfType<DayNightCycle>();
+        if (cycle != null)
+            cycle.OnCycleComplete.AddListener(OnCycleComplete);
+
+        // 첫 스폰
         _lastIsDay = DayNightCycle.IsDay;
         HandleCycleChange(_lastIsDay);
     }
+
     void Update()
     {
         bool isDay = DayNightCycle.IsDay;
         if (isDay != _lastIsDay)
         {
-            // 낮→밤 or 밤→낮 전환 시
             HandleCycleChange(isDay);
             _lastIsDay = isDay;
         }
@@ -63,60 +73,93 @@ public class RandomSpawner : MonoBehaviour
 
     private void HandleCycleChange(bool isDay)
     {
-        // 낮·밤 둘 다 체크된 경우에는 전환 시 삭제/재스폰을 건너뛰기
+        // 낮·밤 둘 다 켜지면, 최초 한 번만 SpawnAll, 전환 시엔 아무 작업 안 함
         if (spawnInDay && spawnInNight)
-            {
-                if (spawnedObjects.Count == 0)
+        {
+            if (spawnedObjects.Count == 0)
                 SpawnAll();
-                // 이후 전환 시에는 아무 작업도 하지 않음
-                return;
-            }
-
+            return;
+        }
 
         // 기존에 뿌려진 것 삭제
         foreach (var sd in spawnedObjects)
             if (sd != null) Destroy(sd.gameObject);
         spawnedObjects.Clear();
 
-        // 낮일 땐 spawnInDay, 밤일 땐 spawnInNight 이 true일 때만 SpawnAll
-        if ((isDay && spawnInDay) ||
-            (!isDay && spawnInNight))
-        {
+        // 설정된 시간대에만 스폰
+        if ((isDay && spawnInDay) || (!isDay && spawnInNight))
             SpawnAll();
-        }
     }
 
-    // 실제 스폰 루프 (기존 Start() 안의 for문을 옮긴 것)
+    private void OnCycleComplete()
+    {
+        if (!enableRespawn) return;
+
+        // 낮→밤→낮 또는 밤→낮→밤, 즉 2번 전환 후
+        _cycleCount++;
+        if (_cycleCount < 2) return;
+        _cycleCount = 0;
+
+        // 파괴된 것만 다시 스폰
+        foreach (var info in EnvironmentSpawnData.destroyedList)
+        {
+            var prefab = spawnPrefabs[info.prefabIndex];
+            GameObject go = Instantiate(prefab,
+                                        info.position,
+                                        info.rotation,
+                                        parentContainer);
+            go.transform.localScale = info.scale;
+
+            // 다시 추적 대상으로 등록
+            var sd = go.AddComponent<EnvironmentSpawnData>();
+            sd.InitializeAsLanded(
+                info.prefabIndex,
+                info.position,
+                info.rotation,
+                info.scale
+            );
+            spawnedObjects.Add(sd);
+        }
+
+        // 기록 초기화
+        EnvironmentSpawnData.destroyedList.Clear();
+    }
+
     private void SpawnAll()
     {
-        int groundLayer = LayerMask.NameToLayer("Ground");
-        int groundMask = 1 << groundLayer;
+        int groundMask = 1 << LayerMask.NameToLayer("Ground");
         int avoidMask = LayerMask.GetMask("Portal", "Player");
 
         for (int i = 0; i < spawnCount; i++)
         {
             Vector2 rnd = Random.insideUnitCircle * radius;
-            Vector3 rayOrigin = transform.position + new Vector3(rnd.x, rayOriginHeight, rnd.y);
+            Vector3 origin = transform.position + new Vector3(rnd.x, rayOriginHeight, rnd.y);
 
-            if (!Physics.Raycast(rayOrigin, Vector3.down, out var hit, rayDistance, groundMask))
+            if (!Physics.Raycast(origin, Vector3.down, out var hit, rayDistance, groundMask))
                 continue;
 
             Vector3 spawnPos = hit.point;
             if (Physics.OverlapSphere(spawnPos, avoidRadius, avoidMask).Length > 0)
                 continue;
 
+            int prefabIndex = Random.Range(0, spawnPrefabs.Length);
             Quaternion rot = Quaternion.Euler(0f, Random.Range(0f, 360f), 0f);
             float rndScale = Random.Range(scaleRange.x, scaleRange.y);
 
             GameObject go = Instantiate(
-                spawnPrefabs[Random.Range(0, spawnPrefabs.Length)],
+                spawnPrefabs[prefabIndex],
                 spawnPos,
                 rot,
                 parentContainer);
             go.transform.localScale *= rndScale;
 
             var sd = go.AddComponent<EnvironmentSpawnData>();
-            sd.InitializeAsLanded(spawnPos);
+            sd.InitializeAsLanded(
+                prefabIndex,
+                spawnPos,
+                rot,
+                go.transform.localScale
+            );
             spawnedObjects.Add(sd);
         }
     }
