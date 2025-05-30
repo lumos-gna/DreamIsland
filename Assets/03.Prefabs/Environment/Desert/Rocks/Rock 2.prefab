@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2551701914907327838}
   - component: {fileID: 1756074411303054011}
   - component: {fileID: -2568487070884319362}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
+  currentHP: 0
   damageAmount: 10
   dropItems:
   - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 0.8
+    dropChance: 1
+  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
+    dropChance: 0.6
+  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
+    dropChance: 0.3

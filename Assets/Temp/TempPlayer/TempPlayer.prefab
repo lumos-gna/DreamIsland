@@ -230,6 +230,14 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 05e7087c-16d8-4f54-a094-aaa3cb794f00
     m_ActionName: Player/OpenItem[/Keyboard/tab]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: d56cd548-1050-4742-8911-8ed6d4dfe159
+    m_ActionName: Player/Fairy[/Keyboard/j]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 542c53b3-ddf8-4e96-b22a-edd22dc5454a
+    m_ActionName: Player/Test[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -247,6 +255,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a076413f8e7a0bb4b88bbfec50611d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 10
+  attackRange: 2
+  destructibleLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  environmentLayer:
+    serializedVersion: 2
+    m_Bits: 128
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 8192
   moveSpeed: 5
   jump: 80
   groundLayerMask:

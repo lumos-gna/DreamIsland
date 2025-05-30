@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -6348734288134649130}
   - component: {fileID: -5882522508062127173}
   - component: {fileID: -1822188435200177237}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Winter Rock 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,7 +172,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
+  currentHP: 0
   damageAmount: 10
   dropItems:
   - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 0.8
+    dropChance: 1
+  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
+    dropChance: 0.6
+  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
+    dropChance: 0.3

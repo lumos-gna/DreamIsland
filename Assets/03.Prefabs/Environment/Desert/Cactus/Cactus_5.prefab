@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7921324009933757603}
   - component: {fileID: -2960243096565618080}
   - component: {fileID: -2966638991078318859}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Cactus_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
+  currentHP: 0
   damageAmount: 10
   dropItems:
+  - prefab: {fileID: 3870995518744425809, guid: 270c6ac2bfb61764db1f0d45a985b871, type: 3}
+    dropChance: 1
   - prefab: {fileID: 683380157648875604, guid: 9f126cd2aa120904a847fd2bca42c6ba, type: 3}
-    dropChance: 0.75
+    dropChance: 0.6
+  - prefab: {fileID: 683380157648875604, guid: 9f126cd2aa120904a847fd2bca42c6ba, type: 3}
+    dropChance: 0.3
