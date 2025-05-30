@@ -33,7 +33,7 @@ MonoBehaviour:
         \uB108\uBB34 \uD798\uB4E4\uC5C8\uC796\uC544. \uADF8\uCE58? \uC5EC\uAE34\u2026
         \uC544\uD504\uC9C0 \uC54A\uC796\uC544."
       exitButton: 1
-  - type: 2
+  - type: 1
     buttonName: "\uC0AC\uB9C9 \uC9C0\uC5ED?"
     npcDialogTexts:
     - text: "\uB208 \uC544\uB798 \uC5B4\uB518\uAC00\uC5D0 \uB9C8\uC9C0\uB9C9 \uB4F1\uBD88\uC774

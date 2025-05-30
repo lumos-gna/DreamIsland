@@ -46,7 +46,7 @@ MonoBehaviour:
     - text: "\uACE8\uB818\uC740 \uB2E8\uB2E8\uD574\uC11C \uC9C1\uC811 \uC2F8\uC6B0\uAE30
         \uD798\uB4E4\uC9C0\uB9CC, \uB3CC\uC744 \uBA40\uB9AC \uB358\uC838\uC11C \uACF5\uACA9\uD574."
       exitButton: 1
-  - type: 2
+  - type: 1
     buttonName: "\uB208 \uC9C0\uC5ED?"
     npcDialogTexts:
     - text: "\uC774 \uC232\uC740 \uB124 \uB9C8\uC74C\uC758 \uC548\uC2DD\uCC98\uC600\uC9C0\uB9CC,

@@ -35,7 +35,7 @@ MonoBehaviour:
         \uD150\uB370. \uC5EC\uAE30\uC11C\uB294\u2026 \uADF8\uB0E5 \uB098\uB791 \uC788\uC790,
         \uC544\uB9B0."
       exitButton: 1
-  - type: 2
+  - type: 1
     buttonName: "\uAE30\uC5B5 \uC870\uAC01"
     npcDialogTexts:
     - text: "\uB4F1\uBD88\uC740 \uB354 \uC774\uC0C1 \uC5C6\uB300. \uC774\uC820\u2026
