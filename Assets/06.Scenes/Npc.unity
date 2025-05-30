@@ -9107,6 +9107,62 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
+      value: b9c622fe-f28e-4373-a594-b4b94c24bc93
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionId
+      value: e23d9daf-bc93-41e0-9e7a-361cbfadbda8
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionId
+      value: 1e2a364c-c8f2-4ded-a463-94cc60adb1df
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionId
+      value: 05e7087c-16d8-4f54-a094-aaa3cb794f00
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: d56cd548-1050-4742-8911-8ed6d4dfe159
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
+      value: Player/Interact[/Keyboard/e]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[5].m_ActionName
+      value: Player/LeftClick[/Mouse/leftButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[6].m_ActionName
+      value: Player/RightClick[/Mouse/rightButton]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[7].m_ActionName
+      value: Player/OpenItem[/Keyboard/tab]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: Player/Fairy[/Keyboard/j]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16935,25 +16991,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 884337136302612571, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 884337136302612571, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 884337136302612571, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789762564999736439, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: offset.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789762564999736439, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: offset.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789762564999736439, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: offset.z
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789762564999736439, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: followSpeed
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789762564999736439, guid: 0522305b855a5d149bbc641b37695598, type: 3}
+      propertyPath: maxDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7500390693287728062, guid: 0522305b855a5d149bbc641b37695598, type: 3}
       propertyPath: m_Name
       value: SnakeFairy
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404024884407460241, guid: 0522305b855a5d149bbc641b37695598, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8404024884407460241, guid: 0522305b855a5d149bbc641b37695598, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 150
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457011375598569382, guid: 0522305b855a5d149bbc641b37695598, type: 3}
-      propertyPath: npcData
-      value: 
-      objectReference: {fileID: 11400000, guid: d67aca13d5d20ae41ae72901a0086cd4, type: 2}
-    - target: {fileID: 8457011375598569382, guid: 0522305b855a5d149bbc641b37695598, type: 3}
-      propertyPath: playerController
-      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
