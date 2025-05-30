@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class BuildingUISlot : MonoBehaviour, IPoolable
+public class CraftingUISlot : MonoBehaviour, IPoolable
 {
     public ItemDataSO Item { get; private set; }
 
