@@ -3,12 +3,9 @@ using UnityEngine;
 
 public class EquippedRange : EquippedItem
 {
-    public override ItemDataSO ItemData => _itemData;
     
     [SerializeField] private Animator animator;
 
-    private WeaponItemDataSO _itemData;
-    
     private bool _isFinishDraw;
     private bool _isDrawing;
     
@@ -18,7 +15,7 @@ public class EquippedRange : EquippedItem
 
     public override void Equip(GameObject user, ItemDataSO itemData)
     {
-        _itemData = itemData as WeaponItemDataSO;
+        ItemData = itemData;
     }
 
     public override void UnEquip()
@@ -27,6 +24,9 @@ public class EquippedRange : EquippedItem
 
     public override bool TryUse(EquippedController.InputState inputState)
     {
+        if (!ItemData.IsRangeItem) return false;
+        
+        
         switch (inputState)
         {
             case EquippedController.InputState.Down :
@@ -67,11 +67,11 @@ public class EquippedRange : EquippedItem
         Vector3 dir = Camera.main.transform.forward;
 
 
-        var prefab = _itemData.ProjectilePrefab;
+        var prefab = ItemData.RangeInfo.projectilePrefab;
 
         var pool = PoolManager.Instance.GetPool(prefab);
         
-        pool.Spawn(null).Fire(prefab, transform.position + dir * 0.5f, dir, _itemData.ShootForce);
+        pool.Spawn(null).Fire(prefab, transform.position + dir * 0.5f, dir, ItemData.RangeInfo.fireForce);
         
         
         animator.SetTrigger(_shoot);

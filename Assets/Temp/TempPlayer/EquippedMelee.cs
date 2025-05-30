@@ -2,13 +2,10 @@
 
 public class EquippedMelee : EquippedItem
 {
-    public override ItemDataSO ItemData => _itmeData;
-    
     [SerializeField] private Animator animator;
 
     private Camera _camera;
     
-    private WeaponItemDataSO _itmeData;
     
     private bool _isRunning;
     
@@ -19,7 +16,7 @@ public class EquippedMelee : EquippedItem
     {
         _camera = Camera.main;
         
-        _itmeData = itemData as WeaponItemDataSO;
+        ItemData = itemData;
     }
 
     public override void UnEquip()
@@ -28,6 +25,9 @@ public class EquippedMelee : EquippedItem
     
     public override bool TryUse(EquippedController.InputState inputState)
     {
+        if (!ItemData.IsMeleeItem) return false;
+        
+        
         switch (inputState)
         {
             case EquippedController.InputState.Down :
@@ -50,7 +50,7 @@ public class EquippedMelee : EquippedItem
     {
         Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
         
-        if (Physics.Raycast(ray, out RaycastHit hit, _itmeData.Range))
+        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range))
         {
             Debug.Log("Hit");
 

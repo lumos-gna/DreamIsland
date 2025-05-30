@@ -9,15 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6a199c8e9804e85a9f389383355642b, type: 3}
-  m_Name: TestConsumeItemData
+  m_Script: {fileID: 11500000, guid: 48d187f73a304d96be7e5963cba31fd2, type: 3}
+  m_Name: ItemData
   m_EditorClassIdentifier: 
-  displayName: test1
+  displayName: 
   description: 
   maxStackCount: 0
   icon: {fileID: 0}
   dropItemPrefab: {fileID: 0}
-  equipItemPrefab: {fileID: 6615904943611750820, guid: be2fdce9a8449524f9f17e04ca4cf344, type: 3}
-  infos:
-  - consumetype: 0
-    value: 10
+  equipItemPrefab: {fileID: 0}
