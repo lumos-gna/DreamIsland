@@ -63,12 +63,22 @@ public class RandomSpawner : MonoBehaviour
 
     private void HandleCycleChange(bool isDay)
     {
-        // 1) 기존에 뿌려진 것 삭제
+        // 낮·밤 둘 다 체크된 경우에는 전환 시 삭제/재스폰을 건너뛰기
+        if (spawnInDay && spawnInNight)
+            {
+                if (spawnedObjects.Count == 0)
+                SpawnAll();
+                // 이후 전환 시에는 아무 작업도 하지 않음
+                return;
+            }
+
+
+        // 기존에 뿌려진 것 삭제
         foreach (var sd in spawnedObjects)
             if (sd != null) Destroy(sd.gameObject);
         spawnedObjects.Clear();
 
-        // 2) 조건에 맞을 때만 SpawnAll 실행
+        // 낮일 땐 spawnInDay, 밤일 땐 spawnInNight 이 true일 때만 SpawnAll
         if ((isDay && spawnInDay) ||
             (!isDay && spawnInNight))
         {
