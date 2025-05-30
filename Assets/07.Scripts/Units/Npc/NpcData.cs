@@ -17,6 +17,11 @@ public class NpcData : ScriptableObject
     {
         _currentQuestIndex = 0;}
 
+    public DialogueType Type(int selectedDialogue)
+    {
+        return npcDialog[selectedDialogue].type;
+    }
+    
     public string NextText(int selectedDialogue)   //대화 텍스트 전달
     {
 
@@ -49,10 +54,12 @@ public class NpcData : ScriptableObject
             
             
             case DialogueType.QUEST:     //  메인 퀘스트
+                
+                
                 if (quests.Length <= _currentQuestIndex)  //남은 퀘스트가 없으면
                 {
-                    Debug.Log(quests.Length +" / "+ _currentQuestIndex);
-                    return "남은 할 일이 없어...";}
+                    return "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
+                }
                 if (QuestManager.Instance.CheckClearQuest(quests[_currentQuestIndex].name))             //받았던 퀘스트 클리어시
                 {
                     _currentQuestIndex++; 
@@ -62,15 +69,17 @@ public class NpcData : ScriptableObject
                 }
                 else if (QuestManager.Instance.CheckOnOffQuest(quests[_currentQuestIndex].name))           //수락한 퀘스트가 있으면
                 {
-                    npcDialog[selectedDialogue].SetCount(0);
-                    return quests[_currentRandomQuestIndex].text;
+                    //npcDialog[selectedDialogue].SetCount(0);
+                    //return quests[_currentRandomQuestIndex].text;
+                    return npcDialog[selectedDialogue].GetText();
                 }
                 else      //수락한 퀘스트가 없으면
                 {
                     QuestManager.Instance.AcceptQuest(quests[_currentQuestIndex]);                     //퀘스트 수락
-                    npcDialog[selectedDialogue].SetCount(0);
+                    //npcDialog[selectedDialogue].SetCount(0);
                     
-                    return quests[_currentQuestIndex].text; 
+                    //return quests[_currentQuestIndex].text; 
+                    return npcDialog[selectedDialogue].GetText();
                 }
             
             case DialogueType.RANDOM:  // 랜덤한 대화 출력
