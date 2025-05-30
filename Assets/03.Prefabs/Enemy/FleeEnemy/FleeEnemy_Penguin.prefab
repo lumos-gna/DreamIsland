@@ -913,6 +913,7 @@ MonoBehaviour:
   _healthBar: {fileID: 1414494096356452858}
   _helathBarSprite: {fileID: 4550701758589827471}
   _conditionHandler: {fileID: 944168587632179188}
+  _attackParticle: {fileID: 8181711606469808779, guid: 217bfa45588be7e40839a16d2d08b265, type: 3}
 --- !u!114 &944168587632179188
 MonoBehaviour:
   m_ObjectHideFlags: 0
