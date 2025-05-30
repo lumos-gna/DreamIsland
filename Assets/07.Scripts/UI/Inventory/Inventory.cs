@@ -26,7 +26,7 @@ public class Inventory
         }
     }
 
-    public ItemDataSO GetQuickSlotItem(int index)
+    public ItemData GetQuickSlotItem(int index)
     {
         if (index < 0 || index >= handleSlots.Length)
         {
@@ -45,7 +45,7 @@ public class Inventory
         return slot.item;
     }
 
-    public void AddItem(ItemDataSO data)
+    public void AddItem(ItemData data)
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
@@ -73,7 +73,7 @@ public class Inventory
         Debug.LogWarning("인벤토리가 가득 찼습니다.");
     }
 
-    public void DecreaseItem(ItemDataSO item)
+    public void DecreaseItem(ItemData item)
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
