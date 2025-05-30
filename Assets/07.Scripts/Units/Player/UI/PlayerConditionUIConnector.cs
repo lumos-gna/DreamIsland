@@ -18,5 +18,7 @@ public class PlayerConditionUIConnector : MonoBehaviour
         conditionUI.SetHP(playerCondition.Health);
         conditionUI.SetRed(playerCondition.RedTemperature);
         conditionUI.SetBlue(playerCondition.BlueTemperature);
+        conditionUI.SetGreen(playerCondition.Stamina);
+        conditionUI.SetWater(playerCondition.Water);
     }
 }
