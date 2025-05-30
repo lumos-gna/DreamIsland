@@ -25,9 +25,9 @@ MonoBehaviour:
   craftingInfo:
     recipes:
     - data: {fileID: 11400000, guid: 70a25741790fc34498bb1f4442c13d6e, type: 2}
-      amount: 1
+      amount: 90
     - data: {fileID: 11400000, guid: 5588759890fca8847bc0f9bb298a2bc3, type: 2}
-      amount: 5
+      amount: 90
   isRangeItem: 0
   rangeInfo:
     fireForce: 0

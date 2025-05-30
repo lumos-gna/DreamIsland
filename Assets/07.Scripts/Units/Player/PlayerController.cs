@@ -153,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
             bool enabledInventory = uiManager.IsUIEnabled<InventoryUI>();
             
-            GameManager.Instance.ToggleCursor(!enabledInventory);
+            GameManager.Instance.ToggleCursor(enabledInventory);
 
             if (enabledInventory)
             {
@@ -162,6 +162,27 @@ public class PlayerController : MonoBehaviour
             else
             {
                 uiManager.Enable<InventoryUI>();
+            }
+        }
+    }
+
+    public void OnCraftingInput(InputAction.CallbackContext context)
+    {
+        if (context.phase == InputActionPhase.Started)
+        {
+            var uiManager = UIManager.Instance;
+
+            bool enabledCrafting = uiManager.IsUIEnabled<CraftingUI>();
+            
+            GameManager.Instance.ToggleCursor(enabledCrafting);
+
+            if (enabledCrafting)
+            {
+                uiManager.Disable<CraftingUI>();
+            }
+            else
+            {
+                uiManager.Enable<CraftingUI>();
             }
         }
     }

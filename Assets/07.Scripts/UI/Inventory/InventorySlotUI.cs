@@ -1,14 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
+public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public static HandleSlot draggedFromHandleSlot;
-
     public ItemData item;
 
     public Button button;
@@ -22,14 +21,9 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private GameObject dragIcon;
     private RectTransform dragIconRect;
 
-    public void ClearSlot()
-    {
-        item = null;
-        quantity = 0;
-        icon.gameObject.SetActive(false);
-        quantityText.text = string.Empty;
-    }
+    public static InventorySlotUI DraggedFromSlotUI; // 드래그 시작 슬롯
 
+    // 슬롯 세팅
     public void SetSlot()
     {
         if (item == null)
@@ -43,57 +37,73 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
     }
 
+    // 슬롯 초기화
+    public void ClearSlot()
+    {
+        item = null;
+        icon.gameObject.SetActive(false);
+        quantityText.text = string.Empty;
+    }
+
     // 마우스 포인터가 아이콘 위에 있을때 감지
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (item != null)
-        {
-            var inventoryUI = UIManager.Instance.Get<InventoryUI>();
-            inventoryUI.summaryBox.SetActive(true);
-            inventoryUI.MouseOnInventoryItem(index);
-        }
+        if (item == null) return;
+
+        var inventoryUI = UIManager.Instance.Get<InventoryUI>();
+        inventoryUI.summaryBox.SetActive(true);
+        inventoryUI.MouseOnInventoryItem(index);
+    }
+
+    // 마우스 포인터가 아이콘에서 벗어났을때
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        var inventoryUI = UIManager.Instance.Get<InventoryUI>();
+        inventoryUI.summaryBox.SetActive(false);
+        inventoryUI.ClearSelectedItemWindow();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
         if (item == null) return;
+        DraggedFromSlotUI = this;
 
-        draggedFromHandleSlot = this;
-
-        // 드래그 아이콘 생성
-        dragIcon = new GameObject("HandleSlotDragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
-        dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);
-        dragIcon.transform.SetAsLastSibling();
+        // 드래그할 아이콘 생성
+        dragIcon = new GameObject("DragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
+        dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);   // UIInventory 하위에 생성
+        dragIcon.transform.SetAsLastSibling();  // 맨 앞에서 렌더링
 
         dragIconRect = dragIcon.GetComponent<RectTransform>();
         dragIconRect.sizeDelta = icon.rectTransform.sizeDelta;
 
-        Image image = dragIcon.GetComponent<Image>();
+        var image = dragIcon.GetComponent<Image>();
         image.sprite = icon.sprite;
         image.raycastTarget = false;
 
+        // 투명도 설정
         dragIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (dragIcon == null) return;
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
-            Input.mousePosition,
-            null, out Vector2 pos);
-        dragIconRect.localPosition = pos;
+        if (dragIcon != null)
+        {
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
+                Input.mousePosition,
+                null,
+                out Vector2 pos);
+            dragIconRect.localPosition = pos;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        DraggedFromSlotUI = null;
         if (dragIcon != null)
         {
             Destroy(dragIcon);
         }
-
-        draggedFromHandleSlot = null;
     }
 
     public void OnDrop(PointerEventData eventData)
@@ -110,12 +120,10 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void SwapWith(InventorySlotUI other)
     {
-        var inventory = GameManager.Instance.Inventory;
-
+        // 자기 자신에 드롭한 경우는 무시함
         if (this == other) return;
 
         bool stacked = TryStack(other.item, other.quantity, other);
-
         if (!stacked)
         {
             (this.item, other.item) = (other.item, this.item);
@@ -125,14 +133,13 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         SetSlot();
         other.SetSlot();
 
-        // handleSlot에 저장
-        if (index >= 0 && index < inventory.handleSlots.Length)
+        var inventory = GameManager.Instance.Inventory;
+        if (index >= 0 && index < inventory.itemSlots.Length)
         {
-            inventory.handleSlots[index].item = item;
-            inventory.handleSlots[index].quantity = quantity;
+            inventory.itemSlots[index].item = item;
+            inventory.itemSlots[index].quantity = quantity;
         }
 
-        // itemSlot에 저장
         if (other.index >= 0 && other.index < inventory.itemSlots.Length)
         {
             inventory.itemSlots[other.index].item = other.item;
@@ -145,7 +152,6 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void SwapWith(HandleSlot other)
     {
         var inventory = GameManager.Instance.Inventory;
-
         if (this == other) return;
 
         bool stacked = TryStack(other.item, other.quantity, other);
@@ -158,17 +164,18 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         SetSlot();
         other.SetSlot();
 
-        if (index >= 0 && index < inventory.handleSlots.Length)
+        if (index >= 0 && index < inventory.itemSlots.Length)
         {
-            inventory.handleSlots[index].item = item;
-            inventory.handleSlots[index].quantity = quantity;
+            inventory.itemSlots[index].item = item;
+            inventory.itemSlots[index].quantity = quantity;
         }
 
-        if (other.index >= 0 && other.index < inventory.handleSlots.Length)
+        if (other.index >= 0 && other.index < inventory.itemSlots.Length)
         {
             inventory.handleSlots[other.index].item = other.item;
             inventory.handleSlots[other.index].quantity = other.quantity;
         }
+
 
         inventory.ForceSync();
     }

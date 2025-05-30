@@ -327,6 +327,7 @@ MonoBehaviour:
   summaryBox: {fileID: 6321329619417414958}
   slots: []
   handleSlots: []
+  testItem: {fileID: 11400000, guid: 70a25741790fc34498bb1f4442c13d6e, type: 2}
 --- !u!1 &3222795023304508811
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,28 +1,31 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Inventory
 {
-    public ItemSlotData[] itemSlots;      // 일반 인벤토리
-    public ItemSlotData[] handleSlots;    // 인벤토리 내 퀵슬롯
+    public ItemSlot[] itemSlots;      // 일반 인벤토리
+    public ItemSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
 
     public event UnityAction OnChangedInventory;
+
+    public bool IsFull => itemSlots.FirstOrDefault((slot) => slot.item == null) == null;
 
 
     public Inventory(int itemSlotCount, int handleSlotCount)
     {
-        itemSlots = new ItemSlotData[itemSlotCount];
-        handleSlots = new ItemSlotData[handleSlotCount];
+        itemSlots = new ItemSlot[itemSlotCount];
+        handleSlots = new ItemSlot[handleSlotCount];
 
         for (int i = 0; i < itemSlotCount; i++)
         {
-            itemSlots[i] = new ItemSlotData();
+            itemSlots[i] = new ItemSlot();
         }
 
         for (int i = 0; i < handleSlotCount; i++)
         {
-            handleSlots[i] = new ItemSlotData();
+            handleSlots[i] = new ItemSlot();
         }
     }
 
@@ -111,6 +114,20 @@ public class Inventory
 
         // 디버깅용 코드
         Debug.LogWarning($"[InventoryModel] DecreaseItem 실패 : '{item?.DisplayName}'을 인벤토리에서 찾을 수 없습니다.");
+    }
+
+    public ItemSlot GetSlot(ItemData itemData)
+    {
+        ItemSlot targetSlot = null;
+
+        targetSlot = itemSlots.FirstOrDefault((slot) => slot.item == itemData);
+
+        if (targetSlot == null)
+        {
+            targetSlot = handleSlots.FirstOrDefault((slot) => slot.item == itemData);
+        }
+
+        return targetSlot;
     }
     
     public void ForceSync()
