@@ -26,10 +26,7 @@ public class QuestManager : Singleton<QuestManager>
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
         questData.Reset();
-        if (_mainQuestClear && questData.name == "메인 퀘스트")
-        {
-            return;
-        }
+        
         _acceptedQuestList.Add(questData);
         
         GameObject newQuestCell = questCellFactory.CreateQuestCell(questData);
@@ -41,6 +38,10 @@ public class QuestManager : Singleton<QuestManager>
         if (SearchQuest(questName) != null)
         {
             _acceptedQuestList.Find(q => q.name == questName).PlusCount();
+            if (_acceptedQuestList.Find(q => q.name == questName).Clear())
+            {
+                QuestComplete(questName);
+            }
             UpdateQuestUI();
         }
     }
@@ -51,10 +52,6 @@ public class QuestManager : Singleton<QuestManager>
         {
             if (_acceptedQuestList[i].name == questName)
             {
-                if (questName == "메인 퀘스트")
-                {
-                    _mainQuestClear = true;
-                }
                 Quest questToRemove = _acceptedQuestList.Find(q => q.name == questName);
                 string text = questToRemove.clearText;
                 
@@ -106,6 +103,8 @@ public class QuestManager : Singleton<QuestManager>
 
     public bool CheckMainQuest(){return _mainQuestClear;}
     
+    
+    
     private void UpdateQuestUI()      //퀘스트 UI 갱신
     {
         for (int i = 0; i < _acceptedQuestList.Count; i++)
@@ -141,13 +140,6 @@ public class QuestManager : Singleton<QuestManager>
         if (Input.GetKeyDown(KeyCode.J))
         {
             QuestPlusCount("학 랜덤 퀘스트 3");QuestPlusCount("토끼 랜덤 퀘스트 3");QuestPlusCount("뱀 랜덤 퀘스트 3");
-        }
-        
-        
-        //메인 퀘스트
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            QuestPlusCount("메인 퀘스트");
         }
     }
 }

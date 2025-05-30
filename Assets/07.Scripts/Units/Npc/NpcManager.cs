@@ -42,9 +42,11 @@ public class NpcManager : MonoBehaviour
                 break;
             case Region.Arctic:
                 npcController.npcData = snowData;
+                QuestManager.Instance.QuestPlusCount("메인 퀘스트1");
                 break;
             case Region.Desert:
                 npcController.npcData = desertData;
+                QuestManager.Instance.QuestPlusCount("메인 퀘스트2");
                 break;
         }
     }
