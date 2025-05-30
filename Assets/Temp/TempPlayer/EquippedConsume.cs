@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EquippedConsume : EquippedItem
 {
+    public override ItemDataSO ItemData => _itmeData;
+    
     [SerializeField] private Animator animator;
     
     private ConsumeItemDataSO _itmeData;

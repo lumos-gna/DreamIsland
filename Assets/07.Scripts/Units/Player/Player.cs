@@ -43,7 +43,6 @@ public class Player : MonoBehaviour
     private void Awake()
     {
         PlayerManager.Instance._Player = this;
-        UIManager.Instance.Create<InventoryUI>();
     }
 
     private void Start()

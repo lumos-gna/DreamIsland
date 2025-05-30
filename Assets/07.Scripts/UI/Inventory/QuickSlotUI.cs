@@ -7,6 +7,8 @@ public class QuickSlotUI : BaseUI
     public HandleSlot[] quickSlots;
     public Transform quickSlotPanel;
 
+    private Inventory _inventory;
+
     public override void Init()
     {
         quickSlots = new HandleSlot[quickSlotPanel.childCount];
@@ -19,7 +21,9 @@ public class QuickSlotUI : BaseUI
             quickSlots[i].ClearSlot();
         }
 
-        GameManager.Instance.OnInventoryChanged += UpdateUIFromData;
+        _inventory = GameManager.Instance.Inventory;
+
+        _inventory.OnChangedInventory += UpdateUIFromData;
 
         // 시작 시 현재 상태 반영
         UpdateUIFromData();
@@ -32,7 +36,7 @@ public class QuickSlotUI : BaseUI
 
     private void UpdateUIFromData()
     {
-        var handleSlotData = GameManager.Instance.Inventory.handleSlots;
+        var handleSlotData = _inventory.handleSlots;
 
         for (int i = 0; i < quickSlots.Length && i < handleSlotData.Length; i++)
         {

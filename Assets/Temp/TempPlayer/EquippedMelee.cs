@@ -2,11 +2,13 @@
 
 public class EquippedMelee : EquippedItem
 {
+    public override ItemDataSO ItemData => _itmeData;
+    
     [SerializeField] private Animator animator;
 
     private Camera _camera;
     
-    private WeaponItemDataSO _data;
+    private WeaponItemDataSO _itmeData;
     
     private bool _isRunning;
     
@@ -17,7 +19,7 @@ public class EquippedMelee : EquippedItem
     {
         _camera = Camera.main;
         
-        _data = itemData as WeaponItemDataSO;
+        _itmeData = itemData as WeaponItemDataSO;
     }
 
     public override void UnEquip()
@@ -48,7 +50,7 @@ public class EquippedMelee : EquippedItem
     {
         Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
         
-        if (Physics.Raycast(ray, out RaycastHit hit, _data.Range))
+        if (Physics.Raycast(ray, out RaycastHit hit, _itmeData.Range))
         {
             Debug.Log("Hit");
 
