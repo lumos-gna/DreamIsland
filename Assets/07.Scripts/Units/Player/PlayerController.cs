@@ -79,14 +79,16 @@ public class PlayerController : MonoBehaviour
 
         // 발걸음 효과음 재생
         Vector3 horizontalVel = new Vector3(_rigidbody.velocity.x, 0f, _rigidbody.velocity.z);
-        playerSound = 15;
         if (horizontalVel.magnitude > 0.1f)
         {
             footstepTimer += Time.deltaTime;
             if (footstepTimer >= playerSoundInterval)
             {
-                AudioManager.SetEffectVolume(0.5f); // 효과음 볼륨 설정
-                AudioManager.PlayEffectSound(playerSound);
+                playerSound = 15;
+                AudioManager.Instance.PlaySFXAtPoint(
+                    playerSound,
+                    transform.position
+                );
                 footstepTimer = 0f;
             }
         }
@@ -127,8 +129,10 @@ public class PlayerController : MonoBehaviour
         {
             // 효과음 재생
             playerJumpSound = 14;
-            AudioManager.SetEffectVolume(0.2f); 
-            AudioManager.PlayEffectSound(playerJumpSound);
+            AudioManager.Instance.PlaySFXAtPoint(
+                playerJumpSound,
+                transform.position
+            );
 
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
         }

@@ -55,12 +55,12 @@ public class EnemyAttackState : IState<BaseEnemy>
     private void HandleMeleeAttack(BaseEnemy obj)
     {
         obj.GetAnimator()?.CrossFade("Melee", 0.1f);
-        AudioManager.PlayEffectSound(11); // 적 근접 공격소리
+        AudioManager.Instance.PlaySFXAtPoint(11, obj.transform.position); // 적 근접 공격소리
     }
 
     private void HandleRangedAttack(BaseEnemy obj)
     {
         obj.GetAnimator()?.CrossFade("Ranged", 0.1f);
-        AudioManager.PlayEffectSound(6); // 적 원거리 공격소리
+        AudioManager.Instance.PlaySFXAtPoint(6, obj.transform.position);
     }
 }

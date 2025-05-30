@@ -23,8 +23,12 @@ public class DayNightCycle : MonoBehaviour
     public float nightMoonIntensity = 0.3f;
 
     [Header("Temperature Settings")]
-    public float minTemperature = 10f;
-    public float maxTemperature = 25f;
+    public float forestMinTemp = 18f;
+    public float forestMaxTemp = 24f;
+    public float desertMinTemp = 20f;
+    public float desertMaxTemp = 40f;
+    public float arcticMinTemp = -10f;
+    public float arcticMaxTemp = 15f;
     public static float CurrentTemperature { get; private set; }
 
     // 낮/밤 상태
@@ -93,23 +97,36 @@ public class DayNightCycle : MonoBehaviour
         MoonLight.intensity = isDay ? 0f : nightMoonIntensity;
         RenderSettings.skybox = isDay ? Sun : Moon;
 
-        // 온도 변화 - 낮에는 곡선, 밤에는 잔열 보정
+        float regionMin, regionMax;
+        switch (_regionManager.currentRegion)
+        {
+            case Region.Desert:
+                regionMin = desertMinTemp;
+                regionMax = desertMaxTemp;
+                break;
+            case Region.Arctic:
+                regionMin = arcticMinTemp;
+                regionMax = arcticMaxTemp;
+                break;
+            case Region.Forest:
+            default:
+                regionMin = forestMinTemp;
+                regionMax = forestMaxTemp;
+                break;
+        }
+
+        // 낮에는 Sine 곡선, 밤에는 잔열 로직 그대로
         float normalizedDay = Mathf.InverseLerp(0f, 180f, Mathf.Clamp(sunAngle, 0f, 180f));
-        float dayTempCurve = Mathf.Sin(normalizedDay * Mathf.PI); // 0~1~0 Sine 곡선
+        float dayTempCurve = Mathf.Sin(normalizedDay * Mathf.PI);
 
-        // 밤에도 온도 자연스럽게 식게 잔열 처리
-        float nightBlendSpeed = 0.3f; // 0~1, 값이 작을수록 밤에 서서히 식음
-
+        float nightBlendSpeed = 0.3f;
         if (isDay)
         {
-            // 낮에는 곡선 따라 상승
-            CurrentTemperature = Mathf.Lerp(minTemperature, maxTemperature, dayTempCurve);
+            CurrentTemperature = Mathf.Lerp(regionMin, regionMax, dayTempCurve);
         }
         else
         {
-            // 밤에는 온도가 곧바로 떨어지지 않고, 천천히 min 쪽
-            // 이전 프레임 값을 유지하면서 점진적으로 minTemperature로 감소
-            CurrentTemperature = Mathf.Lerp(CurrentTemperature, minTemperature, Time.deltaTime * nightBlendSpeed);
+            CurrentTemperature = Mathf.Lerp(CurrentTemperature, regionMin, Time.deltaTime * nightBlendSpeed);
         }
 
         DynamicGI.UpdateEnvironment();
@@ -156,4 +173,31 @@ public class DayNightCycle : MonoBehaviour
         if (_regionManager != null)
             _regionManager.OnRegionChanged -= OnRegionChanged;
     }
+
+    public float RegionMinTemperature
+    {
+        get
+        {
+            return _regionManager.currentRegion switch
+            {
+                Region.Desert => desertMinTemp,
+                Region.Arctic => arcticMinTemp,
+                _ => forestMinTemp,
+            };
+        }
+    }
+    public float RegionMaxTemperature
+    {
+        get
+        {
+            return _regionManager.currentRegion switch
+            {
+                Region.Desert => desertMaxTemp,
+                Region.Arctic => arcticMaxTemp,
+                _ => forestMaxTemp,
+            };
+        }
+    }
+
+
 }

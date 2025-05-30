@@ -55,12 +55,12 @@ public class PlayerCondition : MonoBehaviour
         redTemperature = Mathf.Clamp(redTemperature, minf, maxf);
         blueTemperature = Mathf.Clamp(blueTemperature, minf, maxf);
 
-        // 빨간 게이지 100%면 HP 감소
-        if (redTemperature >= 100f)
+        // 파란 게이지 100%면 HP 감소
+        if (blueTemperature >= 100f)
             HealthChange(-10f * Time.deltaTime);
 
-        // 파란 게이지 100%면 Water 감소, Water가 0이 되면 HP도 감소
-        if (blueTemperature >= 100f)
+        // 빨간 게이지 100%면 Water 감소, Water가 0이 되면 HP도 감소
+        if (redTemperature >= 100f)
             WaterChange(-10f * Time.deltaTime);
 
         if (water <= 0f)

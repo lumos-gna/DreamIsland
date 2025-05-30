@@ -13,9 +13,7 @@ public class FleeState : IState<BaseEnemy>
     // 효과음 쿨타임 관련 설정
     private const float RunSoundCooldown = 1f;
     private float _lastRunSoundTime = -Mathf.Infinity;
-
-
-    private int DeerRunSound = 2;    
+    private int DeerRunSound = 15;    
     public void Enter(BaseEnemy obj)
     {
         obj.GetAnimator()?.CrossFade("Run", 0.1f);
@@ -40,7 +38,7 @@ public class FleeState : IState<BaseEnemy>
         }
         if (isRuning)
         {
-            TryPlayisRuning(obj.name);
+            TryPlayisRuning(obj);
         }
 
 
@@ -56,14 +54,12 @@ public class FleeState : IState<BaseEnemy>
         obj.GetAgent().isStopped = true;
     }
 
-    private void TryPlayisRuning(string objName)
+    private void TryPlayisRuning(BaseEnemy obj)
     {
         if (Time.time - _lastRunSoundTime < RunSoundCooldown)
             return;
 
-        AudioManager.SetEffectVolume(0f);
-        AudioManager.PlayEffectSound(DeerRunSound);
-
+        AudioManager.Instance.PlaySFXAtPoint(DeerRunSound, obj.transform.position);
         _lastRunSoundTime = Time.time;
     }
 
