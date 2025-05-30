@@ -1038,7 +1038,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!1001 &91533370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1852,7 +1852,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 0.8}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!1001 &148786651
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3273,71 +3273,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 08473ea6937284a429f39d6d3b340653, type: 3}
---- !u!1001 &247273375
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4071389414857159063, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_Name
-      value: Axe
-      objectReference: {fileID: 0}
-    - target: {fileID: 4225272576053662919, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: initialData
-      value: 
-      objectReference: {fileID: 11400000, guid: fabcde6f6e25b054999b7367adbdc4ea, type: 2}
-    - target: {fileID: 4225272576053662919, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: initialData2
-      value: 
-      objectReference: {fileID: 11400000, guid: 47400e08b77eef847a03d5e888d7619a, type: 2}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.45451948
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.45451948
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0.54167527
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0.54167527
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: -100
-      objectReference: {fileID: 0}
-    - target: {fileID: 6432856290451828937, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: e00d8ba852893ab48bb479cf23dc68ca, type: 3}
 --- !u!1001 &248258942
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4155,7 +4090,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefabs:
-  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
   - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
   spawnCount: 5
@@ -4166,7 +4100,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 0
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 20
 --- !u!4 &303998509 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6950743074300402243, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
@@ -4704,7 +4638,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 0.8}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!4 &343101085 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -5317,7 +5251,7 @@ Transform:
   m_GameObject: {fileID: 369800465}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalPosition: {x: -606, y: 52.81, z: -326}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5336,7 +5270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefabs:
-  - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
+  - {fileID: 5685696757667962341, guid: dbf276348991870409bbfef5e7fedcbc, type: 3}
   spawnCount: 5
   radius: 50
   rayOriginHeight: 100
@@ -6053,7 +5987,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!1001 &423466902
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6804,6 +6738,61 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
   m_PrefabInstance: {fileID: 1823028228}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &480676866
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 480676867}
+  - component: {fileID: 480676868}
+  m_Layer: 0
+  m_Name: ForestAttackEnemySpawner_Bat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &480676867
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480676866}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1191912253}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &480676868
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480676866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18c334620d766cc4aaca29e68d918dff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPrefabs:
+  - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
+  spawnCount: 5
+  radius: 50
+  rayOriginHeight: 100
+  rayDistance: 200
+  parentContainer: {fileID: 0}
+  scaleRange: {x: 0.8, y: 1.3}
+  spawnInDay: 0
+  spawnInNight: 1
+  avoidRadius: 8
 --- !u!1001 &481535645
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8598,7 +8587,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 200
 --- !u!1001 &622877670
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8907,7 +8896,7 @@ Transform:
   m_GameObject: {fileID: 651410355}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalPosition: {x: -725, y: 52.81, z: 5913}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8926,9 +8915,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefabs:
-  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
-  - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
   spawnCount: 5
   radius: 50
   rayOriginHeight: 100
@@ -8937,7 +8925,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 0
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 20
 --- !u!4 &654255195 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -9560,7 +9548,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!1001 &711843681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10190,7 +10178,7 @@ GameObject:
   - component: {fileID: 759143719}
   - component: {fileID: 759143720}
   m_Layer: 0
-  m_Name: ForestAttackEnemySpawner
+  m_Name: ForestAttackEnemySpawner_Skull
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10205,7 +10193,7 @@ Transform:
   m_GameObject: {fileID: 759143718}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalPosition: {x: -539.09, y: 52.81, z: -286.89}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10224,9 +10212,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefabs:
-  - {fileID: 8147891518531063995, guid: 41cde9af67b17f84c8dbaa395770c813, type: 3}
-  - {fileID: 2974642830328501147, guid: f7166e63bcff8a744b13c98645abb1de, type: 3}
-  - {fileID: 128393726373802850, guid: a657a02d7588ba54cbd92e1d00d78385, type: 3}
+  - {fileID: 3600587924234875475, guid: 8e78f42ac82349543b67e9172e832faa, type: 3}
+  - {fileID: 5677839450909430806, guid: e8216930fa004d146aa9c20187de4525, type: 3}
+  - {fileID: 4500675342933368632, guid: a6ccce9506e79674086908c9dc621e23, type: 3}
+  - {fileID: 3951026173792800827, guid: 4f045707e31a99b4bb7e8cce6298e42c, type: 3}
+  - {fileID: 7226689398305160700, guid: 4ca5a0e1c9b6e2547908965859e2530f, type: 3}
   spawnCount: 5
   radius: 50
   rayOriginHeight: 100
@@ -14426,7 +14416,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!4 &1106311419 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -15006,6 +14996,7 @@ Transform:
   m_Children:
   - {fileID: 369800466}
   - {fileID: 759143719}
+  - {fileID: 480676867}
   m_Father: {fileID: 1615109442}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1195915111
@@ -21581,7 +21572,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!4 &1782403942 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6950743074300402243, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
@@ -24277,7 +24268,7 @@ Transform:
   m_GameObject: {fileID: 2046100648}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -5239.2, y: 52.81, z: 3.5}
+  m_LocalPosition: {x: -755, y: 52.81, z: 5925}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -24296,15 +24287,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawnPrefabs:
-  - {fileID: 3662603267867227588, guid: 161e40d0ab000af4398a0327c0b69070, type: 3}
-  spawnCount: 5
-  radius: 50
+  - {fileID: 3665448684949034829, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
+  - {fileID: 7758673788475193849, guid: 6443ba08a95ae7341afd3dfcc2702bca, type: 3}
+  spawnCount: 10
+  radius: 100
   rayOriginHeight: 100
   rayDistance: 200
   parentContainer: {fileID: 0}
   scaleRange: {x: 0.8, y: 1.3}
-  spawnInDay: 1
-  spawnInNight: 0
+  spawnInDay: 0
+  spawnInNight: 1
   avoidRadius: 8
 --- !u!4 &2049280508 stripped
 Transform:
@@ -24998,7 +24990,7 @@ MonoBehaviour:
   scaleRange: {x: 0.8, y: 1.3}
   spawnInDay: 1
   spawnInNight: 1
-  avoidRadius: 8
+  avoidRadius: 10
 --- !u!4 &2108783544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -25407,4 +25399,3 @@ SceneRoots:
   - {fileID: 1681150981}
   - {fileID: 949610293}
   - {fileID: 780682251}
-  - {fileID: 247273375}
