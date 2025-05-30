@@ -21,6 +21,11 @@ MonoBehaviour:
   canStack: 1
   maxStackCount: 20
   equipPrefab: {fileID: 683380157648875604, guid: 9f126cd2aa120904a847fd2bca42c6ba, type: 3}
+  AttackDamage: 2
+  AttackRange: 5
+  objectDamage: 2
+  consumetype: 1
+  healamount: 50
   consumables:
   - Type: 1
     value: 30
