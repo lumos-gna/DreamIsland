@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8427332488532254523}
   - component: {fileID: 1727751277553652024}
   m_Layer: 0
-  m_Name: GolemParticle
+  m_Name: DustParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42,7 +42,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7281283658939419851}
   serializedVersion: 8
-  lengthInSec: 0.5
+  lengthInSec: 0.7
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -288,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.12
+      scalar: 0.3
       minScalar: 0.5
       maxCurve:
         serializedVersion: 2
@@ -1309,7 +1309,7 @@ ParticleSystem:
       maxColor: {r: 1, g: 1, b: 1, a: 1}
       maxGradient:
         serializedVersion: 2
-        key0: {r: 1, g: 0.98225176, b: 0.9025157, a: 1}
+        key0: {r: 0.3773585, g: 0.2515723, b: 0, a: 1}
         key1: {r: 0.23270428, g: 0.18964484, b: 0, a: 1}
         key2: {r: 0, g: 0, b: 0, a: 0}
         key3: {r: 0, g: 0, b: 0, a: 0}
@@ -1317,7 +1317,7 @@ ParticleSystem:
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
-        ctime0: 1671
+        ctime0: 0
         ctime1: 25058
         ctime2: 65535
         ctime3: 0
@@ -4842,7 +4842,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95867777, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 5
   m_Range: 5
   m_SpotAngle: 30
