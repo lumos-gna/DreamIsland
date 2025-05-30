@@ -8,6 +8,10 @@ public class PlayerCondition : MonoBehaviour
     [SerializeField] private float water;
     [SerializeField] private float stamina;
 
+    public float Health => health;
+    public float Water => water;
+    public float Stamina => stamina;
+
     private float waterDecreaseperFrame = 0.001f;
     private float thirstyDecreaseHealth = 0.1f;
     private float minf = 0f;
