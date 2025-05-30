@@ -41,10 +41,8 @@ public class NPCUIController: MonoBehaviour
             int index = i;
             _buttons[index] = buttonFactory.CreateButton(index, npcData.npcDialog[index].buttonName);
             
-            //버튼 이벤트 초기화
-            //_buttons[index].GetComponent<Button>().onClick.AddListener(() => LoadDialogue(index));
             Button btn = _buttons[index].GetComponent<Button>();
-            btn.onClick.RemoveAllListeners();  // ⭐ 중복 호출 방지 핵심
+            btn.onClick.RemoveAllListeners(); 
             btn.onClick.AddListener(() => LoadDialogue(index));
         }
     }
@@ -53,8 +51,6 @@ public class NPCUIController: MonoBehaviour
     private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
-
-        //dialogueText.text = npcData.NextText(_selectedDialogue);
         
         dialogueText.text = "";
         string fullText = npcData.NextText(_selectedDialogue);
@@ -120,7 +116,6 @@ public class NPCUIController: MonoBehaviour
                 }
                 else
                 {
-                    //퀘스트 수락처리, UI끄기 등
                     exitButton.gameObject.SetActive(true);
                 }
             }
@@ -135,12 +130,6 @@ public class NPCUIController: MonoBehaviour
                     exitButton.gameObject.SetActive(true);
                 }
             }
-            
-
-            
-            // string fullText = npcData.NextText();
-            // dialogueText.text = "";
-            // dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
         }
     }
 }
