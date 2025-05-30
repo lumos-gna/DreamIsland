@@ -61,7 +61,7 @@ public class HealthBar : MonoBehaviour
 
     public void DamageText(int damage)
     {
-        /*Vector3 pos = _pivot.position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, 1f);
+        Vector3 pos = _pivot.position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, 1f);
 
         // 프리팹 생성
         GameObject go = Instantiate(_damageText, _canvas.transform);
@@ -83,43 +83,6 @@ public class HealthBar : MonoBehaviour
         }
 
         // 일정 시간 후 파괴
-        Destroy(go, 1.2f);*/
-
-        StartCoroutine(DamageTextStepByStep(2));
-    }
-
-    private IEnumerator DamageTextStepByStep(int damage)
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            Debug.Log($"[{i + 1}] 데미지 텍스트 생성");
-
-            // 위치 계산
-            Vector3 worldPos = _pivot.position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, 1f);
-
-            // 프리팹 생성
-            GameObject go = Instantiate(_damageText, _canvas.transform);
-            RectTransform rt = go.GetComponent<RectTransform>();
-            rt.position = worldPos;
-
-            // 텍스트 설정
-            var tmp = go.GetComponent<TextMeshProUGUI>();
-            if (tmp != null)
-            {
-                tmp.text = damage.ToString();
-            }
-
-            // 애니메이션 실행
-            Animator anim = go.GetComponent<Animator>();
-            if (anim != null)
-            {
-                anim.SetTrigger("isFloat");
-            }
-
-            // 일정 시간 후 파괴
-            Destroy(go, 1.2f);
-
-            yield return new WaitForSeconds(1f);
-        }
+        Destroy(go, 1.2f);
     }
 }
