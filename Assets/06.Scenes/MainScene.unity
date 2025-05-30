@@ -6807,6 +6807,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1264499466488953971, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1961392572}
+    - targetCorrespondingSourceObject: {fileID: 1264499466488953971, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1961392579}
   m_SourcePrefab: {fileID: 100100000, guid: 7a50d645c8170bf4bbacdbbad9d1dff3, type: 3}
 --- !u!1 &463601010 stripped
 GameObject:
@@ -24303,10 +24306,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   water: 100
-  hunger: 100
-  healthUI: {fileID: 0}
-  HungerUI: {fileID: 0}
-  WaterUI: {fileID: 0}
+  stamina: 100
+  redTemperature: 0
+  blueTemperature: 0
+--- !u!114 &1961392579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 463601010}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f17ac1ad126cee4bbebf1ba98eb31fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1966055360 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7373828988937033973, guid: 70049e30a83abbd45aa724945c323ec2, type: 3}

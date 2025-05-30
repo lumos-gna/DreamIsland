@@ -8,12 +8,11 @@ using UnityEngine.UI;
 
 public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
-    public ItemData item;
+    public ItemDataSO item;
 
     public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;
-    public InventoryUI inventory;
 
     public int index;
     public bool equiped;
@@ -34,7 +33,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
         icon.gameObject.SetActive(true);
-        icon.sprite = item.icon;
+        icon.sprite = item.Icon;
         quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
     }
 
@@ -49,18 +48,19 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     // 마우스 포인터가 아이콘 위에 있을때 감지
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (item != null)
-        {
-            inventory.summaryBox.SetActive(true);
-            inventory.MouseOnInventoryItem(index);
-        }
+        if (item == null) return;
+
+        var inventoryUI = UIManager.Instance.Get<InventoryUI>();
+        inventoryUI.summaryBox.SetActive(true);
+        inventoryUI.MouseOnInventoryItem(index);
     }
 
     // 마우스 포인터가 아이콘에서 벗어났을때
     public void OnPointerExit(PointerEventData eventData)
     {
-        inventory.summaryBox.SetActive(false);
-        inventory.ClearSelectedItemWindow();
+        var inventoryUI = UIManager.Instance.Get<InventoryUI>();
+        inventoryUI.summaryBox.SetActive(false);
+        inventoryUI.ClearSelectedItemWindow();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -70,7 +70,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
         // 드래그할 아이콘 생성
         dragIcon = new GameObject("DragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
-        dragIcon.transform.SetParent(inventory.transform, false);   // UIInventory 하위에 생성
+        dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);   // UIInventory 하위에 생성
         dragIcon.transform.SetAsLastSibling();  // 맨 앞에서 렌더링
 
         dragIconRect = dragIcon.GetComponent<RectTransform>();
@@ -81,16 +81,18 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         image.raycastTarget = false;
 
         // 투명도 설정
-        var group = dragIcon.GetComponent<CanvasGroup>();
-        group.blocksRaycasts = false;
+        dragIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
         if (dragIcon != null)
         {
-            Vector2 pos;
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(inventory.transform as RectTransform, Input.mousePosition, null, out pos);
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
+                Input.mousePosition,
+                null,
+                out Vector2 pos);
             dragIconRect.localPosition = pos;
         }
     }
@@ -106,9 +108,9 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (draggedFromSlot != null && draggedFromSlot != this)
+        if (ItemSlot.draggedFromSlot != null)
         {
-            SwapWith(draggedFromSlot);
+            SwapWith(ItemSlot.draggedFromSlot);
         }
         else if (HandleSlot.draggedFromHandleSlot != null)
         {
@@ -121,85 +123,114 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         // 자기 자신에 드롭한 경우는 무시함
         if (this == other) return;
 
-        // 병합 로직 : 스택이 가능한, 같은 아이템들 병합
-        if (this.item != null && other.item != null && this.item == other.item && item.canStack)
+        bool stacked = TryStack(other.item, other.quantity, other);
+        if (!stacked)
         {
-            int total = this.quantity + other.quantity;
-
-            if (total <= item.maxStackCount)
-            {
-                this.quantity = total;
-                other.ClearSlot();  // 병합 완료 후 다른 슬롯 비우기
-            }
-            else
-            {
-                this.quantity = item.maxStackCount;
-                other.quantity = total - item.maxStackCount;
-            }
-
-            this.SetSlot();
-            other.SetSlot();
-            return;
-        }
-
-        // 이동/교환 로직
-        // 한쪽이 비었을 경우에 이동
-        if (this.item == null && other.item != null)
-        {
-            this.item = other.item;
-            this.quantity = other.quantity;
-
-            other.item = null;
-            other.quantity = 0;
-        }
-        else if (this.item != null && other.item == null)
-        {
-            other.item = this.item;
-            other.quantity = this.quantity;
-
-            this.item = null;
-            this.quantity = 0;
-        }
-        else
-        {
-            // 둘 다 아이템이 있을 경우에는 아이템과 수량 정보 교환
             (this.item, other.item) = (other.item, this.item);
             (this.quantity, other.quantity) = (other.quantity, this.quantity);
         }
 
-        this.SetSlot();
+        SetSlot();
         other.SetSlot();
 
-        inventory.UpdateItemSlotModel(index, item, quantity);
-        inventory.UpdateItemSlotModel(other.index, other.item, other.quantity);
+        var inventory = GameManager.Instance.Inventory;
+        if (index >= 0 && index < inventory.itemSlots.Length)
+        {
+            inventory.itemSlots[index].item = item;
+            inventory.itemSlots[index].quantity = quantity;
+        }
+
+        if (other.index >= 0 && other.index < inventory.itemSlots.Length)
+        {
+            inventory.itemSlots[other.index].item = other.item;
+            inventory.itemSlots[other.index].quantity = other.quantity;
+        }
+
+        GameManager.Instance.ForceSync();
     }
 
     public void SwapWith(HandleSlot other)
     {
+        var inventory = GameManager.Instance.Inventory;
         if (this == other) return;
 
-        if (this.item == null & other.item != null)
-        {
-            this.item = other.item;
-            this.quantity = other.quantity;
-            other.ClearSlot();
-        }
-        else if (this.item != null && other.item == null)
-        {
-            other.item = this.item;
-            other.quantity = this.quantity;
-            this.ClearSlot();
-        }
-        else
+        bool stacked = TryStack(other.item, other.quantity, other);
+        if (!stacked)
         {
             (this.item, other.item) = (other.item, this.item);
             (this.quantity, other.quantity) = (other.quantity, this.quantity);
         }
 
-        this.SetSlot();
+        SetSlot();
         other.SetSlot();
 
-        inventory.UpdateHandleSlotModel(other.index, other.item, other.quantity);
-        inventory.UpdateItemSlotModel(index, item, quantity);
+        if (index >= 0 && index < inventory.itemSlots.Length)
+        {
+            inventory.itemSlots[index].item = item;
+            inventory.itemSlots[index].quantity = quantity;
+        }
+
+        if (other.index >= 0 && other.index < inventory.itemSlots.Length)
+        {
+            inventory.handleSlots[other.index].item = other.item;
+            inventory.handleSlots[other.index].quantity = other.quantity;
+        }
+
+
+        GameManager.Instance.ForceSync();
+    }
+
+    private bool TryStack(ItemDataSO otherItem, int otherQuantity, HandleSlot otherSlot = null)
+    {
+        if (item != null && otherItem != null && item == otherItem && item.IsStackable)
+        {
+            int total = quantity + otherQuantity;
+            if (total <= item.MaxStackCount)
+            {
+                quantity = total;
+                if (otherSlot != null)
+                {
+                    otherSlot.ClearSlot();
+                }
+                return true;
+            }
+            else
+            {
+                quantity = item.MaxStackCount;
+                if (otherSlot != null)
+                {
+                    otherSlot.quantity = total - item.MaxStackCount;
+                }
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool TryStack(ItemDataSO otherItem, int otherQuantity, ItemSlot otherSlot)
+    {
+        if (item != null && otherItem != null && item == otherItem && item.IsStackable)
+        {
+            int total = quantity + otherQuantity;
+            if (total <= item.MaxStackCount)
+            {
+                quantity = total;
+                if (otherSlot != null)
+                {
+                    otherSlot.ClearSlot();
+                }
+                return true;
+            }
+            else
+            {
+                quantity = item.MaxStackCount;
+                if (otherSlot != null)
+                {
+                    otherSlot.quantity = total - item.MaxStackCount;
+                }
+                return true;
+            }
+        }
+        return false;
     }
 }
