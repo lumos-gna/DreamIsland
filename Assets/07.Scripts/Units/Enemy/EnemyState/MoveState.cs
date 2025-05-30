@@ -85,7 +85,7 @@ public class MoveState : IState<BaseEnemy>
             }
             if (isMoving)
             {
-                TryPlayFootstep(obj.name);
+                TryPlayFootstep(obj);
             }
             _timer += Time.deltaTime;
         }
@@ -100,19 +100,19 @@ public class MoveState : IState<BaseEnemy>
     }
 
     // 무빙 효과음
-    private void TryPlayFootstep(string objName)
+    private void TryPlayFootstep(BaseEnemy obj)
     {
         if (Time.time - _lastSfxTime < SfxCooldown) return;
 
         int sfx = 0;
-        var nm = objName.ToLower();
-        if (nm.Contains("bat")) sfx = 5;
-        else if (nm.Contains("golem")) sfx = 6;
-        else if (nm.Contains("mushroom")) sfx = 7;
-        else if (nm.Contains("penguin")) sfx = 15;
+        var nm = obj.name.ToLower();
+        if (nm.Contains("bat")) sfx = 7;
+        else if (nm.Contains("golem")) sfx = 8;
+        else if (nm.Contains("mushroom")) sfx = 9;
+        else if (nm.Contains("penguin")) sfx = 10;
         if (sfx > 0)
         {
-            AudioManager.PlayEffectSound(sfx);
+            AudioManager.Instance.PlaySFXAtPoint(sfx,obj.transform.position);
             _lastSfxTime = Time.time;
         }
     }

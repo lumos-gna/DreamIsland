@@ -17,18 +17,21 @@ public class PlayerCondition : MonoBehaviour
 
     private float waterDecreaseperFrame = 0.001f;
     private float thirstyDecreaseHealth = 0.1f;
-    private float StaminaDecreasePerFrame = 0.01f;
+    private float StaminaDecreasePerFrame = 0.001f;
 
     private float minf = 0f;
     private float maxf = 100f;
 
     private void Update()
     {
+        // 목마름 자동 감소
         WaterChange(-waterDecreaseperFrame);
         if (water == minf)
         {
             HealthChange(-thirstyDecreaseHealth);
         }
+
+        // 스태미너 자동 감소
         StaminaChange(-StaminaDecreasePerFrame);
         if (stamina <= 0f)
         {
@@ -52,12 +55,12 @@ public class PlayerCondition : MonoBehaviour
         redTemperature = Mathf.Clamp(redTemperature, minf, maxf);
         blueTemperature = Mathf.Clamp(blueTemperature, minf, maxf);
 
-        // 빨간 게이지 100%면 HP 감소
-        if (redTemperature >= 100f)
+        // 파란 게이지 100%면 HP 감소
+        if (blueTemperature >= 100f)
             HealthChange(-10f * Time.deltaTime);
 
-        // 파란 게이지 100%면 Water 감소, Water가 0이 되면 HP도 감소
-        if (blueTemperature >= 100f)
+        // 빨간 게이지 100%면 Water 감소, Water가 0이 되면 HP도 감소
+        if (redTemperature >= 100f)
             WaterChange(-10f * Time.deltaTime);
 
         if (water <= 0f)

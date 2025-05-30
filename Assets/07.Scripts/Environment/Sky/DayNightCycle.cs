@@ -23,8 +23,12 @@ public class DayNightCycle : MonoBehaviour
     public float nightMoonIntensity = 0.3f;
 
     [Header("Temperature Settings")]
-    public float minTemperature = 10f;
-    public float maxTemperature = 25f;
+    public float forestMinTemp = 18f;
+    public float forestMaxTemp = 24f;
+    public float desertMinTemp = 20f;
+    public float desertMaxTemp = 40f;
+    public float arcticMinTemp = -10f;
+    public float arcticMaxTemp = 15f;
     public static float CurrentTemperature { get; private set; }
 
     // ³·/¹ã »óÅÂ
@@ -86,19 +90,48 @@ public class DayNightCycle : MonoBehaviour
             PlayCurrentBGM();
         }
 
-        // ºû/½ºÄ«ÀÌ¹Ú½º/¿Âµµ ±âÁ¸ ·ÎÁ÷
+        // ±¤¿ø/½ºÄ«ÀÌ¹Ú½º ¼³Á¤
         SunLight.transform.rotation = Quaternion.Euler(sunAngle, 170f, 0f);
         MoonLight.transform.rotation = Quaternion.Euler(sunAngle + 180f, 170f, 0f);
         SunLight.intensity = isDay ? daySunIntensity : 0f;
         MoonLight.intensity = isDay ? 0f : nightMoonIntensity;
         RenderSettings.skybox = isDay ? Sun : Moon;
 
-        float normalizedDay = isDay
-            ? Mathf.InverseLerp(0f, 180f, sunAngle)
-            : 0f;
-        CurrentTemperature = Mathf.Lerp(minTemperature, maxTemperature, normalizedDay);
+        float regionMin, regionMax;
+        switch (_regionManager.currentRegion)
+        {
+            case Region.Desert:
+                regionMin = desertMinTemp;
+                regionMax = desertMaxTemp;
+                break;
+            case Region.Arctic:
+                regionMin = arcticMinTemp;
+                regionMax = arcticMaxTemp;
+                break;
+            case Region.Forest:
+            default:
+                regionMin = forestMinTemp;
+                regionMax = forestMaxTemp;
+                break;
+        }
+
+        // ³·¿¡´Â Sine °î¼±, ¹ã¿¡´Â ÀÜ¿­ ·ÎÁ÷ ±×´ë·Î
+        float normalizedDay = Mathf.InverseLerp(0f, 180f, Mathf.Clamp(sunAngle, 0f, 180f));
+        float dayTempCurve = Mathf.Sin(normalizedDay * Mathf.PI);
+
+        float nightBlendSpeed = 0.3f;
+        if (isDay)
+        {
+            CurrentTemperature = Mathf.Lerp(regionMin, regionMax, dayTempCurve);
+        }
+        else
+        {
+            CurrentTemperature = Mathf.Lerp(CurrentTemperature, regionMin, Time.deltaTime * nightBlendSpeed);
+        }
+
         DynamicGI.UpdateEnvironment();
     }
+
 
     private void OnRegionChanged(Region newRegion)
     {
@@ -140,4 +173,31 @@ public class DayNightCycle : MonoBehaviour
         if (_regionManager != null)
             _regionManager.OnRegionChanged -= OnRegionChanged;
     }
+
+    public float RegionMinTemperature
+    {
+        get
+        {
+            return _regionManager.currentRegion switch
+            {
+                Region.Desert => desertMinTemp,
+                Region.Arctic => arcticMinTemp,
+                _ => forestMinTemp,
+            };
+        }
+    }
+    public float RegionMaxTemperature
+    {
+        get
+        {
+            return _regionManager.currentRegion switch
+            {
+                Region.Desert => desertMaxTemp,
+                Region.Arctic => arcticMaxTemp,
+                _ => forestMaxTemp,
+            };
+        }
+    }
+
+
 }

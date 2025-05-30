@@ -33,8 +33,8 @@ public class TemperatureGaugeUI : MonoBehaviour
 
         // 인스턴스 멤버로 바꿔서 사용
         float t = Mathf.InverseLerp(
-            _cycle.minTemperature,
-            _cycle.maxTemperature,
+            _cycle.RegionMinTemperature,
+            _cycle.RegionMaxTemperature,
             temp
         );
 
