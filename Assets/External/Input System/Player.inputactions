@@ -34,12 +34,12 @@
                 },
                 {
                     "name": "Choice",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "befdad74-a32b-4cce-b6f3-7f538a6fc5eb",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "Digital",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Interact",

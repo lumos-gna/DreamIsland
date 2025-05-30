@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class EquippedRange : EquippedItem
 {
+    public override ItemDataSO ItemData => _itemData;
+    
     [SerializeField] private Animator animator;
 
     private WeaponItemDataSO _itemData;

@@ -146,7 +146,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             inventory.itemSlots[other.index].quantity = other.quantity;
         }
 
-        GameManager.Instance.ForceSync();
+        inventory.ForceSync();
     }
 
     public void SwapWith(HandleSlot other)
@@ -177,7 +177,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         }
 
 
-        GameManager.Instance.ForceSync();
+        inventory.ForceSync();
     }
 
     private bool TryStack(ItemDataSO otherItem, int otherQuantity, HandleSlot otherSlot = null)

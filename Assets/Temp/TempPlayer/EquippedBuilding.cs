@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class EquippedBuilding : EquippedItem
 {
+    public override ItemDataSO ItemData => _itmeData;
+
+    
     private BuildingSystem _buildingSystem;
 
     private BuildingItemDataSO _itmeData;
+
 
     private void Update()
     {
@@ -17,6 +21,7 @@ public class EquippedBuilding : EquippedItem
             _buildingSystem.Rotation();
         }
     }
+
 
     public override void Equip(GameObject user, ItemDataSO itemData)
     {
@@ -31,7 +36,6 @@ public class EquippedBuilding : EquippedItem
     public override void UnEquip()
     {
         _buildingSystem.Destroy();
-
     }
     
     public override bool TryUse(EquippedController.InputState inputState)
