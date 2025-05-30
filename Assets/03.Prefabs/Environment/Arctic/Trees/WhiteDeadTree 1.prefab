@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -8803435497203554250}
   - component: {fileID: -2502085114887350562}
   - component: {fileID: 3317162447457317625}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: WhiteDeadTree 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
+  currentHP: 0
   damageAmount: 10
   dropItems:
   - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}

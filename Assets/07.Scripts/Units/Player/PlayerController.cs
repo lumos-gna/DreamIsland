@@ -9,6 +9,12 @@ public class PlayerController : MonoBehaviour
 {
     private Player _player;
 
+    [Header("Attack Settings 테스트")]
+    [SerializeField] private int attackDamage = 10;
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private LayerMask destructibleLayer;
+
+
     [Header("Move")]
     [SerializeField] private float moveSpeed;
     private Vector2 curMovement;
@@ -135,6 +141,25 @@ public class PlayerController : MonoBehaviour
             );
 
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
+        }
+    }
+
+    // 테스트용 매서드
+    public void OnHit(InputAction.CallbackContext context)
+    {
+        if (context.phase != InputActionPhase.Started)
+            return;
+
+        // 플레이어 카메라(또는 몸체) 앞 방향으로 Raycast
+        Ray ray = Camera.main.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
+        if (Physics.Raycast(ray, out RaycastHit hit, attackRange, destructibleLayer))
+        {
+            var target = hit.collider.GetComponentInParent<DestructibleObject>();
+            if (target != null)
+            {
+                target.ObjectTakeDamage(attackDamage);
+                Debug.Log($"Hit {target.name} for {attackDamage} damage. & max hp {target.maxHP} curr hp {target.currentHP}");
+            }
         }
     }
 

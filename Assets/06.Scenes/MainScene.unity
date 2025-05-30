@@ -20347,6 +20347,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 537638418762493988, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: attackRange
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 537638418762493988, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: destructibleLayer.m_Bits
+      value: 128
+      objectReference: {fileID: 0}
     - target: {fileID: 1264499466488953971, guid: 8b973eead38c94a44819425c29199237, type: 3}
       propertyPath: m_Name
       value: TempPlayer
@@ -20395,6 +20403,46 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionId
+      value: 53a890a8-9b9a-4555-a187-2b1f355e302e
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_ActionName
+      value: Player/Test[/Keyboard/q]
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1670152403}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnHit
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: PlayerController, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 8177274103194097540, guid: 8b973eead38c94a44819425c29199237, type: 3}
+      propertyPath: m_ActionEvents.Array.data[8].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20418,6 +20466,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4f17ac1ad126cee4bbebf1ba98eb31fc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1670152403 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 537638418762493988, guid: 8b973eead38c94a44819425c29199237, type: 3}
+  m_PrefabInstance: {fileID: 1670152397}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1670152398}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a076413f8e7a0bb4b88bbfec50611d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1680215747

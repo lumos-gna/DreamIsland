@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2787639757485975653}
   - component: {fileID: 305911582210698783}
   - component: {fileID: 5148878281631148438}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Rock 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,6 +142,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
+  currentHP: 0
   damageAmount: 10
   dropItems:
   - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}

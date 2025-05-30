@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4079542582648684995}
   - component: {fileID: 8715956261196756048}
   - component: {fileID: 695219931132983030}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_01_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: -3461299586860953675}
   - component: {fileID: -5721103132055883677}
   - component: {fileID: 7143174456813972484}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHP: 100
+  currentHP: 0
   damageAmount: 10
   dropItems:
   - prefab: {fileID: 6324261764077863044, guid: bf1e70e3cee092241bd9427df85f2308, type: 3}
@@ -217,7 +218,7 @@ GameObject:
   - component: {fileID: 3688394235222605838}
   - component: {fileID: 8806193463407361243}
   - component: {fileID: 8419966827342532370}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Mushroom_01_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
