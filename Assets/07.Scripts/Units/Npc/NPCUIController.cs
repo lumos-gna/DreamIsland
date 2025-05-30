@@ -55,14 +55,14 @@ public class NPCUIController: MonoBehaviour
         {
             dialogueText.text = "";
             fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
-            dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+            dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
             exitButton.gameObject.SetActive(true);
             return;
         }
         
         dialogueText.text = "";
         fullText = npcData.NextText(_selectedDialogue);
-        dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+        dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
         
         _type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
@@ -87,8 +87,10 @@ public class NPCUIController: MonoBehaviour
         uiCanvas.gameObject.SetActive(!uiCanvas.gameObject.activeSelf);
         _playerController.ChangeCursorState(uiCanvas.gameObject.activeSelf);
         
+        
         if (!uiCanvas.gameObject.activeSelf)
         {
+            Time.timeScale = 1f;
             for (int i = 0; i < _buttons.Length; i++)
             {
                 if (_buttons[i] != null)
@@ -103,6 +105,7 @@ public class NPCUIController: MonoBehaviour
         }
         else
         {
+            Time.timeScale = 0f;
             PlusButton(npcData.npcDialog.Length);
         }
     }
@@ -123,7 +126,7 @@ public class NPCUIController: MonoBehaviour
                 {
                     dialogueText.text = "";
                     fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
-                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+                    dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
                     exitButton.gameObject.SetActive(true);
                     return;
                 }
@@ -132,7 +135,7 @@ public class NPCUIController: MonoBehaviour
                 if (fullText != null)
                 {
                     dialogueText.text = "";
-                    dialogueText.DOText(fullText, 1f).SetEase(Ease.Linear);
+                    dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
                 }
                 else
                 {
