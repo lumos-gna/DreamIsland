@@ -1,15 +1,18 @@
 using UnityEngine;
 
 
-
 [CreateAssetMenu(fileName = "WeaponItemData", menuName = "ScriptableObjects/Temp/Weapon Item Data")]
 public class WeaponItemDataSO : ItemDataSO
 {
     public CraftingRecipe CraftingRecipe => craftingRecipe;
+    public GameObject ProjectilePrefab => projectilePrefab;
+    
     public float Range => range;
-    public float Delay => delay;
     public float UnitDamage => unitDamage;
     public float ObjectDamage => objectDamage;
+    
+    public float ShootForce => shootForce;
+
     
     
     
@@ -23,9 +26,12 @@ public class WeaponItemDataSO : ItemDataSO
     [Header("AttackInfo")]
     [SerializeField] private float range;
     
-    [SerializeField] private float delay;
-    
     [SerializeField] private float unitDamage;
     
     [SerializeField] private float objectDamage;
+
+    [SerializeField] private float shootForce;
+    
+    [SerializeField] private GameObject projectilePrefab;
+    
 }

@@ -4,12 +4,18 @@ using UnityEngine.InputSystem;
 
 public class EquippedController : MonoBehaviour
 {
+    public enum InputState
+    {
+        Up,
+        Down
+    }
+    
     [SerializeField] private ItemDataSO tempItemData;
     [SerializeField] private Transform equipParent;
     
     public EquippedItem CurEquippedItem { get; set; }
 
-    private bool _isLeftInput;
+    private InputState _inputState = InputState.Up;
 
     private void Start()
     {
@@ -20,13 +26,10 @@ public class EquippedController : MonoBehaviour
 
     private void Update()
     {
-        if (_isLeftInput)
+        if (CurEquippedItem.TryUse(_inputState))
         {
-            if (CurEquippedItem.TryUse())
-            {
-                //후에 차징 (활) 처리를 위해 업데이트처리
-                //인벤토리 슬롯 개수 갱신?
-            }
+            //후에 차징 (활) 처리를 위해 업데이트처리
+            //인벤토리 슬롯 개수 갱신?
         }
     }
 
@@ -36,10 +39,10 @@ public class EquippedController : MonoBehaviour
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                _isLeftInput = true;
+                _inputState = InputState.Down;
                 break;
             case InputActionPhase.Canceled:
-                _isLeftInput = false;
+                _inputState = InputState.Up;
                 break;
         }
     }
