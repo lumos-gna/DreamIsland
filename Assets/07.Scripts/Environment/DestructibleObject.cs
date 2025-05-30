@@ -24,6 +24,11 @@ public class DestructibleObject : MonoBehaviour
     [Header("Drop Settings")]
     public DropItem[] dropItems;
 
+    [Header("Sound Settings")]            // 효과음용 추가
+    [SerializeField] private int TreeSound = 13;
+    [SerializeField] private int RockSound = 12;
+    [SerializeField] private int MushroomSound = 13;
+
     private Vector3 _originalScale;
     private Vector3 _originalPosition;
     private Coroutine _damageFeedbackCoroutine;
@@ -38,6 +43,15 @@ public class DestructibleObject : MonoBehaviour
 
     public void ObjectTakeDamage(int amount)
     {
+        //효과음 재생
+        int sfxIndex = TreeSound;
+        string nm = gameObject.name.ToLower();
+        if (nm.Contains("rock")) sfxIndex = RockSound;
+        else if (nm.Contains("mushroom")) sfxIndex = MushroomSound;
+        // else > TreeSound
+
+        AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position );
+
         currentHP -= amount;
         if (_damageFeedbackCoroutine != null)
             StopCoroutine(_damageFeedbackCoroutine);
