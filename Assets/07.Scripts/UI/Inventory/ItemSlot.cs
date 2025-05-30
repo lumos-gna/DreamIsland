@@ -13,7 +13,7 @@ public class ItemSlot : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;
-    public UIInventory inventory;
+    public InventoryUI inventory;
 
     public int index;
     public bool equiped;

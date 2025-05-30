@@ -1,23 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Transform _pivot;
+    [SerializeField] private Animator _damageAnimator;
+    [SerializeField] private GameObject _damageText;
+    [SerializeField] private Canvas _canvas;
     [SerializeField] private Image _healthBarForegroundSprite;
     [SerializeField] private Image _helathBarSprite;
-    [SerializeField] private Vector3 _offset = new Vector3(0, -1f, 0);
     [SerializeField] private float _speed = 3f;
     private Transform _target;
     private EnemyHealth _enemyHealth;
     private BaseEnemy _baseEnemy;
     private float _targetFillAmount = 1f;
+    public Transform GetPivot() => _pivot;
     private void Awake()
     {
         _target = transform.root;
-
         _enemyHealth = GetComponentInParent<EnemyHealth>();
         _baseEnemy = GetComponentInParent<BaseEnemy>();
         if (_enemyHealth != null)
@@ -32,14 +35,14 @@ public class HealthBar : MonoBehaviour
     {
         if (_target == null) return;
 
-        // 플레이어가 범위 안에 있으면 보이게하기
+        // 플레이어가 범위 밖에 있으면 안보이게하기
         if (!_baseEnemy.PlayerInRange())
         {
             _helathBarSprite.gameObject.SetActive(false);
             return;
         }
 
-        // 플레이어가 범위 밖에 있으면 안보이게하기
+        // 플레이어가 범위 안에 있으면 보이게하기
         _helathBarSprite.gameObject.SetActive(true);
 
         // 위치 맞추기
@@ -54,5 +57,32 @@ public class HealthBar : MonoBehaviour
     public void UpdateHealthBar(float maxHealth, float currentHealth)
     {
         _targetFillAmount = Mathf.Clamp01(currentHealth / maxHealth);
+    }
+
+    public void DamageText(int damage)
+    {
+        Vector3 pos = _pivot.position + new Vector3(Random.Range(-0.5f, 0.5f), 0.2f, 1f);
+
+        // 프리팹 생성
+        GameObject go = Instantiate(_damageText, _canvas.transform);
+        RectTransform rt = go.GetComponent<RectTransform>();
+        rt.position = pos;
+
+        // 텍스트 설정
+        var tmp = go.GetComponent<TextMeshProUGUI>();
+        if (tmp != null)
+        {
+            tmp.text = damage.ToString();
+        }
+
+        // 애니메이션 실행
+        Animator anim = go.GetComponent<Animator>();
+        if (anim != null)
+        {
+            anim.SetTrigger("isFloat");
+        }
+
+        // 일정 시간 후 파괴
+        Destroy(go, 1.2f);
     }
 }

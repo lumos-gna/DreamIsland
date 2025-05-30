@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] private HealthBar _healthBar;
-
     private float _maxHealth;
     private float _currentHealth;
 
@@ -38,6 +38,14 @@ public class EnemyHealth : MonoBehaviour
         OnHealthChanged?.Invoke(_maxHealth, _currentHealth); // 데미지 변경 이벤트 호출
         StartCoroutine(HitColor()); // 피격효과
 
+        // 피격 소리
+        // enemyAudio.start();
+
+        // 파티클
+        // hitparticles.transform.position = hitpoint;
+        // hitpaticles.play()
+        _healthBar.DamageText(damage);
+
         if (_currentHealth <= 0)
         {
             _baseEnemy.Die();
@@ -45,7 +53,6 @@ public class EnemyHealth : MonoBehaviour
             _baseEnemy.GetFSM().ChangeState(_baseEnemy.StateFactory.Get<DieState>());
         }
     }
-
     // 피격 효과
     private IEnumerator HitColor()
     {

@@ -22,10 +22,10 @@ public class NpcData : ScriptableObject
 
         switch (npcDialog[selectedDialogue].type)
         {
-            case DialogueType.NORMAL:
+            case DialogueType.NORMAL:  //평범한 이어지는 대화
                 return npcDialog[selectedDialogue].GetText();
 
-            case DialogueType.RANDOMQUEST:
+            case DialogueType.RANDOMQUEST:   //랜덤 퀘스트
                 
                 if (QuestManager.Instance.CheckClearQuest(randomQuests[_currentRandomQuestIndex].name))             //받았던 퀘스트 클리어시
                 {
@@ -48,8 +48,8 @@ public class NpcData : ScriptableObject
                 }
             
             
-            case DialogueType.QUEST:
-                if (quests.Length <= _currentQuestIndex)
+            case DialogueType.QUEST:     //  메인 퀘스트
+                if (quests.Length <= _currentQuestIndex)  //남은 퀘스트가 없으면
                 {
                     Debug.Log(quests.Length +" / "+ _currentQuestIndex);
                     return "남은 할 일이 없어...";}
@@ -73,7 +73,7 @@ public class NpcData : ScriptableObject
                     return quests[_currentQuestIndex].text; 
                 }
             
-            case DialogueType.RANDOM:
+            case DialogueType.RANDOM:  // 랜덤한 대화 출력
                 
                 int random = Random.Range(0, npcDialog[selectedDialogue].npcDialogTexts.Length);
                 npcDialog[selectedDialogue].SetCount(random);

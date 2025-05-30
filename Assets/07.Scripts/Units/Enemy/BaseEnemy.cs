@@ -1,7 +1,6 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -26,7 +25,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 
     // 피격용
     private EnemyHealth _enemyHealth;
-    public event System.Action<IPoolableEnemy> OnDie;
+    public event Action<IPoolableEnemy> OnDie;
 
     #region Getters
     public NavMeshAgent GetAgent() => _agent;
@@ -48,7 +47,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     protected virtual void Awake()
     {
         Init();
-        _player = PlayerManager.Instance._Player.gameObject;
+        //_player = PlayerManager.Instance._Player.gameObject;
         if (_player == null)
         {
             var found = GameObject.FindWithTag("Player");
@@ -63,7 +62,6 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             _fsm.ChangeState(StateFactory.Get<MoveState>());
         else
             _fsm.ChangeState(StateFactory.Get<IdleState>());
-
     }
 
     protected virtual void Update()
@@ -112,6 +110,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     public void TakeDamage(int damage)
     {
         _enemyHealth.ApplyDamage(damage);
+        
     }
 
     // 적 사망시 아이템 드롭 처리
@@ -168,7 +167,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         // 실패시 주변 탐색 무작위로 주변 탐색
         for (int i = 0; i < 30; i++)
         {
-            Vector3 randomOffset = Random.insideUnitSphere * 1.5f;
+            Vector3 randomOffset = UnityEngine.Random.insideUnitSphere * 1.5f;
             Vector3 candidate = transform.position + randomOffset;
             if (NavMesh.SamplePosition(candidate, out NavMeshHit nearbyHit, 1.5f, NavMesh.AllAreas))
             {

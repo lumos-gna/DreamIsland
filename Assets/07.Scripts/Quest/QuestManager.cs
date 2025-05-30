@@ -94,7 +94,7 @@ public class QuestManager : Singleton<QuestManager>
     }
 
 
-    private void UpdateQuestUI()
+    private void UpdateQuestUI()      //퀘스트 UI 갱신
     {
         for (int i = 0; i < _acceptedQuestList.Count; i++)
         {
