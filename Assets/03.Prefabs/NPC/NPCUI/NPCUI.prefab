@@ -226,10 +226,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e1d098150d4458485b8c5770cd0a893, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerController: {fileID: 0}
   npcData: {fileID: 11400000, guid: 67282f70d802bfc47a95f8b00ff222d6, type: 2}
   uiCanvas: {fileID: 2340495414870448187}
-  image: {fileID: 7160204021874853609}
   dialogueText: {fileID: 2963712064847030606}
   exitButton: {fileID: 458307484820474110}
   buttonFactory: {fileID: 148611577330755926}
@@ -494,8 +492,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 750, y: 300}
+  m_AnchoredPosition: {x: 150, y: 0}
+  m_SizeDelta: {x: 1000, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &267404325384324728
 CanvasRenderer:
