@@ -12,6 +12,10 @@ public class MoveState : IState<BaseEnemy>
     private float _maxWaitTime = 3f;
     private bool _isDestination = false;
 
+    //효과음 쿨다운
+    private float _lastSfxTime = -Mathf.Infinity;
+    private const float SfxCooldown = 0.5f;
+
     private float _updateTimer = 0f;
     private float _updateInterval = 0.2f;
 
@@ -42,18 +46,6 @@ public class MoveState : IState<BaseEnemy>
 
         obj.GetAgent().autoBraking = false;
 
-        // 이동 시작 시 적별 이동 효과음 재생
-        string nm = obj.name.ToLower();
-        int sfx = 0;
-        if (nm.Contains("bat"))
-            sfx = 5;
-        else if (nm.Contains("golem"))
-            sfx = 6;
-        else if (nm.Contains("mushroom"))
-            sfx = 7;
-        if (sfx > 0)
-            AudioManager.PlayEffectSound(sfx);
-
 
         // 경로 업데이트
         UpdatePath(obj);
@@ -73,6 +65,8 @@ public class MoveState : IState<BaseEnemy>
                 obj.GetFSM().ChangeState(obj.StateFactory.Get<FleeState>());
             return;
         }
+        var agent = obj.GetAgent();
+        bool isMoving = agent.hasPath && agent.velocity.sqrMagnitude > 0.01f;
 
         if (obj.GetEnemyType() == EnemyType.Attack)
         {
@@ -89,13 +83,38 @@ public class MoveState : IState<BaseEnemy>
             {
                 obj.GetFSM().ChangeState(obj.StateFactory.Get<IdleState>());
             }
+            if (isMoving)
+            {
+                TryPlayFootstep(obj.name);
+            }
+            _timer += Time.deltaTime;
         }
     }
+
+
     public void Exit(BaseEnemy obj)
     {
         var agent = obj.GetAgent();
         if (agent != null && agent.isOnNavMesh)
             agent.isStopped = true;
+    }
+
+    // 무빙 효과음
+    private void TryPlayFootstep(string objName)
+    {
+        if (Time.time - _lastSfxTime < SfxCooldown) return;
+
+        int sfx = 0;
+        var nm = objName.ToLower();
+        if (nm.Contains("bat")) sfx = 5;
+        else if (nm.Contains("golem")) sfx = 6;
+        else if (nm.Contains("mushroom")) sfx = 7;
+
+        if (sfx > 0)
+        {
+            AudioManager.PlayEffectSound(sfx);
+            _lastSfxTime = Time.time;
+        }
     }
 
     // 경로 갱신
