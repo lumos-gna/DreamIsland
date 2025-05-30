@@ -1,5 +1,11 @@
 using UnityEngine;
 
+public enum ConsumType
+{
+    health,
+    water,
+    hunger,
+}
 
 [System.Serializable]
 public class ItemConsumeInfo

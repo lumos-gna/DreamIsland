@@ -43,7 +43,7 @@ public class ItemDataSO : ScriptableObject
      [SerializeField] private EquippedItem equipItemPrefab;
 
 
-     [Space(10f)] 
+     [Space(20f)] 
      [SerializeField] private bool isConsumeItem;
      
      [BoolShowIf("isConsumeItem")]

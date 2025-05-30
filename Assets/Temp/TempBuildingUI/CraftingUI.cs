@@ -44,7 +44,7 @@ public class CraftingUI : BaseUI
         
         for (int i = 0; i < buildingItemDataTable.ItemDatas.Length; i++)
         {
-            var targetItem = buildingItemDataTable.ItemDatas[i] as BuildingItemDataSO;
+            var targetItem = buildingItemDataTable.ItemDatas[i];
 
             var targetSlot = slotPool.Spawn(itemSlotRoot);
             
@@ -52,20 +52,20 @@ public class CraftingUI : BaseUI
             {
                 _selectedSlot = targetSlot;
                 
-                ShowRecipe(recipePool, targetItem.CraftingRecipe);
+                ShowRecipe(recipePool, targetItem.CraftingInfo.recipes);
             });
         }
     }
 
-    public void ShowRecipe(ObjectPool<CraftingUIRecipeSlot> targetPool, CraftingRecipe recipe)
+    public void ShowRecipe(ObjectPool<CraftingUIRecipeSlot> targetPool, ItemCraftingInfo.Recipe[] recipe)
     {
         targetPool.DespawnAll();
        
-        for (int i = 0; i < recipe.neededItem.Count; i++)
+        for (int i = 0; i < recipe.Length; i++)
         {
             var targetSlot = targetPool.Spawn(recipeSlotRoot);
             
-            targetSlot.Init(recipe.neededItem[i].data as BuildingItemDataSO, recipe.neededItem[i].amount);
+            targetSlot.Init(recipe[i].data , recipe[i].amount);
             
         }
     }

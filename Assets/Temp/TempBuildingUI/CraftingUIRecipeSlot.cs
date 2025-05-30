@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class CraftingUIRecipeSlot : MonoBehaviour, IPoolable
 {
-    public BuildingItemDataSO Item { get; private set; }
+    public ItemDataSO Item { get; private set; }
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
@@ -14,7 +14,7 @@ public class CraftingUIRecipeSlot : MonoBehaviour, IPoolable
     private int _maxCount;
     private int _curCount;
 
-    public void Init(BuildingItemDataSO item, int count)
+    public void Init(ItemDataSO item, int count)
     {
         Item = item;
         
