@@ -11,12 +11,7 @@ public enum ItemType
     Building
 }
 
-public enum ConsumType
-{
-    health,
-    water,
-    hunger,
-}
+
 
 public abstract class ItemData : ScriptableObject
 {

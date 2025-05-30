@@ -3,12 +3,9 @@ using UnityEngine;
 
 public class EquippedConsume : EquippedItem
 {
-    public override ItemDataSO ItemData => _itmeData;
-    
     [SerializeField] private Animator animator;
     
-    private ConsumeItemDataSO _itmeData;
-
+    
     private PlayerCondition _targetCondition;
     
     private bool _isRunning;
@@ -17,7 +14,7 @@ public class EquippedConsume : EquippedItem
     
     public override void Equip(GameObject user, ItemDataSO itemData)
     {
-        _itmeData = itemData as ConsumeItemDataSO;
+        ItemData = itemData;
 
         if (user.TryGetComponent(out PlayerCondition condition))
         {
@@ -31,6 +28,8 @@ public class EquippedConsume : EquippedItem
     
     public override bool TryUse(EquippedController.InputState inputState)
     {
+        if (!ItemData.IsConsumeItem) return false;
+        
         switch (inputState)
         {
             case EquippedController.InputState.Down :
@@ -53,9 +52,11 @@ public class EquippedConsume : EquippedItem
 
     public void FinishConsume()
     {
-        for (int i = 0; i < _itmeData.Infos.Length; i++)
+        var states = ItemData.ConsumeInfo.states;
+        
+        for (int i = 0; i < states.Length; i++)
         {
-            var info = _itmeData.Infos[i];
+            var info = states[i];
 
             switch (info.consumetype)
             {

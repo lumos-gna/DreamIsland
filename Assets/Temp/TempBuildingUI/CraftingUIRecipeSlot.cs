@@ -3,23 +3,25 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class BuildingUISlot : MonoBehaviour, IPoolable
+public class CraftingUIRecipeSlot : MonoBehaviour, IPoolable
 {
     public ItemDataSO Item { get; private set; }
 
     [SerializeField] private Image icon;
     [SerializeField] private TextMeshProUGUI nameText;
-    [SerializeField] private Button button;
+    [SerializeField] private TextMeshProUGUI countText;
 
-    public void Init(ItemDataSO item, UnityAction onBtnClick)
+    private int _maxCount;
+    private int _curCount;
+
+    public void Init(ItemDataSO item, int count)
     {
         Item = item;
         
         nameText.text = item.DisplayName;
-        
-        button.onClick.AddListener(onBtnClick);
-    }
 
+        countText.text = count.ToString();
+    }
 
     public void OnSpawn() =>  gameObject.SetActive(true);
 

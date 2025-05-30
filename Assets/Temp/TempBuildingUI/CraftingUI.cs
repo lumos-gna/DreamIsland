@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class BuildingUI : BaseUI
+public class CraftingUI : BaseUI
 {
-    [SerializeField] private BuildingUISlot slotPrefab;
-    [SerializeField] private BuildingUIRecipeSlot reicpeSlotPrefab;
+    [SerializeField] private CraftingUISlot slotPrefab;
+    [SerializeField] private CraftingUIRecipeSlot reicpeSlotPrefab;
     [SerializeField] private RectTransform itemSlotRoot;
     [SerializeField] private RectTransform recipeSlotRoot;
     
@@ -13,7 +11,7 @@ public class BuildingUI : BaseUI
     [SerializeField] private ItemDataTableSO buildingItemDataTable;
 
 
-    private BuildingUISlot _selectedSlot;
+    private CraftingUISlot _selectedSlot;
     private CanvasGroup _canvasGroup;
 
     private void Awake()
@@ -46,7 +44,7 @@ public class BuildingUI : BaseUI
         
         for (int i = 0; i < buildingItemDataTable.ItemDatas.Length; i++)
         {
-            var targetItem = buildingItemDataTable.ItemDatas[i] as BuildingItemDataSO;
+            var targetItem = buildingItemDataTable.ItemDatas[i];
 
             var targetSlot = slotPool.Spawn(itemSlotRoot);
             
@@ -54,20 +52,20 @@ public class BuildingUI : BaseUI
             {
                 _selectedSlot = targetSlot;
                 
-                ShowRecipe(recipePool, targetItem.CraftingRecipe);
+                ShowRecipe(recipePool, targetItem.CraftingInfo.recipes);
             });
         }
     }
 
-    public void ShowRecipe(ObjectPool<BuildingUIRecipeSlot> targetPool, CraftingRecipe recipe)
+    public void ShowRecipe(ObjectPool<CraftingUIRecipeSlot> targetPool, ItemCraftingInfo.Recipe[] recipe)
     {
         targetPool.DespawnAll();
        
-        for (int i = 0; i < recipe.neededItem.Count; i++)
+        for (int i = 0; i < recipe.Length; i++)
         {
             var targetSlot = targetPool.Spawn(recipeSlotRoot);
             
-            targetSlot.Init(recipe.neededItem[i].data as BuildingItemDataSO, recipe.neededItem[i].amount);
+            targetSlot.Init(recipe[i].data , recipe[i].amount);
             
         }
     }
