@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
     private Rigidbody _rigidbody;
 
     [Header("Footstep Settings")]            // 효과음용 추가
-    [SerializeField] private int playerSound;  
+    [SerializeField] private int playerSound;
+    [SerializeField] private int playerJumpSound;
     [SerializeField] private float playerSoundInterval = 0.5f; // 걸음 소리 간격
     private float footstepTimer = 0f;
 
@@ -124,6 +125,11 @@ public class PlayerController : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started && CanJump())
         {
+            // 효과음 재생
+            playerJumpSound = 14;
+            AudioManager.SetEffectVolume(0.5f); 
+            AudioManager.PlayEffectSound(playerJumpSound);
+
             _rigidbody.AddForce(Vector2.up * jump, ForceMode.Impulse);
         }
     }
