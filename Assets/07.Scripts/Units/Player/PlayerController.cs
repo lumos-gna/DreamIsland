@@ -159,4 +159,19 @@ public class PlayerController : MonoBehaviour
         Cursor.lockState = ispopon ? CursorLockMode.None : CursorLockMode.Locked;
         canlook = !ispopon;
     }
+    
+    public void LookAtFairy()
+    {
+        if (QuestManager.Instance.npcManager.model.transform == null) return;
+
+        Vector3 direction = QuestManager.Instance.npcManager.model.transform.position - transform.position;
+    
+        if (direction.sqrMagnitude > 0.001f) 
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(direction);
+            transform.rotation = lookRotation;
+        }
+
+        QuestManager.Instance.npcManager.TalkWithFairy();
+    }
 }

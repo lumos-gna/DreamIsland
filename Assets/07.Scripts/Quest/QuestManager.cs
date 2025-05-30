@@ -9,7 +9,8 @@ public class QuestManager : Singleton<QuestManager>
 {
     public GameObject questList;
     public GameObject questCell;
-    
+
+    public NpcManager npcManager;
     public QuestCellFactory questCellFactory;
     
     private List<Quest> _acceptedQuestList = new();
@@ -118,6 +119,11 @@ public class QuestManager : Singleton<QuestManager>
                 countText.text = $"{quest.Count} / {quest.goal}";
             }
         }
+    }
+
+    public void ChangeData(Region region)
+    {
+        npcManager.ChangeData(region);
     }
 
     //테스트용
