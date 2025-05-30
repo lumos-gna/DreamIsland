@@ -39,7 +39,7 @@ public abstract class ItemData : ScriptableObject
     public int AttackRange;
 
     [Header("GatherResource")]
-    public int resourcesDamage;
+    public int objectDamage;
 
     [Header("Consume")]
     public ConsumType consumetype;

@@ -6,7 +6,8 @@ using UnityEngine;
 public class BuildingObject : MonoBehaviour
 {
    public bool IsSnappable => snapPoints.Length > 0;
-   
+
+   [SerializeField] private Collider coll;
    [SerializeField] private MeshRenderer meshRenderer;
    [SerializeField] private Material builtMaterial;
    [SerializeField] private Material fadeMaterial;
@@ -17,6 +18,8 @@ public class BuildingObject : MonoBehaviour
 
    public void Init()
    {
+      coll.enabled = false;
+      
       meshRenderer.material = fadeMaterial;
       
       gameObject.layer = 2;
@@ -28,6 +31,8 @@ public class BuildingObject : MonoBehaviour
 
    public void Built()
    {
+      coll.enabled = true;
+      
       meshRenderer.material = builtMaterial;
       
       gameObject.layer =  0;

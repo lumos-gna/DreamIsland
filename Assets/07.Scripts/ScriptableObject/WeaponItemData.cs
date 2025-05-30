@@ -20,4 +20,7 @@ public class WeaponItemData : ItemData
 {
     [Header("Weapon attribute")]
     public WeaponItem[] weapons;
+
+    
+    [SerializeField] private CraftingRecipe craftingRecipe;
 }
