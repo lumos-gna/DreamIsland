@@ -1,11 +1,16 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
     public bool IsLockedCursor { get; private set; }
 
     public Inventory Inventory { get; private set; }
+
+    private PlayerCondition _playerCondition;
+
+    private string startscenename = "StartScene";
 
     private void Awake()
     {
@@ -22,11 +27,39 @@ public class GameManager : Singleton<GameManager>
 
         UIManager.Instance.Disable<InventoryUI>();
         UIManager.Instance.Disable<CraftingUI>();
+        UIManager.Instance.Disable<GameOverUI>();
     }
 
     public void ToggleCursor(bool isLock)
     {
         IsLockedCursor = isLock;
         Cursor.lockState = isLock ? CursorLockMode.Locked : CursorLockMode.None;
+    }
+
+    public void GameOver()
+    {
+        Time.timeScale = 0f; // 시간을 멈추고
+        ToggleCursor(false); // 커서를 보이게 함
+        UIManager.Instance.Get<GameOverUI>()?.Enable(); // 게임종료 UI on
+    }
+
+    public void ReStart()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToStartScene()
+    {
+        SceneManager.LoadScene(startscenename);
+    }
+
+    public void Exit()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+
     }
 }
