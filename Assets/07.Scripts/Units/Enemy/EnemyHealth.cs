@@ -11,9 +11,13 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private ConditionHandler _conditionHandler;
     [SerializeField] private ParticleSystem _damageParticle;
     private BaseEnemy _baseEnemy;
-    
+    private int _damage;
     public event Action<float, float> OnHealthChanged;
 
+    public void SetDamage(int damage)
+    {
+        _damage = damage;
+    }
     private void Awake()
     {
         
@@ -51,7 +55,8 @@ public class EnemyHealth : MonoBehaviour
         {
             _helathBarSprite.gameObject.SetActive(true);
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
-            _healthBar.DamageText(2); // 여기에 플레이어 데미지 넣기
+            Debug.Log(_conditionHandler.CurHealth);
+            _healthBar.DamageText(_damage); // 여기에 플레이어 데미지 넣기
         }
         Animator anim = _baseEnemy.GetAnimator();
 

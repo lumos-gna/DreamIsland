@@ -38,6 +38,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     // Player는 나중에 지우기
     public GameObject GetPlayer() => _player;
     public EnemyType GetEnemyType() => _type;
+    public EnemyHealth GetEnemyHealth() => _enemyHealth;
 
     // 적 관련
     public virtual FleeEnemyStats FleeEnemyStats => null;
