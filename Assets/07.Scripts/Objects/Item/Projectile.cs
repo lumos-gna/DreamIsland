@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IPoolable
@@ -14,6 +14,18 @@ public class Projectile : MonoBehaviour, IPoolable
 
     private float _damage;
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            if (other.TryGetComponent<PlayerCondition>(out var condition))
+            {
+                condition.HealthChange(-_damage);
+            }
+        }
+
+        Destroy(gameObject, 1f);
+    }
 
     public void Fire(Projectile originPrefab, Vector3 point,  Vector3 dir, float force, float damage)
     {
