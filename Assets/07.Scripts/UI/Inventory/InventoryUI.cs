@@ -8,7 +8,7 @@ public class InventoryUI : BaseUI
 {
     public override bool IsEnabled => inventoryWindow.activeInHierarchy;
 
-    
+
     public GameObject inventoryWindow;
     public Transform slotPanel;
     public Transform handleSlotPanel;   // 인벤토리 퀵슬롯 부모
@@ -22,8 +22,12 @@ public class InventoryUI : BaseUI
     private Inventory _inventory;
 
 
+
+
+    /// </summary>
+    //테스트용 코드
     [SerializeField] private ItemData[] testItem;
-    
+
     public void TestAdditem()
     {
         if (Input.GetKeyDown(KeyCode.Q))
@@ -34,7 +38,6 @@ public class InventoryUI : BaseUI
             }
         }
     }
-
 
     public override void Init()
     {
@@ -101,7 +104,7 @@ public class InventoryUI : BaseUI
     private void Update()
     {
         TestAdditem();
-        
+
         if (!summaryBox.activeSelf) return;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(

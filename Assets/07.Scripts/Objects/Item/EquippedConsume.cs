@@ -3,47 +3,43 @@ using UnityEngine;
 
 public class EquippedConsume : EquippedItem
 {
-    private Inventory _inventory;
-    
+    private static readonly int IsUse = Animator.StringToHash("IsUse");
+
     private PlayerCondition _targetCondition;
     
     private bool _isRunning;
     
-    private readonly int _consume = Animator.StringToHash("Consume");
-    
-    public override void Equip(GameObject user, ItemData itemData)
+    public override void Equip(EquippedController controller, ItemData itemData)
     {
-        base.Equip(user, itemData);
+        base.Equip(controller, itemData);
         
-        _inventory = GameManager.Instance.Inventory;
-        
-        _targetCondition = user.GetComponent<PlayerCondition>();
+        _targetCondition = controller.GetComponent<PlayerCondition>();
     }
     
+    
+    public override void Use()
+    {
+        if (!ItemData.IsConsumable) return;
 
-    public override void UnEquip()
-    {
-    }
-    
-    
-    public override bool TryUse(EquippedController.InputState inputState)
-    {
-        if (!ItemData.IsConsumable) return false;
-        
-        switch (inputState)
+        if (_controller.IsInputDown)
         {
-            case EquippedController.InputState.Down :
-                if (!_isRunning)
-                {
-                    _isRunning = true;
-                    _animator.SetTrigger(_consume);
-
-                    return true;
-                }
-                break;
+            if (!_isRunning)
+            {
+                _isRunning = true;
+                
+                _animator.SetBool(IsUse, true);
+            }
         }
-
-        return false;
+        
+        if (_controller.IsInputUp)
+        {
+            if (_isRunning)
+            {
+                _isRunning = false;
+                
+                _animator.SetBool(IsUse, false);
+            }
+        }
     }
     
 
@@ -55,8 +51,6 @@ public class EquippedConsume : EquippedItem
     public void FinishConsume()
     {
         var states = ItemData.ConsumeInfo.states;
-
-        bool isSuccess = false;
         
         for (int i = 0; i < states.Length; i++)
         {
@@ -65,21 +59,23 @@ public class EquippedConsume : EquippedItem
             switch (info.type)
             {
                 case ConditionType.health :
-                    isSuccess = true;
                     _targetCondition.HealthChange(info.value);
                     break;
                 case ConditionType.water :
-                    isSuccess = true;
                     _targetCondition.WaterChange(info.value);
                     break;
             }
         }
 
-        if (isSuccess)
-        {
-            _inventory.DecreaseItem(ItemData);
-        }
+        _animator.SetBool(IsUse, false);
 
+        _controller.Inventory.DecreaseItem(ItemData);
+            
+        if(_controller.CurSlot.quantity == 0)
+        {
+            UnEquip();
+        }
+        
         _isRunning = false;
     }
 }

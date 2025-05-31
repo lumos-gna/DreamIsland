@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class Projectile : MonoBehaviour, IPoolable
@@ -12,8 +12,22 @@ public class Projectile : MonoBehaviour, IPoolable
     
     private float _curLifeTime;
 
+    private float _damage;
 
-    public void Fire(Projectile originPrefab, Vector3 point,  Vector3 dir, float force)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            if (other.TryGetComponent<PlayerCondition>(out var condition))
+            {
+                condition.HealthChange(-_damage);
+            }
+        }
+
+        Destroy(gameObject, 1f);
+    }
+
+    public void Fire(Projectile originPrefab, Vector3 point,  Vector3 dir, float force, float damage)
     {
         _originPrefab = originPrefab;
         
@@ -22,6 +36,8 @@ public class Projectile : MonoBehaviour, IPoolable
         transform.forward = dir;
 
         rigid.AddForce(force * dir, ForceMode.Impulse);
+
+        _damage = damage;
     }
 
     private void Update()
@@ -43,6 +59,8 @@ public class Projectile : MonoBehaviour, IPoolable
 
     public void OnDespawn()
     {
+        rigid.velocity = Vector3.zero;
+        
         gameObject.SetActive(false);
     }
 }

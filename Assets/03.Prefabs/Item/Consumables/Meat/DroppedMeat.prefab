@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 5824993266530020811}
   - component: {fileID: 2332801044318377794}
   - component: {fileID: 5636184673555841569}
-  - component: {fileID: 1548151053208456452}
+  - component: {fileID: 4490694733779444158}
   - component: {fileID: 6293656497516245314}
+  - component: {fileID: 384765123173258952}
   m_Layer: 20
   m_Name: DroppedMeat
   m_TagString: Untagged
@@ -29,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 6214416610323284472}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.5, y: -2, z: 5}
-  m_LocalScale: {x: 5, y: 5, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,8 +86,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &1548151053208456452
-BoxCollider:
+--- !u!64 &4490694733779444158
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -103,9 +104,10 @@ BoxCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.1994882, y: 0.03437403, z: 0.27965164}
-  m_Center: {x: 0.0033741668, y: -0.00019275025, z: 0.029277995}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: 927ea813edf24484b802bb85e94087a5, type: 2}
 --- !u!114 &6293656497516245314
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -119,3 +121,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testItemData: {fileID: 11400000, guid: 576ffb1c849bfca4cb0651728fe55637, type: 2}
+--- !u!114 &384765123173258952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214416610323284472}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0.9982565, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []

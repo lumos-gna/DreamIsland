@@ -176,7 +176,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
             inventory.handleSlots[other.index].quantity = other.quantity;
         }
 
-
         inventory.ForceSync();
     }
 

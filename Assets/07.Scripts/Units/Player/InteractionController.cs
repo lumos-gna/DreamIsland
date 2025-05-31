@@ -12,8 +12,9 @@ public class InteractionController : MonoBehaviour
     
     
     private IInteractable _curInteractable;  
+    private IInteractable _previousInteractable;  
     
-    private GameObject _curInteractGameObject; 
+    private GameObject _previousHitObj; 
 
     private Camera _camera;
     
@@ -34,32 +35,38 @@ public class InteractionController : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hit, maxCheckDistance))
             {
-                if(hit.collider.gameObject != _curInteractGameObject)
+                if (hit.collider.gameObject != _previousHitObj)
                 {
-                    _curInteractGameObject = hit.collider.gameObject;
+                    _previousHitObj =  hit.collider.gameObject;
                     
                     _curInteractable = hit.collider.GetComponent<IInteractable>();
-                    
-                    //SetPromptText();
                 }
             }
             else
             {
-                _curInteractGameObject = null;
-                
                 _curInteractable = null;
-                
-                //promptText.gameObject.SetActive(false);
+
+                _previousHitObj = null;
             }
+        }
+
+        if (_previousInteractable != _curInteractable)
+        {
+            if (_previousInteractable != null)
+            {
+                _previousInteractable.Outline.enabled = false;
+            }
+
+            if (_curInteractable != null)
+            {
+                _curInteractable.Outline.enabled = true;
+            }
+
+            _previousInteractable = _curInteractable;
         }
     }
 
-    private void SetPromptText()
-    {
-        promptText.gameObject.SetActive(true);
-        
-        promptText.text = _curInteractable.GetInteractPrompt();
-    }
+
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
@@ -67,11 +74,9 @@ public class InteractionController : MonoBehaviour
         {
             _curInteractable.OnInteract();
             
-            _curInteractGameObject = null;
-            
             _curInteractable = null;
-            
-            //promptText.gameObject.SetActive(false);
+
+            _previousHitObj = null;
         }
     }
 }
