@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6432856290451828937}
   - component: {fileID: 1794498669935860106}
   - component: {fileID: 3610261798078305672}
-  - component: {fileID: -7831172774459949786}
+  - component: {fileID: -1443023328661768492}
   - component: {fileID: -5531287765296335487}
-  m_Layer: 12
+  m_Layer: 20
   m_Name: DroppedWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29,8 +29,8 @@ Transform:
   m_GameObject: {fileID: 4071389414857159063}
   serializedVersion: 2
   m_LocalRotation: {x: 0.03333447, y: 0.61325574, z: -0.025917491, w: 0.78875506}
-  m_LocalPosition: {x: 1.5, y: -1, z: 2}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.48}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -85,8 +85,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &-7831172774459949786
-BoxCollider:
+--- !u!64 &-1443023328661768492
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -100,12 +100,13 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.26179877, y: 5.8564653, z: 2.1192615}
-  m_Center: {x: 0.0000003874302, y: 0, z: 0}
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: fd52a022fdec9114c8b5033b2ee1eeed, type: 2}
 --- !u!114 &-5531287765296335487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -118,4 +119,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3aa552611a0aac240be93c7b65ef974d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testItemData: {fileID: 0}
+  testItemData: {fileID: 11400000, guid: 40e839710dc1693429e7f8419253b04d, type: 2}

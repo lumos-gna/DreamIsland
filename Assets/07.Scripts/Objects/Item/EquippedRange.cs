@@ -3,71 +3,77 @@ using UnityEngine;
 
 public class EquippedRange : EquippedItem
 {
+    private static readonly int IsDraw = Animator.StringToHash("IsDraw");
+    private static readonly int TriggerFire = Animator.StringToHash("TriggerFire");
+    
     private bool _isFinishDraw;
     private bool _isDrawing;
     
-    private readonly int _isDraw = Animator.StringToHash("IsDraw");
-    private readonly int _shoot = Animator.StringToHash("Shoot");
-
-    public override void UnEquip()
+    
+    public override void Use()
     {
-    }
+        if (!ItemData.IsRangeItem) 
+            return;
 
-    public override bool TryUse(EquippedController.InputState inputState)
-    {
-        if (!ItemData.IsRangeItem) return false;
-        
-        
-        switch (inputState)
+
+        if (_controller.IsInputDown)
         {
-            case EquippedController.InputState.Down :
-                
-                if (!_isDrawing)
-                {
-                    _isDrawing = true;
+            if (_controller.Inventory.FindSlot((slot) => slot.item == ItemData.RangeInfo.projectileItemData) == null)
+                return;
             
-                    _animator.SetBool(_isDraw, true);
-                }
-                
-                break;
+            if (!_isDrawing)
+            {
+                _isDrawing = true;
             
-            case EquippedController.InputState.Up :
-                
-                if (_isFinishDraw)
-                {
-                    Shoot();
-                }
-                else
-                {
-                    _animator.SetBool(_isDraw, false);
-                }
-
-                _isDrawing = false;
-
-                return true;
+                _animator.SetBool(IsDraw, true);
+            }
         }
 
-        return false;
+        if (_controller.IsInputUp)
+        {
+            if (_isFinishDraw)
+            {
+                Fire();
+            }
+            else
+            {
+                _animator.SetBool(IsDraw, false);
+                
+                _isDrawing = false;
+            }
+
+        }
     }
 
     public void OnFinishDraw() => _isFinishDraw = true;
 
-
-    void Shoot()
+    public void OnFinishFire()
     {
-        Vector3 dir = Camera.main.transform.forward;
+        _animator.SetBool(IsDraw, false);
+        
+        _isDrawing = false;
+
+    }
+
+
+    void Fire()
+    {
+        Vector3 camDir = Camera.main.transform.forward;
 
 
         var prefab = ItemData.RangeInfo.projectilePrefab;
 
         var pool = PoolManager.Instance.GetPool(prefab);
         
-        pool.Spawn(null).Fire(prefab, transform.position + dir * 0.5f, dir, ItemData.RangeInfo.fireForce);
+        pool.Spawn(null).Fire(prefab, transform.position + camDir, camDir, ItemData.RangeInfo.fireForce);
         
         
-        _animator.SetTrigger(_shoot);
+        _animator.SetTrigger(TriggerFire);
 
         _isFinishDraw = false;
+        
+        
+        _controller.Inventory.DecreaseItem(ItemData.RangeInfo.projectileItemData);
     }
    
 }

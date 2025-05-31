@@ -21,20 +21,26 @@ public class InventoryUI : BaseUI
 
     private Inventory _inventory;
 
-
-    [SerializeField] private ItemData[] testItem;
     
-    public void TestAdditem()
+    
+
+/// </summary>
+//테스트용 코드
+[SerializeField] private ItemData[] testItem;
+    
+public void TestAdditem()
+{
+    if (Input.GetKeyDown(KeyCode.Q))
     {
-        if (Input.GetKeyDown(KeyCode.Q))
+        for (int i = 0; i < testItem.Length; i++)
         {
-            for (int i = 0; i < testItem.Length; i++)
-            {
-                _inventory.AddItem(testItem[i]);
-            }
+            _inventory.AddItem(testItem[i]);
         }
     }
-
+}
+/// </summary>
+    
+    
 
     public override void Init()
     {

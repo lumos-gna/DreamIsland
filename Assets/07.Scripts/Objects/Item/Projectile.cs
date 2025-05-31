@@ -43,6 +43,8 @@ public class Projectile : MonoBehaviour, IPoolable
 
     public void OnDespawn()
     {
+        rigid.velocity = Vector3.zero;
+        
         gameObject.SetActive(false);
     }
 }

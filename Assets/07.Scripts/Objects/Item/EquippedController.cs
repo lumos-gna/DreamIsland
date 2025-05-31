@@ -4,51 +4,49 @@ using UnityEngine.InputSystem;
 
 public class EquippedController : MonoBehaviour
 {
-    public enum InputState
-    {
-        Up,
-        Down
-    }
+    public EquippedItem CurEquippedItem { get; private set; }
+    public ItemSlot CurSlot { get; private set; }
+    public Inventory Inventory { get; private set; }
+
+    public bool IsInputDown { get; private set; }
+    public bool IsInputUp { get; private set; }
+    
+ 
     
     [SerializeField] private Transform equipParent;
+
     
-    public EquippedItem CurEquippedItem { get; set; }
-
-    private InputState _inputState = InputState.Up;
-
-    private Inventory _inventory;
-    private ItemSlot _curSlot;
 
     private void Start()
     {
-        _inventory = GameManager.Instance.Inventory;
+        Inventory = GameManager.Instance.Inventory;
     }
 
     private void Update()
     {
         if (CurEquippedItem != null)
         {
-            if (CurEquippedItem.TryUse(_inputState))
-            {
-                if (_curSlot.quantity == 0)
-                {
-                    CurEquippedItem.UnEquip();
-                    Destroy(CurEquippedItem.gameObject);
-                }
-            }
+            CurEquippedItem.Use();
         }
+    }
+
+    private void LateUpdate()
+    {
+        IsInputDown = false;
+        IsInputUp = false;
     }
 
 
     public void OnLeftClickInput(InputAction.CallbackContext context)
     {
+        
         switch (context.phase)
         {
             case InputActionPhase.Started:
-                _inputState = InputState.Down;
+                IsInputDown = true;
                 break;
             case InputActionPhase.Canceled:
-                _inputState = InputState.Up;
+                IsInputUp = true;
                 break;
         }
     }
@@ -60,29 +58,27 @@ public class EquippedController : MonoBehaviour
             case InputActionPhase.Started:
                 if (int.TryParse(context.control.name, out int index))
                 {
-                    _curSlot = _inventory.GetQuickSlotToIndex(index - 1);
+                    CurSlot = Inventory.GetQuickSlotToIndex(index - 1);
 
-                    if (_curSlot == null)
+                    if (CurSlot == null)
                     {
                         if (CurEquippedItem == null) return;
                         
                         CurEquippedItem.UnEquip();
-                        Destroy(CurEquippedItem.gameObject);
                     }
                     else
                     {
-                        var slotItem = _curSlot.item;
+                        var slotItem = CurSlot.item;
                         
                         if (CurEquippedItem != null)
                         {
                             if (CurEquippedItem.ItemData == slotItem) return;
                             
                             CurEquippedItem.UnEquip();
-                            Destroy(CurEquippedItem.gameObject);
                         }
                         
                         CurEquippedItem = Instantiate(slotItem.EquippedPrefab, equipParent);
-                        CurEquippedItem.Equip(gameObject, slotItem);
+                        CurEquippedItem.Equip(this, slotItem);
                     }
                 }
                 break;
