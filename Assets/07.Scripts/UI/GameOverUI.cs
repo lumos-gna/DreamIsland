@@ -20,4 +20,24 @@ public class GameOverUI : BaseUI
     {
         gameObject.SetActive(false);
     }
+
+    public void GameOverBtn()
+    {
+        GameManager.Instance.GameOver();
+    }
+
+    public void ReStartBtn()
+    {
+        GameManager.Instance.ReStart();
+    }
+
+    public void GoToStartSceneBtn()
+    {
+        GameManager.Instance.GoToStartScene();
+    }
+
+    public void ExitBtn()
+    {
+        GameManager.Instance.Exit();
+    }
 }
