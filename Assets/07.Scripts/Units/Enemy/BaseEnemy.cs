@@ -195,4 +195,16 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         OnRespawn?.Invoke(this);
     }
 
+    private void QuestCheck()
+    {
+        Animator animator = GetComponent<Animator>();
+        if (animator != null && animator.runtimeAnimatorController != null)
+        {
+            string controllerName = animator.runtimeAnimatorController.name;
+            QuestManager.Instance.QuestPlusCount(controllerName);
+        }
+
+        
+    }
+
 }

@@ -3164,7 +3164,7 @@ MonoBehaviour:
   forestSpawnPoint: {fileID: 827959818}
   desertSpawnPoint: {fileID: 1342808613}
   arcticSpawnPoint: {fileID: 1136252001}
-  playerTransform: {fileID: 0}
+  playerTransform: {fileID: 1670152410}
   initialRegion: 0
 --- !u!4 &221858662
 Transform:
@@ -12513,6 +12513,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8789275722090087210, guid: 9e0fe3ad0f06a6d4fbae4afc00a7d856, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -20534,6 +20538,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a076413f8e7a0bb4b88bbfec50611d33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1670152410 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2639363278354681415, guid: 8b973eead38c94a44819425c29199237, type: 3}
+  m_PrefabInstance: {fileID: 1670152397}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1680215747
 PrefabInstance:
   m_ObjectHideFlags: 0

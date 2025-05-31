@@ -6,14 +6,13 @@ using UnityEngine;
 public class NpcData : ScriptableObject
 {
     public string text;     //대화 시작시 텍스트
-    public NPCDialog[] npcDialog;
+    public NpcDialog[] npcDialog;
     public Quest[] randomQuests;
-    public Quest quests;
+    public Quest mainQuests;
     
 
     private int _currentRandomQuestIndex = 0;
-
-
+    
 
     public DialogueType Type(int selectedDialogue)
     {
@@ -53,23 +52,23 @@ public class NpcData : ScriptableObject
             
             case DialogueType.Quest:     //  메인 퀘스트
                 
-                if (quests.Clear())  //남은 퀘스트가 없으면
+                if (mainQuests.Clear())  //남은 퀘스트가 없으면
                 {
                     return "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
                 }
-                if (QuestManager.Instance.CheckClearQuest(quests.name))             //받았던 퀘스트 클리어시
+                if (QuestManager.Instance.CheckClearQuest(mainQuests.name))             //받았던 퀘스트 클리어시
                 {
                     npcDialog[selectedDialogue].SetCount(0);
                     
-                    return QuestManager.Instance.QuestComplete(quests.name);
+                    return QuestManager.Instance.QuestComplete(mainQuests.name);
                 }
-                else if (QuestManager.Instance.CheckOnOffQuest(quests.name))           //수락한 퀘스트가 있으면
+                else if (QuestManager.Instance.CheckOnOffQuest(mainQuests.name))           //수락한 퀘스트가 있으면
                 {
                     return npcDialog[selectedDialogue].GetText();
                 }
                 else      //수락한 퀘스트가 없으면
                 {
-                    QuestManager.Instance.AcceptQuest(quests);                     //퀘스트 수락
+                    QuestManager.Instance.AcceptQuest(mainQuests);                     //퀘스트 수락
                     npcDialog[selectedDialogue].SetCount(-1);
 
                     return npcDialog[selectedDialogue].GetText();
@@ -86,7 +85,7 @@ public class NpcData : ScriptableObject
 
     public void AllReset()
     {
-        quests.Reset();
+        mainQuests.Reset();
 
         foreach (Quest quest in randomQuests)
         {
@@ -109,11 +108,11 @@ public enum DialogueType
 
 
 [System.Serializable]
-public class NPCDialog
+public class NpcDialog
 {
     public DialogueType type;
     public string buttonName;
-    public NPCDialogText[] npcDialogTexts;
+    public NpcDialogText[] npcDialogTexts;
     
     private int _count = -1;  //대화 순서
 
@@ -149,7 +148,7 @@ public class NPCDialog
 
 
 [System.Serializable]
-public class NPCDialogText
+public class NpcDialogText
 {
     public string text;
     public bool exitButton;
