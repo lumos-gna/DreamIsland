@@ -61,6 +61,10 @@ public class EquippedController : MonoBehaviour
                 {
                     CurSlot = Inventory.GetQuickSlotToIndex(index - 1);
 
+                    if (!CurSlot.item.IsEquippalbe) return;
+                    
+                    
+
                     if (CurSlot == null)
                     {
                         if (CurEquippedItem == null) return;
