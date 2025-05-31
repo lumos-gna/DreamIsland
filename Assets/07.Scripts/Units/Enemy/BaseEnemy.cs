@@ -191,10 +191,12 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 
     public void Die()
     {
+        QuestCheck()
         DropItem();
         OnDespawn();
         OnRespawn?.Invoke(this);
     }
+
 
     public void PlayFootParticle()
     {
@@ -209,4 +211,17 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         if (_footParticle != null && _footParticle.isPlaying)
             _footParticle.Stop();
     }
+
+    private void QuestCheck()
+    {
+        Animator animator = GetComponent<Animator>();
+        if (animator != null && animator.runtimeAnimatorController != null)
+        {
+            string controllerName = animator.runtimeAnimatorController.name;
+            QuestManager.Instance.QuestPlusCount(controllerName);
+        }
+
+        
+    }
+
 }

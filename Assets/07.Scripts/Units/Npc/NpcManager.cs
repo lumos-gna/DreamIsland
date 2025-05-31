@@ -24,7 +24,7 @@ public class NpcManager : MonoBehaviour
         string fullText = npcController.npcData.text;
         npcController.dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
             
-        foreach (NPCDialog npcDialog in npcController.npcData.npcDialog)
+        foreach (NpcDialog npcDialog in npcController.npcData.npcDialog)
         {
             npcDialog.Reset();
         }

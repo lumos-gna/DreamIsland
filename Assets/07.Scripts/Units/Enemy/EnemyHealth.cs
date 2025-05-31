@@ -23,6 +23,7 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
+        
         // 초기 체력 UI 설정
         if (_healthBar != null && _conditionHandler != null)
         {
