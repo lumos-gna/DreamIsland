@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -49,7 +50,10 @@ public class InteractionController : MonoBehaviour
                 _previousHitObj = null;
             }
         }
+    }
 
+    private void LateUpdate()
+    {
         if (_previousInteractable != _curInteractable)
         {
             if (_previousInteractable != null)
@@ -67,7 +71,6 @@ public class InteractionController : MonoBehaviour
     }
 
 
-
     public void OnInteractInput(InputAction.CallbackContext context)
     {
         if(context.phase == InputActionPhase.Started && _curInteractable != null)
@@ -75,6 +78,8 @@ public class InteractionController : MonoBehaviour
             _curInteractable.OnInteract();
             
             _curInteractable = null;
+
+            _previousInteractable = null;
 
             _previousHitObj = null;
         }

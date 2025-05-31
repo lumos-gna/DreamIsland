@@ -4,27 +4,23 @@ using UnityEngine;
 
 public class EatingParticle : MonoBehaviour
 {
-    private ParticleSystem Eating;
-    void Start()
-    {
-        TryGetComponent<ParticleSystem>(out Eating);
-    }
+  [SerializeField] private ParticleSystem eating;
 
     public void StartEating()
     {
-        if(Eating != null)
+        if(eating != null)
         {
-            Eating.transform.position = gameObject.transform.position;
-            Eating.Play();
-            Debug.Log("°í±â ÆÄÆ¼Å¬ ½ÇÇà");
+            eating.transform.position = gameObject.transform.position;
+            eating.Play();
+            Debug.Log("ï¿½ï¿½ï¿½ ï¿½ï¿½Æ¼Å¬ ï¿½ï¿½ï¿½ï¿½");
         }
     }
 
     public void EndEating()
     {
-        if (Eating != null)
+        if (eating != null)
         {
-            Eating.Stop();
+            eating.Stop();
         }
     }
 

@@ -11,10 +11,11 @@ GameObject:
   - component: {fileID: 6432856290451828937}
   - component: {fileID: 1794498669935860106}
   - component: {fileID: 3610261798078305672}
-  - component: {fileID: 6974321825378719963}
-  - component: {fileID: 3110779754353851885}
-  m_Layer: 12
-  m_Name: EquippedWall
+  - component: {fileID: -1443023328661768492}
+  - component: {fileID: -5531287765296335487}
+  - component: {fileID: 6484555838704539770}
+  m_Layer: 20
+  m_Name: DroppedCandle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,13 +29,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4071389414857159063}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.03333447, y: 0.61325574, z: -0.025917491, w: 0.78875506}
-  m_LocalPosition: {x: 1.5, y: -1, z: 2}
-  m_LocalScale: {x: 0.3, y: 0.3, z: 0.48}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 4.84, y: 75.73, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &1794498669935860106
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -42,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4071389414857159063}
-  m_Mesh: {fileID: 4300000, guid: fd52a022fdec9114c8b5033b2ee1eeed, type: 2}
+  m_Mesh: {fileID: 4300000, guid: d00ce1d8897c1c749ae9895245f3d316, type: 2}
 --- !u!23 &3610261798078305672
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -63,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a0efa19cb40c65541bcde6306d1df1d4, type: 2}
+  - {fileID: 2100000, guid: 18c218245541fad4899526576ef62a66, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -85,28 +86,29 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!95 &6974321825378719963
-Animator:
-  serializedVersion: 5
+--- !u!64 &-1443023328661768492
+MeshCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4071389414857159063}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3110779754353851885
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4300000, guid: d00ce1d8897c1c749ae9895245f3d316, type: 2}
+--- !u!114 &-5531287765296335487
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -115,6 +117,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 4071389414857159063}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 02e6fca36fcf4db99a490b552c0b52ee, type: 3}
+  m_Script: {fileID: 11500000, guid: 3aa552611a0aac240be93c7b65ef974d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testItemData: {fileID: 11400000, guid: de04d2570c104b14a816308d74f9e981, type: 2}
+--- !u!114 &6484555838704539770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4071389414857159063}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0.9982565, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
