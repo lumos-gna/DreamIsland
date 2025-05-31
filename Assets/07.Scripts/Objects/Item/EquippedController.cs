@@ -17,6 +17,7 @@ public class EquippedController : MonoBehaviour
     private InputState _inputState = InputState.Up;
 
     private Inventory _inventory;
+    private ItemSlot _curSlot;
 
     private void Start()
     {
@@ -29,8 +30,11 @@ public class EquippedController : MonoBehaviour
         {
             if (CurEquippedItem.TryUse(_inputState))
             {
-                //후에 차징 (활) 처리를 위해 업데이트처리
-                //인벤토리 슬롯 개수 갱신?
+                if (_curSlot.quantity == 0)
+                {
+                    CurEquippedItem.UnEquip();
+                    Destroy(CurEquippedItem.gameObject);
+                }
             }
         }
     }
@@ -56,9 +60,9 @@ public class EquippedController : MonoBehaviour
             case InputActionPhase.Started:
                 if (int.TryParse(context.control.name, out int index))
                 {
-                    var itemData = _inventory.GetQuickSlotItem(index - 1);
+                    _curSlot = _inventory.GetQuickSlotToIndex(index - 1);
 
-                    if (itemData == null)
+                    if (_curSlot == null)
                     {
                         if (CurEquippedItem == null) return;
                         
@@ -67,16 +71,18 @@ public class EquippedController : MonoBehaviour
                     }
                     else
                     {
+                        var slotItem = _curSlot.item;
+                        
                         if (CurEquippedItem != null)
                         {
-                            if (CurEquippedItem.ItemData == itemData) return;
+                            if (CurEquippedItem.ItemData == slotItem) return;
                             
                             CurEquippedItem.UnEquip();
                             Destroy(CurEquippedItem.gameObject);
                         }
                         
-                        CurEquippedItem = Instantiate(itemData.EquipItemPrefab, equipParent);
-                        CurEquippedItem.Equip(gameObject, itemData);
+                        CurEquippedItem = Instantiate(slotItem.EquippedPrefab, equipParent);
+                        CurEquippedItem.Equip(gameObject, slotItem);
                     }
                 }
                 break;

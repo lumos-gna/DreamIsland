@@ -6,6 +6,8 @@ public class EquippedBuilding : EquippedItem
 {
     private BuildingSystem _buildingSystem;
 
+    private BuildingObject _prefab;
+
     private void Update()
     {
         _buildingSystem.UpdateBuildingObject();
@@ -16,14 +18,18 @@ public class EquippedBuilding : EquippedItem
         }
     }
 
-
     public override void Equip(GameObject user, ItemData itemData)
     {
-        ItemData = itemData;
+        base.Equip(user, itemData);
+
+        if (!itemData.IsPlaceable)
+            return;
+        
+        _prefab = ItemData.BuildingInfo.prefab;
         
         _buildingSystem = new();
         
-        _buildingSystem.Create(ItemData.BuildingInfo.buildingObjectPrefab);
+        _buildingSystem.Create(_prefab);
     }
 
     public override void UnEquip()
@@ -38,7 +44,7 @@ public class EquippedBuilding : EquippedItem
             case EquippedController.InputState.Down :
                 if (_buildingSystem.TryBuild())
                 {
-                    _buildingSystem.Create(ItemData.BuildingInfo.buildingObjectPrefab);
+                    _buildingSystem.Create(_prefab);
 
                     return true;
                 }

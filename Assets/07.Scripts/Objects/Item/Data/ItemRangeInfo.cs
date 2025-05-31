@@ -3,7 +3,9 @@
 [System.Serializable]
 public class ItemRangeInfo
 {
-    public float fireForce;
+    public ProjectileType projectileType;
     
     public Projectile projectilePrefab;
+
+    public float fireForce;
 }

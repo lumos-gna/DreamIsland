@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 
 [CreateAssetMenu(fileName = "ItemData", menuName = "ScriptableObjects/Data/Item Data")]
@@ -6,54 +7,76 @@ public class ItemData : ScriptableObject
 {
      public string DisplayName => displayName;
      public string Description => description;
-     public bool IsStackable => maxStackCount > 1;
-     public int MaxStackCount => maxStackCount;
+     
      public Sprite Icon => icon;
-     public DroppedItem DropItemPrefab => dropItemPrefab;
-     public EquippedItem EquipItemPrefab => equipItemPrefab;
 
-     public bool IsConsumeItem => isConsumeItem;
-     public ItemConsumeInfo ConsumeInfo => consumeInfo;
-     public bool IsCraftItem => isCraftItem;
-     public ItemCraftingInfo CraftingInfo => craftingInfo;
+     
+
+     public bool IsStackable => isStackable;
+     public bool IsDroppable => isDroppable;
+     public bool IsEquippalbe => isEquippable;
+     public bool IsConsumable => isConsumable;
+     public bool IsCraftable => isCraftable;
      public bool IsRangeItem => isRangeItem;
-     public ItemRangeInfo RangeInfo => rangeInfo;
      public bool IsMeleeItem => isMeleeItem;
+     public bool IsDamageable => isDamageable;
+     public bool IsPlaceable => isPlaceable;
+
+
+     public int MaxStackCount => maxStackCount;
+     public DroppedItem DroppedPrefab => droppedPrefab;
+     public EquippedItem EquippedPrefab => equippedPrefab;
+     public ItemConsumeInfo ConsumeInfo => consumeInfo;
+     public ItemCraftingInfo CraftingInfo => craftingInfo;
+     public ItemRangeInfo RangeInfo => rangeInfo;
      public ItemMeleeInfo MeleeInfo => meleeInfo;
-     public bool IsDamageItem => isDamageItem;
      public ItemDamageInfo DamageInfo => damageInfo;
-     public bool IsBuildingItem => isBuildingItem;
      public ItemBuildingInfo BuildingInfo => buildingInfo;
+
+
      
-     
-     
+     [Space(10f)]     
      [SerializeField] private string displayName;
      [SerializeField] private string description;
      
      [Space(10f)]
-     [SerializeField] private int maxStackCount;
-     
-     [Space(10f)]
      [SerializeField] private Sprite icon;
      
+   
+     
+     [Space(30f)]
+     
+     
      [Space(10f)]
-     [SerializeField] private DroppedItem dropItemPrefab;
-     [SerializeField] private EquippedItem equipItemPrefab;
-
-
-     [Space(20f)] 
-     [SerializeField] private bool isConsumeItem;
+     [SerializeField] private bool isStackable;
      
-     [BoolShowIf("isConsumeItem")]
-     [SerializeField] private ItemConsumeInfo consumeInfo;
+     [BoolShowIf("isStackable")]
+     [SerializeField] private int maxStackCount;
+
+     [Space(10f)] 
+     [SerializeField] private bool isDroppable;
      
+     
+     [BoolShowIf("isDroppable")]
+     [SerializeField] private DroppedItem droppedPrefab;
      
      [Space(10f)] 
-     [SerializeField] private bool isCraftItem;
+     [SerializeField] private bool isEquippable;
 
-     [BoolShowIf("isCraftItem")]
-     [SerializeField] private ItemCraftingInfo craftingInfo;
+     [BoolShowIf("isEquippable")] 
+     [SerializeField] private  EquippedItem equippedPrefab;
+
+     [Space(10f)] 
+     [SerializeField] private bool isConsumable;
      
+     [BoolShowIf("isConsumable")]
+     [SerializeField] private ItemConsumeInfo consumeInfo;
+     
+     [Space(10f)] 
+     [SerializeField] private bool isCraftable;
+
+     [BoolShowIf("isCraftable")]
+     [SerializeField] private ItemCraftingInfo craftingInfo;
      
      [Space(10f)] 
      [SerializeField] private bool isRangeItem;
@@ -61,24 +84,21 @@ public class ItemData : ScriptableObject
      [BoolShowIf("isRangeItem")]
      [SerializeField] private ItemRangeInfo rangeInfo;
 
-     
      [Space(10f)] 
      [SerializeField] private bool isMeleeItem;
 
      [BoolShowIf("isMeleeItem")]
      [SerializeField] private ItemMeleeInfo meleeInfo;
-
      
      [Space(10f)] 
-     [SerializeField] private bool isDamageItem;
+     [SerializeField] private bool isDamageable;
 
-     [BoolShowIf("isDamageItem")]
+     [BoolShowIf("isDamageable")]
      [SerializeField] private ItemDamageInfo damageInfo;
-
      
      [Space(10f)] 
-     [SerializeField] private bool isBuildingItem;
+     [SerializeField] private bool isPlaceable;
      
-     [BoolShowIf("isBuildingItem")]
+     [BoolShowIf("isPlaceable")]
      [SerializeField] private ItemBuildingInfo buildingInfo;
 }

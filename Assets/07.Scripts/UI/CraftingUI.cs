@@ -105,7 +105,7 @@ public class CraftingUI : BaseUI
             int curAmount = 0;
             
             
-            var inventorySlot = _inventory.GetSlot(needItem);
+            var inventorySlot = _inventory.FindSlot((slot) => slot.item == needItem);
             
             if (inventorySlot != null)
             {

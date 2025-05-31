@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class EquippedConsume : EquippedItem
 {
-    [SerializeField] private Animator animator;
-    
+    private Inventory _inventory;
     
     private PlayerCondition _targetCondition;
     
@@ -14,21 +13,22 @@ public class EquippedConsume : EquippedItem
     
     public override void Equip(GameObject user, ItemData itemData)
     {
-        ItemData = itemData;
-
-        if (user.TryGetComponent(out PlayerCondition condition))
-        {
-            _targetCondition = condition;
-        }
+        base.Equip(user, itemData);
+        
+        _inventory = GameManager.Instance.Inventory;
+        
+        _targetCondition = user.GetComponent<PlayerCondition>();
     }
+    
 
     public override void UnEquip()
     {
     }
     
+    
     public override bool TryUse(EquippedController.InputState inputState)
     {
-        if (!ItemData.IsConsumeItem) return false;
+        if (!ItemData.IsConsumable) return false;
         
         switch (inputState)
         {
@@ -36,7 +36,7 @@ public class EquippedConsume : EquippedItem
                 if (!_isRunning)
                 {
                     _isRunning = true;
-                    animator.SetTrigger(_consume);
+                    _animator.SetTrigger(_consume);
 
                     return true;
                 }
@@ -45,28 +45,39 @@ public class EquippedConsume : EquippedItem
 
         return false;
     }
+    
 
     public void StartConsume()
     {
     }
+    
 
     public void FinishConsume()
     {
         var states = ItemData.ConsumeInfo.states;
+
+        bool isSuccess = false;
         
         for (int i = 0; i < states.Length; i++)
         {
             var info = states[i];
 
-            switch (info.consumetype)
+            switch (info.type)
             {
-                case ConsumType.health :
+                case ConditionType.health :
+                    isSuccess = true;
                     _targetCondition.HealthChange(info.value);
                     break;
-                case ConsumType.water :
+                case ConditionType.water :
+                    isSuccess = true;
                     _targetCondition.WaterChange(info.value);
                     break;
             }
+        }
+
+        if (isSuccess)
+        {
+            _inventory.DecreaseItem(ItemData);
         }
 
         _isRunning = false;

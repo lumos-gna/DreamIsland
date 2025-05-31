@@ -22,13 +22,16 @@ public class InventoryUI : BaseUI
     private Inventory _inventory;
 
 
-    [SerializeField] private ItemData testItem;
+    [SerializeField] private ItemData[] testItem;
     
     public void TestAdditem()
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            _inventory.AddItem(testItem);
+            for (int i = 0; i < testItem.Length; i++)
+            {
+                _inventory.AddItem(testItem[i]);
+            }
         }
     }
 

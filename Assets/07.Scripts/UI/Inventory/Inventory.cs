@@ -29,7 +29,7 @@ public class Inventory
         }
     }
 
-    public ItemData GetQuickSlotItem(int index)
+    public ItemSlot GetQuickSlotToIndex(int index)
     {
         if (index < 0 || index >= handleSlots.Length)
         {
@@ -37,15 +37,7 @@ public class Inventory
             return null;
         }
 
-        var slot = handleSlots[index];
-        
-        if (slot.item == null)
-        {
-            Debug.Log($"{index + 1}번째 퀵슬롯 인덱스에 아이템이 없습니다.");
-            return null;
-        }
-
-        return slot.item;
+        return handleSlots[index];
     }
 
     public void AddItem(ItemData data)
@@ -116,15 +108,18 @@ public class Inventory
         Debug.LogWarning($"[InventoryModel] DecreaseItem 실패 : '{item?.DisplayName}'을 인벤토리에서 찾을 수 없습니다.");
     }
 
-    public ItemSlot GetSlot(ItemData itemData)
+
+    
+    //찾고 싶은 슬롯의 조건을 람다로 넣어주면 됩니다
+    public ItemSlot FindSlot(Func<ItemSlot, bool> slotCondition)
     {
         ItemSlot targetSlot = null;
 
-        targetSlot = itemSlots.FirstOrDefault((slot) => slot.item == itemData);
+        targetSlot = itemSlots.FirstOrDefault(slotCondition);
 
         if (targetSlot == null)
         {
-            targetSlot = handleSlots.FirstOrDefault((slot) => slot.item == itemData);
+            targetSlot = handleSlots.FirstOrDefault(slotCondition);
         }
 
         return targetSlot;

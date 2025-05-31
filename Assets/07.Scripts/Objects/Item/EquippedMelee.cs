@@ -2,8 +2,6 @@
 
 public class EquippedMelee : EquippedItem
 {
-    [SerializeField] private Animator animator;
-
     private Camera _camera;
     
     
@@ -14,9 +12,9 @@ public class EquippedMelee : EquippedItem
     
     public override void Equip(GameObject user, ItemData itemData)
     {
-        _camera = Camera.main;
+        base.Equip(user, itemData);
         
-        ItemData = itemData;
+        _camera = Camera.main;
     }
 
     public override void UnEquip()
@@ -34,7 +32,7 @@ public class EquippedMelee : EquippedItem
                 if (!_isRunning)
                 {
                     _isRunning = true;
-                    animator.SetTrigger(_attack);
+                    _animator.SetTrigger(_attack);
 
                     return true;
                 }
