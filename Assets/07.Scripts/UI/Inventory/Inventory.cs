@@ -1,32 +1,35 @@
 ﻿using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class Inventory
 {
-    public ItemSlotData[] itemSlots;      // 일반 인벤토리
-    public ItemSlotData[] handleSlots;    // 인벤토리 내 퀵슬롯
+    public ItemSlot[] itemSlots;      // 일반 인벤토리
+    public ItemSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
 
     public event UnityAction OnChangedInventory;
+
+    public bool IsFull => itemSlots.FirstOrDefault((slot) => slot.item == null) == null;
 
 
     public Inventory(int itemSlotCount, int handleSlotCount)
     {
-        itemSlots = new ItemSlotData[itemSlotCount];
-        handleSlots = new ItemSlotData[handleSlotCount];
+        itemSlots = new ItemSlot[itemSlotCount];
+        handleSlots = new ItemSlot[handleSlotCount];
 
         for (int i = 0; i < itemSlotCount; i++)
         {
-            itemSlots[i] = new ItemSlotData();
+            itemSlots[i] = new ItemSlot();
         }
 
         for (int i = 0; i < handleSlotCount; i++)
         {
-            handleSlots[i] = new ItemSlotData();
+            handleSlots[i] = new ItemSlot();
         }
     }
 
-    public ItemDataSO GetQuickSlotItem(int index)
+    public ItemSlot GetQuickSlotToIndex(int index)
     {
         if (index < 0 || index >= handleSlots.Length)
         {
@@ -34,18 +37,10 @@ public class Inventory
             return null;
         }
 
-        var slot = handleSlots[index];
-        
-        if (slot.item == null)
-        {
-            Debug.Log($"{index + 1}번째 퀵슬롯 인덱스에 아이템이 없습니다.");
-            return null;
-        }
-
-        return slot.item;
+        return handleSlots[index];
     }
 
-    public void AddItem(ItemDataSO data)
+    public void AddItem(ItemData data)
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
@@ -73,7 +68,7 @@ public class Inventory
         Debug.LogWarning("인벤토리가 가득 찼습니다.");
     }
 
-    public void DecreaseItem(ItemDataSO item)
+    public void DecreaseItem(ItemData item)
     {
         for (int i = 0; i < itemSlots.Length; i++)
         {
@@ -111,6 +106,23 @@ public class Inventory
 
         // 디버깅용 코드
         Debug.LogWarning($"[InventoryModel] DecreaseItem 실패 : '{item?.DisplayName}'을 인벤토리에서 찾을 수 없습니다.");
+    }
+
+
+    
+    //찾고 싶은 슬롯의 조건을 람다로 넣어주면 됩니다
+    public ItemSlot FindSlot(Func<ItemSlot, bool> slotCondition)
+    {
+        ItemSlot targetSlot = null;
+
+        targetSlot = itemSlots.FirstOrDefault(slotCondition);
+
+        if (targetSlot == null)
+        {
+            targetSlot = handleSlots.FirstOrDefault(slotCondition);
+        }
+
+        return targetSlot;
     }
     
     public void ForceSync()

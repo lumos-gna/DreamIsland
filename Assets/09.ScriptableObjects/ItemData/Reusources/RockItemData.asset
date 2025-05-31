@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d187f73a304d96be7e5963cba31fd2, type: 3}
+  m_Name: RockItemData
+  m_EditorClassIdentifier: 
+  displayName: "\uB3CC"
+  description: "\uB3CC\uB3CC!"
+  icon: {fileID: 21300000, guid: 01e53ff5bfb4a2248ab7144ee3dcb8d6, type: 3}
+  isStackable: 1
+  maxStackCount: 99
+  isDroppable: 1
+  droppedPrefab: {fileID: -7712521015498405578, guid: a32d9726487643f43a623f81d01a4d82, type: 3}
+  isEquippable: 1
+  equippedPrefab: {fileID: 4514243386781830718, guid: eba381c93bdb98f498d23ade34d93a60, type: 3}
+  isConsumable: 0
+  consumeInfo:
+    states: []
+  isCraftable: 0
+  craftingInfo:
+    recipes: []
+  isRangeItem: 0
+  rangeInfo:
+    projectileType: 0
+    projectilePrefab: {fileID: 0}
+    fireForce: 0
+  isMeleeItem: 1
+  meleeInfo:
+    range: 5
+  isDamageable: 1
+  damageInfo:
+    unitDamage: 1
+    objectDamage: 1
+  isPlaceable: 0
+  buildingInfo:
+    prefab: {fileID: 0}

@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class FlashUI : BaseUI
 {
+
+    public override bool IsEnabled => _flashImage.gameObject.activeInHierarchy;
+
     [SerializeField] private Image _flashImage;
     [SerializeField] private float _flashSpeed = 0.5f;
     [SerializeField] private float _startAlpha = 0.4f; // 알파 기본값
@@ -15,6 +18,7 @@ public class FlashUI : BaseUI
     {
         //PlayFlash();
     }
+
 
     public override void Init()
     {
