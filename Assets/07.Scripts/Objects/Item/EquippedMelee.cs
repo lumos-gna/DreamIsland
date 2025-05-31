@@ -10,37 +10,26 @@ public class EquippedMelee : EquippedItem
     private readonly int _attack = Animator.StringToHash("Attack");
     
     
-    public override void Equip(GameObject user, ItemData itemData)
+    public override void Equip(EquippedController controller, ItemData itemData)
     {
-        base.Equip(user, itemData);
+        base.Equip(controller, itemData);
         
         _camera = Camera.main;
     }
 
-    public override void UnEquip()
+
+    public override void Use()
     {
-    }
-    
-    public override bool TryUse(EquippedController.InputState inputState)
-    {
-        if (!ItemData.IsMeleeItem) return false;
-        
-        
-        switch (inputState)
+        if (!ItemData.IsMeleeItem) return;
+
+        if (_controller.IsInputDown)
         {
-            case EquippedController.InputState.Down :
-                if (!_isRunning)
-                {
-                    _isRunning = true;
-                    _animator.SetTrigger(_attack);
-
-                    return true;
-                }
-
-                break;
+            if (!_isRunning)
+            {
+                _isRunning = true;
+                _animator.SetTrigger(_attack);
+            }
         }
-
-        return false;
     }
 
     
@@ -50,8 +39,6 @@ public class EquippedMelee : EquippedItem
         
         if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range))
         {
-            Debug.Log("Hit");
-
             if (hit.collider.TryGetComponent(out BaseEnemy enemy))
             {
                 //대상

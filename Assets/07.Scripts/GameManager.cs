@@ -10,16 +10,20 @@ public class GameManager : Singleton<GameManager>
     private void Awake()
     {
         Inventory = new Inventory(itemSlotCount: 21, handleSlotCount: 7);
+        IsLockedCursor = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Start()
     {
-        UIManager.Instance.Create<InventoryUI>();
-        UIManager.Instance.Create<QuickSlotUI>();
-        UIManager.Instance.Create<AimUI>();
-        UIManager.Instance.Create<ConditionUI>();
+        UIManager.Instance.Enable<QuickSlotUI>();
+        UIManager.Instance.Enable<AimUI>();
+        UIManager.Instance.Enable<ConditionUI>();
+
+        UIManager.Instance.Disable<InventoryUI>();
+        UIManager.Instance.Disable<CraftingUI>();
     }
-    
+
     public void ToggleCursor(bool isLock)
     {
         IsLockedCursor = isLock;

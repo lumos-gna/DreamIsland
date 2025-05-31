@@ -367,7 +367,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  maxHealth: 5
+  maxHealth: 10
 --- !u!114 &8013527954734103586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -403,6 +403,7 @@ MonoBehaviour:
     RunSpeed: 5
     DetectDistance: 3
     SpawnTransform: {fileID: 0}
+  _footParticle: {fileID: 0}
   _fleeStats:
     WanderRadius: 15
     FleeDuration: 4

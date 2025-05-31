@@ -30,10 +30,11 @@ MonoBehaviour:
   craftingInfo:
     recipes:
     - data: {fileID: 11400000, guid: 5588759890fca8847bc0f9bb298a2bc3, type: 2}
-      amount: 1
+      amount: 2
   isRangeItem: 0
   rangeInfo:
     projectileType: 0
+    projectileItemData: {fileID: 0}
     projectilePrefab: {fileID: 0}
     fireForce: 0
   isMeleeItem: 0
@@ -43,6 +44,6 @@ MonoBehaviour:
   damageInfo:
     unitDamage: 1
     objectDamage: 1
-  isPlaceable: 0
+  isPlaceable: 1
   buildingInfo:
-    prefab: {fileID: 0}
+    prefab: {fileID: 9051480812400006196, guid: e6f805b19a714074081b6c631c18d4a7, type: 3}

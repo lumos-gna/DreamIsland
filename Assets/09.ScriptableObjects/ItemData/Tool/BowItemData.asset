@@ -34,6 +34,7 @@ MonoBehaviour:
   isRangeItem: 1
   rangeInfo:
     projectileType: 0
+    projectileItemData: {fileID: 11400000, guid: 962a4984621ecb845994b92f64209d91, type: 2}
     projectilePrefab: {fileID: 4646286565260403024, guid: 9d480647294695143b60a4baa6c0e61c, type: 3}
     fireForce: 50
   isMeleeItem: 0

@@ -18,9 +18,9 @@ public class EquippedBuilding : EquippedItem
         }
     }
 
-    public override void Equip(GameObject user, ItemData itemData)
+    public override void Equip(EquippedController controller, ItemData itemData)
     {
-        base.Equip(user, itemData);
+        base.Equip(controller, itemData);
 
         if (!itemData.IsPlaceable)
             return;
@@ -34,23 +34,26 @@ public class EquippedBuilding : EquippedItem
 
     public override void UnEquip()
     {
+        base.UnEquip();
+        
         _buildingSystem.Destroy();
     }
     
-    public override bool TryUse(EquippedController.InputState inputState)
+    public override void Use()
     {
-        switch (inputState)
+        if (_controller.IsInputDown)
         {
-            case EquippedController.InputState.Down :
-                if (_buildingSystem.TryBuild())
+            if (_buildingSystem.TryBuild())
+            {
+                _buildingSystem.Create(_prefab);
+                
+                _controller.Inventory.DecreaseItem(ItemData);
+            
+                if(_controller.CurSlot.quantity == 0)
                 {
-                    _buildingSystem.Create(_prefab);
-
-                    return true;
+                    UnEquip();
                 }
-                break;
+            }
         }
-
-        return false;
     }
 }

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 261503449167194513}
   - component: {fileID: 1202997127901614535}
   - component: {fileID: 818149481169567335}
-  m_Layer: 20
+  m_Layer: 12
   m_Name: EquippedMeat
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 6214416610323284472}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 97c104c83e638f84c96edba539834592, type: 2}
+  m_Controller: {fileID: 9100000, guid: c5f6430876de1cd48a94bca5263d1f78, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

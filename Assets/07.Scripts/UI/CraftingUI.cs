@@ -1,3 +1,4 @@
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,7 +48,12 @@ public class CraftingUI : BaseUI
         
         _craftButton.enabled = false;
         
-        createGuideText.enabled = false;
+        var targetColor = createGuideText.color;
+
+        targetColor.a = 0;
+        
+        createGuideText.color = targetColor;
+        
     }
 
     public override void Disable()
@@ -121,7 +127,13 @@ public class CraftingUI : BaseUI
         
         _craftButton.enabled = isCraftable;
         
-        createGuideText.enabled = isCraftable;
+        
+
+        var targetColor = createGuideText.color;
+        
+        targetColor.a = isCraftable ? 1 : 0;
+        
+        createGuideText.DOColor(targetColor, 0.05f);
     }
 
     void Craft()

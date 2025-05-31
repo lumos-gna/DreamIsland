@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
-public enum UIType { HUD, Popup }
+
 
 public class UIManager : Singleton<UIManager>
 {
@@ -13,52 +14,8 @@ public class UIManager : Singleton<UIManager>
 
     private Dictionary<UIType, Canvas> _canvasDict = new();
 
-    private List<BaseUI> _enabledPopupList = new();
-
-    public BaseUI Create<T>() where T : BaseUI
-    {
-        string targetName = typeof(T).Name;
-
-        if (_createdUIDict.ContainsKey(targetName))
-        {
-            Debug.LogError($"이미 생성된 UI : {targetName}");
-            return null;
-        }
-
-        BaseUI targetUIPrefab = Resources.Load<BaseUI>($"{PrefabPath}{targetName}");
-
-        if (targetUIPrefab == null)
-        {
-            Debug.LogError($"잘못된 프리팹 : {targetName}");
-            return null;
-        }
-
-        BaseUI targetUI = Instantiate(targetUIPrefab);
-
-        _createdUIDict.Add(targetName, targetUI);
-
-        targetUI.Init();
-
-        UIType uiType = targetUI.UIType;
-
-        Canvas parentCanvas = _canvasDict.ContainsKey(uiType)
-            ? _canvasDict[uiType]
-            : CreateCanvas(uiType);
-
-
-        if (parentCanvas == null)
-        {
-            Debug.LogError("캔버스를 찾지 못함");
-            return null;
-        }
-
-        if (uiType == UIType.Popup)
-            targetUI.Disable();
-
-        targetUI.transform.SetParent(parentCanvas.transform, false);
-        
-        return targetUI;
-    }
+    private BaseUI _curPopupUI;
+   
 
     public void Enable<T>() where T : BaseUI
     {
@@ -82,52 +39,105 @@ public class UIManager : Singleton<UIManager>
             }
         }
 
+        if (_curPopupUI != null)
+            return;
+       
+
         targetUI.Enable();
         targetUI.transform.SetAsLastSibling();
 
-
         if (targetUI.UIType == UIType.Popup)
         {
-            if (!_enabledPopupList.Contains(targetUI))
-            {
-                _enabledPopupList.Add(targetUI);
-            }
+            _curPopupUI = targetUI;
         }
+      
     }
 
     public void Disable<T>() where T : BaseUI
     {
         string uiName = typeof(T).Name;
 
+        BaseUI targetUI = null;
+
         if (_createdUIDict.TryGetValue(uiName, out BaseUI ui))
         {
-            ui.Disable();
+            targetUI = ui;
+        }
+        else
+        {
+            targetUI = Create<T>();
+        }
+        
+        targetUI.Disable();
+
+        if (_curPopupUI == targetUI)
+        {
+            if (_curPopupUI.UIType == UIType.Popup)
+            {
+                _curPopupUI = null;
+            }
         }
     }
 
     public void DisablePopup()
     {
-        if (_enabledPopupList.Count > 0)
+        if (_curPopupUI != null)
         {
-            BaseUI target = _enabledPopupList[^1];
+            _curPopupUI.Disable();
 
-            target.Disable();
-
-            _enabledPopupList.Remove(target);
+            _curPopupUI = null;
         }
+    }
+    
+    
+    
+    
+    private BaseUI Create<T>() where T : BaseUI
+    {
+        string targetName = typeof(T).Name;
+
+        if (_createdUIDict.ContainsKey(targetName))
+        {
+            Debug.LogError($"이미 생성된 UI : {targetName}");
+            return null;
+        }
+
+        BaseUI targetUIPrefab = Resources.Load<BaseUI>($"{PrefabPath}{targetName}");
+
+        if (targetUIPrefab == null)
+        {
+            Debug.LogError($"잘못된 프리팹 : {targetName}");
+            return null;
+        }
+
+        BaseUI targetUI = Instantiate(targetUIPrefab);
+
+        _createdUIDict.Add(targetName, targetUI);
+
+        targetUI.Init();
+
+        Canvas canvas = _canvasDict.ContainsKey(targetUI.UIType) ?
+                _canvasDict[targetUI.UIType] :
+                CreateCanvas(targetUI.UIType);
+        
+        targetUI.transform.SetParent(canvas.transform, false);
+        
+        return targetUI;
     }
 
     private Canvas CreateCanvas(UIType uiType)
     {
         Canvas canvasPrefab = Resources.Load<Canvas>(CanvasPrefabPath);
-        Canvas targetCanvas = Instantiate(canvasPrefab);
+        
+        Canvas canvas =  Instantiate(canvasPrefab);
 
-        targetCanvas.gameObject.name = canvasPrefab.gameObject.name + uiType;
-        targetCanvas.sortingOrder = (int)uiType;
+        canvas.sortingOrder = (int)uiType;
 
-        _canvasDict[uiType] = targetCanvas;
+        canvas.GetComponent<CanvasScaler>().referenceResolution = new Vector2(Screen.width , Screen.height);
 
-        return targetCanvas;
+        _canvasDict[uiType] = canvas;
+
+        return canvas;
     }
 
     public bool IsUIEnabled<T>() where T : BaseUI
