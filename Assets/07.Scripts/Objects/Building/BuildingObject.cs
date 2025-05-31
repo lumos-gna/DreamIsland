@@ -1,5 +1,3 @@
-using System;
-using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -7,10 +5,9 @@ public class BuildingObject : MonoBehaviour
 {
    public bool IsSnappable => snapPoints.Length > 0;
 
-   [SerializeField] private Collider coll;
-   [SerializeField] private MeshRenderer meshRenderer;
-   [SerializeField] private Material builtMaterial;
-   [SerializeField] private Material fadeMaterial;
+   
+   [SerializeField] private GameObject buildingObj;
+   [SerializeField] private GameObject previewObj;
    
    [Space(10f)]
    [SerializeField] private BuildingSnapPoint[] snapPoints;
@@ -18,24 +15,18 @@ public class BuildingObject : MonoBehaviour
 
    public void Init()
    {
-      coll.enabled = false;
-      
-      meshRenderer.material = fadeMaterial;
-      
-      gameObject.layer = 2;
+      buildingObj.SetActive(false);
+      previewObj.SetActive(true);
    }
    
    
-   public void UpdateToBuildingState(bool isBuildable) => meshRenderer.enabled = isBuildable;
+   public void UpdateToBuildingState(bool isBuildable) => previewObj.SetActive(isBuildable);
    
 
    public void Built()
    {
-      coll.enabled = true;
-      
-      meshRenderer.material = builtMaterial;
-      
-      gameObject.layer =  0;
+      buildingObj.SetActive(true);
+      previewObj.SetActive(false);
    }
    
 

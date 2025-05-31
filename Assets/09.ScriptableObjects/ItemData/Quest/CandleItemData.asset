@@ -19,7 +19,7 @@ MonoBehaviour:
   maxStackCount: 99
   isDroppable: 1
   droppedPrefab: {fileID: -5531287765296335487, guid: 5e2677c1b11adaa45b4fd094f6680137, type: 3}
-  isEquippable: 1
+  isEquippable: 0
   equippedPrefab: {fileID: 3110779754353851885, guid: 402ca9592bd76b5478249b0e7eb5cca6, type: 3}
   isConsumable: 0
   consumeInfo:
@@ -44,6 +44,6 @@ MonoBehaviour:
   damageInfo:
     unitDamage: 1
     objectDamage: 1
-  isPlaceable: 1
+  isPlaceable: 0
   buildingInfo:
     prefab: {fileID: 9051480812400006196, guid: 0a8a336f0307e5a4596822a3b709d3b1, type: 3}

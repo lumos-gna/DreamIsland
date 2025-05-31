@@ -32,7 +32,7 @@ public class BuildingSystem
     {
         if (_buildingObject != null)
         {
-            float angle = _buildingObject.transform.eulerAngles.y + 45f;
+            float angle = _buildingObject.transform.eulerAngles.y + 90f;
             
             angle = Mathf.Repeat(angle, 360f); 
             
@@ -71,8 +71,11 @@ public class BuildingSystem
         {
             _buildingObject.transform.position = hit.point;
 
-            Snap(hit);
-
+            if (hit.rigidbody != null)
+            {
+                Snap(hit);
+            }
+            
             _isBuildable = true;
         }
 
@@ -82,7 +85,7 @@ public class BuildingSystem
 
     void Snap(RaycastHit hit)
     {
-        if (hit.collider.TryGetComponent(out BuildingObject targetObject))
+        if (hit.rigidbody.TryGetComponent(out BuildingObject targetObject))
         {
             if (targetObject.IsSnappable && _buildingObject.IsSnappable)
             {

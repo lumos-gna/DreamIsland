@@ -42,6 +42,7 @@ GameObject:
   - component: {fileID: 6535458409744504390}
   - component: {fileID: 6973630358278442435}
   - component: {fileID: 7145609551245192430}
+  - component: {fileID: 2115213090535395014}
   m_Layer: 0
   m_Name: Alter
   m_TagString: Untagged
@@ -83,6 +84,8 @@ MonoBehaviour:
   fireEffect: {fileID: 5741547066381711963}
   portalPosition: {fileID: 1631353798548588137}
   portal: {fileID: 3649559027512563046, guid: d9e108c399c4f5b4483ef90985b7c3d4, type: 3}
+  targetItemData: {fileID: 0}
+  targetItemCount: 0
 --- !u!65 &7145609551245192430
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -102,8 +105,26 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 2.146284, z: 1}
-  m_Center: {x: 0, y: 0.57314247, z: 0}
+  m_Size: {x: 1, y: 1.34, z: 1}
+  m_Center: {x: 0, y: 0.7, z: 0}
+--- !u!114 &2115213090535395014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2585215152026405769}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 0.92438126, b: 0, a: 1}
+  outlineWidth: 10
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
 --- !u!1 &4203426113257350279
 GameObject:
   m_ObjectHideFlags: 0
