@@ -1,41 +1,41 @@
-// RandomSpawner.cs
+ï»¿// RandomSpawner.cs
 using UnityEngine;
 using System.Collections.Generic;
 
 public class RandomSpawner : MonoBehaviour
 {
-    [Header("ÇÁ¸®ÆÕ ¸®½ºÆ®")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®")]
     public GameObject[] spawnPrefabs;
 
-    [Header("½ºÆù °³¼ö")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public int spawnCount = 100;
 
-    [Header("½ºÆù ¹Ý°æ (XZ)")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½Ý°ï¿½ (XZ)")]
     public float radius = 50f;
 
-    [Header("·¹ÀÌÄ³½ºÆ® ½ÃÀÛ ³ôÀÌ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public float rayOriginHeight = 100f;
 
-    [Header("ÁöÇü ·¹ÀÌÄ³½ºÆ® ÃÖ´ë °Å¸®")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ä³ï¿½ï¿½Æ® ï¿½Ö´ï¿½ ï¿½Å¸ï¿½")]
     public float rayDistance = 200f;
 
-    [Header("ºÎ¸ð ÄÁÅ×ÀÌ³Ê")]
+    [Header("ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ì³ï¿½")]
     public Transform parentContainer;
 
-    [Header("·£´ý ½ºÄÉÀÏ ¹üÀ§")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     public Vector2 scaleRange = new Vector2(0.8f, 1.3f);
 
-    [Header("³·/¹ã ½ºÆù ¿©ºÎ")]
-    public bool spawnInDay = true;      // ³·¿¡ ½ºÆù
-    public bool spawnInNight = true;    // ¹ã¿¡ ½ºÆù
+    [Header("ï¿½ï¿½/ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
+    public bool spawnInDay = true;      // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public bool spawnInNight = true;    // ï¿½ã¿¡ ï¿½ï¿½ï¿½ï¿½
 
-    [Header("¸®½ºÆù ±â´É (2days ¸¶´Ù Àç½ºÆù)")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (2days ï¿½ï¿½ï¿½ï¿½ ï¿½ç½ºï¿½ï¿½)")]
     public bool enableRespawn = false;
 
-    [Header("½ºÆù È¸ÇÇ ¹Ý°æ")]
+    [Header("ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½ ï¿½Ý°ï¿½")]
     public float avoidRadius = 2f;
 
-    // »ý¼ºµÈ ¿ÀºêÁ§Æ® Á¤º¸
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     public List<EnvironmentSpawnData> spawnedObjects { get; private set; }
         = new List<EnvironmentSpawnData>();
 
@@ -51,12 +51,12 @@ public class RandomSpawner : MonoBehaviour
             return;
         }
 
-        // ³·/¹ã ÀüÈ¯ ÀÌº¥Æ® ±¸µ¶
+        // ï¿½ï¿½/ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½Ìºï¿½Æ® ï¿½ï¿½ï¿½ï¿½
         var cycle = FindObjectOfType<DayNightCycle>();
         if (cycle != null)
             cycle.OnCycleComplete.AddListener(OnCycleComplete);
 
-        // Ã¹ ½ºÆù
+        // Ã¹ ï¿½ï¿½ï¿½ï¿½
         _lastIsDay = DayNightCycle.IsDay;
         HandleCycleChange(_lastIsDay);
     }
@@ -73,7 +73,7 @@ public class RandomSpawner : MonoBehaviour
 
     private void HandleCycleChange(bool isDay)
     {
-        // ³·¡¤¹ã µÑ ´Ù ÄÑÁö¸é, ÃÖÃÊ ÇÑ ¹ø¸¸ SpawnAll, ÀüÈ¯ ½Ã¿£ ¾Æ¹« ÀÛ¾÷ ¾È ÇÔ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ SpawnAll, ï¿½ï¿½È¯ ï¿½Ã¿ï¿½ ï¿½Æ¹ï¿½ ï¿½Û¾ï¿½ ï¿½ï¿½ ï¿½ï¿½
         if (spawnInDay && spawnInNight)
         {
             if (spawnedObjects.Count == 0)
@@ -81,12 +81,12 @@ public class RandomSpawner : MonoBehaviour
             return;
         }
 
-        // ±âÁ¸¿¡ »Ñ·ÁÁø °Í »èÁ¦
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ñ·ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (var sd in spawnedObjects)
             if (sd != null) Destroy(sd.gameObject);
         spawnedObjects.Clear();
 
-        // ¼³Á¤µÈ ½Ã°£´ë¿¡¸¸ ½ºÆù
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ë¿¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         if ((isDay && spawnInDay) || (!isDay && spawnInNight))
             SpawnAll();
     }
@@ -95,12 +95,12 @@ public class RandomSpawner : MonoBehaviour
     {
         if (!enableRespawn) return;
 
-        // ³·¡æ¹ã¡æ³· ¶Ç´Â ¹ã¡æ³·¡æ¹ã, Áï 2¹ø ÀüÈ¯ ÈÄ
+        // ï¿½ï¿½ï¿½ï¿½ï¿½æ³· ï¿½Ç´ï¿½ ï¿½ï¿½æ³·ï¿½ï¿½ï¿½, ï¿½ï¿½ 2ï¿½ï¿½ ï¿½ï¿½È¯ ï¿½ï¿½
         _cycleCount++;
         if (_cycleCount < 2) return;
         _cycleCount = 0;
 
-        // ÆÄ±«µÈ °Í¸¸ ´Ù½Ã ½ºÆù
+        // ï¿½Ä±ï¿½ï¿½ï¿½ ï¿½Í¸ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½
         foreach (var info in EnvironmentSpawnData.destroyedList)
         {
             var prefab = spawnPrefabs[info.prefabIndex];
@@ -110,7 +110,7 @@ public class RandomSpawner : MonoBehaviour
                                         parentContainer);
             go.transform.localScale = info.scale;
 
-            // ´Ù½Ã ÃßÀû ´ë»óÀ¸·Î µî·Ï
+            // ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             var sd = go.AddComponent<EnvironmentSpawnData>();
             sd.InitializeAsLanded(
                 info.prefabIndex,
@@ -121,7 +121,7 @@ public class RandomSpawner : MonoBehaviour
             spawnedObjects.Add(sd);
         }
 
-        // ±â·Ï ÃÊ±âÈ­
+        // ï¿½ï¿½ï¿½ ï¿½Ê±ï¿½È­
         EnvironmentSpawnData.destroyedList.Clear();
     }
 

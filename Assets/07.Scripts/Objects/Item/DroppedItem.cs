@@ -1,11 +1,22 @@
 ﻿using System;
 using UnityEngine;
 
+
 public class DroppedItem : MonoBehaviour, IInteractable
 {
+    public Outline Outline => _outline;
+
+    private Outline _outline;
+
+    private void Awake()
+    {
+        _outline = GetComponent<Outline>();
+    }
+
+    
     //테스트용
     [SerializeField] private ItemData testItemData;
-
+   
     private void Start()
     {
         Init(testItemData);
@@ -20,11 +31,7 @@ public class DroppedItem : MonoBehaviour, IInteractable
         ItemData = data;
     }
 
-    public string GetInteractPrompt()
-    {
-        string info = $"{ItemData.DisplayName}\n{ItemData.Description}";
-        return info;
-    }
+
 
     public void OnInteract()
     {

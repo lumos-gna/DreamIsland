@@ -135,6 +135,8 @@ public class UIManager : Singleton<UIManager>
 
         canvas.GetComponent<CanvasScaler>().referenceResolution = new Vector2(Screen.width , Screen.height);
 
+        _canvasDict[uiType] = canvas;
+
         return canvas;
     }
 
