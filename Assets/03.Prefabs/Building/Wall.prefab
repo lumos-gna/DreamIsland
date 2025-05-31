@@ -155,7 +155,7 @@ Transform:
   m_GameObject: {fileID: 5013273592306343269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.01, y: -0.05, z: -0.01}
   m_LocalScale: {x: 1, y: 1, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b365d2e70920c4c877295086230227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingColl: {fileID: 2372073656014242052}
   buildingObj: {fileID: 8149147417956515844}
   previewObj: {fileID: 1712800993564014493}
   snapPoints:

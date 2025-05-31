@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 2335569637096416290}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.82, z: -0}
+  m_LocalPosition: {x: 0.02, y: 0.82, z: -0.81}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -130,6 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13b365d2e70920c4c877295086230227, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingColl: {fileID: 8718100414802162394}
   buildingObj: {fileID: 6655225257503012879}
   previewObj: {fileID: 2335569637096416290}
   snapPoints: []
@@ -188,7 +189,7 @@ Transform:
   m_GameObject: {fileID: 6655225257503012879}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.82, z: 0}
+  m_LocalPosition: {x: 0.02, y: 0.82, z: -0.81}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children: []

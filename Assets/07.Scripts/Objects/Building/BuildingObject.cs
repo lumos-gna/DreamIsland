@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -6,6 +7,8 @@ public class BuildingObject : MonoBehaviour
    public bool IsSnappable => snapPoints.Length > 0;
 
    
+   [SerializeField] private Collider buildingColl;
+
    [SerializeField] private GameObject buildingObj;
    [SerializeField] private GameObject previewObj;
    
@@ -15,6 +18,7 @@ public class BuildingObject : MonoBehaviour
 
    public void Init()
    {
+      buildingColl.enabled = false;
       buildingObj.SetActive(false);
       previewObj.SetActive(true);
    }
@@ -25,8 +29,18 @@ public class BuildingObject : MonoBehaviour
 
    public void Built()
    {
+      Vector3 defalutScale = buildingObj.transform.localScale;
+
+      buildingObj.transform.localScale = Vector3.zero;
+      
       buildingObj.SetActive(true);
-      previewObj.SetActive(false);
+
+      buildingObj.transform.DOScale(defalutScale, 0.5f).SetEase(Ease.OutExpo).OnComplete(
+            () =>
+            {
+               buildingColl.enabled = true;
+               previewObj.SetActive(false);
+            });
    }
    
 
