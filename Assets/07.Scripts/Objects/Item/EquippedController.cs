@@ -15,19 +15,21 @@ public class EquippedController : MonoBehaviour
     
     [SerializeField] private Transform equipParent;
 
-    
+    private GameManager _gameManager;
 
     private void Start()
     {
-        Inventory = GameManager.Instance.Inventory;
+        _gameManager = GameManager.Instance;
+        
+        Inventory = _gameManager.Inventory;
     }
 
     private void Update()
     {
-        if (CurEquippedItem != null)
-        {
-            CurEquippedItem.Use();
-        }
+        if (!_gameManager.IsLockedCursor || CurEquippedItem == null)
+            return;
+        
+        CurEquippedItem.Use();
     }
 
     private void LateUpdate()
@@ -39,7 +41,6 @@ public class EquippedController : MonoBehaviour
 
     public void OnLeftClickInput(InputAction.CallbackContext context)
     {
-        
         switch (context.phase)
         {
             case InputActionPhase.Started:
@@ -76,9 +77,12 @@ public class EquippedController : MonoBehaviour
                             
                             CurEquippedItem.UnEquip();
                         }
-                        
-                        CurEquippedItem = Instantiate(slotItem.EquippedPrefab, equipParent);
-                        CurEquippedItem.Equip(this, slotItem);
+
+                        if (slotItem != null)
+                        {
+                            CurEquippedItem = Instantiate(slotItem.EquippedPrefab, equipParent);
+                            CurEquippedItem.Equip(this, slotItem);
+                        }
                     }
                 }
                 break;

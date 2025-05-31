@@ -11,3 +11,10 @@ public enum ProjectileType
 {
     Arrow,
 }
+
+public enum UIType
+{
+    HUD, 
+    Popup,
+    Effect
+}

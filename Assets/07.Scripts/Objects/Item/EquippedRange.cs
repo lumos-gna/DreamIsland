@@ -12,8 +12,9 @@ public class EquippedRange : EquippedItem
     
     public override void Use()
     {
-        if (!ItemData.IsRangeItem) 
+        if (!ItemData.IsRangeItem && !ItemData.IsDamageable) 
             return;
+        
 
 
         if (_controller.IsInputDown)
@@ -64,8 +65,10 @@ public class EquippedRange : EquippedItem
         var prefab = ItemData.RangeInfo.projectilePrefab;
 
         var pool = PoolManager.Instance.GetPool(prefab);
+
+        float damage = ItemData.DamageInfo.unitDamage;
         
-        pool.Spawn(null).Fire(prefab, transform.position + camDir, camDir, ItemData.RangeInfo.fireForce);
+        pool.Spawn(null).Fire(prefab, transform.position + camDir, camDir, ItemData.RangeInfo.fireForce, damage);
         
         
         _animator.SetTrigger(TriggerFire);

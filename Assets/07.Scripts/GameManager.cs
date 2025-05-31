@@ -14,10 +14,12 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
-        UIManager.Instance.Create<InventoryUI>();
-        UIManager.Instance.Create<QuickSlotUI>();
-        UIManager.Instance.Create<AimUI>();
-        UIManager.Instance.Create<ConditionUI>();
+        UIManager.Instance.Enable<QuickSlotUI>();
+        UIManager.Instance.Enable<AimUI>();
+        UIManager.Instance.Enable<ConditionUI>();
+        
+        UIManager.Instance.Disable<InventoryUI>();
+        UIManager.Instance.Disable<CraftingUI>();
     }
     
     public void ToggleCursor(bool isLock)

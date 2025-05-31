@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd724b4ab934fc4c9f1ee00f5a960e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIType: 1
+  UIType: 2
   _canvasGroup: {fileID: 8587618585749918904}
   _fadeImage: {fileID: 4182355324875946981}
 --- !u!114 &3969658534060564556
@@ -178,7 +178,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d57d8fde87981647b744dc8ffe91d13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UIType: 0
+  UIType: 2
   _flashImage: {fileID: 4332384166802177965}
   _flashSpeed: 0.5
   _startAlpha: 0.4

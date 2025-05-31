@@ -30,7 +30,7 @@ MonoBehaviour:
   craftingInfo:
     recipes:
     - data: {fileID: 11400000, guid: 5588759890fca8847bc0f9bb298a2bc3, type: 2}
-      amount: 1
+      amount: 2
   isRangeItem: 0
   rangeInfo:
     projectileType: 0

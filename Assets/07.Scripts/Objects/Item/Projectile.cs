@@ -12,8 +12,10 @@ public class Projectile : MonoBehaviour, IPoolable
     
     private float _curLifeTime;
 
+    private float _damage;
 
-    public void Fire(Projectile originPrefab, Vector3 point,  Vector3 dir, float force)
+
+    public void Fire(Projectile originPrefab, Vector3 point,  Vector3 dir, float force, float damage)
     {
         _originPrefab = originPrefab;
         
@@ -22,6 +24,8 @@ public class Projectile : MonoBehaviour, IPoolable
         transform.forward = dir;
 
         rigid.AddForce(force * dir, ForceMode.Impulse);
+
+        _damage = damage;
     }
 
     private void Update()
