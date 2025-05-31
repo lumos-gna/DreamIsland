@@ -1,13 +1,14 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [System.Serializable]
 public struct DropItem
 {
-    //¶³¾îÁú ÇÁ¸®ÆÕ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public GameObject prefab;
-    [Range(0f, 1f), Tooltip("0~1 »çÀÌ È®·ü")]
+    [Range(0f, 1f), Tooltip("0~1 ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½")]
     public float dropChance;
 }
 
@@ -24,7 +25,7 @@ public class DestructibleObject : MonoBehaviour
     [Header("Drop Settings")]
     public DropItem[] dropItems;
 
-    [Header("Sound Settings")]            // È¿°úÀ½¿ë Ãß°¡
+    [Header("Sound Settings")]            // È¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
     [SerializeField] private int TreeSound = 13;
     [SerializeField] private int RockSound = 12;
     [SerializeField] private int MushroomSound = 13;
@@ -43,14 +44,14 @@ public class DestructibleObject : MonoBehaviour
 
     public void ObjectTakeDamage(int amount)
     {
-        //È¿°úÀ½ Àç»ý
+        //È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
         int sfxIndex = TreeSound;
         string nm = gameObject.name.ToLower();
         if (nm.Contains("rock")) sfxIndex = RockSound;
         else if (nm.Contains("mushroom")) sfxIndex = MushroomSound;
         // else > TreeSound
 
-        AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position );
+        AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
 
         currentHP -= amount;
         if (_damageFeedbackCoroutine != null)
@@ -66,40 +67,40 @@ public class DestructibleObject : MonoBehaviour
 
     private IEnumerator DamageFeedback()
     {
-        // HP ºñÀ² °è»ê ¹× ¸ñÇ¥ Å©±â °áÁ¤
+        // HP ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ç¥ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float hpRatio = Mathf.Clamp01(currentHP / maxHP);
         Vector3 targetScale = _originalScale * hpRatio;
 
-        // ÆÞ½º ¼³Á¤
-        float pulseFactor = 1.05f; // 5% Ä¿Á³´Ù°¡
-        float pulseTime = 0.1f;   // 0.1ÃÊ Å°¿ì°í
-        // ÆÞ½º ¾÷
+        // ï¿½Þ½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        float pulseFactor = 1.05f; // 5% Ä¿ï¿½ï¿½ï¿½Ù°ï¿½
+        float pulseTime = 0.1f;   // 0.1ï¿½ï¿½ Å°ï¿½ï¿½ï¿½
+        // ï¿½Þ½ï¿½ ï¿½ï¿½
         for (float t = 0; t < pulseTime; t += Time.deltaTime)
         {
             float lerp = t / pulseTime;
             transform.localScale = Vector3.Lerp(targetScale, targetScale * pulseFactor, lerp);
             yield return null;
         }
-        // ÆÞ½º ´Ù¿î
+        // ï¿½Þ½ï¿½ ï¿½Ù¿ï¿½
         for (float t = 0; t < pulseTime; t += Time.deltaTime)
         {
             float lerp = t / pulseTime;
             transform.localScale = Vector3.Lerp(targetScale * pulseFactor, targetScale, lerp);
             yield return null;
         }
-        // ÃÖÁ¾ Å©±â °íÁ¤
+        // ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         transform.localScale = targetScale;
 
-        // 3) ÁÂ¿ì ¶³¸² (shake)
+        // 3) ï¿½Â¿ï¿½ ï¿½ï¿½ï¿½ï¿½ (shake)
         float shakeDuration = 0.2f;
-        float shakeMagnitude = 0.05f * hpRatio; // HP ³·À»¼ö·Ï Èçµé¸² ÀÛ°Ô
+        float shakeMagnitude = 0.05f * hpRatio; // HP ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½é¸² ï¿½Û°ï¿½
         for (float t = 0; t < shakeDuration; t += Time.deltaTime)
         {
             float offset = Mathf.Sin(t * Mathf.PI * 10f) * shakeMagnitude;
             transform.localPosition = _originalPosition + Vector3.right * offset;
             yield return null;
         }
-        // À§Ä¡ º¹¿ø
+        // ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
         transform.localPosition = _originalPosition;
 
         _damageFeedbackCoroutine = null;
@@ -108,14 +109,14 @@ public class DestructibleObject : MonoBehaviour
     private void Die()
     {
         StartCoroutine(HandleDropsAndDestroy());
-        //_anim.SetTrigger("ObjectHit"); // Á×´Â ¾Ö´Ï¸ÞÀÌ¼Ç ¸¸µé¸é ³ÖÀÚ
+        //_anim.SetTrigger("ObjectHit"); // ï¿½×´ï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
-    /// µå¶ø ¾ÆÀÌÅÛ »ý¼º ÈÄ º» ¿ÀºêÁ§Æ® »èÁ¦
+    /// ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
     private IEnumerator HandleDropsAndDestroy()
     {
 
-        // µå¶ø Ã³¸®
+        // ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
         foreach (var item in dropItems)
         {
             if (item.prefab == null) continue;
