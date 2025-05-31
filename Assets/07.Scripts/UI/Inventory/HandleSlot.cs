@@ -9,7 +9,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 {
     public static HandleSlot draggedFromHandleSlot;
 
-    public ItemDataSO item;
+    public ItemData item;
 
     public Button button;
     public Image icon;
@@ -98,9 +98,9 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnDrop(PointerEventData eventData)
     {
-        if (ItemSlot.draggedFromSlot != null)
+        if (InventorySlotUI.DraggedFromSlotUI != null)
         {
-            SwapWith(ItemSlot.draggedFromSlot);
+            SwapWith(InventorySlotUI.DraggedFromSlotUI);
         }
         else if (HandleSlot.draggedFromHandleSlot != null)
         {
@@ -108,7 +108,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
     }
 
-    public void SwapWith(ItemSlot other)
+    public void SwapWith(InventorySlotUI other)
     {
         var inventory = GameManager.Instance.Inventory;
 
@@ -173,7 +173,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         inventory.ForceSync();
     }
 
-    private bool TryStack(ItemDataSO otherItem, int otherQuantity, HandleSlot otherSlot = null)
+    private bool TryStack(ItemData otherItem, int otherQuantity, HandleSlot otherSlot = null)
     {
         if (item != null && otherItem != null && item == otherItem && item.IsStackable)
         {
@@ -200,7 +200,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         return false;
     }
 
-    private bool TryStack(ItemDataSO otherItem, int otherQuantity, ItemSlot otherSlot)
+    private bool TryStack(ItemData otherItem, int otherQuantity, InventorySlotUI otherSlotUI)
     {
         if (item != null && otherItem != null && item == otherItem && item.IsStackable)
         {
@@ -208,18 +208,18 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             if (total <= item.MaxStackCount)
             {
                 quantity = total;
-                if (otherSlot != null)
+                if (otherSlotUI != null)
                 {
-                    otherSlot.ClearSlot();
+                    otherSlotUI.ClearSlot();
                 }
                 return true;
             }
             else
             {
                 quantity = item.MaxStackCount;
-                if (otherSlot != null)
+                if (otherSlotUI != null)
                 {
-                    otherSlot.quantity = total - item.MaxStackCount;
+                    otherSlotUI.quantity = total - item.MaxStackCount;
                 }
                 return true;
             }

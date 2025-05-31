@@ -1,0 +1,67 @@
+﻿using UnityEngine;
+
+public class EquippedMelee : EquippedItem
+{
+    private Camera _camera;
+    
+    
+    private bool _isRunning;
+    
+    private readonly int _attack = Animator.StringToHash("Attack");
+    
+    
+    public override void Equip(GameObject user, ItemData itemData)
+    {
+        base.Equip(user, itemData);
+        
+        _camera = Camera.main;
+    }
+
+    public override void UnEquip()
+    {
+    }
+    
+    public override bool TryUse(EquippedController.InputState inputState)
+    {
+        if (!ItemData.IsMeleeItem) return false;
+        
+        
+        switch (inputState)
+        {
+            case EquippedController.InputState.Down :
+                if (!_isRunning)
+                {
+                    _isRunning = true;
+                    _animator.SetTrigger(_attack);
+
+                    return true;
+                }
+
+                break;
+        }
+
+        return false;
+    }
+
+    
+    public void OnHit()
+    {
+        Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
+        
+        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range))
+        {
+            Debug.Log("Hit");
+
+            if (hit.collider.TryGetComponent(out BaseEnemy enemy))
+            {
+                //대상
+                enemy.TakeDamage(2);
+            }
+        }
+    }
+
+    public void OnFinish()
+    {
+        _isRunning = false;
+    }
+}

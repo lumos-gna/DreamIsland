@@ -6,9 +6,13 @@ using UnityEngine.UI;
 
 public class FadeUI : BaseUI
 {
+    public override bool IsEnabled => _fadeImage.gameObject.activeInHierarchy;
+    
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private GameObject _fadeImage;
+    
     private Action _onCompleteFade;
+    
     private void Start()
     {
         PlayFade(1f, 0.5f);
@@ -18,6 +22,7 @@ public class FadeUI : BaseUI
         Enable(); // 먼저 보여야 하니까 켜주고
         StartCoroutine(FadeRoutine(fadeDuration, stayDuration));
     }
+
 
     public override void Init()
     {

@@ -1,10 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
 public class InventoryUI : BaseUI
 {
+    public override bool IsEnabled => inventoryWindow.activeInHierarchy;
+
+    
     public GameObject inventoryWindow;
     public Transform slotPanel;
     public Transform handleSlotPanel;   // 인벤토리 퀵슬롯 부모
@@ -12,23 +16,38 @@ public class InventoryUI : BaseUI
     public TextMeshProUGUI onMouseItemDescription;
     public GameObject summaryBox;
 
-    public ItemSlot[] slots;
+    public InventorySlotUI[] slots;
     public HandleSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
 
     private Inventory _inventory;
+
+
+    [SerializeField] private ItemData[] testItem;
+    
+    public void TestAdditem()
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            for (int i = 0; i < testItem.Length; i++)
+            {
+                _inventory.AddItem(testItem[i]);
+            }
+        }
+    }
+
 
     public override void Init()
     {
         inventoryWindow.SetActive(false);
         summaryBox.SetActive(false);
 
-        slots = new ItemSlot[slotPanel.childCount];
+        slots = new InventorySlotUI[slotPanel.childCount];
         handleSlots = new HandleSlot[handleSlotPanel.childCount];
 
         // 보관 아이템 슬롯
         for (int i = 0; i < slots.Length; i++)
         {
-            slots[i] = slotPanel.GetChild(i).GetComponent<ItemSlot>();
+            slots[i] = slotPanel.GetChild(i).GetComponent<InventorySlotUI>();
             slots[i].index = i;
             slots[i].ClearSlot();
         }
@@ -81,6 +100,8 @@ public class InventoryUI : BaseUI
 
     private void Update()
     {
+        TestAdditem();
+        
         if (!summaryBox.activeSelf) return;
 
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
