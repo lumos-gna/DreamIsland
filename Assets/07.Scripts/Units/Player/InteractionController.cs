@@ -4,6 +4,30 @@ using UnityEngine.InputSystem;
 
 public class InteractionController : MonoBehaviour
 {
+    public IInteractable CurInteractable
+    {
+        get => _curInteractable;
+
+        private set
+        {
+            if (value != _curInteractable)
+            {
+                if (value != null)
+                {
+                    value.Outline.enabled = true;
+                }
+
+                if (_curInteractable != null)
+                {
+                    _curInteractable.Outline.enabled = false;
+                }
+                
+                _curInteractable = value;
+            }
+        }
+    }
+
+
     [SerializeField] private float checkRate = 0.05f;  
     
     [SerializeField] private float maxCheckDistance;   
@@ -13,7 +37,7 @@ public class InteractionController : MonoBehaviour
     
     private IInteractable _curInteractable;  
     
-    private GameObject _curInteractGameObject; 
+    private GameObject _previousHitObj; 
 
     private Camera _camera;
     
@@ -34,44 +58,33 @@ public class InteractionController : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hit, maxCheckDistance))
             {
-                if(hit.collider.gameObject != _curInteractGameObject)
+                if (hit.collider.gameObject != _previousHitObj)
                 {
-                    _curInteractGameObject = hit.collider.gameObject;
+                    _previousHitObj =  hit.collider.gameObject;
                     
-                    _curInteractable = hit.collider.GetComponent<IInteractable>();
-                    
-                    //SetPromptText();
+                    CurInteractable = hit.collider.GetComponent<IInteractable>();
                 }
             }
             else
             {
-                _curInteractGameObject = null;
-                
-                _curInteractable = null;
-                
-                //promptText.gameObject.SetActive(false);
+                CurInteractable = null;
+
+                _previousHitObj = null;
             }
         }
     }
 
-    private void SetPromptText()
-    {
-        promptText.gameObject.SetActive(true);
-        
-        promptText.text = _curInteractable.GetInteractPrompt();
-    }
+
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && _curInteractable != null)
+        if(context.phase == InputActionPhase.Started && CurInteractable != null)
         {
-            _curInteractable.OnInteract();
+            CurInteractable.OnInteract();
             
-            _curInteractGameObject = null;
+            _previousHitObj = null;
             
-            _curInteractable = null;
-            
-            //promptText.gameObject.SetActive(false);
+            CurInteractable = null;
         }
     }
 }

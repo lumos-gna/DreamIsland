@@ -1,6 +1,6 @@
 
 public interface IInteractable
 {
-    public string GetInteractPrompt();
+    public Outline Outline { get; }
     public void OnInteract();
 }
