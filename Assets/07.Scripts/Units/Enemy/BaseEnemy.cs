@@ -191,7 +191,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 
     public void Die()
     {
-        QuestCheck()
+        QuestCheck();
         DropItem();
         OnDespawn();
         OnRespawn?.Invoke(this);
