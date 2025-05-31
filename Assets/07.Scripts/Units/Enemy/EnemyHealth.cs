@@ -23,11 +23,11 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
+        
         // 초기 체력 UI 설정
         if (_healthBar != null && _conditionHandler != null)
         {
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
-            Debug.Log(_conditionHandler.CurHealth + "현재 체력");
             _helathBarSprite.gameObject.SetActive(false);
         }
 

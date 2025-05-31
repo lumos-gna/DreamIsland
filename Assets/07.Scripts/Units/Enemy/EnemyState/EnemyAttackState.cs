@@ -8,6 +8,7 @@ public class EnemyAttackState : IState<BaseEnemy>
     private float _coolTime = 0;
     public void Enter(BaseEnemy obj)
     {
+        obj.StopFootParticle();
         _coolTime = obj.AttackEnemyStats.CoolTime;
         _timer = _coolTime; // 바로 공격
     }
