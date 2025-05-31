@@ -47,7 +47,7 @@ public class Inventory
             if (itemSlots[i].item == data && itemSlots[i].quantity < data.MaxStackCount)
             {
                 itemSlots[i].quantity++;
-                
+
                 OnChangedInventory?.Invoke();
                 return;
             }
@@ -59,7 +59,7 @@ public class Inventory
             {
                 itemSlots[i].item = data;
                 itemSlots[i].quantity = 1;
-                
+
                 OnChangedInventory?.Invoke();
                 return;
             }
@@ -75,14 +75,15 @@ public class Inventory
             if (itemSlots[i].item == item)
             {
                 itemSlots[i].quantity--;
-                
+
                 if (itemSlots[i].quantity <= 0)
                 {
                     itemSlots[i].item = null;
                     itemSlots[i].quantity = 0;
-                    
-                    OnChangedInventory?.Invoke();
                 }
+
+                OnChangedInventory?.Invoke();
+
                 return;
             }
         }
@@ -92,14 +93,15 @@ public class Inventory
             if (handleSlots[i].item == item)
             {
                 handleSlots[i].quantity--;
-                
+
                 if (handleSlots[i].quantity <= 0)
                 {
                     handleSlots[i].item = null;
                     handleSlots[i].quantity = 0;
-                    
-                    OnChangedInventory?.Invoke();
                 }
+
+                OnChangedInventory?.Invoke();
+
                 return;
             }
         }
@@ -109,7 +111,7 @@ public class Inventory
     }
 
 
-    
+
     //찾고 싶은 슬롯의 조건을 람다로 넣어주면 됩니다
     public ItemSlot FindSlot(Func<ItemSlot, bool> slotCondition)
     {
@@ -124,7 +126,7 @@ public class Inventory
 
         return targetSlot;
     }
-    
+
     public void ForceSync()
     {
         OnChangedInventory?.Invoke();
