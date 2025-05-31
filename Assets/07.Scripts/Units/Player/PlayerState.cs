@@ -7,7 +7,7 @@ using static UnityEditor.Progress;
 
 public interface PlayerState
 {
-    public void UseItem(ref ItemData tool); //아이템을 들고 클릭을하면 실행되는 함수
+    //public void UseItem(ref ItemData tool); //아이템을 들고 클릭을하면 실행되는 함수
     public void SetTime();
 }
 
@@ -30,10 +30,10 @@ public class AttackState : PlayerState
     private float attackrate = 1f;
     private float AttackRange = 3f; // 나중에 attackrange랑 damage전부 아이템에서 받아와야함 일단 임시로 설정 
     private int Damage = 10;
-    public void UseItem(ref ItemData tool)
+    /*public void UseItem(ref ItemData tool)
     {
       
-    }
+    }*/
 
     public void SetTime()
     {
@@ -55,10 +55,10 @@ public class ConsumeState : PlayerState
             return instance;
         }
     }
-    public void UseItem(ref ItemData tool)
+    /*public void UseItem(ref ItemData tool)
     {
         
-    }
+    }*/
     private float eatrate = 1.5f;
     public void SetTime()
     {
@@ -80,10 +80,10 @@ public class BuildingState : PlayerState
             return instance;
         }
     }
-    public void UseItem(ref ItemData tool)
+    /*public void UseItem(ref ItemData tool)
     {
         //아이템 설치(building)
-    }
+    }*/
     public void SetTime()
     {
 

@@ -56,7 +56,7 @@ public class UIManager : Singleton<UIManager>
             targetUI.Disable();
 
         targetUI.transform.SetParent(parentCanvas.transform, false);
-
+        
         return targetUI;
     }
 
@@ -83,6 +83,8 @@ public class UIManager : Singleton<UIManager>
         }
 
         targetUI.Enable();
+        targetUI.transform.SetAsLastSibling();
+
 
         if (targetUI.UIType == UIType.Popup)
         {
@@ -128,27 +130,13 @@ public class UIManager : Singleton<UIManager>
         return targetCanvas;
     }
 
-    private BaseUI CreateUI(string targetName)
-    {
-        BaseUI targetUIPrefab = Resources.Load<BaseUI>($"{PrefabPath}{targetName}");
-
-        BaseUI targetUI = Instantiate(targetUIPrefab);
-
-        targetUI.Init();
-
-
-        _createdUIDict.Add(targetName, targetUI);
-
-        return targetUI;
-    }
-
     public bool IsUIEnabled<T>() where T : BaseUI
     {
         string targetName = typeof(T).Name;
 
         if (_createdUIDict.ContainsKey(targetName))
         {
-            return _createdUIDict[targetName].gameObject.activeInHierarchy;
+            return _createdUIDict[targetName].IsEnabled;
         }
 
         return false;

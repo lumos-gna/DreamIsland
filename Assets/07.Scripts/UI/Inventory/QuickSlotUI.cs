@@ -1,13 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class QuickSlotUI : BaseUI
 {
+    public override bool IsEnabled => gameObject.activeInHierarchy;
+
+    
     public HandleSlot[] quickSlots;
     public Transform quickSlotPanel;
 
     private Inventory _inventory;
+
 
     public override void Init()
     {

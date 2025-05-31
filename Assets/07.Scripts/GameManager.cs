@@ -1,7 +1,10 @@
 ﻿using System;
+using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
 {
+    public bool IsLockedCursor { get; private set; }
+
     public Inventory Inventory { get; private set; }
 
     private void Awake()
@@ -15,5 +18,11 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.Create<QuickSlotUI>();
         UIManager.Instance.Create<AimUI>();
         UIManager.Instance.Create<ConditionUI>();
+    }
+    
+    public void ToggleCursor(bool isLock)
+    {
+        IsLockedCursor = isLock;
+        Cursor.lockState = isLock ? CursorLockMode.Locked : CursorLockMode.None;
     }
 }

@@ -9,8 +9,9 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private GameObject _helathBarSprite;
     [SerializeField] private ConditionHandler _conditionHandler;
-
+    [SerializeField] private ParticleSystem _damageParticle;
     private BaseEnemy _baseEnemy;
+    
     public event Action<float, float> OnHealthChanged;
 
     private void Awake()
@@ -22,11 +23,11 @@ public class EnemyHealth : MonoBehaviour
 
     private void Start()
     {
+        
         // 초기 체력 UI 설정
         if (_healthBar != null && _conditionHandler != null)
         {
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
-            Debug.Log(_conditionHandler.CurHealth + "현재 체력");
             _helathBarSprite.gameObject.SetActive(false);
         }
 
@@ -58,6 +59,13 @@ public class EnemyHealth : MonoBehaviour
         {
             anim.SetTrigger("isDamage");
         }
+
+        // 파티클 실행
+        if (_damageParticle != null)
+        {
+            _damageParticle.Play();
+        }
+
     }
     // 애니메이션 있는지 체크
     private bool HasParameter(Animator animator, string paramName)

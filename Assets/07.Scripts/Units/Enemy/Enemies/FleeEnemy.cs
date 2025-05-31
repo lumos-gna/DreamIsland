@@ -11,12 +11,11 @@ public class FleeEnemy : BaseEnemy, IPoolableEnemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
         {
-
-            if (other.TryGetComponent<PlayerCondition>(out var player))
+            if (other.TryGetComponent<PlayerCondition>(out var condition))
             {
-                player.HealthChange(_hitPower);
+                condition.HealthChange(-2f);
             }
         }
 

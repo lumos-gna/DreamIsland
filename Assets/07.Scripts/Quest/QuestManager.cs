@@ -1,5 +1,5 @@
 
-using System;
+
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -40,7 +40,14 @@ public class QuestManager : Singleton<QuestManager>
             _acceptedQuestList.Find(q => q.name == questName).PlusCount();
             if (_acceptedQuestList.Find(q => q.name == questName).Clear())
             {
-                QuestComplete(questName);
+                string foundName = _acceptedQuestList.Find(q => q.name == questName)?.name;
+
+                if (foundName != null && 
+                    (foundName == "메인 퀘스트1" || foundName == "메인 퀘스트2" || foundName == "메인 퀘스트3"))
+                {
+                    QuestComplete(questName);
+                }
+                
             }
             UpdateQuestUI();
         }

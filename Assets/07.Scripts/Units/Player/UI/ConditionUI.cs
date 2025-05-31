@@ -3,7 +3,9 @@ using UnityEngine.UI;
 
 public class ConditionUI : BaseUI
 {
-    [Header("°ÔÀÌÁö ÀÌ¹ÌÁö")]
+    public override bool IsEnabled => gameObject.activeInHierarchy;
+
+    [Header("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½")]
     [SerializeField] private Image barHP;
     [SerializeField] private Image barRed;
     [SerializeField] private Image barBlue;
@@ -12,8 +14,9 @@ public class ConditionUI : BaseUI
 
     private void Awake()
     {
-        UIType = UIType.HUD;  // ÇÊµå¿¡ Á÷Á¢ ÇÒ´ç
+        UIType = UIType.HUD;  // ï¿½Êµå¿¡ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò´ï¿½
     }
+
 
     public override void Init()
     {
