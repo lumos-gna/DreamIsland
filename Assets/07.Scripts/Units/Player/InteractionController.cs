@@ -4,30 +4,6 @@ using UnityEngine.InputSystem;
 
 public class InteractionController : MonoBehaviour
 {
-    public IInteractable CurInteractable
-    {
-        get => _curInteractable;
-
-        private set
-        {
-            if (value != _curInteractable)
-            {
-                if (value != null)
-                {
-                    value.Outline.enabled = true;
-                }
-
-                if (_curInteractable != null)
-                {
-                    _curInteractable.Outline.enabled = false;
-                }
-                
-                _curInteractable = value;
-            }
-        }
-    }
-
-
     [SerializeField] private float checkRate = 0.05f;  
     
     [SerializeField] private float maxCheckDistance;   
@@ -36,6 +12,7 @@ public class InteractionController : MonoBehaviour
     
     
     private IInteractable _curInteractable;  
+    private IInteractable _previousInteractable;  
     
     private GameObject _previousHitObj; 
 
@@ -62,15 +39,30 @@ public class InteractionController : MonoBehaviour
                 {
                     _previousHitObj =  hit.collider.gameObject;
                     
-                    CurInteractable = hit.collider.GetComponent<IInteractable>();
+                    _curInteractable = hit.collider.GetComponent<IInteractable>();
                 }
             }
             else
             {
-                CurInteractable = null;
+                _curInteractable = null;
 
                 _previousHitObj = null;
             }
+        }
+
+        if (_previousInteractable != _curInteractable)
+        {
+            if (_previousInteractable != null)
+            {
+                _previousInteractable.Outline.enabled = false;
+            }
+
+            if (_curInteractable != null)
+            {
+                _curInteractable.Outline.enabled = true;
+            }
+
+            _previousInteractable = _curInteractable;
         }
     }
 
@@ -78,13 +70,13 @@ public class InteractionController : MonoBehaviour
 
     public void OnInteractInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && CurInteractable != null)
+        if(context.phase == InputActionPhase.Started && _curInteractable != null)
         {
-            CurInteractable.OnInteract();
+            _curInteractable.OnInteract();
             
+            _curInteractable = null;
+
             _previousHitObj = null;
-            
-            CurInteractable = null;
         }
     }
 }
