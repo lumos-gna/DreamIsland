@@ -61,7 +61,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 93caadf4359ae8143aad35b3145d31af, type: 2}
+  - {fileID: 2100000, guid: 07d5b4bc34075ac4cb3dc36cf4bbfb11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -206,6 +206,9 @@ MonoBehaviour:
     dropChance: 1
   - prefab: {fileID: 6324261764077863044, guid: bf1e70e3cee092241bd9427df85f2308, type: 3}
     dropChance: 0.5
+  TreeSound: 13
+  RockSound: 12
+  MushroomSound: 13
 --- !u!1 &3511895314611945889
 GameObject:
   m_ObjectHideFlags: 0
@@ -268,7 +271,7 @@ MeshRenderer:
   m_RenderingLayerMask: 257
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 93caadf4359ae8143aad35b3145d31af, type: 2}
+  - {fileID: 2100000, guid: 07d5b4bc34075ac4cb3dc36cf4bbfb11, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

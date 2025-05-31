@@ -50,8 +50,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coll: {fileID: 7579913400504890296}
   meshRenderer: {fileID: 7619383305269440525}
-  builtMaterial: {fileID: 2100000, guid: 369c5d40965b5064eb97cff20e4bacec, type: 2}
-  fadeMaterial: {fileID: 2100000, guid: f378bd09d315c6c4d92158e42f95d2d7, type: 2}
+  builtMaterial: {fileID: 2100000, guid: 82f92319b5f3dda478be56f262dae6f3, type: 2}
+  fadeMaterial: {fileID: 2100000, guid: ecdc6ae3edc0a7d419fb42fe1e2d5947, type: 2}
   snapPoints: []
 --- !u!65 &7579913400504890296
 BoxCollider:
@@ -4965,7 +4965,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 369c5d40965b5064eb97cff20e4bacec, type: 2}
+  - {fileID: 2100000, guid: 82f92319b5f3dda478be56f262dae6f3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
