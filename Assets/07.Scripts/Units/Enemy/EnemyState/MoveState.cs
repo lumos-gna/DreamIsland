@@ -16,12 +16,10 @@ public class MoveState : IState<BaseEnemy>
     private float _lastSfxTime = -Mathf.Infinity;
     private const float SfxCooldown = 0.5f;
 
-    private float _updateTimer = 0f;
-    private float _updateInterval = 0.2f;
-
     private Transform _playerTransform;
     public void Enter(BaseEnemy obj)
     {
+        obj.PlayFootParticle();
         _playerTransform = obj.GetPlayer()?.transform;
         var agent = obj.GetAgent();
 
@@ -34,15 +32,9 @@ public class MoveState : IState<BaseEnemy>
             agent.autoBraking = false;
             agent.speed = obj.Stats.WalkSpeed;
         }
-
-        _waitTime = Random.Range(_minWaitTime, _maxWaitTime);
-        _timer = 0f;
-
-        obj.GetAgent().isStopped = false;
-        obj.GetAgent().speed = obj.Stats.WalkSpeed;
       
         _waitTime = Random.Range(_minWaitTime, _maxWaitTime);
-        _timer = 0;
+        _timer = 0f;
 
         obj.GetAgent().autoBraking = false;
 
@@ -159,7 +151,7 @@ public class MoveState : IState<BaseEnemy>
         Vector2 rand = Random.insideUnitCircle * obj.FleeEnemyStats.WanderRadius;
         Vector3 pos = center + new Vector3(rand.x, 0, rand.y);
 
-        obj.TrySetDestination(pos);
+       obj.TrySetDestination(pos);
     }
 
     // 목적지 도달 판정

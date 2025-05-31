@@ -13,6 +13,7 @@ public class IdleState : IState<BaseEnemy>
 
     public void Enter(BaseEnemy obj)
     {
+        obj.StopFootParticle();
         // 대기 시간 랜덤으로 설정
         _idleTime = Random.Range(_minIdleTime, _maxIdleTime);
         _timer = 0f;

@@ -16,6 +16,7 @@ public class FleeState : IState<BaseEnemy>
     private int DeerRunSound = 15;    
     public void Enter(BaseEnemy obj)
     {
+        obj.PlayFootParticle();
         obj.GetAnimator()?.CrossFade("Run", 0.1f);
         obj.GetAgent().isStopped = false;
         obj.GetAgent().speed = obj.Stats.RunSpeed;
@@ -52,6 +53,7 @@ public class FleeState : IState<BaseEnemy>
     public void Exit(BaseEnemy obj)
     {
         obj.GetAgent().isStopped = true;
+        obj.StopFootParticle();
     }
 
     private void TryPlayisRuning(BaseEnemy obj)

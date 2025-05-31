@@ -990,6 +990,7 @@ MonoBehaviour:
   _healthBar: {fileID: 3933097827248011797}
   _helathBarSprite: {fileID: 1878905271773899360}
   _conditionHandler: {fileID: 1944004675207012081}
+  _damageParticle: {fileID: 393934450243194365, guid: 1236c748eeca479459870b4b39f9297f, type: 3}
 --- !u!114 &639273429501394480
 MonoBehaviour:
   m_ObjectHideFlags: 0

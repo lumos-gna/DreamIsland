@@ -15,6 +15,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     [SerializeField] private List<GameObject> _dropItems;
     [SerializeField] private EnemyType _type;
     [SerializeField] private EnemyStats _stats; // Enemy 스텟 데이터들
+    [SerializeField] private ParticleSystem _footParticle;
 
     private NavMeshAgent _agent;
     private Animator _animator;
@@ -195,4 +196,17 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         OnRespawn?.Invoke(this);
     }
 
+    public void PlayFootParticle()
+    {
+        if (_footParticle != null && !_footParticle.isPlaying)
+        {
+            _footParticle.Play();
+        }
+    }
+
+    public void StopFootParticle()
+    {
+        if (_footParticle != null && _footParticle.isPlaying)
+            _footParticle.Stop();
+    }
 }

@@ -21,7 +21,7 @@ public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
     }
     public void MeleeAttack()
     {
-        Vector3 origin = transform.position + Vector3.up * 1f; // 눈높이나 중심 정도
+        Vector3 origin = transform.position + Vector3.up * 1f; 
         Vector3 direction = transform.forward;
         float range = 4f;
         if (Physics.Raycast(origin, direction, out RaycastHit hit, range))
@@ -31,7 +31,6 @@ public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
                 if (hit.collider.TryGetComponent<PlayerCondition>(out var player))
                 {
                     player.HealthChange(-_attackStats.AttackPower); // 데미지 적용
-                    Debug.Log($"Melee hit! Player takes {-_attackStats.AttackPower} damage");
                 }
             }
         }
@@ -42,11 +41,12 @@ public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
     public void ThrowProjectile()
     {
         Vector3 dir = GetPlayer().transform.position - _projectileSpawnPoint.position;
+        
         GameObject projectile = Instantiate(_projectilePrefab, _projectileSpawnPoint.position, Quaternion.LookRotation(dir));
 
         if (projectile.TryGetComponent<Rigidbody>(out Rigidbody rb))
         {
-            rb.velocity = dir.normalized * _throwPower;
+            rb.velocity = (dir.normalized + Vector3.up * 0.1f).normalized * _throwPower;
         }
     }
 }

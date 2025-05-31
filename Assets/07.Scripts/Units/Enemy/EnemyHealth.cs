@@ -27,7 +27,6 @@ public class EnemyHealth : MonoBehaviour
         if (_healthBar != null && _conditionHandler != null)
         {
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
-            Debug.Log(_conditionHandler.CurHealth + "현재 체력");
             _helathBarSprite.gameObject.SetActive(false);
         }
 
