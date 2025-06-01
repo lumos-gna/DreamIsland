@@ -46,6 +46,7 @@ public class GameManager : Singleton<GameManager>
     {
         IsLockedCursor = isLock;
         Cursor.lockState = isLock ? CursorLockMode.Locked : CursorLockMode.None;
+
     }
 
     public void GameOver()
@@ -67,5 +68,12 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
 #endif
 
+    }
+    
+    public void SetCursorLockState(bool isLocked)
+    {
+        IsLockedCursor = isLocked;
+        Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !isLocked;
     }
 }
