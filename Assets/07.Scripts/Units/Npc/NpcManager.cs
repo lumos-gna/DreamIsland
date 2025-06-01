@@ -1,4 +1,4 @@
-
+﻿
 using DG.Tweening;
 using UnityEngine;
 
@@ -54,7 +54,7 @@ public class NpcManager : MonoBehaviour
     
     void Start()
     {
-        _player = GameObject.Find("TempPlayer");
+        _player = GameObject.Find("Player");
         _animator = model.GetComponent<Animator>();
     }
     

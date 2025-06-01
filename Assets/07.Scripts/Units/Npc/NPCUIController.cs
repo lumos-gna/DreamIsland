@@ -86,7 +86,7 @@ public class NPCUIController: MonoBehaviour
     {
         uiCanvas.gameObject.SetActive(!uiCanvas.gameObject.activeSelf);
         
-        GameManager.Instance.ToggleCursor(uiCanvas.gameObject.activeSelf);
+        GameManager.Instance.ToggleCursor(!uiCanvas.gameObject.activeSelf);
         
         
         if (!uiCanvas.gameObject.activeSelf)

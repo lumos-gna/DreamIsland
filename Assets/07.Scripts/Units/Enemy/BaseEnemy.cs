@@ -12,7 +12,7 @@ public enum EnemyType
 
 public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 {
-    [SerializeField] private List<GameObject> _dropItems;
+    [SerializeField] private List<ItemData> _dropItems;
     [SerializeField] private EnemyType _type;
     [SerializeField] private EnemyStats _stats; // Enemy 스텟 데이터들
     [SerializeField] private ParticleSystem _footParticle;
@@ -38,6 +38,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     // Player는 나중에 지우기
     public GameObject GetPlayer() => _player;
     public EnemyType GetEnemyType() => _type;
+    public EnemyHealth GetEnemyHealth() => _enemyHealth;
 
     // 적 관련
     public virtual FleeEnemyStats FleeEnemyStats => null;

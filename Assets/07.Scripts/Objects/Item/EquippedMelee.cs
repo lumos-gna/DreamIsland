@@ -36,14 +36,17 @@ public class EquippedMelee : EquippedItem
     public void OnHit()
     {
         Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
-        
-        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range))
+
+        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range, LayerMask.GetMask("Enemy")))
         {
             if (hit.collider.TryGetComponent(out BaseEnemy enemy))
             {
                 //대상
-                enemy.TakeDamage(2);
+                Debug.Log(enemy.name);
+                enemy.GetEnemyHealth().SetDamage(3);
+                enemy.TakeDamage(3);
             }
+
         }
     }
 

@@ -61,29 +61,32 @@ public class EquippedController : MonoBehaviour
                 {
                     CurSlot = Inventory.GetQuickSlotToIndex(index - 1);
 
-                    if (!CurSlot.item.IsEquippalbe) return;
-                    
-                    
-
                     if (CurSlot == null)
                     {
-                        if (CurEquippedItem == null) return;
+                        if (CurEquippedItem == null)
+                            return;
                         
                         CurEquippedItem.UnEquip();
                     }
                     else
                     {
+                      
+                        
                         var slotItem = CurSlot.item;
                         
                         if (CurEquippedItem != null)
                         {
-                            if (CurEquippedItem.ItemData == slotItem) return;
+                            if (CurEquippedItem.ItemData == slotItem) 
+                                return;
                             
                             CurEquippedItem.UnEquip();
                         }
 
                         if (slotItem != null)
                         {
+                            if (!CurSlot.item.IsEquippalbe) 
+                                return;
+                            
                             CurEquippedItem = Instantiate(slotItem.EquippedPrefab, equipParent);
                             CurEquippedItem.Equip(this, slotItem);
                         }

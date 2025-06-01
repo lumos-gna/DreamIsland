@@ -17,6 +17,7 @@ public class HealthBar : MonoBehaviour
     private EnemyHealth _enemyHealth;
     private BaseEnemy _baseEnemy;
     private float _targetFillAmount = 1f;
+    private bool _isDectect = false;
     public Transform GetPivot() => _pivot;
     private void Awake()
     {
@@ -35,15 +36,12 @@ public class HealthBar : MonoBehaviour
     {
         if (_target == null) return;
 
-        // 플레이어가 범위 밖에 있으면 안보이게하기
-        if (!_baseEnemy.PlayerInRange())
+        if (_baseEnemy.PlayerInRange())
         {
-            _helathBarSprite.gameObject.SetActive(false);
-            return;
+            _isDectect = true;
         }
 
-        // 플레이어가 범위 안에 있으면 보이게하기
-        _helathBarSprite.gameObject.SetActive(true);
+        _helathBarSprite.gameObject.SetActive(_isDectect);
 
         // 위치 맞추기
         transform.position = _pivot != null ? _pivot.position : _target.position;

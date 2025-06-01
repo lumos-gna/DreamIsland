@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -32,7 +32,7 @@ public class ConditionHandler : MonoBehaviour
         
         OnTakeDamage?.Invoke();
 
-        if (CurHealth <= maxHealth)
+        if (CurHealth <= 0)
         {
             OnDie?.Invoke();
         }

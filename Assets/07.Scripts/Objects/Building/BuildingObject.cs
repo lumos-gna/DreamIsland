@@ -1,5 +1,4 @@
-using System;
-using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 
@@ -7,10 +6,11 @@ public class BuildingObject : MonoBehaviour
 {
    public bool IsSnappable => snapPoints.Length > 0;
 
-   [SerializeField] private Collider coll;
-   [SerializeField] private MeshRenderer meshRenderer;
-   [SerializeField] private Material builtMaterial;
-   [SerializeField] private Material fadeMaterial;
+   
+   [SerializeField] private Collider buildingColl;
+
+   [SerializeField] private GameObject buildingObj;
+   [SerializeField] private GameObject previewObj;
    
    [Space(10f)]
    [SerializeField] private BuildingSnapPoint[] snapPoints;
@@ -18,24 +18,29 @@ public class BuildingObject : MonoBehaviour
 
    public void Init()
    {
-      coll.enabled = false;
-      
-      meshRenderer.material = fadeMaterial;
-      
-      gameObject.layer = 2;
+      buildingColl.enabled = false;
+      buildingObj.SetActive(false);
+      previewObj.SetActive(true);
    }
    
    
-   public void UpdateToBuildingState(bool isBuildable) => meshRenderer.enabled = isBuildable;
+   public void UpdateToBuildingState(bool isBuildable) => previewObj.SetActive(isBuildable);
    
 
    public void Built()
    {
-      coll.enabled = true;
+      Vector3 defalutScale = buildingObj.transform.localScale;
+
+      buildingObj.transform.localScale = Vector3.zero;
       
-      meshRenderer.material = builtMaterial;
-      
-      gameObject.layer =  0;
+      buildingObj.SetActive(true);
+
+      buildingObj.transform.DOScale(defalutScale, 0.5f).SetEase(Ease.OutExpo).OnComplete(
+            () =>
+            {
+               buildingColl.enabled = true;
+               previewObj.SetActive(false);
+            });
    }
    
 

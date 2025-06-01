@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48d187f73a304d96be7e5963cba31fd2, type: 3}
+  m_Name: FloorItemData
+  m_EditorClassIdentifier: 
+  displayName: "\uBC14\uB2E5"
+  description: 
+  icon: {fileID: 21300000, guid: c781503115baa67408fd9f27da281c07, type: 3}
+  isStackable: 1
+  maxStackCount: 99
+  isDroppable: 1
+  droppedPrefab: {fileID: -5531287765296335487, guid: 7ccec1786ff29bd41aa436dace4d4636, type: 3}
+  isEquippable: 1
+  equippedPrefab: {fileID: 3110779754353851885, guid: 402ca9592bd76b5478249b0e7eb5cca6, type: 3}
+  isConsumable: 0
+  consumeInfo:
+    states:
+    - type: 0
+      value: 10
+  isCraftable: 1
+  craftingInfo:
+    recipes:
+    - data: {fileID: 11400000, guid: 5588759890fca8847bc0f9bb298a2bc3, type: 2}
+      amount: 2
+  isRangeItem: 0
+  rangeInfo:
+    projectileType: 0
+    projectileItemData: {fileID: 0}
+    projectilePrefab: {fileID: 0}
+    fireForce: 0
+  isMeleeItem: 0
+  meleeInfo:
+    range: 5
+  isDamageable: 0
+  damageInfo:
+    unitDamage: 1
+    objectDamage: 1
+  isPlaceable: 1
+  buildingInfo:
+    prefab: {fileID: 7833332407961077328, guid: d7bcc4b08e6a1414298f033dc2ce259d, type: 3}
