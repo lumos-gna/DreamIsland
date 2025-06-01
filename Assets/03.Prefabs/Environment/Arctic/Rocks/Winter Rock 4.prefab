@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: -8613735798236235015}
   - component: {fileID: 4464139997529516407}
   - component: {fileID: -7722497534422433244}
-  - component: {fileID: -8531507365185222030}
   m_Layer: 7
   m_Name: Winter Rock 4
   m_TagString: Untagged
@@ -159,25 +158,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &-8531507365185222030
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970338932338412809}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc12348f201a56746989e290189ea5d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 100
-  currentHP: 0
-  damageAmount: 10
-  dropItems:
-  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 1
-  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 0.6
-  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 0.3

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -5202178277101263638}
   - component: {fileID: 3673299736590190660}
   - component: {fileID: -1894109906117060737}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Winter Tree 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,3 +153,6 @@ MonoBehaviour:
     dropChance: 0.6
   - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
     dropChance: 0.3
+  TreeSound: 13
+  RockSound: 12
+  MushroomSound: 13

@@ -1,41 +1,41 @@
-﻿// RandomSpawner.cs
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections.Generic;
 
 public class RandomSpawner : MonoBehaviour
 {
-    [Header("������ ����Ʈ")]
+    [Header("스폰할 프리팹 목록")]
     public GameObject[] spawnPrefabs;
 
-    [Header("���� ����")]
+    [Header("스폰 개수")]
     public int spawnCount = 100;
 
-    [Header("���� �ݰ� (XZ)")]
+    [Header("스폰 반경 (XZ)")]
     public float radius = 50f;
 
-    [Header("����ĳ��Ʈ ���� ����")]
+    [Header("레이 원점 높이")]
     public float rayOriginHeight = 100f;
 
-    [Header("���� ����ĳ��Ʈ �ִ� �Ÿ�")]
+    [Header("레이 최대 거리")]
     public float rayDistance = 200f;
 
-    [Header("�θ� �����̳�")]
+    [Header("부모 컨테이너")]
     public Transform parentContainer;
 
-    [Header("���� ������ ����")]
+    [Header("스케일 범위")]
     public Vector2 scaleRange = new Vector2(0.8f, 1.3f);
 
-    [Header("��/�� ���� ����")]
-    public bool spawnInDay = true;      // ���� ����
-    public bool spawnInNight = true;    // �㿡 ����
+    [Header("낮/밤 스폰 여부")]
+    // 스폰 유지되려면 둘다 체크 
+    public bool spawnInDay = true;      // 낮에 스폰할지
+    public bool spawnInNight = true;    // 밤에 스폰할지 
 
-    [Header("������ ��� (2days ���� �罺��)")]
+    [Header("리스폰 활성화 (2일 주기)")]
     public bool enableRespawn = false;
 
-    [Header("���� ȸ�� �ݰ�")]
+    [Header("피해야 하는 반경")]
     public float avoidRadius = 2f;
 
-    // ������ ������Ʈ ����
+    // 스폰된 오브젝트 정보
     public List<EnvironmentSpawnData> spawnedObjects { get; private set; }
         = new List<EnvironmentSpawnData>();
 
@@ -51,12 +51,12 @@ public class RandomSpawner : MonoBehaviour
             return;
         }
 
-        // ��/�� ��ȯ �̺�Ʈ ����
+        // 낮/밤 사이클 이벤트 연결
         var cycle = FindObjectOfType<DayNightCycle>();
         if (cycle != null)
             cycle.OnCycleComplete.AddListener(OnCycleComplete);
 
-        // ù ����
+        // 현재 낮/밤 상태 저장하고 스폰 처리
         _lastIsDay = DayNightCycle.IsDay;
         HandleCycleChange(_lastIsDay);
     }
@@ -73,7 +73,7 @@ public class RandomSpawner : MonoBehaviour
 
     private void HandleCycleChange(bool isDay)
     {
-        // ������ �� �� ������, ���� �� ���� SpawnAll, ��ȯ �ÿ� �ƹ� �۾� �� ��
+        // 낮/밤 전부 스폰할 경우, 처음 한 번만 스폰
         if (spawnInDay && spawnInNight)
         {
             if (spawnedObjects.Count == 0)
@@ -81,12 +81,12 @@ public class RandomSpawner : MonoBehaviour
             return;
         }
 
-        // ������ �ѷ��� �� ����
+        // 기존 스폰 오브젝트 전부 삭제
         foreach (var sd in spawnedObjects)
             if (sd != null) Destroy(sd.gameObject);
         spawnedObjects.Clear();
 
-        // ������ �ð��뿡�� ����
+        // 조건 만족할 때만 스폰
         if ((isDay && spawnInDay) || (!isDay && spawnInNight))
             SpawnAll();
     }
@@ -95,22 +95,21 @@ public class RandomSpawner : MonoBehaviour
     {
         if (!enableRespawn) return;
 
-        // �����泷 �Ǵ� ��泷���, �� 2�� ��ȯ ��
         _cycleCount++;
-        if (_cycleCount < 2) return;
+        if (_cycleCount < 2) return; // 2 사이클 지날 때까지 기다려
         _cycleCount = 0;
 
-        // �ı��� �͸� �ٽ� ����
+        // 파괴된 리스트를 순회하며 재생성
         foreach (var info in EnvironmentSpawnData.destroyedList)
         {
             var prefab = spawnPrefabs[info.prefabIndex];
-            GameObject go = Instantiate(prefab,
-                                        info.position,
-                                        info.rotation,
-                                        parentContainer);
+            GameObject go = Instantiate(
+                prefab,
+                info.position,
+                info.rotation,
+                parentContainer);
             go.transform.localScale = info.scale;
 
-            // �ٽ� ���� ������� ���
             var sd = go.AddComponent<EnvironmentSpawnData>();
             sd.InitializeAsLanded(
                 info.prefabIndex,
@@ -121,7 +120,7 @@ public class RandomSpawner : MonoBehaviour
             spawnedObjects.Add(sd);
         }
 
-        // ��� �ʱ�ȭ
+        // 리스트 초기화
         EnvironmentSpawnData.destroyedList.Clear();
     }
 
@@ -132,13 +131,17 @@ public class RandomSpawner : MonoBehaviour
 
         for (int i = 0; i < spawnCount; i++)
         {
+            // 무작위 XZ 위치 계산
             Vector2 rnd = Random.insideUnitCircle * radius;
             Vector3 origin = transform.position + new Vector3(rnd.x, rayOriginHeight, rnd.y);
 
+            // 땅까지 레이캐스트
             if (!Physics.Raycast(origin, Vector3.down, out var hit, rayDistance, groundMask))
                 continue;
 
             Vector3 spawnPos = hit.point;
+
+            // 플레이어나 포탈 가까이 있으면 건너뛰기
             if (Physics.OverlapSphere(spawnPos, avoidRadius, avoidMask).Length > 0)
                 continue;
 

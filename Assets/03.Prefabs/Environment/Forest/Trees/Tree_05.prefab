@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4340385861657877911}
   - component: {fileID: -1993762440470994841}
   - component: {fileID: -2934038989233855861}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Tree_05
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -145,11 +145,11 @@ MonoBehaviour:
   currentHP: 0
   damageAmount: 10
   dropItems:
-  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+  - prefab: {fileID: 4071389414857159063, guid: 3d79edea84a45d041938b0c1ac2889b0, type: 3}
     dropChance: 1
-  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+  - prefab: {fileID: 4071389414857159063, guid: 3d79edea84a45d041938b0c1ac2889b0, type: 3}
     dropChance: 0.6
-  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+  - prefab: {fileID: 4071389414857159063, guid: 3d79edea84a45d041938b0c1ac2889b0, type: 3}
     dropChance: 0.3
   TreeSound: 13
   RockSound: 12

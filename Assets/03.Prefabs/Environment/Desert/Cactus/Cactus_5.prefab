@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7921324009933757603}
   - component: {fileID: -2960243096565618080}
   - component: {fileID: -2966638991078318859}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Cactus_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,3 +151,6 @@ MonoBehaviour:
     dropChance: 0.6
   - prefab: {fileID: 683380157648875604, guid: 9f126cd2aa120904a847fd2bca42c6ba, type: 3}
     dropChance: 0.3
+  TreeSound: 13
+  RockSound: 12
+  MushroomSound: 13

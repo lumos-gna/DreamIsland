@@ -6,26 +6,26 @@ using DG.Tweening;
 [System.Serializable]
 public struct DropItem
 {
-    //������ ������
+    // 드롭 아이템 정보
     public GameObject prefab;
-    [Range(0f, 1f), Tooltip("0~1 ���� Ȯ��")]
+    [Range(0f, 1f), Tooltip("0~1 사이의 드롭 확률")]
     public float dropChance;
 }
 
 [RequireComponent(typeof(Animator))]
 public class DestructibleObject : MonoBehaviour
 {
-    [Header("HP Settings")]
+    [Header("HP 설정")]
     public float maxHP = 100f;
     public float currentHP;
 
-    [Header("Damage Settings")]
+    [Header("데미지 설정")]
     public int damageAmount = 10;
 
-    [Header("Drop Settings")]
+    [Header("드롭 설정")]
     public DropItem[] dropItems;
 
-    [Header("Sound Settings")]            // ȿ������ �߰�
+    [Header("사운드 설정")]
     [SerializeField] private int TreeSound = 13;
     [SerializeField] private int RockSound = 12;
     [SerializeField] private int MushroomSound = 13;
@@ -33,7 +33,6 @@ public class DestructibleObject : MonoBehaviour
     private Vector3 _originalScale;
     private Vector3 _originalPosition;
     private Coroutine _damageFeedbackCoroutine;
-
 
     void Awake()
     {
@@ -44,12 +43,12 @@ public class DestructibleObject : MonoBehaviour
 
     public void ObjectTakeDamage(int amount)
     {
-        //ȿ���� ���
+        // 사운드 재생
         int sfxIndex = TreeSound;
         string nm = gameObject.name.ToLower();
         if (nm.Contains("rock")) sfxIndex = RockSound;
         else if (nm.Contains("mushroom")) sfxIndex = MushroomSound;
-        // else > TreeSound
+        // 나머지는 TreeSound
 
         AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
 
@@ -67,40 +66,38 @@ public class DestructibleObject : MonoBehaviour
 
     private IEnumerator DamageFeedback()
     {
-        // HP ���� ��� �� ��ǥ ũ�� ����
+        // HP 비율에 따라 크기 비율 계산
         float hpRatio = Mathf.Clamp01(currentHP / maxHP);
         Vector3 targetScale = _originalScale * hpRatio;
 
-        // �޽� ����
-        float pulseFactor = 1.05f; // 5% Ŀ���ٰ�
-        float pulseTime = 0.1f;   // 0.1�� Ű���
-        // �޽� ��
+        // 1) 펄스 효과
+        float pulseFactor = 1.05f; // 5% 확대
+        float pulseTime = 0.1f;   // 0.1초 동안
         for (float t = 0; t < pulseTime; t += Time.deltaTime)
         {
             float lerp = t / pulseTime;
             transform.localScale = Vector3.Lerp(targetScale, targetScale * pulseFactor, lerp);
             yield return null;
         }
-        // �޽� �ٿ�
         for (float t = 0; t < pulseTime; t += Time.deltaTime)
         {
             float lerp = t / pulseTime;
             transform.localScale = Vector3.Lerp(targetScale * pulseFactor, targetScale, lerp);
             yield return null;
         }
-        // ���� ũ�� ����
+        // 최종 크기 적용
         transform.localScale = targetScale;
 
-        // 3) �¿� ���� (shake)
+        // 2) 흔들림 효과 (shake)
         float shakeDuration = 0.2f;
-        float shakeMagnitude = 0.05f * hpRatio; // HP �������� ��鸲 �۰�
+        float shakeMagnitude = 0.05f * hpRatio; // HP 비율에 따라 폭 조절
         for (float t = 0; t < shakeDuration; t += Time.deltaTime)
         {
             float offset = Mathf.Sin(t * Mathf.PI * 10f) * shakeMagnitude;
             transform.localPosition = _originalPosition + Vector3.right * offset;
             yield return null;
         }
-        // ��ġ ����
+        // 위치 복원
         transform.localPosition = _originalPosition;
 
         _damageFeedbackCoroutine = null;
@@ -109,14 +106,12 @@ public class DestructibleObject : MonoBehaviour
     private void Die()
     {
         StartCoroutine(HandleDropsAndDestroy());
-        //_anim.SetTrigger("ObjectHit"); // �״� �ִϸ��̼� ����� ����
     }
 
-    /// ��� ������ ���� �� �� ������Ʈ ����
+    /// 아이템 드롭 후 객체 파괴
     private IEnumerator HandleDropsAndDestroy()
     {
-
-        // ��� ó��
+        // 아이템 드롭
         foreach (var item in dropItems)
         {
             if (item.prefab == null) continue;
@@ -129,5 +124,4 @@ public class DestructibleObject : MonoBehaviour
         Destroy(gameObject);
         yield break;
     }
-
 }

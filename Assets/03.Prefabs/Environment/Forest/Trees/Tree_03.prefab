@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3344299583057308816}
   - component: {fileID: -5126309992516509717}
   - component: {fileID: 1729228852819685331}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Tree_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,11 +120,11 @@ MonoBehaviour:
   currentHP: 0
   damageAmount: 10
   dropItems:
-  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+  - prefab: {fileID: 4071389414857159063, guid: 3d79edea84a45d041938b0c1ac2889b0, type: 3}
     dropChance: 1
-  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+  - prefab: {fileID: 4071389414857159063, guid: 3d79edea84a45d041938b0c1ac2889b0, type: 3}
     dropChance: 0.6
-  - prefab: {fileID: 7403414170274938125, guid: 5d6eb73b1030b2f4580e63070032900a, type: 3}
+  - prefab: {fileID: 4071389414857159063, guid: 3d79edea84a45d041938b0c1ac2889b0, type: 3}
     dropChance: 0.3
   TreeSound: 13
   RockSound: 12
@@ -140,7 +140,7 @@ GameObject:
   - component: {fileID: 5997030430741964102}
   - component: {fileID: 4093226429852624301}
   - component: {fileID: 6262058857112206805}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Tree_04_LOD1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 4452299805602958886}
   - component: {fileID: 6813421926028746332}
   - component: {fileID: 8434161174853756958}
-  m_Layer: 7
+  m_Layer: 15
   m_Name: Tree_04_LOD0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -328,6 +328,10 @@ PrefabInstance:
     - target: {fileID: 1069289201138886, guid: 5c59d49a7bd78574399a2280c5d5e5be, type: 3}
       propertyPath: m_Name
       value: LowPoly - FirTree A 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1069289201138886, guid: 5c59d49a7bd78574399a2280c5d5e5be, type: 3}
+      propertyPath: m_Layer
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 4775219554002278, guid: 5c59d49a7bd78574399a2280c5d5e5be, type: 3}
       propertyPath: m_LocalPosition.x
