@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uBCBD"
   description: 
-  icon: {fileID: 21300000, guid: f1c1db97b16093f43af7a87cb110c001, type: 3}
+  icon: {fileID: 21300000, guid: 488d5c65a2893ca479be41fa727fa7c6, type: 3}
   isStackable: 1
   maxStackCount: 99
   isDroppable: 1

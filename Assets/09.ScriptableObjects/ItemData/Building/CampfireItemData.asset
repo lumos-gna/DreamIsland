@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   displayName: "\uBAA8\uB2E5\uBD88"
   description: 
-  icon: {fileID: 21300000, guid: f1c1db97b16093f43af7a87cb110c001, type: 3}
+  icon: {fileID: 21300000, guid: c30be8f591f888b429b3f1f8a8747df3, type: 3}
   isStackable: 1
   maxStackCount: 99
   isDroppable: 1
