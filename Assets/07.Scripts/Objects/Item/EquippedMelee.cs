@@ -37,7 +37,7 @@ public class EquippedMelee : EquippedItem
     {
         Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
 
-        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range, LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range, LayerMask.GetMask("Enemy", "Environment")))
         {
             if (hit.collider.TryGetComponent(out BaseEnemy enemy))
             {
@@ -45,6 +45,12 @@ public class EquippedMelee : EquippedItem
                 Debug.Log(enemy.name);
                 enemy.GetEnemyHealth().SetDamage(3);
                 enemy.TakeDamage(3);
+            }
+            if (hit.collider.TryGetComponent(out DestructibleObject destruct))
+            {
+                Debug.Log(destruct.name);
+                Debug.Log($"{name} take damage {destruct.maxHP}, currentHP before: {destruct.currentHP}");
+                destruct.ObjectTakeDamage(destruct.damageAmount);         // 실제 데미지 적용
             }
 
         }
