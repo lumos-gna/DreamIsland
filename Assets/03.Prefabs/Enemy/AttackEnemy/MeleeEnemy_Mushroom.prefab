@@ -4949,7 +4949,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f06341bf07ea48448b093569fd135424, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropItems: []
+  _dropItems:
+  - {fileID: 11400000, guid: de04d2570c104b14a816308d74f9e981, type: 2}
   _type: 0
   _stats:
     WalkSpeed: 3

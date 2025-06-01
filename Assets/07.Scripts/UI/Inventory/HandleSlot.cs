@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -19,8 +20,16 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public bool equiped;
     public int quantity;
 
+    [SerializeField] private Image hightLightImage;
+    
+
     private GameObject dragIcon;
     private RectTransform dragIconRect;
+
+    private void Start()
+    {
+        throw new NotImplementedException();
+    }
 
     public void ClearSlot()
     {

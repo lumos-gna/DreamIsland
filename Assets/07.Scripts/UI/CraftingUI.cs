@@ -17,26 +17,22 @@ public class CraftingUI : BaseUI
     [SerializeField] private RectTransform recipeSlotRoot;
     
     [Space(10f)]
-    [SerializeField] private TextMeshProUGUI createGuideText;
-    
-    [Space(10f)]
     [SerializeField] private ItemDataTable craftItemDataTable;
 
+    [SerializeField] private Button craftButton;
 
+    
     private CraftingUISlot _selectedSlot;
     
     private CanvasGroup _canvasGroup;
 
     private Inventory _inventory;
     
-    private Button _craftButton;
 
 
     private void Awake()
     {
         _canvasGroup = GetComponent<CanvasGroup>();
-
-        _craftButton = recipeSlotRoot.GetComponent<Button>();
     }
 
 
@@ -46,14 +42,7 @@ public class CraftingUI : BaseUI
         _canvasGroup.blocksRaycasts = true;
 
         
-        _craftButton.enabled = false;
-        
-        var targetColor = createGuideText.color;
-
-        targetColor.a = 0;
-        
-        createGuideText.color = targetColor;
-        
+        craftButton.gameObject.SetActive(false);
     }
 
     public override void Disable()
@@ -71,7 +60,7 @@ public class CraftingUI : BaseUI
         
         _inventory = gameManager.Inventory;
         
-        _craftButton.onClick.AddListener(() =>
+        craftButton.onClick.AddListener(() =>
         {
             Craft();
             
@@ -87,7 +76,14 @@ public class CraftingUI : BaseUI
             
             targetSlot.Init(targetItem, () =>
             {
+                if (_selectedSlot != null)
+                {
+                    _selectedSlot.HighLightImage.enabled = false;
+                }
+                
                 _selectedSlot = targetSlot;
+                
+                _selectedSlot.HighLightImage.enabled = true;
                 
                 InitRecipeInfo(recipePool, targetItem.CraftingInfo.recipes);
             });
@@ -125,15 +121,12 @@ public class CraftingUI : BaseUI
 
         bool isCraftable = fullCount == recipe.Length && !_inventory.IsFull;
         
-        _craftButton.enabled = isCraftable;
-        
-        
+        craftButton.gameObject.SetActive(isCraftable);
 
-        var targetColor = createGuideText.color;
-        
-        targetColor.a = isCraftable ? 1 : 0;
-        
-        createGuideText.DOColor(targetColor, 0.05f);
+        if (isCraftable)
+        {
+            craftButton.transform.SetAsLastSibling();
+        }
     }
 
     void Craft()

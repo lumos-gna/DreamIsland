@@ -19,6 +19,10 @@ public class HealthBar : MonoBehaviour
     private float _targetFillAmount = 1f;
     private bool _isDectect = false;
     public Transform GetPivot() => _pivot;
+    public void SetIsDectect(bool isDect)
+    {
+        _isDectect = isDect;
+    }
     private void Awake()
     {
         _target = transform.root;

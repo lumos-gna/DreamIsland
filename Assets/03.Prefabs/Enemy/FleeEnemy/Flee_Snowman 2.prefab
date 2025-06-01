@@ -276,7 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a463f70efae3a1a46b2f45955d6101da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropItems: []
+  _dropItems:
+  - {fileID: 11400000, guid: de04d2570c104b14a816308d74f9e981, type: 2}
   _type: 1
   _stats:
     WalkSpeed: 4
