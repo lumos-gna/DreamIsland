@@ -51,10 +51,13 @@ public class Alter : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+        
         // 해당 아이템이 슬롯에 목표만큼 있는지 
         if (_inventory.FindSlot((slot) => slot.item == targetItemData && slot.quantity >= targetItemCount) != null)
         {
             fireEffect.SetActive(true);
+            
+            GameManager.Instance.OnOffEquipCamera(false);
 
             GameObject newPortal = Instantiate(portal, portalPosition.transform.position, portalPosition.transform.rotation);
             newPortal.transform.SetParent(portalPosition.transform);
@@ -66,13 +69,15 @@ public class Alter : MonoBehaviour, IInteractable
             _spawnedPortal = newPortal;  // 생성한 포탈 저장
 
             StartCameraEvent();
+            
+            GameManager.Instance.OnOffEquipCamera(true);
         }
     }
     
     public void OnTestInteract()
     {
         fireEffect.SetActive(true);
-
+        
         GameObject newPortal = Instantiate(portal, portalPosition.transform.position, portalPosition.transform.rotation);
         newPortal.transform.SetParent(portalPosition.transform);
 
@@ -92,7 +97,8 @@ public class Alter : MonoBehaviour, IInteractable
 
     // 마우스 조작 비활성화
     GameManager.Instance.SetCursorLockState(false); // 커서 보이게 (IsLockedCursor = false)
-
+    GameManager.Instance.OnOffEquipCamera(false);
+    
     // 1단계: moveTarget1 위치로 즉시 이동
     cameraContainer.position = moveTarget1.position;
 
@@ -133,6 +139,7 @@ public class Alter : MonoBehaviour, IInteractable
 
                                 // 마우스 조작 다시 활성화
                                 GameManager.Instance.SetCursorLockState(true); // 커서 감추고, IsLockedCursor = true
+                                GameManager.Instance.OnOffEquipCamera(true);
                             });
                     });
             });
@@ -146,6 +153,7 @@ public class Alter : MonoBehaviour, IInteractable
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
+            
             OnTestInteract();
             //OnInteract();
             

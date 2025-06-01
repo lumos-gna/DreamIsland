@@ -16,6 +16,7 @@ public class NPCUIController: MonoBehaviour
     private int _selectedDialogue;
     private string _questName;
     private DialogueType _type;
+    private bool _talking;
     
     void Start()
     {
@@ -89,9 +90,22 @@ public class NPCUIController: MonoBehaviour
         GameManager.Instance.ToggleCursor(!uiCanvas.gameObject.activeSelf);
         
         
+        
         if (!uiCanvas.gameObject.activeSelf)
         {
-            Time.timeScale = 1f;
+            GameManager.Instance.OnOffEquipCamera(true);
+            //Time.timeScale = 1f;
+            
+            GameObject playerObj = GameObject.Find("Player");
+            if (playerObj != null)
+            {
+                PlayerController playerScript = playerObj.GetComponent<PlayerController>();
+                if (playerScript != null)
+                {
+                    playerScript.Talking(false);
+                }
+            }
+            
             for (int i = 0; i < _buttons.Length; i++)
             {
                 if (_buttons[i] != null)
@@ -106,7 +120,16 @@ public class NPCUIController: MonoBehaviour
         }
         else
         {
-            Time.timeScale = 0f;
+            //Time.timeScale = 0f;
+            GameObject playerObj = GameObject.Find("Player");
+            if (playerObj != null)
+            {
+                PlayerController playerScript = playerObj.GetComponent<PlayerController>();
+                if (playerScript != null)
+                {
+                    playerScript.Talking(true);
+                }
+            }
             PlusButton(npcData.npcDialog.Length);
         }
     }
@@ -115,6 +138,11 @@ public class NPCUIController: MonoBehaviour
     
     void Update()
     {
+        if (_talking)
+        {
+            
+        }
+        
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
 
@@ -129,6 +157,7 @@ public class NPCUIController: MonoBehaviour
                     fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
                     dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
                     exitButton.gameObject.SetActive(true);
+                    
                     return;
                 }
                 
