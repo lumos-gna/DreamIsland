@@ -27,8 +27,9 @@ public class CraftingUI : BaseUI
     private CanvasGroup _canvasGroup;
 
     private Inventory _inventory;
-    
 
+
+    private ObjectPool<CraftingUIRecipeSlot> _recipePool;
 
     private void Awake()
     {
@@ -41,8 +42,16 @@ public class CraftingUI : BaseUI
         _canvasGroup.alpha = 1;
         _canvasGroup.blocksRaycasts = true;
 
+        if (_selectedSlot != null)
+        {
+            _selectedSlot.HighLightImage.enabled = false;
+            
+            _selectedSlot = null;
+            
+            _recipePool.DespawnAll();
         
-        craftButton.gameObject.SetActive(false);
+            craftButton.gameObject.SetActive(false);
+        }
     }
 
     public override void Disable()
@@ -56,7 +65,8 @@ public class CraftingUI : BaseUI
     {
         var gameManager = GameManager.Instance;
         var slotPool = PoolManager.Instance.GetPool(slotPrefab);
-        var recipePool = PoolManager.Instance.GetPool(reicpeSlotPrefab);
+        
+        _recipePool = PoolManager.Instance.GetPool(reicpeSlotPrefab);
         
         _inventory = gameManager.Inventory;
         
@@ -64,7 +74,7 @@ public class CraftingUI : BaseUI
         {
             Craft();
             
-            InitRecipeInfo(recipePool, _selectedSlot.Item.CraftingInfo.recipes);
+            InitRecipeInfo(_selectedSlot.Item.CraftingInfo.recipes);
         });
         
         for (int i = 0; i < craftItemDataTable.ItemDatas.Length; i++)
@@ -85,20 +95,20 @@ public class CraftingUI : BaseUI
                 
                 _selectedSlot.HighLightImage.enabled = true;
                 
-                InitRecipeInfo(recipePool, targetItem.CraftingInfo.recipes);
+                InitRecipeInfo(targetItem.CraftingInfo.recipes);
             });
         }
     }
 
-    public void InitRecipeInfo(ObjectPool<CraftingUIRecipeSlot> targetPool, ItemCraftingInfo.Recipe[] recipe)
+    public void InitRecipeInfo(ItemCraftingInfo.Recipe[] recipe)
     {
-        targetPool.DespawnAll();
+        _recipePool.DespawnAll();
 
         int fullCount = 0;
        
         for (int i = 0; i < recipe.Length; i++)
         {
-            var recipeSlot = targetPool.Spawn(recipeSlotRoot);
+            var recipeSlot = _recipePool.Spawn(recipeSlotRoot);
 
             var needItem = recipe[i].data;
             
