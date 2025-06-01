@@ -164,4 +164,10 @@ public class UIManager : Singleton<UIManager>
         Debug.LogWarning($"{targetName} UI가 아직 생성되지 않았습니다.");
         return null;
     }
+
+    public void ResetDict()
+    {
+        _createdUIDict.Clear();
+        _canvasDict.Clear();
+    }
 }
