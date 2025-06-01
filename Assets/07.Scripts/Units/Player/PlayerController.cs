@@ -32,6 +32,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int playerJumpSound;
     [SerializeField] private float playerSoundInterval = 0.5f; // 걸음 소리 간격
     private float footstepTimer = 0f;
+    private bool _canlook = true;
 
     public Player _Player
     {
@@ -189,10 +190,10 @@ public class PlayerController : MonoBehaviour
 
    
     
-    public void LookAtFairy()
+    public void OnFairyInput()
     {
         if (QuestManager.Instance.npcManager.model.transform == null) return;
-
+        
         Transform target = QuestManager.Instance.npcManager.model.transform;
 
         // =============== 1. 플레이어 몸통 Y축만 회전 ===============
@@ -215,21 +216,7 @@ public class PlayerController : MonoBehaviour
 
         // =============== 3. 대화 시작 ===============
         QuestManager.Instance.npcManager.TalkWithFairy();
-        // if (QuestManager.Instance.npcManager.model.transform == null) return;
-        //
-        // Vector3 targetPosition = QuestManager.Instance.npcManager.model.transform.position;
-        //
-        // //targetPosition.y = transform.position.y;
-        //
-        // Vector3 direction = targetPosition - transform.position;
-        //
-        // if (direction.sqrMagnitude > 0.001f) 
-        // {
-        //     Quaternion lookRotation = Quaternion.LookRotation(direction);
-        //     transform.rotation = lookRotation;
-        // }
-        //
-        // QuestManager.Instance.npcManager.TalkWithFairy();
+
 
     }
 }
