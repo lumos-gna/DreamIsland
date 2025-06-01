@@ -10,7 +10,6 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
 {
     public ItemData item;
 
-    public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;
 
@@ -88,6 +87,8 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (dragIcon != null)
         {
+            icon.sprite = null;
+            quantityText.text = string.Empty;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
                 Input.mousePosition,
