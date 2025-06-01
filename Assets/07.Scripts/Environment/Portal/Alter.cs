@@ -69,6 +69,22 @@ public class Alter : MonoBehaviour, IInteractable
         }
     }
     
+    public void OnTestInteract()
+    {
+        fireEffect.SetActive(true);
+
+        GameObject newPortal = Instantiate(portal, portalPosition.transform.position, portalPosition.transform.rotation);
+        newPortal.transform.SetParent(portalPosition.transform);
+
+        Vector3 pos = newPortal.transform.localPosition;
+        pos.y = -10f;
+        newPortal.transform.localPosition = pos;
+
+        _spawnedPortal = newPortal;  // 생성한 포탈 저장
+
+        StartCameraEvent();
+    }
+    
     public void StartCameraEvent()
 {
     if (cameraContainer == null || moveTarget1 == null || moveTarget2 == null || portalPosition == null || _childObject == null) return;
@@ -130,7 +146,8 @@ public class Alter : MonoBehaviour, IInteractable
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            OnInteract();
+            OnTestInteract();
+            //OnInteract();
             
             
             
