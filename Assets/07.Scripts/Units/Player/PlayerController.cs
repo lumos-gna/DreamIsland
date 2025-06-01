@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float playerSoundInterval = 0.5f; // 걸음 소리 간격
     private float footstepTimer = 0f;
     private bool _canlook = true;
+    private bool _talking;
 
     public Player _Player
     {
@@ -195,30 +196,39 @@ public class PlayerController : MonoBehaviour
         if (QuestManager.Instance.npcManager.model.transform == null) return;
         
         Transform target = QuestManager.Instance.npcManager.model.transform;
-
-        // =============== 1. 플레이어 몸통 Y축만 회전 ===============
-        Vector3 flatDirection = target.position - transform.position;
-        flatDirection.y = 0f; // 수평 방향만 고려
-
-        if (flatDirection.sqrMagnitude > 0.001f)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(flatDirection);
-            transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
-        }
-
-        // =============== 2. 카메라는 상하 각도 조절 ===============
-        Vector3 directionToTarget = target.position - cameraContainer.position;
-        Quaternion cameraRotation = Quaternion.LookRotation(directionToTarget);
-
-        Vector3 camAngles = cameraRotation.eulerAngles;
-        camcurXrot = -camAngles.x; // 카메라 pitch 업데이트
-        cameraContainer.localEulerAngles = new Vector3(camcurXrot, 0, 0);
-
-        // =============== 3. 대화 시작 ===============
+        
         QuestManager.Instance.npcManager.TalkWithFairy();
+        GameManager.Instance.OnOffEquipCamera(false);
+    }
 
-
+    public void Talking(bool talking)
+    {
+        _talking = talking;
     }
     
-    
+    void Update()
+    {
+        if (_talking)
+        {
+            Transform target = QuestManager.Instance.npcManager.model.transform;
+            
+            // =============== 1. 플레이어 몸통 Y축만 회전 ===============
+            Vector3 flatDirection = target.position - transform.position;
+            flatDirection.y = 0f; // 수평 방향만 고려
+
+            if (flatDirection.sqrMagnitude > 0.001f)
+            {
+                Quaternion lookRotation = Quaternion.LookRotation(flatDirection);
+                transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
+            }
+
+            // =============== 2. 카메라는 상하 각도 조절 ===============
+            Vector3 directionToTarget = target.position - cameraContainer.position;
+            Quaternion cameraRotation = Quaternion.LookRotation(directionToTarget);
+
+            Vector3 camAngles = cameraRotation.eulerAngles;
+            camcurXrot = -camAngles.x; // 카메라 pitch 업데이트
+            cameraContainer.localEulerAngles = new Vector3(camcurXrot, 0, 0);
+        }
+    }
 }
