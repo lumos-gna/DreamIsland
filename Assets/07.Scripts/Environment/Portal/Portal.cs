@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class Portal : MonoBehaviour
@@ -59,8 +59,8 @@ public class Portal : MonoBehaviour
     {
         if (!canTeleport) return;
         if (!other.CompareTag("Player")) return;
-        
 
+        UIManager.Instance.Get<FadeUI>()?.PlayFade(0.3f, 0.3f);
         StartCoroutine(TeleportCoroutine());
     }
 

@@ -10,8 +10,6 @@ public class GameManager : Singleton<GameManager>
 
     private PlayerCondition _playerCondition;
 
-    private string startscenename = "StartScene";
-
     private void Awake()
     {
         Inventory = new Inventory(itemSlotCount: 21, handleSlotCount: 7);
@@ -42,12 +40,15 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.Disable<InventoryUI>();
         UIManager.Instance.Disable<CraftingUI>();
         UIManager.Instance.Disable<GameOverUI>();
+        UIManager.Instance.Disable<FadeUI>();
+        UIManager.Instance.Disable<FlashUI>();
     }
 
     public void ToggleCursor(bool isLock)
     {
         IsLockedCursor = isLock;
         Cursor.lockState = isLock ? CursorLockMode.Locked : CursorLockMode.None;
+
     }
 
     public void GameOver()
@@ -61,11 +62,6 @@ public class GameManager : Singleton<GameManager>
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    public void GoToStartScene()
-    {
-        SceneManager.LoadScene(startscenename);
-    }
-
     public void Exit()
     {
 #if UNITY_EDITOR
@@ -74,5 +70,12 @@ public class GameManager : Singleton<GameManager>
         Application.Quit();
 #endif
 
+    }
+    
+    public void SetCursorLockState(bool isLocked)
+    {
+        IsLockedCursor = isLocked;
+        Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
+        Cursor.visible = !isLocked;
     }
 }

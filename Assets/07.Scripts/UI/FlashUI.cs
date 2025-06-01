@@ -13,21 +13,21 @@ public class FlashUI : BaseUI
     [SerializeField] private float _flashSpeed = 0.5f;
     [SerializeField] private float _startAlpha = 0.4f; // 알파 기본값
     private Coroutine _flashCoroutine; // 중복 방지용
-    // 테스트용
-    private void Start()
-    {
-        //PlayFlash();
-    }
-
-
+    
     public override void Init()
     {
+        Debug.Log("flahs 초기화");
         if (_flashImage != null)
         {
+            Debug.Log("flash image있음");
             Disable();
             Color color = _flashImage.color;
             color.a =01f; // 알파값 0으로
             _flashImage.color = color;
+        }
+        else
+        {
+            Debug.Log("flash image없음");
         }
     }
     public override void Disable()
