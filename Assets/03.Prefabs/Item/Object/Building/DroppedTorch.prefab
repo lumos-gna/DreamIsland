@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: -1443023328661768492}
   - component: {fileID: -5531287765296335487}
   - component: {fileID: 6484555838704539770}
+  - component: {fileID: -5117464911405060964}
   m_Layer: 20
   m_Name: DroppedTorch
   m_TagString: Untagged
@@ -139,3 +140,17 @@ MonoBehaviour:
   precomputeOutline: 0
   bakeKeys: []
   bakeValues: []
+--- !u!114 &-5117464911405060964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4071389414857159063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc570365218aa6409b4e9c1441abf2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  effectRadius: 5
+  temperatureChangeRate: 2
