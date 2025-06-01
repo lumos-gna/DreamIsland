@@ -21,6 +21,20 @@ public class GameManager : Singleton<GameManager>
 
     private void Start()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+        InitializeUI();
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        UIManager.Instance.ResetDict();
+        InitializeUI();
+    }
+
+    private void InitializeUI()
+    {
+
         UIManager.Instance.Enable<QuickSlotUI>();
         UIManager.Instance.Enable<AimUI>();
         UIManager.Instance.Enable<ConditionUI>();
@@ -38,7 +52,6 @@ public class GameManager : Singleton<GameManager>
 
     public void GameOver()
     {
-        Time.timeScale = 0f; // 시간을 멈추고
         ToggleCursor(false); // 커서를 보이게 함
         UIManager.Instance.Get<GameOverUI>()?.Enable(); // 게임종료 UI on
     }
