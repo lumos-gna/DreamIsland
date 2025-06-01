@@ -51,6 +51,7 @@ public class Alter : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+        
         // 해당 아이템이 슬롯에 목표만큼 있는지 
         if (_inventory.FindSlot((slot) => slot.item == targetItemData && slot.quantity >= targetItemCount) != null)
         {
@@ -67,6 +68,22 @@ public class Alter : MonoBehaviour, IInteractable
 
             StartCameraEvent();
         }
+    }
+    
+    public void OnTestInteract()
+    {
+        fireEffect.SetActive(true);
+
+        GameObject newPortal = Instantiate(portal, portalPosition.transform.position, portalPosition.transform.rotation);
+        newPortal.transform.SetParent(portalPosition.transform);
+
+        Vector3 pos = newPortal.transform.localPosition;
+        pos.y = -10f;
+        newPortal.transform.localPosition = pos;
+
+        _spawnedPortal = newPortal;  // 생성한 포탈 저장
+
+        StartCameraEvent();
     }
     
     public void StartCameraEvent()
@@ -130,7 +147,8 @@ public class Alter : MonoBehaviour, IInteractable
     {
         if (Input.GetKeyDown(KeyCode.I))
         {
-            OnInteract();
+            OnTestInteract();
+            //OnInteract();
             
             
             
