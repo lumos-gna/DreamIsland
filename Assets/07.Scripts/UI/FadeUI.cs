@@ -13,10 +13,6 @@ public class FadeUI : BaseUI
     
     private Action _onCompleteFade;
     
-    private void Start()
-    {
-        PlayFade(1f, 0.5f);
-    }
     public void PlayFade(float fadeDuration, float stayDuration)
     {
         Enable(); // 먼저 보여야 하니까 켜주고
@@ -29,6 +25,7 @@ public class FadeUI : BaseUI
         if(_canvasGroup != null)
         {
             _canvasGroup.alpha = 0f;
+            Disable();
         }
     }
     public override void Disable()

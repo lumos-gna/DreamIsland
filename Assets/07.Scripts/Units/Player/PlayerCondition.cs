@@ -72,7 +72,14 @@ public class PlayerCondition : MonoBehaviour
         }
     }
 
-    public void HealthChange(float change) => health = Mathf.Clamp(health + change, minf, maxf);
+    public void HealthChange(float change)
+    {
+        if(change < 0f)
+        {
+            UIManager.Instance.Get<FlashUI>()?.PlayFlash();
+        }
+        health = Mathf.Clamp(health + change, minf, maxf);
+    }
     public void WaterChange(float change) => water = Mathf.Clamp(water + change, minf, maxf);
     public void RedTempChange(float change) => redTemperature = Mathf.Clamp(redTemperature + change, minf, maxf);
     public void BlueTempChange(float change) => blueTemperature = Mathf.Clamp(blueTemperature + change, minf, maxf);
