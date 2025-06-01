@@ -2,6 +2,7 @@ using UnityEngine;
 using System;
 using UnityEngine.Events;
 
+// UnityEvent를 상속받은 커스텀 이벤트 타입
 [Serializable]
 public class CycleEvent : UnityEvent { }
 
@@ -37,10 +38,10 @@ public class DayNightCycle : MonoBehaviour
     public static bool IsDay { get; private set; }
 
     [Header("Audio Settings")]
-    public int nightBgmIndex = 3;            
-    public int forestDayBgmIndex = 0;         
-    public int desertDayBgmIndex = 2;           
-    public int arcticDayBgmIndex = 1;           
+    public int nightBgmIndex = 3;                // 공통 밤 BGM 인덱스
+    public int forestDayBgmIndex = 0;            // 숲 낮 BGM 인덱스
+    public int desertDayBgmIndex = 2;            // 사막 낮 BGM 인덱스
+    public int arcticDayBgmIndex = 1;            // 북극 낮 BGM 인덱스
 
     [Header("Events")]
     public CycleEvent OnCycleComplete;
@@ -48,7 +49,7 @@ public class DayNightCycle : MonoBehaviour
     private float timer;
     private bool _wasDay;
 
-    //null 체크
+    // **RegionManager가 씬에 없을 수도 있으니, null 체크를 해야 함**
     private RegionManager _regionManager;
 
     void Awake()
@@ -58,17 +59,17 @@ public class DayNightCycle : MonoBehaviour
         if (_regionManager != null)
             _regionManager.OnRegionChanged += OnRegionChanged;
 
-        // null이면 새로 생성
+        // OnCycleComplete가 에디터 상에서 null일 수 있으므로, null이면 새로 생성
         if (OnCycleComplete == null)
             OnCycleComplete = new CycleEvent();
 
-        //  nightBgmIndex = 3
+        // 기본적으로 nightBgmIndex는 3으로 두기
         nightBgmIndex = 3;
     }
 
     void Start()
     {
-        // 시작 시각 설정
+        // 시작 시각 (timer)를 설정
         timer = startTimeOfDay * dayDuration;
         ApplyCycle(timer);
 
@@ -111,7 +112,8 @@ public class DayNightCycle : MonoBehaviour
         MoonLight.intensity = isDay ? 0f : nightMoonIntensity;
         RenderSettings.skybox = isDay ? Sun : Moon;
 
-        // null 체크 후 currentRegion 사용
+        // ◆ 여기부터 수정 사항 ◆
+        // _regionManager가 null일 수도 있으므로, null 체크 후 currentRegion 사용
         float regionMin, regionMax;
         if (_regionManager != null)
         {
@@ -134,10 +136,11 @@ public class DayNightCycle : MonoBehaviour
         }
         else
         {
-            // RegionManager가 없으면 숲(Forest) 설정 값 사용
+            // RegionManager가 없으면 기본적으로 숲(Forest) 설정 값 사용
             regionMin = forestMinTemp;
             regionMax = forestMaxTemp;
         }
+        // ◆ 수정 끝 ◆
 
         // 낮과 밤 온도 산출 로직
         float normalizedDay = Mathf.InverseLerp(0f, 180f, Mathf.Clamp(sunAngle, 0f, 180f));

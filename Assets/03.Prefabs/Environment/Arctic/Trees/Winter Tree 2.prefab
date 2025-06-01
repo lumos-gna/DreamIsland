@@ -151,11 +151,11 @@ MonoBehaviour:
   _healthBar: {fileID: 2967018213538873020}
   _helathBarSprite: {fileID: 408396659170635465}
   damageAmount: 10
-  _dropItem: {fileID: 0}
+  _dropItem: {fileID: 11400000, guid: 5588759890fca8847bc0f9bb298a2bc3, type: 2}
   TreeSound: 13
   RockSound: 12
   MushroomSound: 13
-  _damageParticle: {fileID: 0}
+  _damageParticle: {fileID: 7557791549834824522, guid: e19d7d381dc69aa4582908a6299ed3e6, type: 3}
 --- !u!1 &7798502041614862175
 GameObject:
   m_ObjectHideFlags: 0

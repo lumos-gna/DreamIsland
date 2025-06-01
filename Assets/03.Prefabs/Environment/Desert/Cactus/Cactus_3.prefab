@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 4109143741514951048}
   - component: {fileID: 1160442438972185763}
   - component: {fileID: 5363861486117904381}
-  m_Layer: 15
+  m_Layer: 7
   m_Name: Cactus_3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,11 +180,11 @@ MonoBehaviour:
   _healthBar: {fileID: 207827367263321190}
   _helathBarSprite: {fileID: 3342871739743792147}
   damageAmount: 10
-  _dropItem: {fileID: 0}
+  _dropItem: {fileID: 11400000, guid: e511056aacf710d4b9aa1d349dfff060, type: 2}
   TreeSound: 13
   RockSound: 12
   MushroomSound: 13
-  _damageParticle: {fileID: 0}
+  _damageParticle: {fileID: 7557791549834824522, guid: e19d7d381dc69aa4582908a6299ed3e6, type: 3}
 --- !u!1001 &7406718768517780442
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -288,6 +288,10 @@ PrefabInstance:
     - target: {fileID: 7273003630235750753, guid: 7a1959590695a9743bc9bff7e01a518d, type: 3}
       propertyPath: m_Name
       value: DamageText
+      objectReference: {fileID: 0}
+    - target: {fileID: 7273003630235750753, guid: 7a1959590695a9743bc9bff7e01a518d, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -399,6 +403,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5707259483831542429, guid: f0ba939854002914e93133021e8805e7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5861159769138028437, guid: f0ba939854002914e93133021e8805e7, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6508540208640858787, guid: f0ba939854002914e93133021e8805e7, type: 3}
       propertyPath: m_PresetInfoIsWorld
       value: 1
@@ -406,6 +418,10 @@ PrefabInstance:
     - target: {fileID: 7145280752639173013, guid: f0ba939854002914e93133021e8805e7, type: 3}
       propertyPath: m_Name
       value: ResourceHealthBar
+      objectReference: {fileID: 0}
+    - target: {fileID: 7145280752639173013, guid: f0ba939854002914e93133021e8805e7, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 9066053917347090400, guid: f0ba939854002914e93133021e8805e7, type: 3}
       propertyPath: _pivot
