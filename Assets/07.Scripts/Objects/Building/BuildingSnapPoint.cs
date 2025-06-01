@@ -6,7 +6,6 @@ public class BuildingSnapPoint : MonoBehaviour
 {
     public enum SnapAxis
     {
-        All, 
         Vertical,
         Horizontal
     }

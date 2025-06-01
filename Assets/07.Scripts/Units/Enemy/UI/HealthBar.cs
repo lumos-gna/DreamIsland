@@ -15,9 +15,11 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private float _speed = 3f;
     private Transform _target;
     private EnemyHealth _enemyHealth;
+    private DestructibleObject _destructibleObject;
     private BaseEnemy _baseEnemy;
     private float _targetFillAmount = 1f;
     private bool _isDectect = false;
+    private Transform _player;
     public Transform GetPivot() => _pivot;
     public void SetIsDectect(bool isDect)
     {
@@ -27,11 +29,19 @@ public class HealthBar : MonoBehaviour
     {
         _target = transform.root;
         _enemyHealth = GetComponentInParent<EnemyHealth>();
+        _destructibleObject = GetComponentInParent<DestructibleObject>();
         _baseEnemy = GetComponentInParent<BaseEnemy>();
         if (_enemyHealth != null)
         {
             _enemyHealth.OnHealthChanged += UpdateHealthBar;
         }
+        if(_destructibleObject != null)
+        {
+            _destructibleObject.OnHealthChanged += UpdateHealthBar;
+        }
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+            _player = playerObj.transform;
         transform.forward = Camera.main.transform.forward;
         // 처음에 비활성화;
         _helathBarSprite.gameObject.SetActive(false);
@@ -40,9 +50,18 @@ public class HealthBar : MonoBehaviour
     {
         if (_target == null) return;
 
-        if (_baseEnemy.PlayerInRange())
+        if (_baseEnemy != null && _baseEnemy.PlayerInRange())
         {
             _isDectect = true;
+        }
+        else
+        {
+            if (_player != null)
+            {
+                float detectRange = 5f;
+                float distance = Vector3.Distance(_target.position, _player.position);
+                _isDectect = distance <= detectRange;
+            }
         }
 
         _helathBarSprite.gameObject.SetActive(_isDectect);
@@ -50,7 +69,8 @@ public class HealthBar : MonoBehaviour
         // 위치 맞추기
         transform.position = _pivot != null ? _pivot.position : _target.position;
         // 회전 따라가기 
-        transform.forward = Camera.main.transform.forward;
+        Vector3 dir = (transform.position - Camera.main.transform.position).normalized;
+        transform.forward = dir;
 
         _healthBarForegroundSprite.fillAmount = Mathf.MoveTowards(_healthBarForegroundSprite.fillAmount, _targetFillAmount, Time.deltaTime * _speed);
     }

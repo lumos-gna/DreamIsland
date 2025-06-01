@@ -2,37 +2,40 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 [System.Serializable]
 public struct DropItem
 {
-    // 드롭 아이템 정보
+    //������ ������
     public GameObject prefab;
-    [Range(0f, 1f), Tooltip("0~1 사이의 드롭 확률")]
+    [Range(0f, 1f), Tooltip("0~1 ���� Ȯ��")]
     public float dropChance;
 }
 
 [RequireComponent(typeof(Animator))]
 public class DestructibleObject : MonoBehaviour
 {
-    [Header("HP 설정")]
+    [Header("HP Settings")]
     public float maxHP = 100f;
     public float currentHP;
-
-    [Header("데미지 설정")]
+    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private GameObject _helathBarSprite;
+    [Header("Damage Settings")]
     public int damageAmount = 10;
 
-    [Header("드롭 설정")]
-    public DropItem[] dropItems;
+    [Header("Drop Settings")]
+    public ItemData _dropItem;
 
-    [Header("사운드 설정")]
+    [Header("Sound Settings")]            // ȿ������ �߰�
     [SerializeField] private int TreeSound = 13;
     [SerializeField] private int RockSound = 12;
     [SerializeField] private int MushroomSound = 13;
-
+    [SerializeField] private ParticleSystem _damageParticle;
     private Vector3 _originalScale;
     private Vector3 _originalPosition;
     private Coroutine _damageFeedbackCoroutine;
+    public event Action<float, float> OnHealthChanged;
 
     void Awake()
     {
@@ -43,16 +46,26 @@ public class DestructibleObject : MonoBehaviour
 
     public void ObjectTakeDamage(int amount)
     {
-        // 사운드 재생
+        //ȿ���� ���
         int sfxIndex = TreeSound;
         string nm = gameObject.name.ToLower();
         if (nm.Contains("rock")) sfxIndex = RockSound;
         else if (nm.Contains("mushroom")) sfxIndex = MushroomSound;
-        // 나머지는 TreeSound
+        // else > TreeSound
 
-        AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
+       // AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
 
         currentHP -= amount;
+        // 체력바 표시
+        if (_healthBar != null)
+        {
+            _helathBarSprite.gameObject.SetActive(true);
+            _healthBar.UpdateHealthBar(maxHP, currentHP);
+            _healthBar.DamageText(damageAmount); // 여기에 플레이어 데미지 넣기
+        }
+        OnHealthChanged?.Invoke(maxHP, currentHP);
+
+        _damageParticle?.Play();
         if (_damageFeedbackCoroutine != null)
             StopCoroutine(_damageFeedbackCoroutine);
 
@@ -66,38 +79,40 @@ public class DestructibleObject : MonoBehaviour
 
     private IEnumerator DamageFeedback()
     {
-        // HP 비율에 따라 크기 비율 계산
+        // HP ���� ��� �� ��ǥ ũ�� ����
         float hpRatio = Mathf.Clamp01(currentHP / maxHP);
         Vector3 targetScale = _originalScale * hpRatio;
 
-        // 1) 펄스 효과
-        float pulseFactor = 1.05f; // 5% 확대
-        float pulseTime = 0.1f;   // 0.1초 동안
+        // �޽� ����
+        float pulseFactor = 1.05f; // 5% Ŀ���ٰ�
+        float pulseTime = 0.1f;   // 0.1�� Ű���
+        // �޽� ��
         for (float t = 0; t < pulseTime; t += Time.deltaTime)
         {
             float lerp = t / pulseTime;
             transform.localScale = Vector3.Lerp(targetScale, targetScale * pulseFactor, lerp);
             yield return null;
         }
+        // �޽� �ٿ�
         for (float t = 0; t < pulseTime; t += Time.deltaTime)
         {
             float lerp = t / pulseTime;
             transform.localScale = Vector3.Lerp(targetScale * pulseFactor, targetScale, lerp);
             yield return null;
         }
-        // 최종 크기 적용
+        // ���� ũ�� ����
         transform.localScale = targetScale;
 
-        // 2) 흔들림 효과 (shake)
+        // 3) �¿� ���� (shake)
         float shakeDuration = 0.2f;
-        float shakeMagnitude = 0.05f * hpRatio; // HP 비율에 따라 폭 조절
+        float shakeMagnitude = 0.05f * hpRatio; // HP �������� ��鸲 �۰�
         for (float t = 0; t < shakeDuration; t += Time.deltaTime)
         {
             float offset = Mathf.Sin(t * Mathf.PI * 10f) * shakeMagnitude;
             transform.localPosition = _originalPosition + Vector3.right * offset;
             yield return null;
         }
-        // 위치 복원
+        // ��ġ ����
         transform.localPosition = _originalPosition;
 
         _damageFeedbackCoroutine = null;
@@ -105,23 +120,13 @@ public class DestructibleObject : MonoBehaviour
 
     private void Die()
     {
-        StartCoroutine(HandleDropsAndDestroy());
+        DropItem();
+        //_anim.SetTrigger("ObjectHit"); // �״� �ִϸ��̼� ����� ����
     }
 
-    /// 아이템 드롭 후 객체 파괴
-    private IEnumerator HandleDropsAndDestroy()
+    public void DropItem()
     {
-        // 아이템 드롭
-        foreach (var item in dropItems)
-        {
-            if (item.prefab == null) continue;
-            if (Random.value <= item.dropChance)
-            {
-                Instantiate(item.prefab, transform.position, Quaternion.identity);
-            }
-        }
-
+        Instantiate(_dropItem.DroppedPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
-        yield break;
     }
 }

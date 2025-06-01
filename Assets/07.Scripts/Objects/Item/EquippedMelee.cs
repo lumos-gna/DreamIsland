@@ -32,30 +32,27 @@ public class EquippedMelee : EquippedItem
         }
     }
 
-
+    
     public void OnHit()
     {
-        // 레이어 검사
-        int mask = LayerMask.GetMask("Enemy", "Destructible");
+        Ray ray = _camera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f));
 
-        Ray ray = _camera.ScreenPointToRay(
-            new Vector3(Screen.width / 2f, Screen.height / 2f)
-        );
-
-        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range, mask))
+        if (Physics.Raycast(ray, out RaycastHit hit, ItemData.MeleeInfo.range, LayerMask.GetMask("Enemy", "Environment")))
         {
             if (hit.collider.TryGetComponent(out BaseEnemy enemy))
             {
+                //대상
                 Debug.Log(enemy.name);
                 enemy.GetEnemyHealth().SetDamage(3);
                 enemy.TakeDamage(3);
-                return; 
+            }
+            if (hit.collider.TryGetComponent(out DestructibleObject destruct))
+            {
+                Debug.Log(destruct.name);
+                Debug.Log($"{name} take damage {destruct.maxHP}, currentHP before: {destruct.currentHP}");
+                destruct.ObjectTakeDamage(destruct.damageAmount);         // 실제 데미지 적용
             }
 
-            if (hit.collider.TryGetComponent(out DestructibleObject destructible))
-            {
-                destructible.ObjectTakeDamage(20);
-            }
         }
     }
 
