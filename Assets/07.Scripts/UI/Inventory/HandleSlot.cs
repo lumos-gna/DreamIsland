@@ -25,10 +25,12 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private GameObject dragIcon;
     private RectTransform dragIconRect;
     private Color originalColor;
+    private Color originalIconColor;
 
     private void Start()
     {
         originalColor = hightLightImage.color;
+        originalIconColor = Color.white;
     }
 
     public void ClearSlot()
@@ -94,17 +96,21 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (dragIcon == null) return;
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
-            Input.mousePosition,
-            null, out Vector2 pos);
-        dragIconRect.localPosition = pos;
+        if (dragIcon != null)
+        {
+            icon.color = Color.clear;
+            quantityText.text = string.Empty;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
+                Input.mousePosition,
+                null, out Vector2 pos);
+            dragIconRect.localPosition = pos;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        icon.color = Color.white;
         if (dragIcon != null)
         {
             Destroy(dragIcon);

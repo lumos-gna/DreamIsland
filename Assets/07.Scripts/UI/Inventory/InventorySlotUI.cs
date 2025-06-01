@@ -19,8 +19,14 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private GameObject dragIcon;
     private RectTransform dragIconRect;
+    private Color originalIconColor;
 
     public static InventorySlotUI DraggedFromSlotUI; // 드래그 시작 슬롯
+
+    private void Start()
+    {
+        originalIconColor = Color.white;
+    }
 
     // 슬롯 세팅
     public void SetSlot()
@@ -40,6 +46,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void ClearSlot()
     {
         item = null;
+        quantity = 0;
         icon.gameObject.SetActive(false);
         quantityText.text = string.Empty;
     }
@@ -87,7 +94,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         if (dragIcon != null)
         {
-            icon.sprite = null;
+            icon.color = Color.clear;
             quantityText.text = string.Empty;
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
@@ -101,6 +108,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     public void OnEndDrag(PointerEventData eventData)
     {
         DraggedFromSlotUI = null;
+        icon.color = Color.white;
         if (dragIcon != null)
         {
             Destroy(dragIcon);
