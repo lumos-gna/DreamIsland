@@ -6,13 +6,24 @@ public class GameManager : Singleton<GameManager>
 {
     public bool IsLockedCursor { get; private set; }
 
-    public Inventory Inventory { get; private set; }
+    public Inventory Inventory
+    {
+        get
+        {
+            if (_inventory == null)
+            {
+                _inventory = new Inventory(itemSlotCount: 21, handleSlotCount: 7);
+            }
+
+            return _inventory;
+        }
+    }
 
     private PlayerCondition _playerCondition;
+    private Inventory _inventory;
 
     private void Awake()
     {
-        Inventory = new Inventory(itemSlotCount: 21, handleSlotCount: 7);
         IsLockedCursor = true;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -20,7 +31,6 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-
         InitializeUI();
     }
 
