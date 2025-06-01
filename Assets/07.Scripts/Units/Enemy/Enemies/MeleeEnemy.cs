@@ -20,7 +20,7 @@ public class MeleeEnemy : BaseEnemy, IPoolableEnemy
             {
                 if (hit.collider.TryGetComponent<PlayerCondition>(out var player))
                 {
-                    player.HealthChange(-_attackStats.AttackPower); // 데미지 적용
+                    player.HealthChange(-_attackStats.AttackPower * Time.deltaTime); // 데미지 적용
                 }
             }
         }

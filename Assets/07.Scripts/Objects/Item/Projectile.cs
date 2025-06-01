@@ -20,7 +20,7 @@ public class Projectile : MonoBehaviour, IPoolable
         {
             if (other.TryGetComponent<BaseEnemy>(out var enemy))
             {
-                Debug.Log(_damage);
+                enemy.GetHealthBar().SetIsDectect(true);
                 enemy.GetEnemyHealth().SetDamage(((int)_damage));
                 enemy.TakeDamage((int)_damage);
             }

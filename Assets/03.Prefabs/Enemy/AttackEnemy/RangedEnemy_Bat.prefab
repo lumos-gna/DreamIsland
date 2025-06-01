@@ -5357,7 +5357,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7026013279748496269}
-  - component: {fileID: 5400605148159868260}
   - component: {fileID: 6293805313293795245}
   - component: {fileID: 6038675993176754385}
   - component: {fileID: 1349584723677323977}
@@ -5393,33 +5392,6 @@ Transform:
   - {fileID: 3154359138651334834}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!54 &5400605148159868260
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2974642830328501147}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 1
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 112
-  m_CollisionDetection: 0
 --- !u!95 &6293805313293795245
 Animator:
   serializedVersion: 5
@@ -5456,7 +5428,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -5496,7 +5468,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2181d42e99c50e4c873461d11261317, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _dropItems: []
+  _dropItems:
+  - {fileID: 11400000, guid: de04d2570c104b14a816308d74f9e981, type: 2}
   _type: 0
   _stats:
     WalkSpeed: 8
