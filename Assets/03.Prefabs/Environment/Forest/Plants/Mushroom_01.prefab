@@ -202,9 +202,9 @@ MonoBehaviour:
   currentHP: 0
   damageAmount: 10
   dropItems:
-  - prefab: {fileID: 6324261764077863044, guid: bf1e70e3cee092241bd9427df85f2308, type: 3}
+  - prefab: {fileID: 6214416610323284472, guid: 96c8da8b3b033bb44bd544990967a949, type: 3}
     dropChance: 1
-  - prefab: {fileID: 6324261764077863044, guid: bf1e70e3cee092241bd9427df85f2308, type: 3}
+  - prefab: {fileID: 6214416610323284472, guid: 96c8da8b3b033bb44bd544990967a949, type: 3}
     dropChance: 0.5
   TreeSound: 13
   RockSound: 12

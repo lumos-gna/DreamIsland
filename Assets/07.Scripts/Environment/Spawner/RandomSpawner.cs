@@ -51,15 +51,22 @@ public class RandomSpawner : MonoBehaviour
             return;
         }
 
-        // 낮/밤 사이클 이벤트 연결
+        // 1) 낮/밤 사이클 오브젝트 찾기
         var cycle = FindObjectOfType<DayNightCycle>();
         if (cycle != null)
+        {
             cycle.OnCycleComplete.AddListener(OnCycleComplete);
 
-        // 현재 낮/밤 상태 저장하고 스폰 처리
-        _lastIsDay = DayNightCycle.IsDay;
+            _lastIsDay = DayNightCycle.IsDay;
+        }
+        else
+        {
+            _lastIsDay = true;
+        }
+
         HandleCycleChange(_lastIsDay);
     }
+
 
     void Update()
     {
