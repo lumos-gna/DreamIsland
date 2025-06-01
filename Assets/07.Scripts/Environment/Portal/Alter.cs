@@ -51,6 +51,7 @@ public class Alter : MonoBehaviour, IInteractable
 
     public void OnInteract()
     {
+        
         // 해당 아이템이 슬롯에 목표만큼 있는지 
         if (_inventory.FindSlot((slot) => slot.item == targetItemData && slot.quantity >= targetItemCount) != null)
         {

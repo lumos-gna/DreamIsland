@@ -13,13 +13,14 @@ public class InteractionController : MonoBehaviour
     
     
     private IInteractable _curInteractable;  
-    private IInteractable _previousInteractable;  
     
     private GameObject _previousHitObj; 
 
     private Camera _camera;
     
-    private float _lastCheckTime;       
+    private float _lastCheckTime;
+
+    private bool _onInteract;
 
     void Start()
     {
@@ -28,6 +29,18 @@ public class InteractionController : MonoBehaviour
 
     void Update()
     {
+        if (_onInteract)
+        {
+            _curInteractable.OnInteract();
+
+            _curInteractable = null;
+
+            _onInteract = false;
+
+            return;
+        }
+        
+        
         if(Time.time - _lastCheckTime > checkRate)
         {
             _lastCheckTime = Time.time;
@@ -36,36 +49,29 @@ public class InteractionController : MonoBehaviour
 
             if(Physics.Raycast(ray, out RaycastHit hit, maxCheckDistance))
             {
-                if (hit.collider.gameObject != _previousHitObj)
+                if (hit.collider.TryGetComponent(out IInteractable interactable))
                 {
-                    _previousHitObj =  hit.collider.gameObject;
-                    
-                    _curInteractable = hit.collider.GetComponent<IInteractable>();
+                    if (_curInteractable != interactable)
+                    {
+                        if (_curInteractable != null)
+                        {
+                            _curInteractable.Outline.enabled = false;
+                        }
+                        else
+                        {
+                            interactable.Outline.enabled = true;
+                        }
+                        
+                        _curInteractable = interactable;
+                    }
+                    return;
                 }
             }
-            else
+            
+            if (_curInteractable != null)
             {
+                _curInteractable.Outline.enabled = false;
                 _curInteractable = null;
-
-                _previousHitObj = null;
-            }
-        }
-    }
-
-    private void LateUpdate()
-    {
-        if (_curInteractable != null)
-        {
-            if (_previousInteractable != _curInteractable)
-            {
-                if (_previousInteractable != null)
-                {
-                    _previousInteractable.Outline.enabled = false;
-                }
-
-                _curInteractable.Outline.enabled = true;
-
-                _previousInteractable = _curInteractable;
             }
         }
     }
@@ -75,13 +81,7 @@ public class InteractionController : MonoBehaviour
     {
         if(context.phase == InputActionPhase.Started && _curInteractable != null)
         {
-            _curInteractable.OnInteract();
-            
-            _curInteractable = null;
-
-            _previousInteractable = null;
-
-            _previousHitObj = null;
+            _onInteract = true;
         }
     }
 }
