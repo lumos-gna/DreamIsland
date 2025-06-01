@@ -896,63 +896,6 @@ MonoBehaviour:
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 382f73e9177f6d64394e4a8e5db9805c, type: 2}
   m_BuildHeightMesh: 0
---- !u!1001 &68757681
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3665448684949034829, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_Name
-      value: Flee_Snowman 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 084d8d5c2b61d57489cdc5ce55b19ac7, type: 3}
 --- !u!4 &79303817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6950743074300402243, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
@@ -13144,63 +13087,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
---- !u!1001 &974076269
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3665448684949034829, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_Name
-      value: Flee_Snowman
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 8a3bd639206d7b743a8ce3bba0c514ef, type: 3}
 --- !u!4 &975724640 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8337482334274090855, guid: 2a776e3735d23fc40b73318a7d24650e, type: 3}
@@ -24061,7 +23947,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1974070171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24830,63 +24716,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6950743074300402243, guid: 7c42823ab693e5446a921cd499eb241e, type: 3}
   m_PrefabInstance: {fileID: 966770218}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &2018722431
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3665448684949034829, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_Name
-      value: Flee_Snowman 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4149392523460021751, guid: a7b492643347cd04397bf6f832639334, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: a7b492643347cd04397bf6f832639334, type: 3}
 --- !u!1001 &2019956341
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26427,9 +26256,6 @@ SceneRoots:
   - {fileID: 565916960}
   - {fileID: 2003190646}
   - {fileID: 769815254}
-  - {fileID: 68757681}
-  - {fileID: 2018722431}
-  - {fileID: 974076269}
   - {fileID: 633157276}
   - {fileID: 267283223}
   - {fileID: 677343329}
