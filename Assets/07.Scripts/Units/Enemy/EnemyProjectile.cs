@@ -18,7 +18,6 @@ public class EnemyProjectile : MonoBehaviour
         {
             if (other.TryGetComponent<PlayerCondition>(out var condition))
             {
-                Debug.Log("플레이어 맞음");
                 condition.HealthChange(-damage);
             }
         }

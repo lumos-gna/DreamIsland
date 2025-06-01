@@ -26,6 +26,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
 
     // 피격용
     private EnemyHealth _enemyHealth;
+    private HealthBar _healthBar;
     public event Action<IPoolableEnemy> OnRespawn;
 
     #region Getters
@@ -39,6 +40,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     public GameObject GetPlayer() => _player;
     public EnemyType GetEnemyType() => _type;
     public EnemyHealth GetEnemyHealth() => _enemyHealth;
+    public HealthBar GetHealthBar() => _healthBar;
 
     // 적 관련
     public virtual FleeEnemyStats FleeEnemyStats => null;
@@ -80,6 +82,27 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         _fsm = new StateMachine<BaseEnemy>(this);
         _stateFactory = new StateFactory<BaseEnemy>();
         _enemyHealth = GetComponent<EnemyHealth>();
+        _healthBar = GetComponentInChildren<HealthBar>();
+    }
+
+    // 플레이어랑 부딪히면 플레이어에게 데미지 적용
+    private void OnTriggerEnter(Collider other)
+    {
+        Vector3 origin = transform.position + Vector3.up * 1f;
+        Vector3 direction = transform.forward;
+        float range = 4f;
+        if (Physics.Raycast(origin, direction, out RaycastHit hit, range))
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                if (hit.collider.TryGetComponent<PlayerCondition>(out var player))
+                {
+                    player.HealthChange(-1f * Time.deltaTime); // 데미지 적용
+                }
+            }
+        }
+
+        Debug.DrawRay(origin, direction * range, Color.red, 1.0f);
     }
 
     //스폰 혹은 리스폰 직후 FSM을 최초 진입 상태로 되돌림
@@ -120,7 +143,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     {
         for (int i = 0; i < _dropItems.Count; i++)
         {
-            //Instantiate(_dropItems[i].dropPrefab, transform.position + Vector3.up * 2, Quaternion.identity);
+            Instantiate(_dropItems[i].DroppedPrefab, transform.position , Quaternion.identity);
         }
     }
 
