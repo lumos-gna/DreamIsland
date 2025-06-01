@@ -21,14 +21,14 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public int quantity;
 
     [SerializeField] private Image hightLightImage;
-    
 
     private GameObject dragIcon;
     private RectTransform dragIconRect;
+    private Color originalColor;
 
     private void Start()
     {
-        throw new NotImplementedException();
+        originalColor = hightLightImage.color;
     }
 
     public void ClearSlot()
@@ -50,6 +50,14 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         icon.gameObject.SetActive(true);
         icon.sprite = item.Icon;
         quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (hightLightImage != null)
+        {
+            hightLightImage.color = active ? Color.white : originalColor;
+        }
     }
 
     // 마우스 포인터가 아이콘 위에 있을때 감지
