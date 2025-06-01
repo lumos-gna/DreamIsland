@@ -21,7 +21,7 @@ public class NPCUIController: MonoBehaviour
     {
         npcData.AllReset();
         
-        GameObject player = GameObject.Find("TempPlayer");
+        GameObject player = GameObject.Find("Player");
         if (player != null)
         {
             _playerController = player.GetComponentInChildren<PlayerController>();
