@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -94,5 +95,24 @@ public class GameManager : Singleton<GameManager>
         IsLockedCursor = isLocked;
         Cursor.lockState = isLocked ? CursorLockMode.Locked : CursorLockMode.None;
         Cursor.visible = !isLocked;
+    }
+
+    public void OnOffEquipCamera(bool isLocked)    // EquipCamera 온오프
+    {
+        GameObject player = GameObject.Find("Player");
+        if (player != null)
+        {
+            Transform child = player.transform.Find("CamerContainer");
+            if (child != null)
+            {
+                GameObject equipCamera = child.GetComponentsInChildren<Transform>(true)
+                    .FirstOrDefault(t => t.name == "EquipCamera")?.gameObject;
+
+                if (equipCamera != null)
+                {
+                    equipCamera.SetActive(isLocked);
+                }
+            }
+        }
     }
 }
