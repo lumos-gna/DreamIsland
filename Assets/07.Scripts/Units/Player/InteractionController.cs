@@ -54,19 +54,19 @@ public class InteractionController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (_previousInteractable != _curInteractable)
+        if (_curInteractable != null)
         {
-            if (_previousInteractable != null)
+            if (_previousInteractable != _curInteractable)
             {
-                _previousInteractable.Outline.enabled = false;
-            }
+                if (_previousInteractable != null)
+                {
+                    _previousInteractable.Outline.enabled = false;
+                }
 
-            if (_curInteractable != null)
-            {
                 _curInteractable.Outline.enabled = true;
-            }
 
-            _previousInteractable = _curInteractable;
+                _previousInteractable = _curInteractable;
+            }
         }
     }
 

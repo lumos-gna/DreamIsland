@@ -21,14 +21,16 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public int quantity;
 
     [SerializeField] private Image hightLightImage;
-    
 
     private GameObject dragIcon;
     private RectTransform dragIconRect;
+    private Color originalColor;
+    private Color originalIconColor;
 
     private void Start()
     {
-        throw new NotImplementedException();
+        originalColor = hightLightImage.color;
+        originalIconColor = Color.white;
     }
 
     public void ClearSlot()
@@ -50,6 +52,14 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         icon.gameObject.SetActive(true);
         icon.sprite = item.Icon;
         quantityText.text = quantity > 1 ? quantity.ToString() : string.Empty;
+    }
+
+    public void SetHighlight(bool active)
+    {
+        if (hightLightImage != null)
+        {
+            hightLightImage.color = active ? Color.white : originalColor;
+        }
     }
 
     // 마우스 포인터가 아이콘 위에 있을때 감지
@@ -86,17 +96,21 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (dragIcon == null) return;
-
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
-            Input.mousePosition,
-            null, out Vector2 pos);
-        dragIconRect.localPosition = pos;
+        if (dragIcon != null)
+        {
+            icon.color = Color.clear;
+            quantityText.text = string.Empty;
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
+                Input.mousePosition,
+                null, out Vector2 pos);
+            dragIconRect.localPosition = pos;
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        icon.color = Color.white;
         if (dragIcon != null)
         {
             Destroy(dragIcon);

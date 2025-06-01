@@ -31,11 +31,6 @@ public class GameOverUI : BaseUI
         GameManager.Instance.ReStart();
     }
 
-    public void GoToStartSceneBtn()
-    {
-        GameManager.Instance.GoToStartScene();
-    }
-
     public void ExitBtn()
     {
         GameManager.Instance.Exit();
