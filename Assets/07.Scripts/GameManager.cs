@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +21,8 @@ public class GameManager : Singleton<GameManager>
 
     private PlayerCondition _playerCondition;
     private Inventory _inventory;
+
+    private string _startScenename = "StartScene";
 
     private void Awake()
     {
@@ -70,6 +72,11 @@ public class GameManager : Singleton<GameManager>
     public void ReStart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToStartScene()
+    {
+        SceneManager.LoadScene(_startScenename);
     }
 
     public void Exit()
