@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4389099631284343032}
   - component: {fileID: 87988498045524633}
   - component: {fileID: -229018861965747799}
-  - component: {fileID: 3838837056817773729}
   m_Layer: 7
   m_Name: Rock 5
   m_TagString: Untagged
@@ -129,25 +128,3 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3838837056817773729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2876052677139099949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc12348f201a56746989e290189ea5d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHP: 100
-  currentHP: 0
-  damageAmount: 10
-  dropItems:
-  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 1
-  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 0.6
-  - prefab: {fileID: 2577258900003476968, guid: 589106b9fa8522847899693efeca6f86, type: 3}
-    dropChance: 0.3
