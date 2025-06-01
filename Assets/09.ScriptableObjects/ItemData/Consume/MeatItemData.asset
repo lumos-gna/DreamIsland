@@ -26,7 +26,7 @@ MonoBehaviour:
     states:
     - type: 0
       value: 10
-  isCraftable: 1
+  isCraftable: 0
   craftingInfo:
     recipes:
     - data: {fileID: 11400000, guid: 70a25741790fc34498bb1f4442c13d6e, type: 2}

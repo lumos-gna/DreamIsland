@@ -18,9 +18,11 @@ public class Projectile : MonoBehaviour, IPoolable
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            if (other.TryGetComponent<PlayerCondition>(out var condition))
+            if (other.TryGetComponent<BaseEnemy>(out var enemy))
             {
-                condition.HealthChange(-_damage);
+                Debug.Log(_damage);
+                enemy.GetEnemyHealth().SetDamage(((int)_damage));
+                enemy.TakeDamage((int)_damage);
             }
         }
 

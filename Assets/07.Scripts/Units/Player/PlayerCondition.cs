@@ -65,6 +65,11 @@ public class PlayerCondition : MonoBehaviour
 
         if (water <= 0f)
             HealthChange(-5f * Time.deltaTime);
+        
+        if(health <= 0f) // 체력이 0이되면 게임 오버
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     public void HealthChange(float change) => health = Mathf.Clamp(health + change, minf, maxf);
