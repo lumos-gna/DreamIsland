@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,9 +10,9 @@ public class EquippedController : MonoBehaviour
 
     public bool IsInputDown { get; private set; }
     public bool IsInputUp { get; private set; }
-    
- 
-    
+
+
+
     [SerializeField] private Transform equipParent;
 
     private GameManager _gameManager;
@@ -20,7 +20,7 @@ public class EquippedController : MonoBehaviour
     private void Start()
     {
         _gameManager = GameManager.Instance;
-        
+
         Inventory = _gameManager.Inventory;
     }
 
@@ -28,7 +28,7 @@ public class EquippedController : MonoBehaviour
     {
         if (!_gameManager.IsLockedCursor || CurEquippedItem == null)
             return;
-        
+
         CurEquippedItem.Use();
     }
 
@@ -51,7 +51,7 @@ public class EquippedController : MonoBehaviour
                 break;
         }
     }
-    
+
     public void OnSelectItemInput(InputAction.CallbackContext context)
     {
         switch (context.phase)
@@ -61,32 +61,32 @@ public class EquippedController : MonoBehaviour
                 {
                     CurSlot = Inventory.GetQuickSlotToIndex(index - 1);
 
+                    var quickSlotUI = UIManager.Instance.Get<QuickSlotUI>();
+                    quickSlotUI.HighlightSlot(index - 1);
                     if (CurSlot == null)
                     {
                         if (CurEquippedItem == null)
                             return;
-                        
+
                         CurEquippedItem.UnEquip();
                     }
                     else
                     {
-                      
-                        
                         var slotItem = CurSlot.item;
-                        
+
                         if (CurEquippedItem != null)
                         {
-                            if (CurEquippedItem.ItemData == slotItem) 
+                            if (CurEquippedItem.ItemData == slotItem)
                                 return;
-                            
+
                             CurEquippedItem.UnEquip();
                         }
 
                         if (slotItem != null)
                         {
-                            if (!CurSlot.item.IsEquippalbe) 
+                            if (!CurSlot.item.IsEquippalbe)
                                 return;
-                            
+
                             CurEquippedItem = Instantiate(slotItem.EquippedPrefab, equipParent);
                             CurEquippedItem.Equip(this, slotItem);
                         }

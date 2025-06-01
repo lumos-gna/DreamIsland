@@ -10,8 +10,6 @@ public class GameManager : Singleton<GameManager>
 
     private PlayerCondition _playerCondition;
 
-    private string startscenename = "StartScene";
-
     private void Awake()
     {
         Inventory = new Inventory(itemSlotCount: 21, handleSlotCount: 7);
@@ -42,6 +40,8 @@ public class GameManager : Singleton<GameManager>
         UIManager.Instance.Disable<InventoryUI>();
         UIManager.Instance.Disable<CraftingUI>();
         UIManager.Instance.Disable<GameOverUI>();
+        UIManager.Instance.Disable<FadeUI>();
+        UIManager.Instance.Disable<FlashUI>();
     }
 
     public void ToggleCursor(bool isLock)
@@ -60,11 +60,6 @@ public class GameManager : Singleton<GameManager>
     public void ReStart()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    public void GoToStartScene()
-    {
-        SceneManager.LoadScene(startscenename);
     }
 
     public void Exit()
