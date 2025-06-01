@@ -26,10 +26,6 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private GameObject dragIcon;
     private RectTransform dragIconRect;
 
-    private void Start()
-    {
-        throw new NotImplementedException();
-    }
 
     public void ClearSlot()
     {
