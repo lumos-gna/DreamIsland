@@ -7,7 +7,7 @@ using System;
 [System.Serializable]
 public struct DropItem
 {
-    //������ ������
+
     public GameObject prefab;
     [Range(0f, 1f), Tooltip("0~1 ���� Ȯ��")]
     public float dropChance;
@@ -31,7 +31,7 @@ public class DestructibleObject : MonoBehaviour
     [Header("Drop Settings")]
     public ItemData _dropItem;
 
-    [Header("Sound Settings")]            // ȿ������ �߰�
+    [Header("Sound Settings")]          
     [SerializeField] private int TreeSound = 13;
     [SerializeField] private int RockSound = 12;
     [SerializeField] private int MushroomSound = 13;
@@ -51,7 +51,7 @@ public class DestructibleObject : MonoBehaviour
 
     public void ObjectTakeDamage(int amount)
     {
-        //ȿ���� ���
+
         int sfxIndex = TreeSound;
         string nm = gameObject.name.ToLower();
         if (nm.Contains("rock")) sfxIndex = RockSound;
@@ -61,7 +61,7 @@ public class DestructibleObject : MonoBehaviour
         // AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
 
         currentHP -= amount;
-        // 체력바 표시
+
         if (_healthBar != null)
         {
             _helathBarSprite.gameObject.SetActive(true);
