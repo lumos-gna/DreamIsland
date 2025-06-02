@@ -5,7 +5,6 @@ public class PlayerCondition : MonoBehaviour
     [SerializeField] private float health = 100f;
     [SerializeField] private float water = 100f;
     [SerializeField] private float stamina = 100f;
-
     [SerializeField] private float redTemperature = 0f;   // 과열 게이지
     [SerializeField] private float blueTemperature = 0f;  // 저체온 게이지
 
@@ -18,7 +17,6 @@ public class PlayerCondition : MonoBehaviour
     private float waterDecreaseperFrame = 0.001f;
     private float thirstyDecreaseHealth = 0.1f;
     private float StaminaDecreasePerFrame = 0.001f;
-
     private float minf = 0f;
     private float maxf = 100f;
 
@@ -65,8 +63,8 @@ public class PlayerCondition : MonoBehaviour
 
         if (water <= 0f)
             HealthChange(-5f * Time.deltaTime);
-        
-        if(health <= 0f) // 체력이 0이되면 게임 오버
+
+        if (health <= 0f) // 체력이 0이되면 게임 오버
         {
             //GameManager.Instance.GameOver();
         }
@@ -74,7 +72,7 @@ public class PlayerCondition : MonoBehaviour
 
     public void HealthChange(float change)
     {
-        if(change < 0f)
+        if (change < 0f)
         {
             UIManager.Instance.Get<FlashUI>()?.PlayFlash();
         }
@@ -84,5 +82,5 @@ public class PlayerCondition : MonoBehaviour
     public void RedTempChange(float change) => redTemperature = Mathf.Clamp(redTemperature + change, minf, maxf);
     public void BlueTempChange(float change) => blueTemperature = Mathf.Clamp(blueTemperature + change, minf, maxf);
     public void StaminaChange(float change) => stamina = Mathf.Clamp(stamina + change, minf, maxf);
-    
+
 }

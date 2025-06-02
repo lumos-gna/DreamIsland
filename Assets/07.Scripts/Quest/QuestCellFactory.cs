@@ -1,12 +1,11 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class QuestCellFactory:MonoBehaviour
+public class QuestCellFactory : MonoBehaviour
 {
     public GameObject questGroup;
     public GameObject questCellPrefab;
-    
 
     public GameObject CreateQuestCell(Quest questData)
     {

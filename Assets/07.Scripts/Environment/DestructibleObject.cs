@@ -53,7 +53,7 @@ public class DestructibleObject : MonoBehaviour
         else if (nm.Contains("mushroom")) sfxIndex = MushroomSound;
         // else > TreeSound
 
-       // AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
+        // AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
 
         currentHP -= amount;
         // 체력바 표시

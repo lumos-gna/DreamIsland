@@ -5,7 +5,6 @@ public class FleeEnemy : BaseEnemy, IPoolableEnemy
     [SerializeField] FleeEnemyStats _fleeStats;
     public override FleeEnemyStats FleeEnemyStats => _fleeStats;
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
@@ -15,7 +14,6 @@ public class FleeEnemy : BaseEnemy, IPoolableEnemy
                 condition.HealthChange(-2f);
             }
         }
-
     }
 
     private void OnDrawGizmosSelected()
@@ -23,7 +21,7 @@ public class FleeEnemy : BaseEnemy, IPoolableEnemy
         Gizmos.color = Color.cyan;
 
         // 도망 반경 시각화
-        if(_fleeStats != null)
+        if (_fleeStats != null)
             Gizmos.DrawWireSphere(transform.position, _fleeStats.WanderRadius);
     }
 }

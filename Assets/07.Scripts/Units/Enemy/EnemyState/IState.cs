@@ -1,5 +1,4 @@
-﻿
-public interface IState<T>
+﻿public interface IState<T>
 {
     void Enter(T obj);
     void Update(T obj);

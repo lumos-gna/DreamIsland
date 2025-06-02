@@ -16,14 +16,14 @@ public class EnemyHealth : MonoBehaviour
     }
     private void Awake()
     {
-        
+
         _baseEnemy = GetComponent<BaseEnemy>();
         _conditionHandler = GetComponent<ConditionHandler>();
     }
 
     private void Start()
     {
-        
+
         // 초기 체력 UI 설정
         if (_healthBar != null && _conditionHandler != null)
         {
@@ -53,7 +53,7 @@ public class EnemyHealth : MonoBehaviour
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
             _healthBar.DamageText(_damage); // 여기에 플레이어 데미지 넣기
         }
-        
+
         Animator anim = _baseEnemy.GetAnimator();
 
         if (anim != null && HasParameter(anim, "isDamage"))
@@ -68,6 +68,7 @@ public class EnemyHealth : MonoBehaviour
         }
 
     }
+
     // 애니메이션 있는지 체크
     private bool HasParameter(Animator animator, string paramName)
     {
@@ -83,5 +84,4 @@ public class EnemyHealth : MonoBehaviour
         _baseEnemy.GetFSM().ChangeState(_baseEnemy.StateFactory.Get<DieState>());
         _helathBarSprite.gameObject.SetActive(false);
     }
-
 }

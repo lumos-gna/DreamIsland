@@ -6,9 +6,7 @@ using UnityEngine.UI;
 public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public static HandleSlot draggedFromHandleSlot;
-
     public ItemData item;
-
     public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;

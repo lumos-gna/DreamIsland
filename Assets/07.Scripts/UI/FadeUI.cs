@@ -5,27 +5,27 @@ using UnityEngine;
 public class FadeUI : BaseUI
 {
     public override bool IsEnabled => _fadeImage.gameObject.activeInHierarchy;
-    
+
     [SerializeField] private CanvasGroup _canvasGroup;
     [SerializeField] private GameObject _fadeImage;
-    
+
     private Action _onCompleteFade;
-    
+
     public void PlayFade(float fadeDuration, float stayDuration)
     {
         Enable(); // 먼저 보여야 하니까 켜주고
         StartCoroutine(FadeRoutine(fadeDuration, stayDuration));
     }
 
-
     public override void Init()
     {
-        if(_canvasGroup != null)
+        if (_canvasGroup != null)
         {
             _canvasGroup.alpha = 0f;
             Disable();
         }
     }
+
     public override void Disable()
     {
         _fadeImage.SetActive(false);

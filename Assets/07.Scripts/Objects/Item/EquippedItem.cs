@@ -1,12 +1,11 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public abstract class EquippedItem : MonoBehaviour
 {
-    public  ItemData ItemData { get; protected set; }
+    public ItemData ItemData { get; protected set; }
 
     protected Animator _animator;
-
     protected EquippedController _controller;
 
     private void Awake()
@@ -14,14 +13,13 @@ public abstract class EquippedItem : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-
     public virtual void Equip(EquippedController controller, ItemData itemData)
     {
-        if (!itemData.IsEquippalbe) 
+        if (!itemData.IsEquippalbe)
             return;
 
         _controller = controller;
-        
+
         ItemData = itemData;
     }
 
@@ -30,5 +28,4 @@ public abstract class EquippedItem : MonoBehaviour
         Destroy(gameObject);
     }
     public abstract void Use();
-    
 }
