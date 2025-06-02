@@ -5,20 +5,19 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Transform _pivot;
-    [SerializeField] private Animator _damageAnimator;
     [SerializeField] private GameObject _damageText;
     [SerializeField] private Canvas _canvas;
     [SerializeField] private Image _healthBarForegroundSprite;
     [SerializeField] private Image _helathBarSprite;
     [SerializeField] private float _speed = 3f;
+    
+    private Transform _player;
     private Transform _target;
-    private EnemyHealth _enemyHealth;
     private DestructibleObject _destructibleObject;
     private BaseEnemy _baseEnemy;
     private float _targetFillAmount = 1f;
     private bool _isDectect = false;
-    private Transform _player;
-    public Transform GetPivot() => _pivot;
+    
     public void SetIsDectect(bool isDect)
     {
         _isDectect = isDect;
@@ -26,21 +25,28 @@ public class HealthBar : MonoBehaviour
     private void Awake()
     {
         _target = transform.root;
-        _enemyHealth = GetComponentInParent<EnemyHealth>();
         _destructibleObject = GetComponentInParent<DestructibleObject>();
         _baseEnemy = GetComponentInParent<BaseEnemy>();
-        if (_enemyHealth != null)
-        {
-            _enemyHealth.OnHealthChanged += UpdateHealthBar;
-        }
+        
         if(_destructibleObject != null)
         {
             _destructibleObject.OnHealthChanged += UpdateHealthBar;
         }
-        GameObject playerObj = GameObject.FindWithTag("Player");
-        if (playerObj != null)
-            _player = playerObj.transform;
+
+
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+
+        if (player == null)
+        {
+            Debug.LogError("플레이어가 없다~~");
+            return;
+        }
+        
+        _player = player.transform;
+
+       
         transform.forward = Camera.main.transform.forward;
+        
         // 처음에 비활성화;
         _helathBarSprite.gameObject.SetActive(false);
     }

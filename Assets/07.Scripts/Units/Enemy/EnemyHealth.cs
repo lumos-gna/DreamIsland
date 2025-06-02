@@ -9,7 +9,6 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private ParticleSystem _damageParticle;
     private BaseEnemy _baseEnemy;
     private int _damage;
-    public event Action<float, float> OnHealthChanged;
 
     public void SetDamage(int damage)
     {
