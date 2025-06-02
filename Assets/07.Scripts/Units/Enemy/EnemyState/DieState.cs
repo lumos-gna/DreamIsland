@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿
 public class DieState : IState<BaseEnemy>
 {
     public void Enter(BaseEnemy obj)

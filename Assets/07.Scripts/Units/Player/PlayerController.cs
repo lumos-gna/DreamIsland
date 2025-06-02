@@ -1,14 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
-using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    private Player _player;
-
     [Header("Move")]
     [SerializeField] private float moveSpeed;
     private Vector2 curMovement;
@@ -34,18 +28,6 @@ public class PlayerController : MonoBehaviour
     private float footstepTimer = 0f;
     private bool _canlook = true;
     private bool _talking;
-
-    public Player _Player
-    {
-        get
-        {
-            return _player;
-        }
-        set
-        {
-            _player = value;
-        }
-    }
 
 
     private GameManager _gameManager;
