@@ -68,7 +68,7 @@ public class PlayerCondition : MonoBehaviour
         
         if(health <= 0f) // 체력이 0이되면 게임 오버
         {
-            GameManager.Instance.GameOver();
+            //GameManager.Instance.GameOver();
         }
     }
 

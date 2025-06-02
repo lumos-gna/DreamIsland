@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 [System.Serializable]
 public struct DropItem
@@ -18,22 +19,23 @@ public class DestructibleObject : MonoBehaviour
     [Header("HP Settings")]
     public float maxHP = 100f;
     public float currentHP;
-
+    [SerializeField] private HealthBar _healthBar;
+    [SerializeField] private GameObject _helathBarSprite;
     [Header("Damage Settings")]
     public int damageAmount = 10;
 
     [Header("Drop Settings")]
-    public DropItem[] dropItems;
+    public ItemData _dropItem;
 
     [Header("Sound Settings")]            // ȿ������ �߰�
     [SerializeField] private int TreeSound = 13;
     [SerializeField] private int RockSound = 12;
     [SerializeField] private int MushroomSound = 13;
-
+    [SerializeField] private ParticleSystem _damageParticle;
     private Vector3 _originalScale;
     private Vector3 _originalPosition;
     private Coroutine _damageFeedbackCoroutine;
-
+    public event Action<float, float> OnHealthChanged;
 
     void Awake()
     {
@@ -51,9 +53,19 @@ public class DestructibleObject : MonoBehaviour
         else if (nm.Contains("mushroom")) sfxIndex = MushroomSound;
         // else > TreeSound
 
-        AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
+       // AudioManager.Instance.PlaySFXAtPoint(sfxIndex, transform.position);
 
         currentHP -= amount;
+        // 체력바 표시
+        if (_healthBar != null)
+        {
+            _helathBarSprite.gameObject.SetActive(true);
+            _healthBar.UpdateHealthBar(maxHP, currentHP);
+            _healthBar.DamageText(damageAmount); // 여기에 플레이어 데미지 넣기
+        }
+        OnHealthChanged?.Invoke(maxHP, currentHP);
+
+        _damageParticle?.Play();
         if (_damageFeedbackCoroutine != null)
             StopCoroutine(_damageFeedbackCoroutine);
 
@@ -108,26 +120,13 @@ public class DestructibleObject : MonoBehaviour
 
     private void Die()
     {
-        StartCoroutine(HandleDropsAndDestroy());
+        DropItem();
         //_anim.SetTrigger("ObjectHit"); // �״� �ִϸ��̼� ����� ����
     }
 
-    /// ��� ������ ���� �� �� ������Ʈ ����
-    private IEnumerator HandleDropsAndDestroy()
+    public void DropItem()
     {
-
-        // ��� ó��
-        foreach (var item in dropItems)
-        {
-            if (item.prefab == null) continue;
-            if (Random.value <= item.dropChance)
-            {
-                Instantiate(item.prefab, transform.position, Quaternion.identity);
-            }
-        }
-
+        Instantiate(_dropItem.DroppedPrefab, transform.position, Quaternion.identity);
         Destroy(gameObject);
-        yield break;
     }
-
 }

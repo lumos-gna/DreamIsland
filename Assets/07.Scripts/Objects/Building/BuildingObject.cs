@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
 
@@ -68,17 +69,23 @@ public class BuildingObject : MonoBehaviour
 
    
    
-   public BuildingSnapPoint GetSnapPointClosestTargetPoint(BuildingSnapPoint targetPoint)
+   public BuildingSnapPoint GetSnapPointClosestTargetPoint(BuildingSnapPoint targetPoint, Vector3 lookDir)
    {
       BuildingSnapPoint tempSnapPoint = null;
 
       float tempDist = float.MinValue;
-
+      
       foreach (var item in snapPoints)
       {
-         if (item.Axis == BuildingSnapPoint.SnapAxis.All ||
-             item.Axis ==  targetPoint.Axis)
+         if (item.Axis ==  targetPoint.Axis)
          {
+            if (item.Axis == BuildingSnapPoint.SnapAxis.Vertical)
+            {
+               if (lookDir.y > 0 && item.transform.localPosition.y < 0 ||
+                   lookDir.y < 0 && item.transform.localPosition.y > 0)
+                  continue;
+            }
+            
             float compareDist = Vector3.Distance(item.transform.localPosition, targetPoint.transform.localPosition);
             
             if (compareDist > tempDist)

@@ -64,6 +64,7 @@ public class BuildingSystem
         }
 
         _isBuildable = false;
+        
 
         Ray ray = _camera.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
 
@@ -73,7 +74,7 @@ public class BuildingSystem
 
             if (hit.rigidbody != null)
             {
-                Snap(hit);
+                Snap(hit, ray.direction.normalized);
             }
             
             _isBuildable = true;
@@ -83,15 +84,16 @@ public class BuildingSystem
     }
 
 
-    void Snap(RaycastHit hit)
+    void Snap(RaycastHit hit, Vector3 rayDirNormalized)
     {
         if (hit.rigidbody.TryGetComponent(out BuildingObject targetObject))
         {
             if (targetObject.IsSnappable && _buildingObject.IsSnappable)
             {
                 BuildingSnapPoint targetSnapPoint = targetObject.GetSnapPointClosestHit(hit.point);
-
-                BuildingSnapPoint curSnapPoint = _buildingObject.GetSnapPointClosestTargetPoint(targetSnapPoint);
+                
+                BuildingSnapPoint curSnapPoint 
+                    = _buildingObject.GetSnapPointClosestTargetPoint(targetSnapPoint, rayDirNormalized);
 
                 if (curSnapPoint != null)
                 {

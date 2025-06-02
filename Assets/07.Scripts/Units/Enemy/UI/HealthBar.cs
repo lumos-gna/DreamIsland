@@ -1,24 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Transform _pivot;
-    [SerializeField] private Animator _damageAnimator;
     [SerializeField] private GameObject _damageText;
     [SerializeField] private Canvas _canvas;
     [SerializeField] private Image _healthBarForegroundSprite;
     [SerializeField] private Image _helathBarSprite;
     [SerializeField] private float _speed = 3f;
+    
+    private Transform _player;
     private Transform _target;
-    private EnemyHealth _enemyHealth;
+    private DestructibleObject _destructibleObject;
     private BaseEnemy _baseEnemy;
     private float _targetFillAmount = 1f;
     private bool _isDectect = false;
-    public Transform GetPivot() => _pivot;
+    
     public void SetIsDectect(bool isDect)
     {
         _isDectect = isDect;
@@ -26,13 +25,28 @@ public class HealthBar : MonoBehaviour
     private void Awake()
     {
         _target = transform.root;
-        _enemyHealth = GetComponentInParent<EnemyHealth>();
+        _destructibleObject = GetComponentInParent<DestructibleObject>();
         _baseEnemy = GetComponentInParent<BaseEnemy>();
-        if (_enemyHealth != null)
+        
+        if(_destructibleObject != null)
         {
-            _enemyHealth.OnHealthChanged += UpdateHealthBar;
+            _destructibleObject.OnHealthChanged += UpdateHealthBar;
         }
+
+
+        PlayerController player = FindAnyObjectByType<PlayerController>();
+
+        if (player == null)
+        {
+            Debug.LogError("플레이어가 없다~~");
+            return;
+        }
+        
+        _player = player.transform;
+
+       
         transform.forward = Camera.main.transform.forward;
+        
         // 처음에 비활성화;
         _helathBarSprite.gameObject.SetActive(false);
     }
@@ -40,9 +54,18 @@ public class HealthBar : MonoBehaviour
     {
         if (_target == null) return;
 
-        if (_baseEnemy.PlayerInRange())
+        if (_baseEnemy != null && _baseEnemy.PlayerInRange())
         {
             _isDectect = true;
+        }
+        else
+        {
+            if (_player != null)
+            {
+                float detectRange = 5f;
+                float distance = Vector3.Distance(_target.position, _player.position);
+                _isDectect = distance <= detectRange;
+            }
         }
 
         _helathBarSprite.gameObject.SetActive(_isDectect);
@@ -50,7 +73,8 @@ public class HealthBar : MonoBehaviour
         // 위치 맞추기
         transform.position = _pivot != null ? _pivot.position : _target.position;
         // 회전 따라가기 
-        transform.forward = Camera.main.transform.forward;
+        Vector3 dir = (transform.position - Camera.main.transform.position).normalized;
+        transform.forward = dir;
 
         _healthBarForegroundSprite.fillAmount = Mathf.MoveTowards(_healthBarForegroundSprite.fillAmount, _targetFillAmount, Time.deltaTime * _speed);
     }

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
@@ -12,7 +9,6 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private ParticleSystem _damageParticle;
     private BaseEnemy _baseEnemy;
     private int _damage;
-    public event Action<float, float> OnHealthChanged;
 
     public void SetDamage(int damage)
     {
@@ -57,6 +53,7 @@ public class EnemyHealth : MonoBehaviour
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
             _healthBar.DamageText(_damage); // 여기에 플레이어 데미지 넣기
         }
+        
         Animator anim = _baseEnemy.GetAnimator();
 
         if (anim != null && HasParameter(anim, "isDamage"))
