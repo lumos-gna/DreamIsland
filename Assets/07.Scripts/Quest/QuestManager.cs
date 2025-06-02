@@ -106,6 +106,7 @@ public class QuestManager : Singleton<QuestManager>
     }
 
     public bool CheckMainQuest() { return _mainQuestClear; }
+    
     private void UpdateQuestUI()      //퀘스트 UI 갱신
     {
         for (int i = 0; i < _acceptedQuestList.Count; i++)
@@ -121,26 +122,8 @@ public class QuestManager : Singleton<QuestManager>
         }
     }
 
-    public void ChangeData(Region region)
+    public void ChangeData(Region region) //지역에 따라 npc 데이터 바꾸기
     {
         npcManager.ChangeData(region);
-    }
-
-    //테스트용
-    void Update()
-    {
-        //랜덤 퀘스트
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            QuestPlusCount("학 랜덤 퀘스트 1"); QuestPlusCount("토끼 랜덤 퀘스트 1"); QuestPlusCount("뱀 랜덤 퀘스트 1");
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            QuestPlusCount("학 랜덤 퀘스트 2"); QuestPlusCount("토끼 랜덤 퀘스트 2"); QuestPlusCount("뱀 랜덤 퀘스트 2");
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            QuestPlusCount("학 랜덤 퀘스트 3"); QuestPlusCount("토끼 랜덤 퀘스트 3"); QuestPlusCount("뱀 랜덤 퀘스트 3");
-        }
     }
 }

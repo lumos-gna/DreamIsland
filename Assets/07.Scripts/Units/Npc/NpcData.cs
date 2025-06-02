@@ -8,7 +8,7 @@ public class NpcData : ScriptableObject
     public Quest[] randomQuests;
     public Quest mainQuests;
 
-    private int _currentRandomQuestIndex = 0;
+    private int _currentRandomQuestIndex;
 
     public DialogueType Type(int selectedDialogue)
     {
