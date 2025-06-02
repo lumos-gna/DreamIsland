@@ -26,7 +26,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int playerJumpSound;
     [SerializeField] private float playerSoundInterval = 0.5f; // 걸음 소리 간격
     private float footstepTimer = 0f;
-    private bool _canlook = true;
     private bool _talking;
 
 

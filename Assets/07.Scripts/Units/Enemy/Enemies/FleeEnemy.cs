@@ -3,7 +3,6 @@
 public class FleeEnemy : BaseEnemy, IPoolableEnemy
 {
     [SerializeField] FleeEnemyStats _fleeStats;
-    [SerializeField] float _hitPower = 2f;
     public override FleeEnemyStats FleeEnemyStats => _fleeStats;
 
 

@@ -54,6 +54,7 @@ public class EnemyHealth : MonoBehaviour
             _healthBar.UpdateHealthBar(_conditionHandler.Maxhealth, _conditionHandler.CurHealth);
             _healthBar.DamageText(_damage); // 여기에 플레이어 데미지 넣기
         }
+        
         Animator anim = _baseEnemy.GetAnimator();
 
         if (anim != null && HasParameter(anim, "isDamage"))
