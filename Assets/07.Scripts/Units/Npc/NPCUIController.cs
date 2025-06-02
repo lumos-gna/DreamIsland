@@ -28,7 +28,7 @@ public class NPCUIController : MonoBehaviour
             _playerController = player.GetComponentInChildren<PlayerController>();
         }
 
-        exitButton.onClick.AddListener(() => OnOff());
+        exitButton.onClick.AddListener(() => OnOff());  //종료 메서드 추가
     }
 
     private void PlusButton(int length)   //대화 버튼 추가
@@ -95,11 +95,11 @@ public class NPCUIController : MonoBehaviour
                 PlayerController playerScript = playerObj.GetComponent<PlayerController>();
                 if (playerScript != null)
                 {
-                    playerScript.Talking(false);
+                    playerScript.Talking(false);   //플레이어가 자동으로 NPC를 바라보기 해제
                 }
             }
 
-            for (int i = 0; i < _buttons.Length; i++)
+            for (int i = 0; i < _buttons.Length; i++)   //버튼 삭제
             {
                 if (_buttons[i] != null)
                 {
@@ -120,7 +120,7 @@ public class NPCUIController : MonoBehaviour
                 PlayerController playerScript = playerObj.GetComponent<PlayerController>();
                 if (playerScript != null)
                 {
-                    playerScript.Talking(true);
+                    playerScript.Talking(true);  //플레이어가 자동으로 NPC를 바라보기
                 }
             }
             PlusButton(npcData.npcDialog.Length);
@@ -129,11 +129,6 @@ public class NPCUIController : MonoBehaviour
 
     void Update()
     {
-        if (_talking)
-        {
-
-        }
-
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
 

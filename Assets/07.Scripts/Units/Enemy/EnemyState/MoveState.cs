@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class MoveState : IState<BaseEnemy>
 {
+    private const float SfxCooldown = 0.5f;
+
     private float _timer = 0f;
 
     private float _waitTime = 0f; // 동시에 움직이는걸 방지하기 위한 대기 시간
@@ -12,7 +14,6 @@ public class MoveState : IState<BaseEnemy>
 
     //효과음 쿨다운
     private float _lastSfxTime = -Mathf.Infinity;
-    private const float SfxCooldown = 0.5f;
 
     private Transform _playerTransform;
     public void Enter(BaseEnemy obj)

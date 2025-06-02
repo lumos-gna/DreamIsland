@@ -17,7 +17,7 @@ public class NpcManager : MonoBehaviour
 
     private Animator _animator;
 
-    public void TalkWithFairy()
+    public void TalkWithFairy()  //요정과의 대화 시작
     {
         npcController.dialogueText.text = "";
         string fullText = npcController.npcData.text;
@@ -31,7 +31,7 @@ public class NpcManager : MonoBehaviour
         npcController.OnOff();
     }
 
-    //npc 데이터 바꾸기
+    //지역에 따라 npc 데이터 바꾸기
     public void ChangeData(Region region)
     {
         switch (region)
@@ -56,7 +56,7 @@ public class NpcManager : MonoBehaviour
         _animator = model.GetComponent<Animator>();
     }
 
-    void Update()
+    void Update()  // 요정 이동, 플레이어 바라봄
     {
         Vector3 targetPosition = _player.transform.position + offset;
         float distance = Vector3.Distance(transform.position, targetPosition);

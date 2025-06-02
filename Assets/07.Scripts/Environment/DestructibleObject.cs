@@ -19,11 +19,15 @@ public class DestructibleObject : MonoBehaviour
     [Header("HP Settings")]
     public float maxHP = 100f;
     public float currentHP;
+    
     [SerializeField] private HealthBar _healthBar;
     [SerializeField] private GameObject _helathBarSprite;
+    
+    [Space(10f)]
     [Header("Damage Settings")]
     public int damageAmount = 10;
 
+    [Space(10f)]
     [Header("Drop Settings")]
     public ItemData _dropItem;
 
@@ -32,6 +36,7 @@ public class DestructibleObject : MonoBehaviour
     [SerializeField] private int RockSound = 12;
     [SerializeField] private int MushroomSound = 13;
     [SerializeField] private ParticleSystem _damageParticle;
+    
     private Vector3 _originalScale;
     private Vector3 _originalPosition;
     private Coroutine _damageFeedbackCoroutine;
@@ -75,6 +80,12 @@ public class DestructibleObject : MonoBehaviour
         {
             Die();
         }
+    }
+    
+    public void DropItem()
+    {
+        Instantiate(_dropItem.DroppedPrefab, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 
     private IEnumerator DamageFeedback()
@@ -124,9 +135,5 @@ public class DestructibleObject : MonoBehaviour
         //_anim.SetTrigger("ObjectHit"); // �״� �ִϸ��̼� ����� ����
     }
 
-    public void DropItem()
-    {
-        Instantiate(_dropItem.DroppedPrefab, transform.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
+
 }

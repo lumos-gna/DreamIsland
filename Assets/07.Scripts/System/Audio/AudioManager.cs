@@ -2,23 +2,30 @@
 
 public class AudioManager : MonoBehaviour
 {
+    public static AudioManager Instance { get; private set; }
+
     [Header("Spatial SFX Settings")]
     // ���� �Ÿ� ���� �־������� 0���� ����
     public float maxSfxDistance = 10f;
-    public static AudioManager Instance { get; private set; }
 
+    [Space(10f)]
     [Header("Audio Sources")]
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
 
+    [Space(10f)]
     [Header("Background Music Clips (mp3)")]
     public AudioClip[] bgmClips;
+    
+    [Space(10f)]
     [Header("Sound Effect Clips (ogg)")]
     public AudioClip[] sfxClips;
 
+    [Space(10f)]
     [Header("Volume Settings")]
     public float fixedBgmVolume = 0.08f;
 
+    [Space(10f)]
     [Header("Sound Effect Volumes")]
     [Range(0f, 1f)]
     public float[] sfxVolumes;

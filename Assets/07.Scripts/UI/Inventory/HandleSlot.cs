@@ -6,26 +6,23 @@ using UnityEngine.UI;
 public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     public static HandleSlot draggedFromHandleSlot;
+    
     public ItemData item;
-    public Button button;
     public Image icon;
     public TextMeshProUGUI quantityText;
 
     public int index;
-    public bool equiped;
     public int quantity;
 
     [SerializeField] private Image hightLightImage;
 
-    private GameObject dragIcon;
-    private RectTransform dragIconRect;
-    private Color originalColor;
-    private Color originalIconColor;
+    private GameObject _dragIcon;
+    private RectTransform _dragIconRect;
+    private Color _originalColor;
 
     private void Start()
     {
-        originalColor = hightLightImage.color;
-        originalIconColor = Color.white;
+        _originalColor = hightLightImage.color;
     }
 
     public void ClearSlot()
@@ -53,7 +50,7 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     {
         if (hightLightImage != null)
         {
-            hightLightImage.color = active ? Color.white : originalColor;
+            hightLightImage.color = active ? Color.white : _originalColor;
         }
     }
 
@@ -75,23 +72,23 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         draggedFromHandleSlot = this;
 
         // 드래그 아이콘 생성
-        dragIcon = new GameObject("HandleSlotDragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
-        dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);
-        dragIcon.transform.SetAsLastSibling();
+        _dragIcon = new GameObject("HandleSlotDragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
+        _dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);
+        _dragIcon.transform.SetAsLastSibling();
 
-        dragIconRect = dragIcon.GetComponent<RectTransform>();
-        dragIconRect.sizeDelta = icon.rectTransform.sizeDelta;
+        _dragIconRect = _dragIcon.GetComponent<RectTransform>();
+        _dragIconRect.sizeDelta = icon.rectTransform.sizeDelta;
 
-        Image image = dragIcon.GetComponent<Image>();
+        Image image = _dragIcon.GetComponent<Image>();
         image.sprite = icon.sprite;
         image.raycastTarget = false;
 
-        dragIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        _dragIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (dragIcon != null)
+        if (_dragIcon != null)
         {
             icon.color = Color.clear;
             quantityText.text = string.Empty;
@@ -99,16 +96,16 @@ public class HandleSlot : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 UIManager.Instance.Get<InventoryUI>().transform as RectTransform,
                 Input.mousePosition,
                 null, out Vector2 pos);
-            dragIconRect.localPosition = pos;
+            _dragIconRect.localPosition = pos;
         }
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         icon.color = Color.white;
-        if (dragIcon != null)
+        if (_dragIcon != null)
         {
-            Destroy(dragIcon);
+            Destroy(_dragIcon);
         }
 
         draggedFromHandleSlot = null;

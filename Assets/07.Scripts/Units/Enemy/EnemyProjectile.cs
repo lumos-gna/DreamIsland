@@ -3,6 +3,7 @@
 public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float damage = 10f;
+    
     private ParticleSystem _dust;
 
     private void Awake()
