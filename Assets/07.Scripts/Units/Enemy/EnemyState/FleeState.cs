@@ -3,14 +3,15 @@ using UnityEngine.AI;
 
 public class FleeState : IState<BaseEnemy>
 {
+    private const float MinFleeDistanceThreshold = 1.0f;
+
     private float _timer;
     private float _pathUpdateInterval = 1.5f;
-    private const float MinFleeDistanceThreshold = 1.0f;
 
     // 효과음 쿨타임 관련 설정
     private const float RunSoundCooldown = 1f;
     private float _lastRunSoundTime = -Mathf.Infinity;
-    private int DeerRunSound = 15;
+    private int _deerRunSound = 15;
     public void Enter(BaseEnemy obj)
     {
         obj.PlayFootParticle();
@@ -58,7 +59,7 @@ public class FleeState : IState<BaseEnemy>
         if (Time.time - _lastRunSoundTime < RunSoundCooldown)
             return;
 
-        AudioManager.Instance.PlaySFXAtPoint(DeerRunSound, obj.transform.position);
+        AudioManager.Instance.PlaySFXAtPoint(_deerRunSound, obj.transform.position);
         _lastRunSoundTime = Time.time;
     }
 

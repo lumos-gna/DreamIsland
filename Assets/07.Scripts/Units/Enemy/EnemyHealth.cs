@@ -7,6 +7,7 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField] private GameObject _helathBarSprite;
     [SerializeField] private ConditionHandler _conditionHandler;
     [SerializeField] private ParticleSystem _damageParticle;
+    
     private BaseEnemy _baseEnemy;
     private int _damage;
 

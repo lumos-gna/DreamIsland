@@ -15,6 +15,7 @@ public class HealthBar : MonoBehaviour
     private Transform _target;
     private DestructibleObject _destructibleObject;
     private BaseEnemy _baseEnemy;
+    
     private float _targetFillAmount = 1f;
     private bool _isDectect = false;
 

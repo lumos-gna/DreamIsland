@@ -2,12 +2,13 @@
 
 public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
 {
+    public override AttackEnemyStats AttackEnemyStats => _attackStats;
+
     [SerializeField] private AttackEnemyStats _attackStats;
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private Transform _projectileSpawnPoint;
     [SerializeField] private float _throwPower;
 
-    public override AttackEnemyStats AttackEnemyStats => _attackStats;
 
     public GameObject GetProjectilePrefab() => _projectilePrefab;
     public Transform GetProjectileSpawnPoint() => _projectileSpawnPoint;

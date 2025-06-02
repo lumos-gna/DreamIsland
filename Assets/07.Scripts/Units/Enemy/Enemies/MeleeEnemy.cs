@@ -2,9 +2,9 @@
 
 public class MeleeEnemy : BaseEnemy, IPoolableEnemy
 {
-    [SerializeField] private AttackEnemyStats _attackStats;
-
     public override AttackEnemyStats AttackEnemyStats => _attackStats;
+
+    [SerializeField] private AttackEnemyStats _attackStats;
 
     public void MeleeAttack()
     {
