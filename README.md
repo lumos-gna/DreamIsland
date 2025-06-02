@@ -1,2 +1,2 @@
-# PaperIsland
+# DreamIsland
 스파르타 내일배움캠프 3D 서바이벌 게임 팀 프로젝트입니다.
