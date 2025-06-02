@@ -1,0 +1,139 @@
+﻿using UnityEngine;
+
+[CreateAssetMenu(fileName = "NPC", menuName = "NPC/NPCData")]
+public class NpcData : ScriptableObject
+{
+    public string text;     //대화 시작시 텍스트
+    public NpcDialog[] npcDialog;
+    public Quest[] randomQuests;
+    public Quest mainQuests;
+
+    private int _currentRandomQuestIndex;
+
+    public DialogueType Type(int selectedDialogue)
+    {
+        return npcDialog[selectedDialogue].type;
+    }
+
+    public string NextText(int selectedDialogue)   //대화 텍스트 전달
+    {
+        switch (npcDialog[selectedDialogue].type)
+        {
+            case DialogueType.Normal:  //평범한 이어지는 대화
+                return npcDialog[selectedDialogue].GetText();
+
+            case DialogueType.RandomQuest:   //랜덤 퀘스트
+                if (QuestManager.Instance.CheckClearQuest(randomQuests[_currentRandomQuestIndex].name))             //받았던 퀘스트 클리어시
+                {
+                    npcDialog[selectedDialogue].SetCount(0);
+                    return QuestManager.Instance.QuestComplete(randomQuests[_currentRandomQuestIndex].name);
+                }
+                else if (QuestManager.Instance.CheckOnOffQuest(randomQuests[_currentRandomQuestIndex].name))           //수락한 퀘스트가 있으면
+                {
+                    npcDialog[selectedDialogue].SetCount(0);
+                    return randomQuests[_currentRandomQuestIndex].text;
+                }
+                else      //수락한 퀘스트가 없으면
+                {
+                    _currentRandomQuestIndex = Random.Range(0, randomQuests.Length);
+                    QuestManager.Instance.AcceptQuest(randomQuests[_currentRandomQuestIndex]);    //퀘스트 수락
+                    npcDialog[selectedDialogue].SetCount(0);
+
+                    return randomQuests[_currentRandomQuestIndex].text;
+                }
+
+            case DialogueType.Quest:     //  메인 퀘스트
+
+                if (mainQuests.Clear())  //남은 퀘스트가 없으면
+                {
+                    return "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
+                }
+                if (QuestManager.Instance.CheckClearQuest(mainQuests.name))             //받았던 퀘스트 클리어시
+                {
+                    npcDialog[selectedDialogue].SetCount(0);
+
+                    return QuestManager.Instance.QuestComplete(mainQuests.name);
+                }
+                else if (QuestManager.Instance.CheckOnOffQuest(mainQuests.name))           //수락한 퀘스트가 있으면
+                {
+                    return npcDialog[selectedDialogue].GetText();
+                }
+                else      //수락한 퀘스트가 없으면
+                {
+                    QuestManager.Instance.AcceptQuest(mainQuests);                     //퀘스트 수락
+                    npcDialog[selectedDialogue].SetCount(-1);
+
+                    return npcDialog[selectedDialogue].GetText();
+                }
+
+            case DialogueType.Random:  // 랜덤한 대화 출력
+                int random = Random.Range(0, npcDialog[selectedDialogue].npcDialogTexts.Length);
+                npcDialog[selectedDialogue].SetCount(random);
+                return npcDialog[selectedDialogue].npcDialogTexts[random].text;
+        }
+        return null;
+    }
+
+    public void AllReset()
+    {
+        mainQuests.Reset();
+
+        foreach (Quest quest in randomQuests)
+        {
+            quest.Reset();
+        }
+    }
+}
+
+public enum DialogueType
+{
+    Random,
+    Normal,
+    Quest,
+    RandomQuest,
+    None,
+}
+
+[System.Serializable]
+public class NpcDialog
+{
+    public DialogueType type;
+    public string buttonName;
+    public NpcDialogText[] npcDialogTexts;
+
+    private int _count = -1;  //대화 순서
+
+    public void Reset()  //대화 순서 리셋
+    {
+        _count = -1;
+    }
+
+    public void SetCount(int i) { _count = i; }
+
+    public string GetText()  //대화 텍스트 전달
+    {
+        _count++;
+        if (_count >= npcDialogTexts.Length)
+        {
+            return null;
+        }
+
+        return npcDialogTexts[_count].text;
+    }
+
+    public bool GetExitButton()  //나가기 버튼 온오프 여부 리턴
+    {
+        if (_count >= npcDialogTexts.Length || _count < 0)
+        {
+            return true;
+        }
+        return npcDialogTexts[_count].exitButton;
+    }
+}
+
+[System.Serializable]
+public class NpcDialogText
+{
+    public string text;
+    public bool exitButton;
+}
