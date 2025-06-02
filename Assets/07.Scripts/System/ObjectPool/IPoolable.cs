@@ -1,5 +1,4 @@
-
-public interface IPoolable
+﻿public interface IPoolable
 {
     void OnSpawn();
     void OnDespawn();

@@ -1,14 +1,14 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EatingParticle : MonoBehaviour
 {
-  [SerializeField] private ParticleSystem eating;
+    [SerializeField] private ParticleSystem eating;
 
     public void StartEating()
     {
-        if(eating != null)
+        if (eating != null)
         {
             eating.transform.position = gameObject.transform.position;
             eating.Play();
@@ -23,5 +23,4 @@ public class EatingParticle : MonoBehaviour
             eating.Stop();
         }
     }
-
 }

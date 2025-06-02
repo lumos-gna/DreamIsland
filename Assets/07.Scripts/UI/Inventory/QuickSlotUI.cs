@@ -4,14 +4,12 @@ public class QuickSlotUI : BaseUI
 {
     public override bool IsEnabled => gameObject.activeInHierarchy;
 
-
     public HandleSlot[] quickSlots;
     public Transform quickSlotPanel;
 
     private Inventory _inventory;
 
     private int currentHighlightedIndex = -1;
-
 
     public override void Init()
     {

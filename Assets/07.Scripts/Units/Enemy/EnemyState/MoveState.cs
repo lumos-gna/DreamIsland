@@ -4,7 +4,7 @@ using UnityEngine.AI;
 public class MoveState : IState<BaseEnemy>
 {
     private float _timer = 0f;
-   
+
     private float _waitTime = 0f; // 동시에 움직이는걸 방지하기 위한 대기 시간
     private float _minWaitTime = 1f;
     private float _maxWaitTime = 3f;
@@ -30,12 +30,11 @@ public class MoveState : IState<BaseEnemy>
             agent.autoBraking = false;
             agent.speed = obj.Stats.WalkSpeed;
         }
-      
+
         _waitTime = Random.Range(_minWaitTime, _maxWaitTime);
         _timer = 0f;
 
         obj.GetAgent().autoBraking = false;
-
 
         // 경로 업데이트
         UpdatePath(obj);
@@ -81,7 +80,6 @@ public class MoveState : IState<BaseEnemy>
         }
     }
 
-
     public void Exit(BaseEnemy obj)
     {
         var agent = obj.GetAgent();
@@ -102,7 +100,7 @@ public class MoveState : IState<BaseEnemy>
         else if (nm.Contains("penguin")) sfx = 10;
         if (sfx > 0)
         {
-            AudioManager.Instance.PlaySFXAtPoint(sfx,obj.transform.position);
+            AudioManager.Instance.PlaySFXAtPoint(sfx, obj.transform.position);
             _lastSfxTime = Time.time;
         }
     }
@@ -133,8 +131,6 @@ public class MoveState : IState<BaseEnemy>
                 obj.transform.rotation = Quaternion.Slerp(obj.transform.rotation, targetRotation, Time.deltaTime * 10f);
             }
         }
-
-
     }
 
     // 도망치는 적은 랜덤 위치 이동
@@ -149,7 +145,7 @@ public class MoveState : IState<BaseEnemy>
         Vector2 rand = Random.insideUnitCircle * obj.FleeEnemyStats.WanderRadius;
         Vector3 pos = center + new Vector3(rand.x, 0, rand.y);
 
-       obj.TrySetDestination(pos);
+        obj.TrySetDestination(pos);
     }
 
     // 목적지 도달 판정

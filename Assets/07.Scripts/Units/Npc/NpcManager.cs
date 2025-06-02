@@ -14,7 +14,7 @@ public class NpcManager : MonoBehaviour
     public NpcData forestData;
     public NpcData snowData;
     public NpcData desertData;
-    
+
     private Animator _animator;
 
     public void TalkWithFairy()
@@ -22,7 +22,7 @@ public class NpcManager : MonoBehaviour
         npcController.dialogueText.text = "";
         string fullText = npcController.npcData.text;
         npcController.dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
-            
+
         foreach (NpcDialog npcDialog in npcController.npcData.npcDialog)
         {
             npcDialog.Reset();
@@ -30,7 +30,7 @@ public class NpcManager : MonoBehaviour
 
         npcController.OnOff();
     }
-    
+
     //npc 데이터 바꾸기
     public void ChangeData(Region region)
     {
@@ -50,14 +50,11 @@ public class NpcManager : MonoBehaviour
         }
     }
 
-    
     void Start()
     {
         _player = GameObject.Find("Player");
         _animator = model.GetComponent<Animator>();
     }
-    
-    
 
     void Update()
     {
@@ -65,10 +62,6 @@ public class NpcManager : MonoBehaviour
         float distance = Vector3.Distance(transform.position, targetPosition);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
-        
         transform.LookAt(_player.transform);
-
-        
-        
     }
 }

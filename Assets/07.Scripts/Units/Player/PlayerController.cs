@@ -26,13 +26,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private int playerJumpSound;
     [SerializeField] private float playerSoundInterval = 0.5f; // 걸음 소리 간격
     private float footstepTimer = 0f;
-    private bool _canlook = true;
     private bool _talking;
-
 
     private GameManager _gameManager;
 
-  
     void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -48,7 +45,7 @@ public class PlayerController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(_gameManager.IsLockedCursor)
+        if (_gameManager.IsLockedCursor)
         {
             CameraLook();
         }
@@ -97,11 +94,11 @@ public class PlayerController : MonoBehaviour
 
     public void OnMoveInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Performed)
+        if (context.phase == InputActionPhase.Performed)
         {
             curMovement = context.ReadValue<Vector2>();
         }
-        else if(context.phase == InputActionPhase.Canceled)
+        else if (context.phase == InputActionPhase.Canceled)
         {
             curMovement = Vector2.zero;
         }
@@ -109,7 +106,7 @@ public class PlayerController : MonoBehaviour
 
     public void OnjumpInput(InputAction.CallbackContext context)
     {
-        if(context.phase == InputActionPhase.Started && CanJump())
+        if (context.phase == InputActionPhase.Started && CanJump())
         {
             // 효과음 재생
             playerJumpSound = 14;
@@ -136,7 +133,7 @@ public class PlayerController : MonoBehaviour
             var uiManager = UIManager.Instance;
 
             bool enabledInventory = uiManager.IsUIEnabled<InventoryUI>();
-            
+
             GameManager.Instance.ToggleCursor(enabledInventory);
 
             if (enabledInventory)
@@ -157,7 +154,7 @@ public class PlayerController : MonoBehaviour
             var uiManager = UIManager.Instance;
 
             bool enabledCrafting = uiManager.IsUIEnabled<CraftingUI>();
-            
+
             GameManager.Instance.ToggleCursor(enabledCrafting);
 
             if (enabledCrafting)
@@ -171,14 +168,12 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   
-    
     public void OnFairyInput()
     {
         if (QuestManager.Instance.npcManager.model.transform == null) return;
-        
+
         Transform target = QuestManager.Instance.npcManager.model.transform;
-        
+
         QuestManager.Instance.npcManager.TalkWithFairy();
         GameManager.Instance.OnOffEquipCamera(false);
     }
@@ -187,13 +182,13 @@ public class PlayerController : MonoBehaviour
     {
         _talking = talking;
     }
-    
+
     void Update()
     {
         if (_talking)
         {
             Transform target = QuestManager.Instance.npcManager.model.transform;
-            
+
             // =============== 1. 플레이어 몸통 Y축만 회전 ===============
             Vector3 flatDirection = target.position - transform.position;
             flatDirection.y = 0f; // 수평 방향만 고려

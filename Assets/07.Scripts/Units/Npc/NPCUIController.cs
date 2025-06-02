@@ -1,27 +1,27 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using TMPro;
 
-public class NPCUIController: MonoBehaviour
+public class NPCUIController : MonoBehaviour
 {
     public NpcData npcData;
     public Canvas uiCanvas;
     public TextMeshProUGUI dialogueText;
     public Button exitButton;
     public ButtonFactory buttonFactory;
-    
+
     private GameObject[] _buttons;
     private PlayerController _playerController;
     private int _selectedDialogue;
     private string _questName;
     private DialogueType _type;
     private bool _talking;
-    
+
     void Start()
     {
         npcData.AllReset();
-        
+
         GameObject player = GameObject.Find("Player");
         if (player != null)
         {
@@ -29,7 +29,6 @@ public class NPCUIController: MonoBehaviour
         }
 
         exitButton.onClick.AddListener(() => OnOff());
-        
     }
 
     private void PlusButton(int length)   //대화 버튼 추가
@@ -39,14 +38,13 @@ public class NPCUIController: MonoBehaviour
         {
             int index = i;
             _buttons[index] = buttonFactory.CreateButton(index, npcData.npcDialog[index].buttonName);
-            
+
             Button btn = _buttons[index].GetComponent<Button>();
-            btn.onClick.RemoveAllListeners(); 
+            btn.onClick.RemoveAllListeners();
             btn.onClick.AddListener(() => LoadDialogue(index));
         }
     }
-    
-    
+
     private void LoadDialogue(int i)  //대화 가져오기
     {
         _selectedDialogue = i;
@@ -60,42 +58,37 @@ public class NPCUIController: MonoBehaviour
             exitButton.gameObject.SetActive(true);
             return;
         }
-        
+
         dialogueText.text = "";
         fullText = npcData.NextText(_selectedDialogue);
         dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
-        
+
         _type = npcData.npcDialog[_selectedDialogue].type;
         exitButton.gameObject.SetActive(false);
-        
+
         if (npcData.npcDialog[_selectedDialogue].GetExitButton())
         {
             exitButton.gameObject.SetActive(true);
         }
-        
+
         for (int j = 0; j < _buttons.Length; j++)
         {
-            if(_buttons[j] != null)
+            if (_buttons[j] != null)
                 _buttons[j].SetActive(false);
         }
     }
-    
-    
-    
 
     public void OnOff()  //npc와의 대화 on/off
     {
         uiCanvas.gameObject.SetActive(!uiCanvas.gameObject.activeSelf);
-        
+
         GameManager.Instance.ToggleCursor(!uiCanvas.gameObject.activeSelf);
-        
-        
-        
+
         if (!uiCanvas.gameObject.activeSelf)
         {
             GameManager.Instance.OnOffEquipCamera(true);
             //Time.timeScale = 1f;
-            
+
             GameObject playerObj = GameObject.Find("Player");
             if (playerObj != null)
             {
@@ -105,13 +98,13 @@ public class NPCUIController: MonoBehaviour
                     playerScript.Talking(false);
                 }
             }
-            
+
             for (int i = 0; i < _buttons.Length; i++)
             {
                 if (_buttons[i] != null)
                 {
                     Destroy(_buttons[i]);
-                    _buttons[i] = null; 
+                    _buttons[i] = null;
                 }
             }
             _buttons = null;
@@ -133,34 +126,32 @@ public class NPCUIController: MonoBehaviour
             PlusButton(npcData.npcDialog.Length);
         }
     }
-    
-    
-    
+
     void Update()
     {
         if (_talking)
         {
-            
+
         }
-        
+
         if (Input.GetMouseButtonDown(0) && uiCanvas.gameObject.activeSelf)
         {
 
-            if (_type == DialogueType.Normal ||_type == DialogueType.Quest)
+            if (_type == DialogueType.Normal || _type == DialogueType.Quest)
             {
 
                 string fullText;
-                
+
                 if (QuestManager.Instance.CheckMainQuest() && _type == DialogueType.Quest)
                 {
                     dialogueText.text = "";
                     fullText = "나는 말리지 않을게. 현실은 차갑고 아플 거야. 하지만 선택은… 네 몫이야, 아린.";
                     dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
                     exitButton.gameObject.SetActive(true);
-                    
+
                     return;
                 }
-                
+
                 fullText = npcData.NextText(_selectedDialogue);
                 if (fullText != null)
                 {
@@ -172,7 +163,7 @@ public class NPCUIController: MonoBehaviour
                     exitButton.gameObject.SetActive(true);
                 }
 
-                
+
             }
         }
     }

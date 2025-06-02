@@ -1,5 +1,4 @@
-﻿
-public class StateMachine<T>
+﻿public class StateMachine<T>
 {
     private IState<T> _currentState;
     private T _obj;

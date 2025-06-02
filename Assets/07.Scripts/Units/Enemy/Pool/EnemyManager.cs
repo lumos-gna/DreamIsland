@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class EnemyManager : MonoBehaviour
 {
-
     [SerializeField] private RandomSpawner _enemySpawner;
 
     private List<IPoolableEnemy> _activeEnemies = new List<IPoolableEnemy>();

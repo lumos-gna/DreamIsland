@@ -1,12 +1,12 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class FireTemperatureEffect : MonoBehaviour
 {
-    [Header("È¿°ú ¹üÀ§")]
+    [Header("È¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½")]
     [SerializeField]
-    private float effectRadius = 5f; // È¿°ú ¹Ý°æ 
+    private float effectRadius = 5f; // È¿ï¿½ï¿½ ï¿½Ý°ï¿½ 
 
-    [Header("¿Âµµ »ó½Â ¼Óµµ(ÃÊ´ÜÀ§)")]
+    [Header("ï¿½Âµï¿½ ï¿½ï¿½ï¿½ ï¿½Óµï¿½(ï¿½Ê´ï¿½ï¿½ï¿½)")]
     [SerializeField]
     private float temperatureChangeRate = 2f;
 
@@ -15,7 +15,7 @@ public class FireTemperatureEffect : MonoBehaviour
 
     private void Start()
     {
-        //  PlayerCondition Ä³½Ì
+        //  PlayerCondition Ä³ï¿½ï¿½
         playerCondition = FindObjectOfType<PlayerCondition>();
         if (playerCondition != null)
         {
@@ -28,10 +28,10 @@ public class FireTemperatureEffect : MonoBehaviour
         if (playerCondition == null || playerTransform == null)
             return;
 
-        // ÇÃ·¹ÀÌ¾î¿Í ºÒ ¿ÀºêÁ§Æ® °Å¸® °è»ê
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½
         float distanceToPlayer = Vector3.Distance(playerTransform.position, transform.position);
 
-        // ¹üÀ§ ÀÌ³»¸¸ ¿Âµµ »ó½Â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì³ï¿½ï¿½ï¿½ ï¿½Âµï¿½ ï¿½ï¿½ï¿½
         if (distanceToPlayer <= effectRadius)
         {
             float changeAmount = temperatureChangeRate * Time.deltaTime;
@@ -39,7 +39,7 @@ public class FireTemperatureEffect : MonoBehaviour
         }
     }
 
-    // ÀÌÆåÆ® °Å¸® ½Ã°¢È­(Gizmo)
+    // ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Å¸ï¿½ ï¿½Ã°ï¿½È­(Gizmo)
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red * 0.5f;

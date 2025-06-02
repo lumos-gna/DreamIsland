@@ -1,11 +1,11 @@
-// EnvironmentSpawnData.cs
+ï»¿// EnvironmentSpawnData.cs
 using UnityEngine;
 using System.Collections.Generic;
 
 [RequireComponent(typeof(Collider))]
 public class EnvironmentSpawnData : MonoBehaviour
 {
-    // ÆÄ±« Á¤º¸¸¦ ÀúÀåÇÏ´Â struct
+    // ï¿½Ä±ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ struct
     public struct Info
     {
         public int prefabIndex;
@@ -14,16 +14,16 @@ public class EnvironmentSpawnData : MonoBehaviour
         public Vector3 scale;
     }
 
-    // ÆÄ±«µÈ ¿ÀºêÁ§Æ® Á¤º¸¸¸ ¸ð¾ÆµÎ´Â static ¸®½ºÆ®
+    // ï¿½Ä±ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ÆµÎ´ï¿½ static ï¿½ï¿½ï¿½ï¿½Æ®
     public static List<Info> destroyedList = new List<Info>();
 
-    // ÀÌ ÀÎ½ºÅÏ½ºÀÇ ½ºÆù Á¤º¸
+    // ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     private int _prefabIndex;
     private Quaternion _rotation;
     private Vector3 _scale;
 
     /// <summary>
-    /// ·£´ý½ºÆ÷³Ê¿¡¼­ È£Ãâ: ÇÁ¸®ÆÕ ÀÎµ¦½º, À§Ä¡, È¸Àü, ½ºÄÉÀÏ Àü´Þ
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¿ï¿½ï¿½ï¿½ È£ï¿½ï¿½: ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½, ï¿½ï¿½Ä¡, È¸ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     /// </summary>
     public void InitializeAsLanded(int prefabIndex, Vector3 landedPoint, Quaternion rot, Vector3 scale)
     {
@@ -35,12 +35,12 @@ public class EnvironmentSpawnData : MonoBehaviour
         transform.rotation = rot;
         transform.localScale = scale;
 
-        // Rigidbody ÀÖÀ¸¸é Á¦°Å
+        // Rigidbody ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         var rb = GetComponent<Rigidbody>();
         if (rb != null) Destroy(rb);
     }
 
-    // ¿ÀºêÁ§Æ®°¡ Destroy µÉ ¶§, ÀÌ Á¤º¸¸¦ static ¸®½ºÆ®¿¡ ±â·Ï
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Destroy ï¿½ï¿½ ï¿½ï¿½, ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ static ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
     void OnDestroy()
     {
         destroyedList.Add(new Info

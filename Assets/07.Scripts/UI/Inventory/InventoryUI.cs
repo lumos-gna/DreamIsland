@@ -8,7 +8,6 @@ public class InventoryUI : BaseUI
 {
     public override bool IsEnabled => inventoryWindow.activeInHierarchy;
 
-
     public GameObject inventoryWindow;
     public Transform slotPanel;
     public Transform handleSlotPanel;   // 인벤토리 퀵슬롯 부모
@@ -20,9 +19,6 @@ public class InventoryUI : BaseUI
     public HandleSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
 
     private Inventory _inventory;
-
-
-
 
     /// </summary>
     //테스트용 코드
@@ -64,7 +60,6 @@ public class InventoryUI : BaseUI
         }
 
         _inventory = GameManager.Instance.Inventory;
-
         _inventory.OnChangedInventory += UpdateUI;
 
         // 인벤토리에서 아이콘에 커서를 갖다 대기 전 나올 아이템의 정보를 클리어

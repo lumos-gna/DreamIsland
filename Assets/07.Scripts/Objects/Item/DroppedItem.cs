@@ -2,7 +2,6 @@
 using UnityEngine;
 using DG.Tweening;
 
-
 public class DroppedItem : MonoBehaviour, IInteractable
 {
     public Outline Outline => _outline;
@@ -13,7 +12,6 @@ public class DroppedItem : MonoBehaviour, IInteractable
     {
         _outline = GetComponent<Outline>();
     }
-
 
     //테스트용
     [SerializeField] private ItemData testItemData;

@@ -6,7 +6,7 @@ public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
     [SerializeField] private GameObject _projectilePrefab;
     [SerializeField] private Transform _projectileSpawnPoint;
     [SerializeField] private float _throwPower;
-    
+
     public override AttackEnemyStats AttackEnemyStats => _attackStats;
 
     public GameObject GetProjectilePrefab() => _projectilePrefab;
@@ -16,9 +16,10 @@ public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
     {
         ThrowProjectile();
     }
+
     public void MeleeAttack()
     {
-        Vector3 origin = transform.position + Vector3.up * 1f; 
+        Vector3 origin = transform.position + Vector3.up * 1f;
         Vector3 direction = transform.forward;
         float range = 4f;
         if (Physics.Raycast(origin, direction, out RaycastHit hit, range))
@@ -38,7 +39,7 @@ public class RangedEnemy : BaseEnemy, IRangedEnemy, IPoolableEnemy
     public void ThrowProjectile()
     {
         Vector3 dir = GetPlayer().transform.position - _projectileSpawnPoint.position;
-        
+
         GameObject projectile = Instantiate(_projectilePrefab, _projectileSpawnPoint.position, Quaternion.LookRotation(dir));
 
         if (projectile.TryGetComponent<Rigidbody>(out Rigidbody rb))
