@@ -14,7 +14,6 @@ public class Alter : MonoBehaviour, IInteractable
     public Transform moveTarget1;       // 이동할 위치
     public Transform moveTarget2;
     public float moveDuration = 0.5f;
-    public float lookDuration = 1.5f;
     public float finalMoveDuration = 1f;
 
     [Header("레터 박스")]
@@ -38,14 +37,14 @@ public class Alter : MonoBehaviour, IInteractable
     private void Start()
     {
         GameObject player = GameObject.Find("Player");
-        Transform child = player.transform.Find("CamerContainer"); // 자식 오브젝트 이름
+        Transform child = player.transform.Find("CamerContainer");
         if (child != null)
         {
             _childObject = child.gameObject;
         }
     }
 
-    public void OnInteract()
+    public void OnInteract()   //상호작용시
     {
 
         // 해당 아이템이 슬롯에 목표만큼 있는지 
@@ -70,23 +69,7 @@ public class Alter : MonoBehaviour, IInteractable
         }
     }
 
-    public void OnTestInteract()
-    {
-        fireEffect.SetActive(true);
-
-        GameObject newPortal = Instantiate(portal, portalPosition.transform.position, portalPosition.transform.rotation);
-        newPortal.transform.SetParent(portalPosition.transform);
-
-        Vector3 pos = newPortal.transform.localPosition;
-        pos.y = -10f;
-        newPortal.transform.localPosition = pos;
-
-        _spawnedPortal = newPortal;  // 생성한 포탈 저장
-
-        StartCameraEvent();
-    }
-
-    public void StartCameraEvent()
+    public void StartCameraEvent()  //상호작용시 보이는 장면 연출
     {
         if (cameraContainer == null || moveTarget1 == null || moveTarget2 == null || portalPosition == null || _childObject == null) return;
         if (topLetterbox == null || bottomLetterbox == null) return;
