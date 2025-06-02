@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class GameOverUI : BaseUI
+﻿public class GameOverUI : BaseUI
 {
     public override bool IsEnabled => gameObject.activeInHierarchy;
 

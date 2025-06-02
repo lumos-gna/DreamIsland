@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ConditionUI : BaseUI
@@ -16,7 +16,6 @@ public class ConditionUI : BaseUI
     {
         UIType = UIType.HUD;  // �ʵ忡 ���� �Ҵ�
     }
-
 
     public override void Init()
     {

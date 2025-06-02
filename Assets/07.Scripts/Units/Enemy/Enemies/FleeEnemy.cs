@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class FleeEnemy : BaseEnemy, IPoolableEnemy
 {
-    [SerializeField] FleeEnemyStats _fleeStats;
-    [SerializeField] float _hitPower = 2f;
     public override FleeEnemyStats FleeEnemyStats => _fleeStats;
 
+    [SerializeField] FleeEnemyStats _fleeStats;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -18,7 +15,6 @@ public class FleeEnemy : BaseEnemy, IPoolableEnemy
                 condition.HealthChange(-2f);
             }
         }
-
     }
 
     private void OnDrawGizmosSelected()
@@ -26,7 +22,7 @@ public class FleeEnemy : BaseEnemy, IPoolableEnemy
         Gizmos.color = Color.cyan;
 
         // 도망 반경 시각화
-        if(_fleeStats != null)
+        if (_fleeStats != null)
             Gizmos.DrawWireSphere(transform.position, _fleeStats.WanderRadius);
     }
 }

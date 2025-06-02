@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyAttackState : IState<BaseEnemy>
 {
     private float _timer = 0;
     private float _coolTime = 0;
+
     public void Enter(BaseEnemy obj)
     {
         obj.StopFootParticle();

@@ -7,11 +7,9 @@ public class Inventory
 {
     public ItemSlot[] itemSlots;      // 일반 인벤토리
     public ItemSlot[] handleSlots;    // 인벤토리 내 퀵슬롯
-
     public event UnityAction OnChangedInventory;
 
     public bool IsFull => itemSlots.FirstOrDefault((slot) => slot.item == null) == null;
-
 
     public Inventory(int itemSlotCount, int handleSlotCount)
     {
@@ -109,8 +107,6 @@ public class Inventory
         // 디버깅용 코드
         Debug.LogWarning($"[InventoryModel] DecreaseItem 실패 : '{item?.DisplayName}'을 인벤토리에서 찾을 수 없습니다.");
     }
-
-
 
     //찾고 싶은 슬롯의 조건을 람다로 넣어주면 됩니다
     public ItemSlot FindSlot(Func<ItemSlot, bool> slotCondition)

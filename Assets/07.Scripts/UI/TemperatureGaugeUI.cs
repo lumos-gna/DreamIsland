@@ -1,44 +1,45 @@
-using UnityEngine;
-using UnityEngine.UI;  
+ï»¿using UnityEngine;
+using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 public class TemperatureGaugeUI : MonoBehaviour
 {
     private Image _fill;
+    private DayNightCycle _cycle;
+    
     private bool _isRed;
-    private DayNightCycle _cycle;   
 
     public void Initialize(bool isRed)
     {
         _isRed = isRed;
 
-        // ÀÌ ÄÄÆ÷³ÍÆ®°¡ ºÙ¾îÀÖ´Â Image È®º¸
+        // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ù¾ï¿½ï¿½Ö´ï¿½ Image È®ï¿½ï¿½
         _fill = GetComponent<Image>();
         _fill.type = Image.Type.Filled;
         _fill.fillMethod = Image.FillMethod.Horizontal;
         _fill.fillOrigin = (int)Image.OriginHorizontal.Left;
 
-        // ¾À¿¡ Á¸ÀçÇÏ´Â DayNightCycle ¿ÀºêÁ§Æ® ÇÏ³ª¸¦ Ã£¾Æ¼­ ÂüÁ¶
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ DayNightCycle ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½Ï³ï¿½ï¿½ï¿½ Ã£ï¿½Æ¼ï¿½ ï¿½ï¿½ï¿½ï¿½
         _cycle = FindObjectOfType<DayNightCycle>();
         if (_cycle == null)
-            Debug.LogError("¾À¿¡ DayNightCycleÀÌ ¾ø½À´Ï´Ù!");
+            Debug.LogError("ï¿½ï¿½ï¿½ï¿½ DayNightCycleï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!");
     }
 
     void Update()
     {
         if (_cycle == null) return;
 
-        // ÇöÀç ¿Âµµ (static ÇÁ·ÎÆÛÆ¼)
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Âµï¿½ (static ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ¼)
         float temp = DayNightCycle.CurrentTemperature;
 
-        // ÀÎ½ºÅÏ½º ¸â¹ö·Î ¹Ù²ã¼­ »ç¿ë
+        // ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ù²ã¼­ ï¿½ï¿½ï¿½
         float t = Mathf.InverseLerp(
             _cycle.RegionMinTemperature,
             _cycle.RegionMaxTemperature,
             temp
         );
 
-        // isRedÀÌ¸é t¸¸Å­ Â÷¿À¸£°í, ÆÄ¶ûÂÊÀÌ¸é (1-t)
+        // isRedï¿½Ì¸ï¿½ tï¿½ï¿½Å­ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½Ä¶ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ (1-t)
         _fill.fillAmount = _isRed ? t : 1f - t;
     }
 }

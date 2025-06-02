@@ -1,32 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
+    public static InventorySlotUI DraggedFromSlotUI; // 드래그 시작 슬롯
+
     public ItemData item;
 
     public Image icon;
     public TextMeshProUGUI quantityText;
 
     public int index;
-    public bool equiped;
     public int quantity;
 
-    private GameObject dragIcon;
-    private RectTransform dragIconRect;
-    private Color originalIconColor;
+    private GameObject _dragIcon;
+    private RectTransform _dragIconRect;
 
-    public static InventorySlotUI DraggedFromSlotUI; // 드래그 시작 슬롯
-
-    private void Start()
-    {
-        originalIconColor = Color.white;
-    }
 
     // 슬롯 세팅
     public void SetSlot()
@@ -75,24 +66,24 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
         DraggedFromSlotUI = this;
 
         // 드래그할 아이콘 생성
-        dragIcon = new GameObject("DragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
-        dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);   // UIInventory 하위에 생성
-        dragIcon.transform.SetAsLastSibling();  // 맨 앞에서 렌더링
+        _dragIcon = new GameObject("DragIcon", typeof(RectTransform), typeof(CanvasGroup), typeof(Image));
+        _dragIcon.transform.SetParent(UIManager.Instance.Get<InventoryUI>().transform, false);   // UIInventory 하위에 생성
+        _dragIcon.transform.SetAsLastSibling();  // 맨 앞에서 렌더링
 
-        dragIconRect = dragIcon.GetComponent<RectTransform>();
-        dragIconRect.sizeDelta = icon.rectTransform.sizeDelta;
+        _dragIconRect = _dragIcon.GetComponent<RectTransform>();
+        _dragIconRect.sizeDelta = icon.rectTransform.sizeDelta;
 
-        var image = dragIcon.GetComponent<Image>();
+        var image = _dragIcon.GetComponent<Image>();
         image.sprite = icon.sprite;
         image.raycastTarget = false;
 
         // 투명도 설정
-        dragIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
+        _dragIcon.GetComponent<CanvasGroup>().blocksRaycasts = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (dragIcon != null)
+        if (_dragIcon != null)
         {
             icon.color = Color.clear;
             quantityText.text = string.Empty;
@@ -101,7 +92,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
                 Input.mousePosition,
                 null,
                 out Vector2 pos);
-            dragIconRect.localPosition = pos;
+            _dragIconRect.localPosition = pos;
         }
     }
 
@@ -109,9 +100,9 @@ public class InventorySlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExit
     {
         DraggedFromSlotUI = null;
         icon.color = Color.white;
-        if (dragIcon != null)
+        if (_dragIcon != null)
         {
-            Destroy(dragIcon);
+            Destroy(_dragIcon);
         }
     }
 

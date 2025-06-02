@@ -69,7 +69,7 @@ public class Portal : MonoBehaviour
         canTeleport = false;
 
         QuestManager.Instance.npcManager.ChangeData(targetRegion);
-        
+
         // �÷��̾� ��ġ �̵�
         playerTransform.position = regionManager.GetSpawnPoint(targetRegion).position;
 

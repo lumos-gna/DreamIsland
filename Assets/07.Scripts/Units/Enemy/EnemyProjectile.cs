@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
     [SerializeField] private float damage = 10f;
+    
     private ParticleSystem _dust;
 
     private void Awake()
@@ -39,6 +38,6 @@ public class EnemyProjectile : MonoBehaviour
             Destroy(_dust.gameObject, _dust.main.duration + _dust.main.startLifetime.constantMax);
         }
 
-        Destroy(gameObject,1f);
+        Destroy(gameObject, 1f);
     }
 }

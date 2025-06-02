@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Events;
 
 public class ConditionHandler : MonoBehaviour
@@ -13,13 +12,10 @@ public class ConditionHandler : MonoBehaviour
     }
     public ObjectType Type => type;
     public float Maxhealth => maxHealth;
-
     public float CurHealth { get; private set; }
 
     [SerializeField] private ObjectType type;
-
     [SerializeField] private float maxHealth;
-    
 
     private void Awake()
     {
@@ -29,7 +25,7 @@ public class ConditionHandler : MonoBehaviour
     public void TakeDamage(float damage)
     {
         CurHealth -= damage;
-        
+
         OnTakeDamage?.Invoke();
 
         if (CurHealth <= 0)
@@ -37,6 +33,4 @@ public class ConditionHandler : MonoBehaviour
             OnDie?.Invoke();
         }
     }
-    
-    
 }

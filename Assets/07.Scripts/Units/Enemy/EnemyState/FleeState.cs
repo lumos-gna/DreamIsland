@@ -1,19 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
-using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class FleeState : IState<BaseEnemy>
 {
+    private const float MinFleeDistanceThreshold = 1.0f;
+
     private float _timer;
     private float _pathUpdateInterval = 1.5f;
-    private const float MinFleeDistanceThreshold = 1.0f;
 
     // 효과음 쿨타임 관련 설정
     private const float RunSoundCooldown = 1f;
     private float _lastRunSoundTime = -Mathf.Infinity;
-    private int DeerRunSound = 15;    
+    private int _deerRunSound = 15;
     public void Enter(BaseEnemy obj)
     {
         obj.PlayFootParticle();
@@ -23,6 +21,7 @@ public class FleeState : IState<BaseEnemy>
         UpdateFleeEnemyPath(obj);
         _timer = 0f; // 타이머 초기화 (주기적 업데이트를 위해)
     }
+
     public void Update(BaseEnemy obj)
     {
         _timer += Time.deltaTime;
@@ -42,7 +41,6 @@ public class FleeState : IState<BaseEnemy>
             TryPlayisRuning(obj);
         }
 
-
         // 다음 도망 위치 업데이트
         if (_timer >= _pathUpdateInterval)
         {
@@ -61,7 +59,7 @@ public class FleeState : IState<BaseEnemy>
         if (Time.time - _lastRunSoundTime < RunSoundCooldown)
             return;
 
-        AudioManager.Instance.PlaySFXAtPoint(DeerRunSound, obj.transform.position);
+        AudioManager.Instance.PlaySFXAtPoint(_deerRunSound, obj.transform.position);
         _lastRunSoundTime = Time.time;
     }
 
@@ -76,7 +74,7 @@ public class FleeState : IState<BaseEnemy>
 
         // 플레이어 참조 널 체크
         GameObject playerGO = obj.GetPlayer();
-        if (obj.GetPlayer() == null) return; 
+        if (obj.GetPlayer() == null) return;
         Vector3 playerPos = playerGO.transform.position;
 
         NavMeshAgent agent = obj.GetAgent();
@@ -84,7 +82,7 @@ public class FleeState : IState<BaseEnemy>
         float maxDistance = 0f;
 
         for (int i = 0; i < 30; i++)
-        { 
+        {
             // 랜덤 위치 (반경 안)
             Vector2 rand = Random.insideUnitCircle * radius;
             Vector3 pos = center + new Vector3(rand.x, 0f, rand.y);

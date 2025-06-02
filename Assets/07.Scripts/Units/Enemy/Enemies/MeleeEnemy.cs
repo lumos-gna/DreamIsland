@@ -1,17 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using static UnityEngine.UI.Image;
+﻿using UnityEngine;
 
 public class MeleeEnemy : BaseEnemy, IPoolableEnemy
 {
-    [SerializeField] private AttackEnemyStats _attackStats;
-    
     public override AttackEnemyStats AttackEnemyStats => _attackStats;
+
+    [SerializeField] private AttackEnemyStats _attackStats;
 
     public void MeleeAttack()
     {
-        Vector3 origin = transform.position + Vector3.up * 1f; 
+        Vector3 origin = transform.position + Vector3.up * 1f;
         Vector3 direction = transform.forward;
         float range = 4f;
         if (Physics.Raycast(origin, direction, out RaycastHit hit, range))

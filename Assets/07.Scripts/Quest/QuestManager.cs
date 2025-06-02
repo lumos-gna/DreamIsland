@@ -1,9 +1,6 @@
-
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
 
 public class QuestManager : Singleton<QuestManager>
 {
@@ -12,7 +9,7 @@ public class QuestManager : Singleton<QuestManager>
 
     public NpcManager npcManager;
     public QuestCellFactory questCellFactory;
-    
+
     private List<Quest> _acceptedQuestList = new();
     private List<GameObject> _questUIList = new();
     private bool _mainQuestClear;
@@ -26,9 +23,9 @@ public class QuestManager : Singleton<QuestManager>
     public void AcceptQuest(Quest questData)  //퀘스트 수락, 리스트에 넣음
     {
         questData.Reset();
-        
+
         _acceptedQuestList.Add(questData);
-        
+
         GameObject newQuestCell = questCellFactory.CreateQuestCell(questData);
         _questUIList.Add(newQuestCell);
     }
@@ -42,12 +39,12 @@ public class QuestManager : Singleton<QuestManager>
             {
                 string foundName = _acceptedQuestList.Find(q => q.name == questName)?.name;
 
-                if (foundName != null && 
+                if (foundName != null &&
                     (foundName == "메인 퀘스트1" || foundName == "메인 퀘스트2" || foundName == "메인 퀘스트3"))
                 {
                     QuestComplete(questName);
                 }
-                
+
             }
             UpdateQuestUI();
         }
@@ -61,13 +58,13 @@ public class QuestManager : Singleton<QuestManager>
             {
                 Quest questToRemove = _acceptedQuestList.Find(q => q.name == questName);
                 string text = questToRemove.clearText;
-                
+
                 _acceptedQuestList.RemoveAt(i);
                 GameObject questUI = _questUIList[i];
                 _questUIList.RemoveAt(i);
                 Destroy(questUI);
                 UpdateQuestUI();
-                
+
                 return text;
             }
         }
@@ -89,12 +86,12 @@ public class QuestManager : Singleton<QuestManager>
         }
         return null;
     }
-    
+
     public bool CheckOnOffQuest(string questName)  // 받은 퀘스트에 그 퀘스트가 있으면 true(이름으로 비교)
     {
         if (SearchQuest(questName) != null)
         {
-           return true;
+            return true;
         }
         return false;
     }
@@ -108,16 +105,14 @@ public class QuestManager : Singleton<QuestManager>
         return false;
     }
 
-    public bool CheckMainQuest(){return _mainQuestClear;}
-    
-    
+    public bool CheckMainQuest() { return _mainQuestClear; }
     
     private void UpdateQuestUI()      //퀘스트 UI 갱신
     {
         for (int i = 0; i < _acceptedQuestList.Count; i++)
         {
             Quest quest = _acceptedQuestList[i];
-            GameObject questUI = _questUIList[i]; 
+            GameObject questUI = _questUIList[i];
 
             TextMeshProUGUI countText = questUI.transform.Find("Count")?.GetComponent<TextMeshProUGUI>();
             if (countText != null)
@@ -127,26 +122,8 @@ public class QuestManager : Singleton<QuestManager>
         }
     }
 
-    public void ChangeData(Region region)
+    public void ChangeData(Region region) //지역에 따라 npc 데이터 바꾸기
     {
         npcManager.ChangeData(region);
-    }
-
-    //테스트용
-    void Update()
-    {
-        //랜덤 퀘스트
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            QuestPlusCount("학 랜덤 퀘스트 1");QuestPlusCount("토끼 랜덤 퀘스트 1");QuestPlusCount("뱀 랜덤 퀘스트 1");
-        }
-        if (Input.GetKeyDown(KeyCode.H))
-        {
-            QuestPlusCount("학 랜덤 퀘스트 2");QuestPlusCount("토끼 랜덤 퀘스트 2");QuestPlusCount("뱀 랜덤 퀘스트 2");
-        }
-        if (Input.GetKeyDown(KeyCode.J))
-        {
-            QuestPlusCount("학 랜덤 퀘스트 3");QuestPlusCount("토끼 랜덤 퀘스트 3");QuestPlusCount("뱀 랜덤 퀘스트 3");
-        }
     }
 }

@@ -1,6 +1,4 @@
-using UnityEngine;
-
-
+﻿using UnityEngine;
 
 [System.Serializable]
 public class ItemConsumeInfo

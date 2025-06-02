@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -17,14 +16,14 @@ public class EndingScene : MonoBehaviour
     {
         PlayEndingText();
     }
-    
+
     public void ExitGame()
     {
-        #if UNITY_EDITOR
-             UnityEditor.EditorApplication.isPlaying = false; // 에디터에서 정지
-        #else
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false; // 에디터에서 정지
+#else
             Application.Quit(); // 빌드된 게임에서 종료
-        #endif
+#endif
     }
 
     private void PlayEndingText()
@@ -47,13 +46,10 @@ public class EndingScene : MonoBehaviour
 
             sequence.AppendInterval(lineInterval);
         }
-        
+
         sequence.OnComplete(() =>
         {
             endButton.SetActive(true);
         });
     }
-    
-    
-    
 }

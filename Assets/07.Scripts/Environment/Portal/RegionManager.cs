@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 public enum Region { Forest, Desert, Arctic }
@@ -33,7 +33,7 @@ public class RegionManager : MonoBehaviour
     {
         currentRegion = r;
 
-        // ÇÃ·¹ÀÌ¾î ÅÚ·¹Æ÷Æ®
+        // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Ú·ï¿½ï¿½ï¿½Æ®
         if (!skipTeleport)
             playerTransform.position = GetSpawnPoint(r).position;
 

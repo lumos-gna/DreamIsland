@@ -1,11 +1,8 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System;
 using UnityEngine.Events;
 
-// UnityEvent¸¦ »ó¼Ó¹ÞÀº Ä¿½ºÅÒ ÀÌº¥Æ® Å¸ÀÔ
-[Serializable]
 public class CycleEvent : UnityEvent { }
-
 public class DayNightCycle : MonoBehaviour
 {
     [Header("References")]
@@ -34,42 +31,33 @@ public class DayNightCycle : MonoBehaviour
     public float arcticMaxTemp = 15f;
     public static float CurrentTemperature { get; private set; }
 
-    // ³·/¹ã ¿©ºÎ¸¦ ³ªÅ¸³»´Â static ÇÁ·ÎÆÛÆ¼
+    // ï¿½ï¿½/ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static bool IsDay { get; private set; }
 
     [Header("Audio Settings")]
-    public int nightBgmIndex = 3;                // °øÅë ¹ã BGM ÀÎµ¦½º
-    public int forestDayBgmIndex = 0;            // ½£ ³· BGM ÀÎµ¦½º
-    public int desertDayBgmIndex = 2;            // »ç¸· ³· BGM ÀÎµ¦½º
-    public int arcticDayBgmIndex = 1;            // ºÏ±Ø ³· BGM ÀÎµ¦½º
+    public int nightBgmIndex = 3;                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
+    public int forestDayBgmIndex = 0;            // ï¿½ï¿½ ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
+    public int desertDayBgmIndex = 2;            // ï¿½ç¸· ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
+    public int arcticDayBgmIndex = 1;            // ï¿½Ï±ï¿½ ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
 
     [Header("Events")]
     public CycleEvent OnCycleComplete;
 
     private float timer;
     private bool _wasDay;
-
-    // **RegionManager°¡ ¾À¿¡ ¾øÀ» ¼öµµ ÀÖÀ¸´Ï, null Ã¼Å©¸¦ ÇØ¾ß ÇÔ**
     private RegionManager _regionManager;
 
     void Awake()
     {
-        // RegionManager¸¦ Ã£¾Æ¼­ ÀÌº¥Æ® µî·Ï
         _regionManager = FindObjectOfType<RegionManager>();
         if (_regionManager != null)
             _regionManager.OnRegionChanged += OnRegionChanged;
 
-        // OnCycleComplete°¡ ¿¡µðÅÍ »ó¿¡¼­ nullÀÏ ¼ö ÀÖÀ¸¹Ç·Î, nullÀÌ¸é »õ·Î »ý¼º
-        if (OnCycleComplete == null)
-            OnCycleComplete = new CycleEvent();
-
-        // ±âº»ÀûÀ¸·Î nightBgmIndex´Â 3À¸·Î µÎ±â
         nightBgmIndex = 3;
     }
 
     void Start()
     {
-        // ½ÃÀÛ ½Ã°¢ (timer)¸¦ ¼³Á¤
         timer = startTimeOfDay * dayDuration;
         ApplyCycle(timer);
 
@@ -79,12 +67,10 @@ public class DayNightCycle : MonoBehaviour
 
     void Update()
     {
-        // ½Ã°£ Áõ°¡
         timer += Time.deltaTime;
         if (timer > dayDuration)
         {
             timer -= dayDuration;
-            // »çÀÌÅ¬ÀÌ ¿Ï·áµÉ ¶§¸¶´Ù ÀÌº¥Æ® ¹ßµ¿
             OnCycleComplete?.Invoke();
         }
         ApplyCycle(timer);
@@ -98,51 +84,38 @@ public class DayNightCycle : MonoBehaviour
         bool isDay = sunAngle >= 0f && sunAngle <= 180f;
         IsDay = isDay;
 
-        // ³·¡æ¹ã È¤Àº ¹ã¡æ³·À¸·Î ÀüÈ¯µÉ ¶§ BGM ÀüÈ¯
         if (isDay != _wasDay)
         {
             _wasDay = isDay;
             PlayCurrentBGM();
         }
 
-        // ÅÂ¾ç/´Þ Á¶¸í ¹æÇâ ¹× ¹à±â ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½Ä«ï¿½Ì¹Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SunLight.transform.rotation = Quaternion.Euler(sunAngle, 170f, 0f);
         MoonLight.transform.rotation = Quaternion.Euler(sunAngle + 180f, 170f, 0f);
         SunLight.intensity = isDay ? daySunIntensity : 0f;
         MoonLight.intensity = isDay ? 0f : nightMoonIntensity;
         RenderSettings.skybox = isDay ? Sun : Moon;
 
-        // ¡ß ¿©±âºÎÅÍ ¼öÁ¤ »çÇ× ¡ß
-        // _regionManager°¡ nullÀÏ ¼öµµ ÀÖÀ¸¹Ç·Î, null Ã¼Å© ÈÄ currentRegion »ç¿ë
         float regionMin, regionMax;
-        if (_regionManager != null)
+        switch (_regionManager.currentRegion)
         {
-            switch (_regionManager.currentRegion)
-            {
-                case Region.Desert:
-                    regionMin = desertMinTemp;
-                    regionMax = desertMaxTemp;
-                    break;
-                case Region.Arctic:
-                    regionMin = arcticMinTemp;
-                    regionMax = arcticMaxTemp;
-                    break;
-                case Region.Forest:
-                default:
-                    regionMin = forestMinTemp;
-                    regionMax = forestMaxTemp;
-                    break;
-            }
+            case Region.Desert:
+                regionMin = desertMinTemp;
+                regionMax = desertMaxTemp;
+                break;
+            case Region.Arctic:
+                regionMin = arcticMinTemp;
+                regionMax = arcticMaxTemp;
+                break;
+            case Region.Forest:
+            default:
+                regionMin = forestMinTemp;
+                regionMax = forestMaxTemp;
+                break;
         }
-        else
-        {
-            // RegionManager°¡ ¾øÀ¸¸é ±âº»ÀûÀ¸·Î ½£(Forest) ¼³Á¤ °ª »ç¿ë
-            regionMin = forestMinTemp;
-            regionMax = forestMaxTemp;
-        }
-        // ¡ß ¼öÁ¤ ³¡ ¡ß
 
-        // ³·°ú ¹ã ¿Âµµ »êÃâ ·ÎÁ÷
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Sine ï¿½î¼±, ï¿½ã¿¡ï¿½ï¿½ ï¿½Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½
         float normalizedDay = Mathf.InverseLerp(0f, 180f, Mathf.Clamp(sunAngle, 0f, 180f));
         float dayTempCurve = Mathf.Sin(normalizedDay * Mathf.PI);
 
@@ -161,7 +134,7 @@ public class DayNightCycle : MonoBehaviour
 
     private void OnRegionChanged(Region newRegion)
     {
-        // Áö¿ªÀÌ ¹Ù²ð ¶§, ³·ÀÎ »óÅÂ¶ó¸é Áï½Ã ÇØ´ç Áö¿ª ³· BGMÀ¸·Î ÀüÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ BGMï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         if (IsDay)
             PlayDayBGMForRegion(newRegion);
     }
@@ -169,16 +142,14 @@ public class DayNightCycle : MonoBehaviour
     private void PlayCurrentBGM()
     {
         int idx = IsDay
-            ? (_regionManager != null
-               ? _regionManager.currentRegion switch
-               {
-                   Region.Forest => forestDayBgmIndex,
-                   Region.Desert => desertDayBgmIndex,
-                   Region.Arctic => arcticDayBgmIndex,
-                   _ => forestDayBgmIndex
-               }
-               : forestDayBgmIndex)  // _regionManager°¡ nullÀÌ¸é ±âº» ½£ À½¾Ç
-            : nightBgmIndex;
+        ? (_regionManager.currentRegion switch
+        {
+            Region.Forest => forestDayBgmIndex,
+            Region.Desert => desertDayBgmIndex,
+            Region.Arctic => arcticDayBgmIndex,
+            _ => forestDayBgmIndex
+        })
+        : nightBgmIndex;
 
         Debug.Log($"[Audio] {(IsDay ? "Day" : "Night")} playing BGM index {idx}");
         AudioManager.PlayBackgroundMusic(idx, true);
@@ -202,19 +173,16 @@ public class DayNightCycle : MonoBehaviour
             _regionManager.OnRegionChanged -= OnRegionChanged;
     }
 
-    // (±âÁ¸ ÄÚµå¿Í µ¿ÀÏ) ÇöÀç Áö¿ª¿¡ µû¸¥ ÃÖ¼Ò/ÃÖ´ë ¿Âµµ¸¦ ±¸ÇÏ´Â ÇÁ·ÎÆÛÆ¼
     public float RegionMinTemperature
     {
         get
         {
-            return _regionManager != null
-                ? _regionManager.currentRegion switch
-                {
-                    Region.Desert => desertMinTemp,
-                    Region.Arctic => arcticMinTemp,
-                    _ => forestMinTemp
-                }
-                : forestMinTemp;
+            return _regionManager.currentRegion switch
+            {
+                Region.Desert => desertMinTemp,
+                Region.Arctic => arcticMinTemp,
+                _ => forestMinTemp,
+            };
         }
     }
 
@@ -222,14 +190,12 @@ public class DayNightCycle : MonoBehaviour
     {
         get
         {
-            return _regionManager != null
-                ? _regionManager.currentRegion switch
-                {
-                    Region.Desert => desertMaxTemp,
-                    Region.Arctic => arcticMaxTemp,
-                    _ => forestMaxTemp
-                }
-                : forestMaxTemp;
+            return _regionManager.currentRegion switch
+            {
+                Region.Desert => desertMaxTemp,
+                Region.Arctic => arcticMaxTemp,
+                _ => forestMaxTemp,
+            };
         }
     }
 }

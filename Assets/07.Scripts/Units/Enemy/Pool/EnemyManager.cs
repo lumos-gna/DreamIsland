@@ -1,14 +1,9 @@
-﻿using Controller;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.UIElements;
-
 
 public class EnemyManager : MonoBehaviour
 {
-
     [SerializeField] private RandomSpawner _enemySpawner;
 
     private List<IPoolableEnemy> _activeEnemies = new List<IPoolableEnemy>();

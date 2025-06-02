@@ -1,5 +1,4 @@
-﻿
-using DG.Tweening;
+﻿using DG.Tweening;
 using UnityEngine;
 
 public class NpcManager : MonoBehaviour
@@ -15,15 +14,15 @@ public class NpcManager : MonoBehaviour
     public NpcData forestData;
     public NpcData snowData;
     public NpcData desertData;
-    
+
     private Animator _animator;
 
-    public void TalkWithFairy()
+    public void TalkWithFairy()  //요정과의 대화 시작
     {
         npcController.dialogueText.text = "";
         string fullText = npcController.npcData.text;
         npcController.dialogueText.DOText(fullText, 1f).SetUpdate(true).SetEase(Ease.Linear);
-            
+
         foreach (NpcDialog npcDialog in npcController.npcData.npcDialog)
         {
             npcDialog.Reset();
@@ -31,8 +30,8 @@ public class NpcManager : MonoBehaviour
 
         npcController.OnOff();
     }
-    
-    //npc 데이터 바꾸기
+
+    //지역에 따라 npc 데이터 바꾸기
     public void ChangeData(Region region)
     {
         switch (region)
@@ -51,25 +50,18 @@ public class NpcManager : MonoBehaviour
         }
     }
 
-    
     void Start()
     {
         _player = GameObject.Find("Player");
         _animator = model.GetComponent<Animator>();
     }
-    
-    
 
-    void Update()
+    void Update()  // 요정 이동, 플레이어 바라봄
     {
         Vector3 targetPosition = _player.transform.position + offset;
         float distance = Vector3.Distance(transform.position, targetPosition);
 
         transform.position = Vector3.Lerp(transform.position, targetPosition, followSpeed * Time.deltaTime);
-        
         transform.LookAt(_player.transform);
-
-        
-        
     }
 }

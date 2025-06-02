@@ -1,24 +1,31 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class AudioManager : MonoBehaviour
 {
-    [Header("Spatial SFX Settings")]
-    // º¼·ý °Å¸® ¼³Á¤ ¸Ö¾îÁú¼ö·Î 0À¸·Î °¨¼Ò
-    public float maxSfxDistance = 10f;
     public static AudioManager Instance { get; private set; }
 
+    [Header("Spatial SFX Settings")]
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 0ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+    public float maxSfxDistance = 10f;
+
+    [Space(10f)]
     [Header("Audio Sources")]
     [SerializeField] private AudioSource bgmSource;
     [SerializeField] private AudioSource sfxSource;
 
+    [Space(10f)]
     [Header("Background Music Clips (mp3)")]
     public AudioClip[] bgmClips;
+    
+    [Space(10f)]
     [Header("Sound Effect Clips (ogg)")]
     public AudioClip[] sfxClips;
 
+    [Space(10f)]
     [Header("Volume Settings")]
-    public float fixedBgmVolume = 0.08f;  
+    public float fixedBgmVolume = 0.08f;
 
+    [Space(10f)]
     [Header("Sound Effect Volumes")]
     [Range(0f, 1f)]
     public float[] sfxVolumes;
@@ -58,47 +65,47 @@ public class AudioManager : MonoBehaviour
     {
         if (index < 0 || index >= sfxClips.Length) return;
 
-        // ±âº» º¼·ý (ÀÎ½ºÆåÅÍ¿¡¼­ ¼³Á¤ÇÑ sfxVolumes)
+        // ï¿½âº» ï¿½ï¿½ï¿½ï¿½ (ï¿½Î½ï¿½ï¿½ï¿½ï¿½Í¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ sfxVolumes)
         float baseVol = (sfxVolumes != null && index < sfxVolumes.Length)
                         ? sfxVolumes[index]
                         : 1f;
 
-        // Ã»ÃëÀÚ(Ä«¸Þ¶ó) À§Ä¡¿Í °Å¸® °è»ê
+        // Ã»ï¿½ï¿½ï¿½ï¿½(Ä«ï¿½Þ¶ï¿½) ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½
         Vector3 listenerPos = Camera.main.transform.position;
         float dist = Vector3.Distance(listenerPos, sourcePosition);
 
-        // °Å¸® °¨¼è °è¼ö (0~1)
+        // ï¿½Å¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (0~1)
         float attenuation = Mathf.Clamp01(1f - (dist / maxSfxDistance));
 
-        // ÃÖÁ¾ º¼·ý
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         float finalVol = baseVol * attenuation;
 
-        // 3D °ø°£¿¡ Å¬¸³ Àç»ý
+        // 3D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Å¬ï¿½ï¿½ ï¿½ï¿½ï¿½
         AudioSource.PlayClipAtPoint(sfxClips[index], sourcePosition, finalVol);
     }
 
-    /// BGM Æ®·¢ Àç»ý
+    /// BGM Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½
     public void PlayBGM(int index, bool loop = true)
     {
         if (index < 0 || index >= bgmClips.Length) return;
         bgmSource.clip = bgmClips[index];
         bgmSource.loop = loop;
-        bgmSource.volume = fixedBgmVolume; // bgm º¼·ý °íÁ¤ 
+        bgmSource.volume = fixedBgmVolume; // bgm ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ 
         bgmSource.Play();
     }
 
-    /// BGM Á¤Áö
+    /// BGM ï¿½ï¿½ï¿½ï¿½
     public void StopBGM()
     {
         bgmSource.Stop();
     }
 
-    /// È¿°úÀ½ Àç»ý
+    /// È¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
     public void PlaySFX(int index)
     {
         if (index < 0 || index >= sfxClips.Length) return;
 
-        // º¼·ý ¹è¿­ÀÌ ¼³Á¤µÅ ÀÖÀ¸¸é ÇØ´ç ÀÎµ¦½º, ¾Æ´Ï¸é 1.0f
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½Îµï¿½ï¿½ï¿½, ï¿½Æ´Ï¸ï¿½ 1.0f
         float vol = (sfxVolumes != null && index < sfxVolumes.Length)
                     ? sfxVolumes[index]
                     : 1f;
@@ -106,29 +113,27 @@ public class AudioManager : MonoBehaviour
         sfxSource.PlayOneShot(sfxClips[index], vol);
     }
 
-    /// BGM º¼·ý ¼³Á¤
+    /// BGM ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SetBGMVolume(float volume)
     {
         bgmSource.volume = Mathf.Clamp01(volume);
     }
 
-
-    /// ¹è°æÀ½¾Ç Àç»ý Àü¿ë¸Å¼­µå
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½
     public static void PlayBackgroundMusic(int index, bool loop = true)
     {
         Instance?.PlayBGM(index, loop);
     }
 
-    /// ¹è°æÀ½¾Ç Á¤Áö Àü¿ë¸Å¼­µå ¹è°æÀ½¾Ç Á¤Áö
+    /// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static void StopBackgroundMusic()
     {
         Instance?.StopBGM();
     }
 
-    /// BGM º¼·ý ¼³Á¤ Àü¿ë¸Å¼­µå
+    /// BGM ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¼ï¿½ï¿½ï¿½
     public static void SetBackgroundVolume(float volume)
     {
         Instance?.SetBGMVolume(volume);
     }
-
 }

@@ -1,5 +1,4 @@
-using System;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -52,16 +51,15 @@ public class GameManager : Singleton<GameManager>
 
         UIManager.Instance.Disable<InventoryUI>();
         UIManager.Instance.Disable<CraftingUI>();
-        /*UIManager.Instance.Disable<GameOverUI>();
+        UIManager.Instance.Disable<GameOverUI>();
         UIManager.Instance.Disable<FadeUI>();
-        UIManager.Instance.Disable<FlashUI>();*/
+        UIManager.Instance.Disable<FlashUI>();
     }
 
     public void ToggleCursor(bool isLock)
     {
         IsLockedCursor = isLock;
         Cursor.lockState = isLock ? CursorLockMode.Locked : CursorLockMode.None;
-
     }
 
     public void GameOver()
@@ -89,7 +87,7 @@ public class GameManager : Singleton<GameManager>
 #endif
 
     }
-    
+
     public void SetCursorLockState(bool isLocked)
     {
         IsLockedCursor = isLocked;

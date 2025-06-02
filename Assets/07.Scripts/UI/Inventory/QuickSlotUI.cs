@@ -4,14 +4,12 @@ public class QuickSlotUI : BaseUI
 {
     public override bool IsEnabled => gameObject.activeInHierarchy;
 
-
     public HandleSlot[] quickSlots;
     public Transform quickSlotPanel;
 
     private Inventory _inventory;
 
-    private int currentHighlightedIndex = -1;
-
+    private int _currentHighlightedIndex = -1;
 
     public override void Init()
     {
@@ -52,15 +50,15 @@ public class QuickSlotUI : BaseUI
 
     public void HighlightSlot(int index)
     {
-        if (currentHighlightedIndex >= 0 && currentHighlightedIndex < quickSlots.Length)
+        if (_currentHighlightedIndex >= 0 && _currentHighlightedIndex < quickSlots.Length)
         {
-            quickSlots[currentHighlightedIndex].SetHighlight(false);
+            quickSlots[_currentHighlightedIndex].SetHighlight(false);
         }
 
         if (index >= 0 && index < quickSlots.Length)
         {
             quickSlots[index].SetHighlight(true);
-            currentHighlightedIndex = index;
+            _currentHighlightedIndex = index;
         }
     }
 }

@@ -4,14 +4,10 @@ using UnityEngine;
 public class Projectile : MonoBehaviour, IPoolable
 {
     [SerializeField] private Rigidbody rigid;
-
     [SerializeField] private float maxLifeTime;
-    
 
     private Projectile _originPrefab;
-    
     private float _curLifeTime;
-
     private float _damage;
 
     private void OnTriggerEnter(Collider other)
@@ -29,16 +25,12 @@ public class Projectile : MonoBehaviour, IPoolable
         Destroy(gameObject, 1f);
     }
 
-    public void Fire(Projectile originPrefab, Vector3 point,  Vector3 dir, float force, float damage)
+    public void Fire(Projectile originPrefab, Vector3 point, Vector3 dir, float force, float damage)
     {
         _originPrefab = originPrefab;
-        
         transform.position = point;
-
         transform.forward = dir;
-
         rigid.AddForce(force * dir, ForceMode.Impulse);
-
         _damage = damage;
     }
 
@@ -52,7 +44,6 @@ public class Projectile : MonoBehaviour, IPoolable
         }
     }
 
-
     public void OnSpawn()
     {
         _curLifeTime = 0;
@@ -62,7 +53,6 @@ public class Projectile : MonoBehaviour, IPoolable
     public void OnDespawn()
     {
         rigid.velocity = Vector3.zero;
-        
         gameObject.SetActive(false);
     }
 }

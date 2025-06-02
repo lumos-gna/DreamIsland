@@ -4,19 +4,14 @@ using UnityEngine;
 public class BuildingSystem
 {
     private const float RayDistance = 5f;
-    
     private readonly Camera _camera = Camera.main;
 
-
     private BuildingObject _buildingObject;
-
     private bool _isBuildable;
-
 
     public void Create(BuildingObject prefab)
     {
         _buildingObject = GameObject.Instantiate(prefab);
-        
         _buildingObject.Init();
     }
 
@@ -33,13 +28,13 @@ public class BuildingSystem
         if (_buildingObject != null)
         {
             float angle = _buildingObject.transform.eulerAngles.y + 90f;
-            
-            angle = Mathf.Repeat(angle, 360f); 
-            
+
+            angle = Mathf.Repeat(angle, 360f);
+
             _buildingObject.transform.eulerAngles = new Vector3(0, angle, 0);
         }
     }
-    
+
 
     public bool TryBuild()
     {
@@ -55,7 +50,6 @@ public class BuildingSystem
         return false;
     }
 
-
     public void UpdateBuildingObject()
     {
         if (_buildingObject == null)
@@ -64,7 +58,6 @@ public class BuildingSystem
         }
 
         _isBuildable = false;
-        
 
         Ray ray = _camera.ScreenPointToRay(new Vector2(Screen.width / 2f, Screen.height / 2f));
 
@@ -76,10 +69,8 @@ public class BuildingSystem
             {
                 Snap(hit, ray.direction.normalized);
             }
-            
             _isBuildable = true;
         }
-
         _buildingObject.UpdateToBuildingState(_isBuildable);
     }
 
@@ -91,8 +82,8 @@ public class BuildingSystem
             if (targetObject.IsSnappable && _buildingObject.IsSnappable)
             {
                 BuildingSnapPoint targetSnapPoint = targetObject.GetSnapPointClosestHit(hit.point);
-                
-                BuildingSnapPoint curSnapPoint 
+
+                BuildingSnapPoint curSnapPoint
                     = _buildingObject.GetSnapPointClosestTargetPoint(targetSnapPoint, rayDirNormalized);
 
                 if (curSnapPoint != null)
