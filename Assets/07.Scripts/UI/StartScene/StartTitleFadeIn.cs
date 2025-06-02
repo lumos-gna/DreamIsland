@@ -12,7 +12,7 @@ public class StartTitleFadeIn : MonoBehaviour
     [SerializeField] private GameObject Btn;
     [SerializeField] private GameObject txt;
 
-    private string mainscenename = "MainScene";
+    private string _mainscenename = "MainScene";
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +42,6 @@ public class StartTitleFadeIn : MonoBehaviour
 
     public void GameStart()
     {
-        SceneManager.LoadScene(mainscenename);
+        SceneManager.LoadScene(_mainscenename);
     }
 }

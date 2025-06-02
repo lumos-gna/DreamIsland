@@ -2,8 +2,9 @@
 
 public class FleeEnemy : BaseEnemy, IPoolableEnemy
 {
-    [SerializeField] FleeEnemyStats _fleeStats;
     public override FleeEnemyStats FleeEnemyStats => _fleeStats;
+
+    [SerializeField] FleeEnemyStats _fleeStats;
 
     private void OnTriggerEnter(Collider other)
     {

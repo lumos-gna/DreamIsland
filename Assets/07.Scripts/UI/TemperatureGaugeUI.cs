@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class TemperatureGaugeUI : MonoBehaviour
 {
     private Image _fill;
-    private bool _isRed;
     private DayNightCycle _cycle;
+    
+    private bool _isRed;
 
     public void Initialize(bool isRed)
     {
