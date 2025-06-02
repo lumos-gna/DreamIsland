@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.36299694, g: 0.5662151, b: 0.8437085, a: 1}
+  m_IndirectSpecularColor: {r: 0.36292815, g: 0.56618494, b: 0.8437102, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4370,7 +4370,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &336643496
 Transform:
   m_ObjectHideFlags: 0
@@ -14713,7 +14713,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1137846540
 Transform:
   m_ObjectHideFlags: 0
@@ -17790,9 +17790,6 @@ MonoBehaviour:
   forestDayBgmIndex: 0
   desertDayBgmIndex: 2
   arcticDayBgmIndex: 1
-  OnCycleComplete:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &1503094195
 PrefabInstance:
   m_ObjectHideFlags: 0
