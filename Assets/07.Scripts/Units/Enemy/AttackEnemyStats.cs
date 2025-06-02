@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 
-
 public enum AttackEnemyType
 {
     Melee,
     Ranged
 }
+
 [System.Serializable]
 public class AttackEnemyStats
 {

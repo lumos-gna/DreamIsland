@@ -2,20 +2,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
-
 public class UIManager : Singleton<UIManager>
 {
     private const string PrefabPath = "UI/";
     private const string CanvasPrefabPath = "UI/Canvas";
 
     private Dictionary<string, BaseUI> _createdUIDict = new();
-
     private Dictionary<UIType, Canvas> _canvasDict = new();
-
     private BaseUI _curPopupUI;
-   
 
     public void Enable<T>() where T : BaseUI
     {
@@ -41,7 +35,6 @@ public class UIManager : Singleton<UIManager>
 
         if (_curPopupUI != null)
             return;
-       
 
         targetUI.Enable();
         targetUI.transform.SetAsLastSibling();
@@ -50,7 +43,6 @@ public class UIManager : Singleton<UIManager>
         {
             _curPopupUI = targetUI;
         }
-      
     }
 
     public void Disable<T>() where T : BaseUI
@@ -67,7 +59,7 @@ public class UIManager : Singleton<UIManager>
         {
             targetUI = Create<T>();
         }
-        
+
         targetUI.Disable();
 
         if (_curPopupUI == targetUI)
@@ -88,10 +80,7 @@ public class UIManager : Singleton<UIManager>
             _curPopupUI = null;
         }
     }
-    
-    
-    
-    
+
     private BaseUI Create<T>() where T : BaseUI
     {
         string targetName = typeof(T).Name;
@@ -119,21 +108,19 @@ public class UIManager : Singleton<UIManager>
         Canvas canvas = _canvasDict.ContainsKey(targetUI.UIType) ?
                 _canvasDict[targetUI.UIType] :
                 CreateCanvas(targetUI.UIType);
-        
+
         targetUI.transform.SetParent(canvas.transform, false);
-        
+
         return targetUI;
     }
 
     private Canvas CreateCanvas(UIType uiType)
     {
         Canvas canvasPrefab = Resources.Load<Canvas>(CanvasPrefabPath);
-        
-        Canvas canvas =  Instantiate(canvasPrefab);
+        Canvas canvas = Instantiate(canvasPrefab);
 
         canvas.sortingOrder = (int)uiType;
-
-        canvas.GetComponent<CanvasScaler>().referenceResolution = new Vector2(Screen.width , Screen.height);
+        canvas.GetComponent<CanvasScaler>().referenceResolution = new Vector2(Screen.width, Screen.height);
 
         _canvasDict[uiType] = canvas;
 

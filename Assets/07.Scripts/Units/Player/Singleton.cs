@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
             if (_instance == null)
             {
                 _instance = FindObjectOfType<T>();
-                
+
                 if (_instance == null)
                 {
                     GameObject createObject = new GameObject(typeof(T).Name);
@@ -18,7 +18,7 @@ public class Singleton<T> : MonoBehaviour where T : MonoBehaviour
                     DontDestroyOnLoad(createObject);
                 }
             }
-            
+
             return _instance;
         }
     }

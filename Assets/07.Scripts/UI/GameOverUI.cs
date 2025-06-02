@@ -1,5 +1,4 @@
-
-public class GameOverUI : BaseUI
+﻿public class GameOverUI : BaseUI
 {
     public override bool IsEnabled => gameObject.activeInHierarchy;
 

@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,19 +15,16 @@ public class CraftingUIRecipeSlot : MonoBehaviour, IPoolable
     public void Init(ItemData item, int curCount, int maxCount, out bool isFull)
     {
         Item = item;
-
         icon.sprite = item.Icon;
-        
         _curCount = curCount;
-
         _maxCount = maxCount;
-        
+
         countText.text = $"{_curCount}/{_maxCount}";
 
         isFull = _curCount >= _maxCount;
     }
 
-    public void OnSpawn() =>  gameObject.SetActive(true);
+    public void OnSpawn() => gameObject.SetActive(true);
 
     public void OnDespawn() => gameObject.SetActive(false);
 }

@@ -1,5 +1,4 @@
-﻿
-[System.Serializable]
+﻿[System.Serializable]
 public class FleeEnemyStats
 {
     // FleeEnemy 추가 스텟

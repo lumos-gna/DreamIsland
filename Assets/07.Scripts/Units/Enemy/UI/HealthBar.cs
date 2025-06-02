@@ -10,14 +10,14 @@ public class HealthBar : MonoBehaviour
     [SerializeField] private Image _healthBarForegroundSprite;
     [SerializeField] private Image _helathBarSprite;
     [SerializeField] private float _speed = 3f;
-    
+
     private Transform _player;
     private Transform _target;
     private DestructibleObject _destructibleObject;
     private BaseEnemy _baseEnemy;
     private float _targetFillAmount = 1f;
     private bool _isDectect = false;
-    
+
     public void SetIsDectect(bool isDect)
     {
         _isDectect = isDect;
@@ -27,12 +27,11 @@ public class HealthBar : MonoBehaviour
         _target = transform.root;
         _destructibleObject = GetComponentInParent<DestructibleObject>();
         _baseEnemy = GetComponentInParent<BaseEnemy>();
-        
-        if(_destructibleObject != null)
+
+        if (_destructibleObject != null)
         {
             _destructibleObject.OnHealthChanged += UpdateHealthBar;
         }
-
 
         PlayerController player = FindAnyObjectByType<PlayerController>();
 
@@ -41,12 +40,11 @@ public class HealthBar : MonoBehaviour
             Debug.LogError("플레이어가 없다~~");
             return;
         }
-        
+
         _player = player.transform;
 
-       
         transform.forward = Camera.main.transform.forward;
-        
+
         // 처음에 비활성화;
         _helathBarSprite.gameObject.SetActive(false);
     }
@@ -78,7 +76,6 @@ public class HealthBar : MonoBehaviour
 
         _healthBarForegroundSprite.fillAmount = Mathf.MoveTowards(_healthBarForegroundSprite.fillAmount, _targetFillAmount, Time.deltaTime * _speed);
     }
-
 
     public void UpdateHealthBar(float maxHealth, float currentHealth)
     {

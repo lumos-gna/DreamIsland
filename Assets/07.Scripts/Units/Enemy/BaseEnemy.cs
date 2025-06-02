@@ -19,9 +19,8 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     private NavMeshAgent _agent;
     private Animator _animator;
     private GameObject _player;
-    private StateMachine<BaseEnemy> _fsm; 
+    private StateMachine<BaseEnemy> _fsm;
     private StateFactory<BaseEnemy> _stateFactory; // 상태들 캐싱
-
 
     // 피격용
     private EnemyHealth _enemyHealth;
@@ -45,7 +44,6 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     public virtual FleeEnemyStats FleeEnemyStats => null;
     public virtual AttackEnemyStats AttackEnemyStats => null;
     #endregion
-
 
     protected virtual void Awake()
     {
@@ -113,7 +111,6 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             _fsm.ChangeState(StateFactory.Get<IdleState>());
     }
 
-
     // 플레이어 범위 안에 있는지 체크
     public bool PlayerInRange()
     {
@@ -134,7 +131,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     public void TakeDamage(int damage)
     {
         _enemyHealth.ApplyDamage(damage);
-        
+
     }
 
     // 적 사망시 아이템 드롭 처리
@@ -142,7 +139,7 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
     {
         for (int i = 0; i < _dropItems.Count; i++)
         {
-            Instantiate(_dropItems[i].DroppedPrefab, transform.position , Quaternion.identity);
+            Instantiate(_dropItems[i].DroppedPrefab, transform.position, Quaternion.identity);
         }
     }
 
@@ -156,12 +153,13 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             {
                 FaceTarget(GetPlayer().transform.position);
             }
-            
+
             return;
         }
 
         FaceTarget(_agent.steeringTarget, 1f);
     }
+
     public void FaceTarget(Vector3 target, float turnSpeed = 5f)
     {
         Vector3 dir = target - transform.position;
@@ -220,7 +218,6 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
         OnRespawn?.Invoke(this);
     }
 
-
     public void PlayFootParticle()
     {
         if (_footParticle != null && !_footParticle.isPlaying)
@@ -243,8 +240,5 @@ public class BaseEnemy : MonoBehaviour, IPoolableEnemy
             string controllerName = animator.runtimeAnimatorController.name;
             QuestManager.Instance.QuestPlusCount(controllerName);
         }
-
-        
     }
-
 }

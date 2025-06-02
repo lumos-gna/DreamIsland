@@ -11,8 +11,6 @@ public class EquippedController : MonoBehaviour
     public bool IsInputDown { get; private set; }
     public bool IsInputUp { get; private set; }
 
-
-
     [SerializeField] private Transform equipParent;
 
     private GameManager _gameManager;
@@ -37,7 +35,6 @@ public class EquippedController : MonoBehaviour
         IsInputDown = false;
         IsInputUp = false;
     }
-
 
     public void OnLeftClickInput(InputAction.CallbackContext context)
     {

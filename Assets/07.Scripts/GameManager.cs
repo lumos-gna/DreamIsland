@@ -1,4 +1,4 @@
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -60,7 +60,6 @@ public class GameManager : Singleton<GameManager>
     {
         IsLockedCursor = isLock;
         Cursor.lockState = isLock ? CursorLockMode.Locked : CursorLockMode.None;
-
     }
 
     public void GameOver()
@@ -88,7 +87,7 @@ public class GameManager : Singleton<GameManager>
 #endif
 
     }
-    
+
     public void SetCursorLockState(bool isLocked)
     {
         IsLockedCursor = isLocked;

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System;
 using UnityEngine.Events;
 
@@ -31,14 +31,14 @@ public class DayNightCycle : MonoBehaviour
     public float arcticMaxTemp = 15f;
     public static float CurrentTemperature { get; private set; }
 
-    // ³·/¹ã »óÅÂ
+    // ï¿½ï¿½/ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public static bool IsDay { get; private set; }
 
     [Header("Audio Settings")]
-    public int nightBgmIndex = 3;                // °øÅë ¹ã BGM ÀÎµ¦½º
-    public int forestDayBgmIndex = 0;            // ½£ ³· BGM ÀÎµ¦½º
-    public int desertDayBgmIndex = 2;            // »ç¸· ³· BGM ÀÎµ¦½º
-    public int arcticDayBgmIndex = 1;            // ºÏ±Ø ³· BGM ÀÎµ¦½º
+    public int nightBgmIndex = 3;                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
+    public int forestDayBgmIndex = 0;            // ï¿½ï¿½ ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
+    public int desertDayBgmIndex = 2;            // ï¿½ç¸· ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
+    public int arcticDayBgmIndex = 1;            // ï¿½Ï±ï¿½ ï¿½ï¿½ BGM ï¿½Îµï¿½ï¿½ï¿½
 
     [Header("Events")]
     public CycleEvent OnCycleComplete;
@@ -90,7 +90,7 @@ public class DayNightCycle : MonoBehaviour
             PlayCurrentBGM();
         }
 
-        // ±¤¿ø/½ºÄ«ÀÌ¹Ú½º ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½Ä«ï¿½Ì¹Ú½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SunLight.transform.rotation = Quaternion.Euler(sunAngle, 170f, 0f);
         MoonLight.transform.rotation = Quaternion.Euler(sunAngle + 180f, 170f, 0f);
         SunLight.intensity = isDay ? daySunIntensity : 0f;
@@ -115,7 +115,7 @@ public class DayNightCycle : MonoBehaviour
                 break;
         }
 
-        // ³·¿¡´Â Sine °î¼±, ¹ã¿¡´Â ÀÜ¿­ ·ÎÁ÷ ±×´ë·Î
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Sine ï¿½î¼±, ï¿½ã¿¡ï¿½ï¿½ ï¿½Ü¿ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½×´ï¿½ï¿½
         float normalizedDay = Mathf.InverseLerp(0f, 180f, Mathf.Clamp(sunAngle, 0f, 180f));
         float dayTempCurve = Mathf.Sin(normalizedDay * Mathf.PI);
 
@@ -132,10 +132,9 @@ public class DayNightCycle : MonoBehaviour
         DynamicGI.UpdateEnvironment();
     }
 
-
     private void OnRegionChanged(Region newRegion)
     {
-        // Áö¿ª ÀÌµ¿ ½Ã¿¡µµ ³· »óÅÂ¶ó¸é Áï½Ã ÇØ´ç Áö¿ª ³· BGMÀ¸·Î ÀüÈ¯
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ã¿ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Â¶ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ BGMï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯
         if (IsDay)
             PlayDayBGMForRegion(newRegion);
     }
@@ -186,6 +185,7 @@ public class DayNightCycle : MonoBehaviour
             };
         }
     }
+
     public float RegionMaxTemperature
     {
         get
@@ -198,6 +198,4 @@ public class DayNightCycle : MonoBehaviour
             };
         }
     }
-
-
 }

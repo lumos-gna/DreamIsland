@@ -1,11 +1,9 @@
-using System;
+﻿using System;
 using UnityEngine;
-
 
 public class EquippedBuilding : EquippedItem
 {
     private BuildingSystem _buildingSystem;
-
     private BuildingObject _prefab;
 
     private void Update()
@@ -24,21 +22,20 @@ public class EquippedBuilding : EquippedItem
 
         if (!itemData.IsPlaceable)
             return;
-        
+
         _prefab = ItemData.BuildingInfo.prefab;
-        
+
         _buildingSystem = new();
-        
         _buildingSystem.Create(_prefab);
     }
 
     public override void UnEquip()
     {
         base.UnEquip();
-        
+
         _buildingSystem.Destroy();
     }
-    
+
     public override void Use()
     {
         if (_controller.IsInputDown)
@@ -46,10 +43,10 @@ public class EquippedBuilding : EquippedItem
             if (_buildingSystem.TryBuild())
             {
                 _buildingSystem.Create(_prefab);
-                
+
                 _controller.Inventory.DecreaseItem(ItemData);
-            
-                if(_controller.CurSlot.quantity == 0)
+
+                if (_controller.CurSlot.quantity == 0)
                 {
                     UnEquip();
                 }
