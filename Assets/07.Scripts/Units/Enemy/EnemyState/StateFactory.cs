@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
 // 상태 객체를 캐싱해서 재사용할 수 있도록 관리
 public class StateFactory<T>

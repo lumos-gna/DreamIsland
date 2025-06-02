@@ -92,7 +92,8 @@ public class BuildingSystem
             {
                 BuildingSnapPoint targetSnapPoint = targetObject.GetSnapPointClosestHit(hit.point);
                 
-                BuildingSnapPoint curSnapPoint = _buildingObject.GetSnapPointClosestTargetPoint(targetSnapPoint, rayDirNormalized);
+                BuildingSnapPoint curSnapPoint 
+                    = _buildingObject.GetSnapPointClosestTargetPoint(targetSnapPoint, rayDirNormalized);
 
                 if (curSnapPoint != null)
                 {
